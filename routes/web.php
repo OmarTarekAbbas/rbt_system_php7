@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -163,6 +163,15 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::get('report/{id}/delete','\App\Http\Controllers\ReportController@destroy');
     Route::get('report/{id}/deleteMsg','\App\Http\Controllers\ReportController@DeleteMsg');
     Route::post('report/get_statistics','ReportController@get_statistics');
+
+    Route::resource('department','DepartmentController');
+    Route::get('department/{id}/delete','DepartmentController@destroy');
+    Route::resource('content','ContentController');
+    Route::get('content/{id}/delete','ContentController@destroy');
+    Route::get('contents/downloadSample','ContentController@getDownload');
+    Route::get('contents/file_system','ContentController@list_file_system') ;
+    Route::get('contents/upload_tracks','ContentController@multi_upload') ;
+    Route::post('contents/save_tracks','ContentController@save_tracks');
 });
 
 

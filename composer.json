@@ -16,6 +16,7 @@
         "orangehill/iseed": "^2.6",
         "php-ffmpeg/php-ffmpeg": "^0.13.0",
         "spatie/laravel-permission": "^1.12",
+        "maatwebsite/excel": "~2.1.0",
         "thiagoalessio/tesseract_ocr": "^2.7"
     },
     "require-dev": {

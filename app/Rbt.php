@@ -13,35 +13,35 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Rbt extends Model
 {
-	
-	
+
+
     protected $table = 'rbts';
 	protected $fillable = ['track_title_en','track_title_ar','artist_name_en','artist_name_ar',
 						   'album_name','code','social_media_code','owner','track_file','operator_id',
-						   'provider_id','occasion_id','aggregator_id','type'] ;
-	
+						   'provider_id','occasion_id','aggregator_id','type','internal_coding','content_id'] ;
+
 	public function provider()
 	{
 		return $this->belongsTo('App\Provider','provider_id');
 	}
 
-	
+
 	public function operator()
 	{
 		return $this->belongsTo('App\Operator','operator_id');
 	}
 
-	
+
 	public function occasion()
 	{
 		return $this->belongsTo('App\Occasion','occasion_id');
 	}
 
-	
+
 	public function aggregator()
 	{
 		return $this->belongsTo('App\Aggregator','aggregator_id');
 	}
 
-	
+
 }

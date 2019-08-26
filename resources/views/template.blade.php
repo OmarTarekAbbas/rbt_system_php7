@@ -203,6 +203,22 @@
             </li>
             @endif
             @if(Auth::user()->hasRole(['super_admin','admin']))
+            <li id="department">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="glyphicon glyphicon-briefcase"></i>
+                        <span>Department</span>
+                        <b class="arrow fa fa-angle-right"></b>
+                    </a>
+
+                    <!-- BEGIN Submenu -->
+
+                    <ul class="submenu">
+                        <li id="department-create"><a href="{{url('department/create')}}">Create Department</a></li>
+                        <li id="department-index"><a href="{{url('department')}}">Departments</a></li>
+                    </ul>
+                    <!-- END Submenu -->
+                </li>
+
             <li id="country">
                 <a href="#" class="dropdown-toggle">
                     <i class="glyphicon glyphicon-globe"></i>
@@ -274,6 +290,27 @@
             </li>
 
             @endif
+
+            <li id="content">
+                <a href="#" class="dropdown-toggle">
+                    <i class="fa fa-folder-o"></i>
+                    <span>Content</span>
+                    <b class="arrow fa fa-angle-right"></b>
+                </a>
+
+                <!-- BEGIN Submenu -->
+                <ul class="submenu">
+                        {{-- <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a></li> --}}
+                        <li id="content-excel"><a href="{{url('content/create')}}">Create Content</a></li>
+                        <li id="content-index"><a href="{{url('content')}}">Contents</a></li>
+                        <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">List tracks</a></li>
+                        <li id="content-upload-tracks"><a href="{{url('contents/upload_tracks')}}">Upload multi tracks</a></li>
+                        {{-- <li id="rbt-search"><a href="{{url('rbt/search')}}">Search in RBTs</a></li> --}}
+                </ul>
+                <!-- END Submenu -->
+            </li>
+
+
             <li id="rbt">
                 <a href="#" class="dropdown-toggle">
                     <i class="fa fa-play-circle-o"></i>

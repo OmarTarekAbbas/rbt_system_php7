@@ -2,36 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Rbt;
-use Illuminate\Support\Facades\Schema;
-use URL;
-use Excel;
-use File;
+use App\Content;
+use App\Occasion;
 use App\Provider;
 
-
-use App\Operator;
-
-
-use App\Occasion;
-
-
-use App\Aggregator;
-
-use Auth;
-use Validator;
-/**
- * Class RbtController.
- *
- * @author  The scaffold-interface created at 2017-08-02 09:20:35am
- * @link  https://github.com/amranidev/scaffold-interface
- */
-class RbtController extends Controller
+class ContentController extends Controller
 {
-    /**
+        /**
      * Display a listing of the resource.
      *
      * @return  \Illuminate\Http\Response
@@ -39,46 +17,31 @@ class RbtController extends Controller
     public $current_path = "" ;
     public function index()
     {
-        $title = 'Index - rbt';
-        if(Auth::user()->hasRole(['super_admin','admin']))
-        {
-        $rbts = Rbt::all();
-        }
-        else{
-          $rbts = Rbt::where('aggregator_id',Auth::user()->aggregator_id)->get();
-        }
-
-        return view('rbt.index',compact('rbts','title'));
+        $title = 'Index - Content';
+        $contents = Content::all();
+        return view('content.index',compact('contents','title'));
     }
 
-     public function excel()
-     {
-        $title = 'Create - rbt';
-
-        $operators = Operator::all()->pluck('title','id');
-
-        $occasions = Occasion::all()->pluck('title','id');
-
-        $aggregators = Aggregator::all()->pluck('title','id');
-        // dd('df');
-
-        return view('rbt.excel',compact('title', 'operators' , 'occasions' , 'aggregators'));
-     }
-
-
-    public function excelStore(Request $request)
+    public function create()
     {
-        $validator = Validator::make($request->all(),[
-                'operator_id' => 'required',
-            ]);
+        $title = 'Create - Content';
+        $occasions = Occasion::all()->pluck('title','id');
+        $providers = Provider::all()->pluck('title','id');
+        return view('content.excel',compact('title', 'providers' , 'occasions'));
+    }
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
 
+    public function store(Request $request)
+    {
+        // $validator = Validator::make($request->all(),[
+        //         'operator_id' => 'required',
+        //     ]);
+
+        // if ($validator->fails()) {
+        //     return back()->withErrors($validator)->withInput();
+        // }
         $counter = 0 ;
         $total_counter = 0 ;
-
         ini_set('max_execution_time', 60000000000);
         ini_set('memory_limit', -1);
 
@@ -91,32 +54,15 @@ class RbtController extends Controller
 
             $file = $request->file('fileToUpload');
             $filename = time().'_'.$file->getClientOriginalName();
-            if(!$file->move(base_path().'/uploads/rbt/excel',  $filename) ){
+            if(!$file->move(base_path().'/uploads/content/excel',  $filename) ){
                 return back();
             }
 
-            Excel::filter('chunk')->load(base_path().'/uploads/rbt/excel/'.$filename)->chunk(100, function($results) use ($request,&$counter,&$total_counter)
+            \Excel::filter('chunk')->load(base_path().'/uploads/content/excel/'.$filename)->chunk(100, function($results) use ($request,&$counter,&$total_counter)
             {
                 foreach ($results as $row) {
                     $total_counter++ ;
-                    $rbt = Rbt::where([['operator_id',$request->operator_id],['code',$row->code]])->first();
-                    if ($rbt) {
-                       continue;
-                    }
-                    if ( isset($row->code) &&  $row->code != ""   ) {
-                       if( !is_numeric($row->code)){
-                           continue;
-                       }
-                    }
-                    if ( isset($row->social_media_code) &&  $row->social_media_code != ""   ) {
-                        if( !is_numeric($row->social_media_code)){
-                            continue;
-                        }
-                    }
-
-
                     if ( isset($row->occasion) &&  $row->occasion != ""   ) {
-
                         $check_occasion = Occasion::where('title','LIKE','%'.$row->occasion.'%')->first();
                         if ($check_occasion)
                         {
@@ -134,10 +80,6 @@ class RbtController extends Controller
                     }else{
                         $occasion_id = NULL ;
                     }
-
-
-
-
                     $check_provider = Provider::where('title','LIKE','%'.$row->content_owner.'%')->first() ;
                     if ($check_provider)
                     {
@@ -149,40 +91,18 @@ class RbtController extends Controller
                         $create = Provider::create($prov) ;
                         $provider_id = $create->id ;
                     }
-
-                    if ($request['type'])
-                    {
-                        $rbt['artist_name_en'] = $row->artist_name_english;
-                        $rbt['artist_name_ar'] = $row->artist_name_arabic;   // not required
-                        $rbt['track_title_en'] = $row->rbt_name_english;
-                        $rbt['track_title_ar'] = $row->rbt_name_arabic;  // not required
-                        $rbt['album_name'] = $row->album;    // not required
-                        $rbt['provider_id'] = $provider_id;  //  original content owner = Mashari Al Afasi
-                        $rbt['occasion_id'] = $occasion_id ;
-                        $rbt['code'] = $row->codes;
-                        $rbt['owner'] = $row->provider ; // ex:  ARPU
-                        $rbt['operator_id'] = $request->operator_id;
-                        $rbt['aggregator_id'] = $request->aggregator_id;
-                        $rbt['content_id'] = $request->content_id;
-                        $rbt['type'] = 1 ; // new excel
-                    }
-                    else{
-                        $rbt['code'] = $row->code;
-                        $rbt['occasion_id'] = $occasion_id ;
-                        $rbt['track_title_en'] = $row->rbt_name;
-                        $rbt['social_media_code'] = $row->social_media_code;
-                        $rbt['provider_id'] = $provider_id ;
-                        $rbt['operator_id'] = $request->operator_id;
-                        $rbt['aggregator_id'] = $request->aggregator_id;
-                        $rbt['content_id'] = $request->content_id;
-                    }
-                    $rbt['track_file'] = "uploads/".date('Y-m-d')."/".$rbt['track_title_en'].".wav" ;
-                    $check = Rbt::create($rbt) ;
+                    $content_data['content_title'] = $row->content_title;
+                    $content_data['content_type'] = $row->content_type;
+                    $content_data['provider_id'] = $provider_id ;
+                    $content_data['occasion_id'] = $occasion_id ;
+                    $content_data['user_id'] = \Auth::user()->id;
+                    $content_data['path'] = "uploads/content/".date('Y-m-d')."/".$content_data['content_title'].".wav" ;
+                    $check = content::create($content_data) ;
                     if ($check)
                     {
-                        $rbt_edit = Rbt::find($check->id);
-                        $rbt_edit->internal_coding = $check->id.'_'.$check->operator->country->id.'_'.$check->operator->id;
-                        $rbt_edit->save();
+                        $content = Content::find($check->id);
+                        $content->internal_coding = $content->id;
+                        $content->save();
                         $counter++ ;
                     }
                 }
@@ -194,7 +114,7 @@ class RbtController extends Controller
          //    unlink(base_path().'/uploads/rbt/excel/'.$filename);
         $failures = $total_counter - $counter ;
         $request->session()->flash('success', $counter.' item(s) created successfully, and '.$failures.' item(s) failed');
-        return redirect('rbt');
+        return redirect('content');
 
     }
 
@@ -207,106 +127,66 @@ class RbtController extends Controller
      */
     public function edit($id)
     {
-        $operators = Operator::all()->pluck('title','id');
+        $title="Content - Edit";
         $occasions = Occasion::all()->pluck('title','id');
-        $aggregators = Aggregator::all()->pluck('title','id');
         $providers = Provider::all()->pluck('title','id') ;
-        $rbt = Rbt::findOrfail($id);
-        if($rbt->type)
-        {
-            return view('rbt.editNew',compact('title','rbt', 'operators', 'occasions', 'aggregators','providers' ) );
-        }
-        else{
-            return view('rbt.edit',compact('title','rbt', 'operators', 'occasions', 'aggregators','providers' ) );
-        }
+        $content = content::findOrfail($id);
+       // return [$occasions,$providers];
+        return view('content.edit',compact('title','content', 'occasions','providers' ) );
     }
 
     public function update($id,Request $request)
     {
-        $rbt = Rbt::findOrfail($id);
-        if ($rbt->type)
-        {
-            $validator = Validator::make($request->all(),[
-                'track_title_en' => 'required',
-                'code' => 'required|numeric',
-                'album_name' => 'required',
-                'artist_name_en' => 'required',
-                'owner' => 'required',
-                'operator_id' => 'required',
-            ]);
-        }
-        else{
-            $validator = Validator::make($request->all(),[
-                'track_title_en' => 'required',
-                'code' => 'required|numeric',
-                'social_media_code' => 'numeric',
-                'operator_id' => 'required',
-            ]);
-        }
+        $validator = \Validator::make($request->all(), [
+            'content_title' => 'required|string',
+            'content_type' => 'required',
+            'provider_id' => 'required',
+            'occasion_id' => 'required',
+            'path' => '',
+            'image_preview' => ''
+        ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-
-        $rbt_check = Rbt::where([['operator_id',$request->operator_id],['code',$request->code],['id','<>',$id]])->first();
-        if ($rbt_check) {
-            $request->session()->flash('failed', 'Rbt Aleardy Exists');
-            return back();
-        }
-        if($rbt->type)
+        if($request->path)
         {
-            $rbt->track_title_en = $request->track_title_en;
-            $rbt->track_title_ar = $request->track_title_ar;
-            $rbt->artist_name_en = $request->artist_name_en;
-            $rbt->artist_name_ar = $request->artist_name_ar;
-            $rbt->album_name = $request->album_name;
-            $rbt->owner = $request->owner;
-            $rbt->code = $request->code;
-        }
-        else{
-            $rbt->track_title_en = $request->track_title_en;
-            $rbt->code = $request->code;
-            $rbt->social_media_code = $request->social_media_code;
-            $rbt->owner = $request->owner;
-        }
-
-
-        if ($request->hasFile('track_file')) {
-            $old_path = explode('/',$rbt->track_file) ;
-            if ($rbt->track_file) {
-                File::delete($rbt->track_file);
+            if(!strcmp($request->content_type,'image'))
+            {
+                $imgExtensions = array("png","jpeg","jpg");
+                $file = $request->path;
+                if(! in_array($file->getClientOriginalExtension(),$imgExtensions))
+                {
+                    \Session::flash('failed','Image must be jpg, png, or jpeg only !! No updates takes place, try again with that extensions please..');
+                    return back();
+                }
             }
-            $ex = $request->file('track_file')->getClientOriginalExtension();
-            $extentions = array('mp3','wav','ogg','m4a');
-            if (in_array($ex,$extentions) ) {
-                $request->file('track_file')->move($old_path[0]."/".$old_path[1],$rbt->track_title_en.".wav");
-                $track_file = $old_path[0]."/".$old_path[1]."/".$rbt->track_title_en.".wav" ;
-                $rbt->track_file = $track_file;
-            }else{
-                $request->session()->flash('failed', 'Rbt file must be an audio');
-
-                return redirect('/rbt/'.$id.'/edit');
-
+            else if(!strcmp($request->content_type,'audio'))
+            {
+                $audExtensions = array("mp3","webm","wav");
+                $file = $request->path;
+                if(! in_array($file->getClientOriginalExtension(),$audExtensions))
+                {
+                    \Session::flash('failed','Audio must be mp3, webm and wav only !! No updates takes place, try again with that extensions please..');
+                    return back() ;
+                }
+            }
+            else if(!strcmp($request->content_type,'video'))
+            {
+                $vidExtensions = array("mp4","flv","3gp");
+                $file = $request->path;
+                if(! in_array($file->getClientOriginalExtension(),$vidExtensions))
+                {
+                    \Session::flash('failed','Video must be mp4, flv, or 3gp only !! No updates takes place, try again with that extensions please..');
+                    return back();
+                }
             }
         }
-
-
-
-        $rbt->operator_id = $request->operator_id;
-
-        if ($request->occasion_id != "") {
-            $rbt->occasion_id = $request->occasion_id;
-        }
-
-        if ($request->aggregator_id != "") {
-            $rbt->aggregator_id = $request->aggregator_id;
-        }
-
-
-        $rbt->save();
+        $content = Content::find($id)->update($request->all());
 
         $request->session()->flash('success', 'Updated Successfully');
 
-        return redirect('rbt');
+        return redirect('content');
     }
     /**
      * Remove the specified resource from storage.
@@ -316,31 +196,20 @@ class RbtController extends Controller
      */
     public function destroy($id,Request $request)
     {
-     	$rbt = Rbt::findOrfail($id);
-     	$rbt->delete();
-        $request->session()->flash('success', 'Deleted Successfully');
+     	$content = Content::findOrfail($id);
+     	$content->delete();
+        $request->session()->flash('success', 'Deleted Content Successfully');
         return back();
     }
 
     public function getDownload()
     {
-        $file= base_path(). "/uploads/rbt/rbt.xlsx";
+        $file= base_path(). "/uploads/content/excel/content.xlsx";
 
         $headers = array(
                   'Content-Type: application/xlsx',
                 );
-        return response()->download($file, 'rbt.xlsx', $headers);
-    }
-
-
-    public function getDownloadNew()
-    {
-        $file= base_path(). "/uploads/rbt/rbtNew.xlsx";
-
-        $headers = array(
-            'Content-Type: application/xlsx',
-        );
-        return response()->download($file, 'rbtNew.xlsx', $headers);
+        return response()->download($file, 'content.xlsx', $headers);
     }
 
     public function search()
@@ -351,8 +220,6 @@ class RbtController extends Controller
         $providers = Provider::all()->pluck('title','id') ;
         return view('rbt.search',compact('operators','occasions','aggregators','providers')) ;
     }
-
-
 
     public function search_result(Request $request)
     {
@@ -443,17 +310,17 @@ class RbtController extends Controller
 
     public function multi_upload()
     {
-        return view('rbt.multi_uploader') ;
+        return view('content.multi_uploader') ;
     }
     public function save_tracks(Request $request)
     {
-        if (!file_exists('uploads/' . date('Y-m-d') . '/')) {
-            mkdir('uploads/' . date('Y-m-d') . '/', 0777, true);
+        if (!file_exists('uploads/content/' . date('Y-m-d') . '/')) {
+            mkdir('uploads/content/' . date('Y-m-d') . '/', 0777, true);
         }
         $vpb_file_name = strip_tags($_FILES['upload_file']['name']); //File Name
         $vpb_file_id = strip_tags($_POST['upload_file_ids']); // File id is gotten from the file name
         $vpb_file_size = $_FILES['upload_file']['size']; // File Size
-        $vpb_uploaded_files_location = 'uploads/' . date('Y-m-d') . '/'; //This is the directory where uploaded files are saved on your server
+        $vpb_uploaded_files_location = 'uploads/content/' . date('Y-m-d') . '/'; //This is the directory where uploaded files are saved on your server
 
         $vpb_final_location = $vpb_uploaded_files_location . $vpb_file_name ; //Directory to save file plus the file to be saved
         //Without Validation and does not save filenames in the database
@@ -466,6 +333,7 @@ class RbtController extends Controller
         }
 
     }
+
     public function delete_track($id)
     {
 
@@ -521,8 +389,6 @@ class RbtController extends Controller
 
     public function list_file_system()
     {
-        return view('rbt.file_system');
+        return view('content.file_system');
     }
-
-
 }
