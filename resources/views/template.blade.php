@@ -150,10 +150,13 @@
                 <li class="divider"></li>
 
                 <li>
-                    <a href="{{url('/auth/logout')}}">
+                    <a href="{{url('logout')}}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
                         <i class="fa fa-off"></i>
-                        Logout
+                        @lang('messages.logout')
                     </a>
+                    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
                 </li>
             </ul>
             <!-- BEGIN User Dropdown -->
