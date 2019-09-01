@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Content;
 use App\Occasion;
 use App\Provider;
-
+use App\Events\Notification;
 class ContentController extends Controller
 {
         /**
@@ -113,6 +113,8 @@ class ContentController extends Controller
         }
          //    unlink(base_path().'/uploads/rbt/excel/'.$filename);
         $failures = $total_counter - $counter ;
+
+        broadcast(new Notification('add new post'))->toOthers();
         $request->session()->flash('success', $counter.' item(s) created successfully, and '.$failures.' item(s) failed');
         return redirect('content');
 

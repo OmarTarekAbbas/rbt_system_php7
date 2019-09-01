@@ -439,6 +439,8 @@
 <!--flaty scripts-->
 <script src="{{url('js/flaty.js')}}"></script>
 <script src="{{url('js/flaty-demo-codes.js')}}"></script>
+<script src="{{url('js/pusher.min.js')}}"></script>
+<script src="{{url('js/pusher_config.js')}}"></script>
 <script>
      $.ajaxSetup({
         headers: {
@@ -455,6 +457,11 @@
             $('input[name="featured"]').val(1);
           }
         // console.log(e, $el, value);
+    });
+
+    var channel = pusher.subscribe('private-notification.{{\Auth::id()}}');
+    channel.bind('notify-event', function(data) {
+      alert(JSON.stringify(data));
     });
 </script>
 
