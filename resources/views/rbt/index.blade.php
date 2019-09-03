@@ -18,7 +18,7 @@
                 <div class="box-content">
                     <div class="btn-group">
                       @if(Auth::user()->hasRole(['super_admin','admin']))
-                        <a class="btn btn-circle btn-success show-tooltip" href="{{url('rbt/excel')}}" title="Create New Rbt" href="#"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-circle btn-success show-tooltip" href="{{url('rbt/create')}}" title="Create New Rbt" href="#"><i class="fa fa-plus"></i></a>
                         <a  id="delete_button" onclick="delete_selected('rbts')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
                       @endif
                     </div><br><br>
@@ -35,6 +35,7 @@
                                 <th>Track File</th>
                                 <th>Operator Title</th>
                                 <th>Occasion Title</th>
+                                <th>Master Content Title</th>
                                 <th>Provider</th>
                                 @if(Auth::user()->hasRole(['super_admin','admin']))
                                 <th>Aggregator Title</th>
@@ -66,6 +67,12 @@
                                     <td>{!!$rbt->operator->title!!}</td>
                                     @if($rbt->occasion_id)
                                         <td>{!!$rbt->occasion->title!!}</td>
+                                    @else
+                                        <td>--</td>
+                                    @endif
+
+                                    @if($rbt->content_id)
+                                        <td>{!!$rbt->content->content_title!!}</td>
                                     @else
                                         <td>--</td>
                                     @endif

@@ -17,6 +17,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('user_profile/updatepassword','UserController@UpdatePassword');
     Route::post('user_profile/updateprofilepic','UserController@UpdateProfilePicture');
     Route::post('user_profile/updateuserdata','UserController@UpdateNameAndEmail');
+    Route::get('read_notify',function(){
+        \App\Notification::where('notified_id',\Auth::id())->update([
+            'seen' => 1
+        ]);
+    });
 });
 
 Route::group(['middleware' => ['auth','role:super_admin']], function() {
@@ -167,6 +172,8 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::resource('department','DepartmentController');
     Route::get('department/{id}/delete','DepartmentController@destroy');
     Route::resource('content','ContentController');
+    Route::get('contents/excel','ContentController@create_excel');
+    Route::post('contents/excel','ContentController@excel_store');
     Route::get('content/{id}/delete','ContentController@destroy');
     Route::get('contents/downloadSample','ContentController@getDownload');
     Route::get('contents/file_system','ContentController@list_file_system') ;

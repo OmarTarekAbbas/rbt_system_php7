@@ -21,6 +21,7 @@ use App\Occasion;
 
 use App\Aggregator;
 
+use App\Content;
 use Auth;
 use Validator;
 /**
@@ -37,6 +38,7 @@ class RbtController extends Controller
      * @return  \Illuminate\Http\Response
      */
     public $current_path = "" ;
+
     public function index()
     {
         $title = 'Index - rbt';
@@ -51,8 +53,106 @@ class RbtController extends Controller
         return view('rbt.index',compact('rbts','title'));
     }
 
-     public function excel()
-     {
+    public function create()
+    {
+        $operators = Operator::all()->pluck('title','id');
+        $occasions = Occasion::all()->pluck('title','id');
+        $aggregators = Aggregator::all()->pluck('title','id');
+        $providers = Provider::all()->pluck('title','id') ;
+        $contents = Content::all()->pluck('content_title','id') ;
+        return view('rbt.create',compact('operators', 'occasions', 'aggregators','providers','contents' ));
+    }
+
+    public function store(Request $request)
+    {
+        $rbt = new Rbt();
+        if (!strcmp($request->type,'new'))
+        {
+            $validator = Validator::make($request->all(),[
+                'track_title_en' => 'required',
+                'code' => 'required|numeric',
+                'album_name' => 'required',
+                'artist_name_en' => 'required',
+                'owner' => 'required',
+                'operator_id' => 'required',
+            ]);
+        }
+        else{
+            $validator = Validator::make($request->all(),[
+                'track_title_en' => 'required',
+                'code' => 'required|numeric',
+                'social_media_code' => 'numeric',
+                'operator_id' => 'required',
+            ]);
+        }
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        if(!strcmp($request->type,'new'))
+        {
+            $rbt->track_title_en = $request->track_title_en;
+            $rbt->track_title_ar = $request->track_title_ar;
+            $rbt->artist_name_en = $request->artist_name_en;
+            $rbt->artist_name_ar = $request->artist_name_ar;
+            $rbt->album_name = $request->album_name;
+            $rbt->owner = $request->owner;
+            $rbt->code = $request->code;
+            $rbt->type = 1;
+        }
+        else{
+            $rbt->track_title_en = $request->track_title_en;
+            $rbt->code = $request->code;
+            $rbt->social_media_code = $request->social_media_code;
+            $rbt->owner = $request->owner;
+        }
+
+        if ($request->hasFile('track_file')) {
+            $path = "uploads/".date('Y-m-d')."/";
+            $ex = $request->file('track_file')->getClientOriginalExtension();
+            $extentions = array('mp3','wav','ogg','m4a');
+            if (in_array($ex,$extentions) ) {
+                $request->file('track_file')->move(base_path($path),$request->track_title_en.".wav");
+                $track_file = $path.$request->track_title_en.".wav" ;
+                $rbt->track_file = $track_file;
+            }else{
+                $request->session()->flash('failed', 'Rbt file must be an audio');
+
+                return back();
+
+            }
+        }
+
+
+
+        $rbt->operator_id = $request->operator_id;
+
+        if ($request->occasion_id != "") {
+            $rbt->occasion_id = $request->occasion_id;
+        }
+
+        if ($request->aggregator_id != "") {
+            $rbt->aggregator_id = $request->aggregator_id;
+        }
+
+        if ($request->content_id != "") {
+            $rbt->content_id = $request->content_id;
+        }
+
+        if ($request->provider_id != "") {
+            $rbt->provider_id = $request->provider_id;
+        }
+
+
+        $rbt->save();
+
+        $request->session()->flash('success', 'Add Rbt Successfully');
+
+        return redirect('rbt');
+    }
+
+    public function excel()
+    {
         $title = 'Create - rbt';
 
         $operators = Operator::all()->pluck('title','id');
@@ -63,8 +163,7 @@ class RbtController extends Controller
         // dd('df');
 
         return view('rbt.excel',compact('title', 'operators' , 'occasions' , 'aggregators'));
-     }
-
+    }
 
     public function excelStore(Request $request)
     {
@@ -163,7 +262,7 @@ class RbtController extends Controller
                         $rbt['owner'] = $row->provider ; // ex:  ARPU
                         $rbt['operator_id'] = $request->operator_id;
                         $rbt['aggregator_id'] = $request->aggregator_id;
-                        $rbt['content_id'] = $request->content_id;
+                        $rbt['content_id'] = $row->master_content_code;
                         $rbt['type'] = 1 ; // new excel
                     }
                     else{
@@ -174,7 +273,7 @@ class RbtController extends Controller
                         $rbt['provider_id'] = $provider_id ;
                         $rbt['operator_id'] = $request->operator_id;
                         $rbt['aggregator_id'] = $request->aggregator_id;
-                        $rbt['content_id'] = $request->content_id;
+                        $rbt['content_id'] = $row->master_content_code;
                     }
                     $rbt['track_file'] = "uploads/".date('Y-m-d')."/".$rbt['track_title_en'].".wav" ;
                     $check = Rbt::create($rbt) ;
@@ -211,13 +310,14 @@ class RbtController extends Controller
         $occasions = Occasion::all()->pluck('title','id');
         $aggregators = Aggregator::all()->pluck('title','id');
         $providers = Provider::all()->pluck('title','id') ;
+        $contents = Content::all()->pluck('content_title','id') ;
         $rbt = Rbt::findOrfail($id);
         if($rbt->type)
         {
-            return view('rbt.editNew',compact('title','rbt', 'operators', 'occasions', 'aggregators','providers' ) );
+            return view('rbt.editNew',compact('title','rbt', 'operators', 'occasions', 'aggregators','providers','contents' ) );
         }
         else{
-            return view('rbt.edit',compact('title','rbt', 'operators', 'occasions', 'aggregators','providers' ) );
+            return view('rbt.edit',compact('title','rbt', 'operators', 'occasions', 'aggregators','providers' ,'contents' ) );
         }
     }
 

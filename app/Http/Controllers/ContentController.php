@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Content;
 use App\Occasion;
 use App\Provider;
-use App\Events\Notification;
+
 class ContentController extends Controller
 {
         /**
@@ -27,11 +27,76 @@ class ContentController extends Controller
         $title = 'Create - Content';
         $occasions = Occasion::all()->pluck('title','id');
         $providers = Provider::all()->pluck('title','id');
+        return view('content.create',compact('title', 'providers' , 'occasions'));
+    }
+
+    public function store(Request $request)
+    {
+        $validator = \Validator::make($request->all(), [
+            'content_title' => 'required|string',
+            'content_type' => 'required',
+            'provider_id' => 'required',
+            'occasion_id' => 'required',
+            'path' => '',
+            'image_preview' => ''
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        if($request->path)
+        {
+            if(!strcmp($request->content_type,'image'))
+            {
+                $imgExtensions = array("png","jpeg","jpg");
+                $file = $request->path;
+                if(! in_array($file->getClientOriginalExtension(),$imgExtensions))
+                {
+                    \Session::flash('failed','Image must be jpg, png, or jpeg only !! No updates takes place, try again with that extensions please..');
+                    return back();
+                }
+            }
+            else if(!strcmp($request->content_type,'audio'))
+            {
+                $audExtensions = array("mp3","webm","wav");
+                $file = $request->path;
+                if(! in_array($file->getClientOriginalExtension(),$audExtensions))
+                {
+                    \Session::flash('failed','Audio must be mp3, webm and wav only !! No updates takes place, try again with that extensions please..');
+                    return back() ;
+                }
+            }
+            else if(!strcmp($request->content_type,'video'))
+            {
+                $vidExtensions = array("mp4","flv","3gp");
+                $file = $request->path;
+                if(! in_array($file->getClientOriginalExtension(),$vidExtensions))
+                {
+                    \Session::flash('failed','Video must be mp4, flv, or 3gp only !! No updates takes place, try again with that extensions please..');
+                    return back();
+                }
+            }
+        }
+
+        $content = Content::create($request->all());
+        send_notification('Add New Content You Can Follow It From This Link','Operation',$content);
+        $request->session()->flash('success', 'Add Content Successfully');
+
+        return redirect('content');
+
+    }
+
+    public function create_excel()
+    {
+        $title = 'Create - Content';
+        $occasions = Occasion::all()->pluck('title','id');
+        $providers = Provider::all()->pluck('title','id');
         return view('content.excel',compact('title', 'providers' , 'occasions'));
     }
 
 
-    public function store(Request $request)
+    public function excel_store(Request $request)
     {
         // $validator = Validator::make($request->all(),[
         //         'operator_id' => 'required',
@@ -113,8 +178,8 @@ class ContentController extends Controller
         }
          //    unlink(base_path().'/uploads/rbt/excel/'.$filename);
         $failures = $total_counter - $counter ;
-
-        broadcast(new Notification('add new post'))->toOthers();
+        // $user = \App\User::find(5);
+        // broadcast(new Notification('add new post',$user))->toOthers();
         $request->session()->flash('success', $counter.' item(s) created successfully, and '.$failures.' item(s) failed');
         return redirect('content');
 
@@ -206,7 +271,7 @@ class ContentController extends Controller
 
     public function getDownload()
     {
-        $file= base_path(). "/uploads/content/excel/content.xlsx";
+        $file= base_path(). "/uploads/content/content.xlsx";
 
         $headers = array(
                   'Content-Type: application/xlsx',

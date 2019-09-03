@@ -1,8 +1,10 @@
 <?php
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-
-
+use App\Events\Notifications;
+use App\User;
+use App\Department;
+use App\Notification;
 function delete_multiselect(Request $request) // select many contract from index table and delete them
 {
     $selected_list =  explode(",",$request['selected_list']);
@@ -39,4 +41,23 @@ function years()
     }
 
     return $years;
+}
+
+function all_notify()
+{
+    $Notification = Notification::with('send_user')->where('seen',0)->where('notified_id',\Auth::id())->latest()->take(5)->get();
+    return $Notification;
+}
+
+function send_notification($message,$dep,$data){
+        $department    = Department::where('title','like','%'.$dep.'%')->first();
+        $user = User::find($department->menager_id);
+        $link = url('content/'.$data->id);
+        Notification::create([
+            'notifier_id' => \Auth::id(),
+            'notified_id'  => $department->manager_id,
+            'subject' => $message,
+            'link'   =>$link
+        ]);
+        broadcast(new Notifications($message,$user,$link))->toOthers();
 }

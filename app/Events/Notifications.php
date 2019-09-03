@@ -10,18 +10,19 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class Notification implements ShouldBroadcast
+class Notifications implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $message;
     public $send_user;
     public $recive_user = [];
+    public $link;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message,$users=Null)
+    public function __construct($message,$users=Null,$link)
     {
         $this->send_user    = \Auth::user();
         if($users)
@@ -44,7 +45,8 @@ class Notification implements ShouldBroadcast
             array_push($this->recive_user,$current_user->id);
           }
         }
-        $this->message      = \Auth::user()->name.$message;
+        $this->message      = $message;
+        $this->link         = $link;
     }
 
     /**

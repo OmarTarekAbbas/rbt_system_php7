@@ -39,10 +39,10 @@
                             </thead>
                             <tbody>
                             <?php $x = 0; ?>
-                            @foreach($contents as $content)
+                            @foreach($contents as $key=>$content)
                                 <tr>
                                     <td><input type="checkbox" name="selected_rows[]" value="{{$content->id}}" onclick="collect_selected(this)"></td>
-                                    <td>{{  $content->id  }}</td>
+                                    <td>{{  $key+1  }}</td>
                                     <td>{{ $content->content_title }}</td>
                                     <td>{{$content->content_type}}</td>
                                     <td>{{$content->internal_coding}}</td>

@@ -41,6 +41,11 @@ class Rbt extends Model
 	public function aggregator()
 	{
 		return $this->belongsTo('App\Aggregator','aggregator_id');
+    }
+
+    public function content()
+	{
+		return $this->belongsTo('App\Content','content_id');
 	}
 
 

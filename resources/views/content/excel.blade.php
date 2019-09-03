@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="box-content">
-                    <form method = 'POST' class="form-horizontal" action = '{!!url("content")!!}' enctype="multipart/form-data">
+                    <form method = 'POST' class="form-horizontal" action = '{!!url("contents/excel")!!}' enctype="multipart/form-data">
                         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
 
                         <div class="form-group">
