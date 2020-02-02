@@ -36,7 +36,7 @@
 
                         <div class="form-group">
                             <label class="col-sm-3 col-lg-2 control-label"  for="track_title_en">Rbt Name English *</label>
-                             <div class="col-sm-9 col-lg-10 controls">   
+                             <div class="col-sm-9 col-lg-10 controls">
                             <input id="track_title_en" name = "track_title_en" value="{{$rbt->track_title_en}}" type="text" class="form-control input-lg" required>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
 
                         <div class="form-group">
                             <label class="col-sm-3 col-lg-2 control-label"  for="code">Code *</label>
-                             <div class="col-sm-9 col-lg-10 controls">   
+                             <div class="col-sm-9 col-lg-10 controls">
                             <input id="code" name = "code" type="text" value="{{$rbt->code}}" class="form-control input-lg" required>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                              <div class="fileupload fileupload-new" data-provides="fileupload">
                                 <div class="input-group">
                                    <div class="form-control uneditable-input">
-                                      <i class="fa fa-file fileupload-exists"></i> 
+                                      <i class="fa fa-file fileupload-exists"></i>
                                       <span class="fileupload-preview"></span>
                                    </div>
                                    <div class="input-group-btn">
@@ -107,13 +107,13 @@
                           </div>
                         </div>
 
-                        
-                       <div class="form-group">
+
+                        <div class="form-group">
                           <label class="col-sm-3 col-lg-2 control-label">Operators Select *</label>
                           <div class="col-sm-9 col-lg-10 controls">
                              <select class="form-control chosen" data-placeholder="Choose a Operators" name="operator_id" tabindex="1" required>
                                 <option value=""></option>
-                               @foreach($operators as $key => $value) 
+                               @foreach($operators as $key => $value)
                                     <option value="{{$key}}" {{($rbt->operator_id == $key) ? 'selected' : ''}}>{{$value}}</option>
                                 @endforeach
                              </select>
@@ -125,9 +125,9 @@
                           <div class="col-sm-9 col-lg-10 controls">
                              <select class="form-control chosen" data-placeholder="Choose a Occasions" name="occasion_id" tabindex="1" >
                                 <option value=""></option>
-                                @foreach($occasions as $key => $value) 
+                                @foreach($occasions as $key => $value)
                                     <option value="{{$key}}" {{($rbt->occasion_id == $key) ? 'selected' : ''}}>{{$value}}</option>
-                                @endforeach 
+                                @endforeach
                              </select>
                           </div>
                         </div>
@@ -137,7 +137,7 @@
                           <div class="col-sm-9 col-lg-10 controls">
                              <select class="form-control chosen" data-placeholder="Choose a Aggregators" name="aggregator_id" tabindex="1" >
                                 <option value=""></option>
-                                @foreach($aggregators as $key => $value) 
+                                @foreach($aggregators as $key => $value)
                                     <option value="{{$key}}" {{($rbt->aggregator_id == $key) ? 'selected' : ''}}>{{$value}}</option>
                                 @endforeach
                              </select>
@@ -151,6 +151,18 @@
                                     <option value=""></option>
                                     @foreach($providers as $key => $value)
                                         <option value="{{$key}}" {{($rbt->provider_id == $key) ? 'selected' : ''}}>{{$value}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-2 control-label">Master Content Select</label>
+                            <div class="col-sm-9 col-lg-10 controls">
+                                <select class="form-control chosen" data-placeholder="Choose a Content" name="content_id" tabindex="1" >
+                                    <option value=""></option>
+                                    @foreach($contents as $key => $value)
+                                        <option value="{{$key}}" {{($rbt->content_id == $key) ? 'selected' : ''}}>{{$value}}</option>
                                     @endforeach
                                 </select>
                             </div>

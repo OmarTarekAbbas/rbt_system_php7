@@ -123,9 +123,32 @@
 
     <!-- BEGIN Navbar Buttons -->
     <ul class="nav flaty-nav pull-right">
-
-        <!-- BEGIN Tasks Dropdown -->
-
+        <template id="app">
+            <!-- BEGIN Tasks Dropdown -->
+            <li class="hidden-xs">
+                    <a data-toggle="dropdown" class="dropdown-toggle" @click="read_notify()" href="#">
+                        <i class="fa fa-bell"></i>
+                        <span class="badge badge-important">@{{notify_count}}</span>
+                    </a>
+                    <!-- BEGIN Notifications Dropdown -->
+                    <ul class="dropdown-navbar dropdown-menu">
+                        <li class="nav-header animt">
+                            <i class="fa fa-warning"></i>
+                            @{{notify_count}} Notifications
+                        </li>
+                        <li v-for="item in all_notifications" class="notify" style="width:100%">
+                            <a :href="item.link">
+                                <p><strong>@{{item.name}}</strong> @{{item.subject}}</p>
+                            </a>
+                        </li>
+                        <li class="more">
+                            <a href="#">See all notifications</a>
+                        </li>
+                    </ul>
+                    <!-- END Notifications Dropdown -->
+            </li>
+            <!-- End BEGIN Tasks Dropdown -->
+        </template>
         <!-- BEGIN Button User -->
         <li class="user-profile">
             <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
@@ -150,10 +173,13 @@
                 <li class="divider"></li>
 
                 <li>
-                    <a href="{{url('/auth/logout')}}">
+                    <a href="{{url('logout')}}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
                         <i class="fa fa-off"></i>
-                        Logout
+                        @lang('messages.logout')
                     </a>
+                    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
                 </li>
             </ul>
             <!-- BEGIN User Dropdown -->
@@ -203,6 +229,22 @@
             </li>
             @endif
             @if(Auth::user()->hasRole(['super_admin','admin']))
+            <li id="department">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="glyphicon glyphicon-briefcase"></i>
+                        <span>Department</span>
+                        <b class="arrow fa fa-angle-right"></b>
+                    </a>
+
+                    <!-- BEGIN Submenu -->
+
+                    <ul class="submenu">
+                        <li id="department-create"><a href="{{url('department/create')}}">Create Department</a></li>
+                        <li id="department-index"><a href="{{url('department')}}">Departments</a></li>
+                    </ul>
+                    <!-- END Submenu -->
+                </li>
+
             <li id="country">
                 <a href="#" class="dropdown-toggle">
                     <i class="glyphicon glyphicon-globe"></i>
@@ -274,6 +316,27 @@
             </li>
 
             @endif
+
+            <li id="content">
+                <a href="#" class="dropdown-toggle">
+                    <i class="fa fa-folder-o"></i>
+                    <span>Content</span>
+                    <b class="arrow fa fa-angle-right"></b>
+                </a>
+
+                <!-- BEGIN Submenu -->
+                <ul class="submenu">
+                        {{-- <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a></li> --}}
+                        <li id="content-excel"><a href="{{url('contents/excel')}}">Create Content</a></li>
+                        <li id="content-index"><a href="{{url('content')}}">Contents</a></li>
+                        <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">List tracks</a></li>
+                        <li id="content-upload-tracks"><a href="{{url('contents/upload_tracks')}}">Upload multi tracks</a></li>
+                        {{-- <li id="rbt-search"><a href="{{url('rbt/search')}}">Search in RBTs</a></li> --}}
+                </ul>
+                <!-- END Submenu -->
+            </li>
+
+
             <li id="rbt">
                 <a href="#" class="dropdown-toggle">
                     <i class="fa fa-play-circle-o"></i>
@@ -399,6 +462,9 @@
 <!--flaty scripts-->
 <script src="{{url('js/flaty.js')}}"></script>
 <script src="{{url('js/flaty-demo-codes.js')}}"></script>
+<script src="{{url('js/pusher.min.js')}}"></script>
+<script src="{{url('js/pusher_config.js')}}"></script>
+<script src="{{url('js/vue.min.js')}}"></script>
 <script>
      $.ajaxSetup({
         headers: {
@@ -417,7 +483,58 @@
         // console.log(e, $el, value);
     });
 </script>
+<script>
+  var app = new Vue({
+        el:'#app',
+        data:{
+            notify_count:0,
+            notifications:[],
+            channel:''
+        },
+        methods:{
+            read_notify:function(){
+                var _this = this
+                $.get("{{url('read_notify')}}",function(data,status){
+                    _this.notify_count=0
+                })
+            }
+        },
+        computed:{
+            all_notifications:function(){
+                var _this = this
+                var data = "{{json_encode(all_notify())}}";
+               this.notification_data = JSON.parse(data.replace(/&quot;/g,'"'))
+               for (let index = 0; index < this.notification_data.length; index++) {
+                   let object={
+                       name:this.notification_data[index].send_user.name ,
+                       subject:this.notification_data[index].subject,
+                       link:this.notification_data[index].link
+                    }
+                    this.notifications.push(object)
+               }
+               _this.notify_count=this.notifications.length
+               return this.notifications
+            }
+        },
+        mounted(){
+            this.channel = pusher.subscribe('private-notification.{{\Auth::id()}}');
+            var _this = this;
+            this.channel.bind('notify-event', function(data) {
+                let object={
+                        name:data.send_user.name ,
+                        subject:data.message,
+                        link:data.link
+                    }
+                _this.notifications.push(object)
+                $('.fa-bell').addClass('anim-swing')
+                let audio = new Audio("{{url('uploads/facebook_sound.mp3')}}");
+                audio.play();
+                _this.notify_count++;
+            });
+        }
 
+    })
+</script>
 <script>
     $(document).ready(function() {
         $('#example').DataTable();

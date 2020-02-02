@@ -1,6 +1,6 @@
 @extends('template')
 @section('page_title')
-    Aggregators
+    Operators
 @stop
 @section('content')
 <div class="modal fade" id="SenderModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -13,7 +13,7 @@
         <h4 class="modal-title" id="myModalLabel">Add Operator</h4>
       </div>
       <div class="modal-body">
-        
+
         <div class="form-group">
            <label class="col-sm-3 col-lg-2 control-label">Title</label>
            <div class="col-sm-9 col-lg-10 controls">
@@ -24,9 +24,9 @@
             <label class="col-sm-3 col-lg-2 control-label">Country</label>
             <div class="col-sm-9 col-lg-10 controls">
                 <select name = 'country_id' class = 'form-control' required>
-                    @foreach($countries as $key => $value) 
+                    @foreach($countries as $key => $value)
                     <option value="{{$key}}">{{$value}}</option>
-                    @endforeach 
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -36,8 +36,8 @@
       </div>
         </form>
     </div>
-      
-      
+
+
   </div>
 </div>
 
@@ -51,7 +51,7 @@
         <h4 class="modal-title" id="myModalLabel">Update Operator</h4>
       </div>
       <div class="modal-body">
-        
+
         <div class="form-group">
            <label class="col-sm-3 col-lg-2 control-label">Title</label>
            <div class="col-sm-9 col-lg-10 controls">
@@ -59,14 +59,14 @@
               <input type="hidden" name="operator_id" id="operator_id">
            </div>
         </div>
-        
+
         <div class="form-group">
             <label class="col-sm-3 col-lg-2 control-label">Country</label>
             <div class="col-sm-9 col-lg-10 controls">
                 <select name = 'country_id' class = 'form-control' id="country_id" required>
-                    @foreach($countries as $key => $value) 
+                    @foreach($countries as $key => $value)
                     <option value="{{$key}}">{{$value}}</option>
-                    @endforeach 
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -94,7 +94,7 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-title">
-                <h3><i class="fa fa-code-fork"></i>Aggregators</h3>
+                <h3><i class="fa fa-code-fork"></i>Operators</h3>
                 <div class="box-tool">
                     <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
                     <a data-action="close" href="#"><i class="fa fa-times"></i></a>
@@ -110,7 +110,7 @@
                 @endif
                 <br/><br/>
                 <div class="clearfix"></div>
-                
+
                 <div class="table-responsive" style="border:0">
                     <table class="table table-advance" id="table1">
                         <thead>
@@ -169,8 +169,8 @@
                 $('#edit-operator').val(name);
                 $('#operator_id').val(values[0]);
                 $('#country_id').val(values[1]);
-                
+
                 $('#editoperator').modal('toggle');
-            }); 
+            });
         </script>
 @endsection

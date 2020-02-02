@@ -18,7 +18,9 @@
                 <div class="box-content">
                     <form method = 'POST' class="form-horizontal" action = '{!!url("rbt/excel")!!}' enctype="multipart/form-data">
                         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
-
+                        @if(isset($_REQUEST['content_id']))
+                        <input type = 'hidden' name = 'content_id' value = '{{$_REQUEST['content_id']}}'>
+                        @endif
                         <div class="form-group">
                             <label class="col-sm-3 col-lg-2 control-label">Excel Type Select *</label>
                             <div class="col-sm-9 col-lg-10 controls">
@@ -36,7 +38,7 @@
                              <div class="fileupload fileupload-new" data-provides="fileupload">
                                 <div class="input-group">
                                    <div class="form-control uneditable-input">
-                                      <i class="fa fa-file fileupload-exists"></i> 
+                                      <i class="fa fa-file fileupload-exists"></i>
                                       <span class="fileupload-preview"></span>
                                    </div>
                                    <div class="input-group-btn">
@@ -52,13 +54,13 @@
                              </div>
                           </div>
                         </div>
-                        
+
                        <div class="form-group">
                           <label class="col-sm-3 col-lg-2 control-label">Operators Select *</label>
                           <div class="col-sm-9 col-lg-10 controls">
                              <select class="form-control chosen" data-placeholder="Choose a Operators" name="operator_id" tabindex="1" required>
                                 <option value=""></option>
-                               @foreach($operators as $key => $value) 
+                               @foreach($operators as $key => $value)
                                     <option value="{{$key}}">{{$value}}</option>
                                 @endforeach
                              </select>
@@ -70,7 +72,7 @@
                           <div class="col-sm-9 col-lg-10 controls">
                              <select class="form-control chosen" data-placeholder="Choose an aggregator" name="aggregator_id" tabindex="1" >
                                 <option value=""></option>
-                                @foreach($aggregators as $key => $value) 
+                                @foreach($aggregators as $key => $value)
                                     <option value="{{$key}}">{{$value}}</option>
                                 @endforeach
                              </select>
