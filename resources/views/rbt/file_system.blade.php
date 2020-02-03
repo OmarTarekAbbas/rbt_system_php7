@@ -17,7 +17,7 @@
                 </div>
                 <div class="box-content">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="{{url('elFinder/elfinder.html')}}"></iframe>
+                        <iframe class="embed-responsive-item" src="{{url('elFinder/elfinder')}}"></iframe>
                     </div>
                 </div>
             </div>
