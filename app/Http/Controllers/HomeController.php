@@ -25,4 +25,8 @@ class HomeController extends Controller
     {
         return view('dashboard.index');
     }
+    public function elFinderlEfinder()
+    {
+        return view('elFinder.elfinder');
+    }
 }

@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth','role:super_admin']], function() {
     Route::post('users/{id}/update', 'UserController@update');
     Route::get('users/new', 'UserController@create');
     Route::post('users', 'UserController@store');
+    Route::get('elFinder/elfinder', 'HomeController@elFinderlEfinder');
 });
 
 Route::group(['middleware' => ['auth','role:super_admin']], function() {

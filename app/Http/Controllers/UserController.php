@@ -65,7 +65,7 @@ class UserController extends Controller
             $user = \App\User::findOrfail($id);
             $roles = Role::all();
 
-            return view('users.edit', compact('user', 'roles', 'permissions', 'userRoles', 'userPermissions'));
+            return view('users.edit', compact('user', 'roles'));
     }
 
 
@@ -143,6 +143,7 @@ class UserController extends Controller
     public function profile()
     {
         $user = \Auth::user();
+        $role = "";
         if (! file_exists($user->profile_img))
         {
             $user->profile_img = 'profile_images/avatar.png' ;

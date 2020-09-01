@@ -275,6 +275,8 @@ class RbtController extends Controller
                         $rbt['aggregator_id'] = $request->aggregator_id;
                         $rbt['content_id'] = $row->master_content_code;
                     }
+                    //dd($rbt);
+
                     $rbt['track_file'] = "uploads/".date('Y-m-d')."/".$rbt['track_title_en'].".wav" ;
                     $check = Rbt::create($rbt) ;
                     if ($check)
@@ -311,6 +313,7 @@ class RbtController extends Controller
         $aggregators = Aggregator::all()->pluck('title','id');
         $providers = Provider::all()->pluck('title','id') ;
         $contents = Content::all()->pluck('content_title','id') ;
+        $title = "";
         $rbt = Rbt::findOrfail($id);
         if($rbt->type)
         {

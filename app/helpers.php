@@ -51,11 +51,14 @@ function all_notify()
 
 function send_notification($message,$dep,$data){
         $department    = Department::where('title','like','%'.$dep.'%')->first();
-        $user = User::find($department->menager_id);
+        //dd($department && $department->menager_id);
+        $user = User::find($department && $department->menager_id);
+
+
         $link = url('content/'.$data->id);
         Notification::create([
             'notifier_id' => \Auth::id(),
-            'notified_id'  => $department->manager_id,
+            'notified_id'  => $department && $department->manager_id,
             'subject' => $message,
             'link'   =>$link
         ]);

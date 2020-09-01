@@ -109,7 +109,7 @@ class ReportController extends Controller
 
             Excel::filter('chunk')->load(base_path().'/uploads/report/excel/'.$filename)->chunk(5, function($results) use ($request,&$total_reports,&$successful_creations)
             {
-                // dd($results);
+                //  dd($results);
                 $total_reports = count($results) ;
                 foreach ($results as $row) {
                     $report['year'] = $request->year;
@@ -121,12 +121,14 @@ class ReportController extends Controller
 
 
 
-
                     $report['classification'] = $row->classification;
                     if ($row->code != "") {  // if you write rbt code only
                         $report['code'] = $row->code;
+
                         $rbt = Rbt::where([['code',$row->code],['operator_id',$request->operator_id]])->first(); // see if this rbt code found before for the same operator
                         if ($rbt == null) { // this rbt not found
+                            //dd($report);
+
                              continue;
                          }
 
@@ -163,13 +165,11 @@ class ReportController extends Controller
                     if ($check)
                         $successful_creations++ ;
                 }
-
             },false);
         }else{
             $request->session()->flash('failed', 'Excel file is required');
             return back();
         }
-
         $remaining = $total_reports-$successful_creations ;
         $request->session()->flash('success', $successful_creations.' items created successfuly, '.$remaining.' failed to be created');
         return redirect('report');
