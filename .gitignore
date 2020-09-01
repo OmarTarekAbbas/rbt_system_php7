@@ -3,6 +3,8 @@
 /public/storage
 /storage/*.key
 /vendor
+/uploads
+/profile_images
 /.idea
 /.vscode
 /.vagrant
