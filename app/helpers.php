@@ -55,10 +55,10 @@ function send_notification($message,$dep,$data){
         $user = User::find($department && $department->menager_id);
 
 
-        $link = url('content/'.$data->id);
+        $link = url('content/'.$data->id.'/edit');
         Notification::create([
             'notifier_id' => \Auth::id(),
-            'notified_id'  => $department && $department->manager_id,
+            'notified_id'  => $department ? $department->manager_id : \Auth::id(),
             'subject' => $message,
             'link'   =>$link
         ]);
