@@ -24,6 +24,9 @@ use App\Aggregator;
 use App\Content;
 use Auth;
 use Validator;
+use Datatables;
+
+
 /**
  * Class RbtController.
  *
@@ -52,6 +55,84 @@ class RbtController extends Controller
 
         return view('rbt.index',compact('rbts','title'));
     }
+
+
+    public function allData(Request $request)
+    {
+        $title = 'Index - rbt';
+        $rbts = Rbt::all();
+
+        $datatable = Datatables::of($rbts)
+            ->addColumn('index', function (Rbt $rbt) {
+                return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$rbt->id}}" class="roles" onclick="collect_selected(this)">';
+            })
+            ->addColumn('id', function (Rbt $rbt) {
+                return $rbt->id;
+            })
+            ->addColumn('type', function (Rbt $rbt) {
+                return $rbt->type ? 'NEW' : 'OLD';
+            })
+            ->addColumn('track_title_en', function (Rbt $rbt) {
+                return $rbt->track_title_en;
+            })
+            ->addColumn('code', function (Rbt $rbt) {
+                return $rbt->code;
+            })
+            ->addColumn('artist', function (Rbt $rbt) {
+                return ($rbt->provider->title) ? $rbt->provider->title : "--";
+            })
+            ->addColumn('track_file', function (Rbt $rbt) {
+                if ($rbt->track_file)
+                    return '<audio class="rbt_audios" controls>
+                                <source src="'.url($rbt->track_file).'">
+                            </audio>';
+                else
+                    return '--';
+            })
+            ->addColumn('operator', function (Rbt $rbt) {
+                return $rbt->operator->title;
+            })
+            ->addColumn('occasion_id', function (Rbt $rbt) {
+                if ($rbt->occasion_id)
+                    return $rbt->occasion->title;
+                else
+                    return '--';
+            })
+            ->addColumn('content_id', function (Rbt $rbt) {
+                if ($rbt->content_id)
+                    return $rbt->content->content_title;
+                else
+                    return '--';
+            })
+            ->addColumn('owner', function (Rbt $rbt) {
+                if ($rbt->owner)
+                    return $rbt->owner;
+                else
+                    return '--';
+            })
+            ->addColumn('aggregator_id', function (Rbt $rbt) {
+                if ($rbt->aggregator_id)
+                    return $rbt->aggregator->title;
+                else
+                    return '--';
+            })
+            ->addColumn('action', function (Rbt $rbt) {
+                if (Auth::user()->hasRole(['super_admin', 'admin']))
+                    return '<td class="visible-md visible-lg">
+                            <div class="btn-group">
+                                <a class="btn btn-sm show-tooltip" href="' . url("rbt/" . $rbt->id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("rbt/" . $rbt->id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </td>';
+            })
+
+            ->escapeColumns([])
+            ->make(true);
+
+        return $datatable;
+    }
+
+
 
     public function create()
     {

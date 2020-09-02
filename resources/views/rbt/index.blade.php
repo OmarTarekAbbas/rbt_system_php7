@@ -23,7 +23,7 @@
                       @endif
                     </div><br><br>
                     <div class="table-responsive" style="border:0">
-                        <table class="table table-advance"  id="example" >
+                        <table class="table table-advance data_rbt"  >
                             <thead>
                             <tr>
                                 <th style="width:18px"><input type="checkbox" /></th>
@@ -44,62 +44,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $x = 0; ?>
-                            @foreach($rbts as $rbt)
-                                <tr>
-                                    <td><input type="checkbox" name="selected_rows[]" value="{{$rbt->id}}" onclick="collect_selected(this)"></td>
 
-                                    <td>{{  $rbt->id  }}</td>
-                                    <td>{{ ($rbt->type)?'NEW':'OLD' }}</td>
-                                    <td>{{$rbt->track_title_en}}</td>
-                                    <td>{{$rbt->code}}</td>
-
-                                    <td>{!!($rbt->provider->title) ? $rbt->provider->title : '--'!!}</td>
-                                    @if($rbt->track_file)
-                                        <td>
-                                            <audio  class="rbt_audios" controls >
-                                              <source src="{{url($rbt->track_file)}}" >
-                                            </audio>
-                                        </td>
-                                    @else
-                                        <td>--</td>
-                                    @endif
-                                    <td>{!!$rbt->operator->title!!}</td>
-                                    @if($rbt->occasion_id)
-                                        <td>{!!$rbt->occasion->title!!}</td>
-                                    @else
-                                        <td>--</td>
-                                    @endif
-
-                                    @if($rbt->content_id)
-                                        <td>{!!$rbt->content->content_title!!}</td>
-                                    @else
-                                        <td>--</td>
-                                    @endif
-
-                                    @if($rbt->owner)
-                                        <td>{!!$rbt->owner!!}</td>
-                                    @else
-                                        <td>--</td>
-                                    @endif
-
-
-                                    @if(Auth::user()->hasRole(['super_admin','admin']))
-                                      @if($rbt->aggregator_id)
-                                          <td>{!!$rbt->aggregator->title!!}</td>
-                                      @else
-                                          <td>--</td>
-                                      @endif
-                                      <td class="visible-md visible-lg">
-                                          <div class="btn-group">
-                                              <a class="btn btn-sm show-tooltip" title="" href="{{url('rbt/'.$rbt->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
-                                              <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('rbt/'.$rbt->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                                          </div>
-                                      </td>
-                                    @endif
-                                </tr>
-                                <?php $x++; ?>
-                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -112,9 +57,40 @@
 @stop
 
 @section('script')
-    <script>
+<script>
         $('#rbt').addClass('active');
         $('#rbt-index').addClass('active');
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+                }
+        });
+        $(document).ready(function () {
+            console.log("omar");
+            $('.data_rbt').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "search": {"regex":true},
+                ajax: "{!! url('rbt/allData') !!}",
+                columns: [
+                    {data: "index", searchable: false, orderable: false},
+                    {data: "id"},
+                    {data: "type"},
+                    {data: "track_title_en"},
+                    {data: "code"},
+                    {data: "artist"},
+                    {data: "track_file"},
+                    {data: "operator"},
+                    {data: "occasion_id"},
+                    {data: "content_id"},
+                    {data: "owner"},
+                    {data: "aggregator_id"},
+                    {data: "action", searchable: false}
+                ]
+                , "pageLength": 10
+            });
+        });
     </script>
+
 
 @stop

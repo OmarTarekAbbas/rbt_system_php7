@@ -18,7 +18,8 @@
         "php-ffmpeg/php-ffmpeg": "^0.13.0",
         "pusher/pusher-php-server": "^4.0",
         "spatie/laravel-permission": "^1.12",
-        "thiagoalessio/tesseract_ocr": "^2.7"
+        "thiagoalessio/tesseract_ocr": "^2.7",
+        "yajra/laravel-datatables-oracle": "^6.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

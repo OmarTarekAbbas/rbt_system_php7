@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css')}}" />
 
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" />
 
@@ -32,6 +33,8 @@
     <link rel="stylesheet" href="{{url('assets/font-awesome/css/font-awesome.min.css')}}">
     <!--page specific css styles-->
     <link rel="stylesheet" href="{{url('assets/data-tables/bootstrap3/dataTables.bootstrap.css')}}" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+
     <!--flaty css styles-->
     <link rel="stylesheet" href="{{url('css/flaty.css')}}">
     <link rel="stylesheet" href="{{url('css/flaty-responsive.css')}}">
@@ -465,6 +468,8 @@
 <script src="{{url('js/pusher.min.js')}}"></script>
 <script src="{{url('js/pusher_config.js')}}"></script>
 <script src="{{url('js/vue.min.js')}}"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
 <script>
      $.ajaxSetup({
         headers: {
@@ -594,6 +599,15 @@
         form.submit();
     }
 </script>
+<!-- <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                //  'lengthMenu': [5, 10, 15, 20, 25, 50, 'All']
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "pageLength": 50
+            });
+        });
+    </script> -->
 @yield('script')
 
 </body>

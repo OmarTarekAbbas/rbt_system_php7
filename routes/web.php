@@ -130,7 +130,7 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::get('report/search','ReportController@search') ;
     Route::post('report/search','ReportController@search_result');
     Route::post('report/export_report','ReportController@export_report') ;
-
+    Route::get('rbt/allData', 'RbtController@allData');
 });
 
 
