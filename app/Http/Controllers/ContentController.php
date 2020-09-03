@@ -161,7 +161,7 @@ class ContentController extends Controller
                     $content_data['provider_id'] = $provider_id ;
                     $content_data['occasion_id'] = $occasion_id ;
                     $content_data['user_id'] = \Auth::user()->id;
-                    $content_data['path'] = "uploads/content/".date('Y-m-d')."/".$content_data['content_title'].".wav" ;
+                    $content_data['path'] = "uploads/content/".date('Y-m-d')."/".$row->path.".wav" ;
                     $check = content::create($content_data) ;
                     if ($check)
                     {
@@ -186,7 +186,7 @@ class ContentController extends Controller
     }
 
 
- 
+
     public function edit($id)
     {
         $title="Content - Edit";
