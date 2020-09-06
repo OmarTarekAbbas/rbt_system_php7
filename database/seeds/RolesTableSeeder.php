@@ -27,7 +27,7 @@ class RolesTableSeeder extends Seeder
             ),
             1 =>
             array (
-                'id' => 6,
+                'id' => 2,
                 'name' => 'admin',
                 'role_priority' => 2,
                 'created_at' => '2018-01-08 14:40:19',
@@ -35,7 +35,7 @@ class RolesTableSeeder extends Seeder
             ),
             27 =>
             array (
-                'id' => 6,
+                'id' => 3,
                 'name' => 'account',
                 'role_priority' => 0,
                 'created_at' => '2018-01-08 14:40:19',
