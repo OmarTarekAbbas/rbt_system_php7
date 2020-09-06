@@ -82,6 +82,7 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::get('operator/{id}/delete','\App\Http\Controllers\OperatorController@destroy');
     Route::resource('operator','\App\Http\Controllers\OperatorController');
 });
+Route::get('operator/create_country','OperatorController@show');
 
 
 //provider admin Routes

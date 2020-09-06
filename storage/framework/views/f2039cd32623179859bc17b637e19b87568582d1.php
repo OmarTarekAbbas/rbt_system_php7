@@ -1,13 +1,13 @@
-@extends('template')
-@section('page_title')
+<?php $__env->startSection('page_title'); ?>
     Countries
-@stop
-@section('content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
 <div class="modal fade" id="SenderModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form method = 'POST' action = "{{url('country')}}" class="form-horizontal">
-      {{ csrf_field() }}
+      <form method = 'POST' action = "<?php echo e(url('country')); ?>" class="form-horizontal">
+      <?php echo e(csrf_field()); ?>
+
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Add Country</h4>
@@ -35,8 +35,9 @@
 <div class="modal fade" id="editcountry" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form method = 'POST' action = "{{url('country/update')}}" class="form-horizontal">
-      {{ csrf_field() }}
+      <form method = 'POST' action = "<?php echo e(url('country/update')); ?>" class="form-horizontal">
+      <?php echo e(csrf_field()); ?>
+
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Update Country</h4>
@@ -62,15 +63,15 @@
   </div>
 </div>
 
-@if (count($errors) > 0)
+<?php if(count($errors) > 0): ?>
     <div class="alert alert-danger">
         <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
+            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li><?php echo e($error); ?></li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </ul>
     </div>
-@endif
+<?php endif; ?>
 <!-- BEGIN Main Content -->
 <div class="row">
     <div class="col-md-12">
@@ -85,13 +86,13 @@
             <div class="box-content">
 
 
-                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                <?php if(Auth::user()->hasAnyRole(['super_admin','admin'])): ?>
                 <div class="btn-toolbar pull-right clearfix">
                     <div class="btn-group">
                         <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
                     </div>
                 </div>
-                @endif
+                <?php endif; ?>
                 <br/><br/>
                 <div class="clearfix"></div>
 
@@ -101,25 +102,25 @@
                             <tr>
                                 <th style="width:18px"><input type="checkbox" /></th>
                                 <th>Title</th>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                                <?php if(Auth::user()->hasAnyRole(['super_admin','admin'])): ?>
                                 <th>Delete</th>
-                                @endif
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($countries as $country)
+                        <?php $__currentLoopData = $countries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr class="table-flag-blue">
                                 <td><input type="checkbox" /></td>
-                                <td>{!!$country->title!!}</td>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                                <td><?php echo $country->title; ?></td>
+                                <?php if(Auth::user()->hasAnyRole(['super_admin','admin'])): ?>
                                <td>
-                               <a class="btn btn-sm btn-success show-tooltip" title="Add Operator" href="{{url("operator/create_country?country_id=".$country->id."&title=".$country->title)}}" data-original-title="Add Operator"><i class="fa fa-plus"></i></a>
-                                <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" {{-- data-toggle="modal" data-target="#editgroup" --}}><i id="{{$country->id}}" class="fa fa-edit"></i></a>
-                                <a class="btn btn-sm btn-danger show-tooltip" title=""   onclick="return confirm('Are you sure you want to delete {{ $country->title }} ?')"     href="{{url('/country/'.$country->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                               <a class="btn btn-sm btn-success show-tooltip" title="Add Operator" href="<?php echo e(url("operator/create_country?country_id=".$country->id."&title=".$country->title)); ?>" data-original-title="Add Operator"><i class="fa fa-plus"></i></a>
+                                <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" ><i id="<?php echo e($country->id); ?>" class="fa fa-edit"></i></a>
+                                <a class="btn btn-sm btn-danger show-tooltip" title=""   onclick="return confirm('Are you sure you want to delete <?php echo e($country->title); ?> ?')"     href="<?php echo e(url('/country/'.$country->id.'/delete')); ?>" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                                 </td>
-                                @endif
+                                <?php endif; ?>
                             </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
                 </div>
@@ -128,8 +129,8 @@
     </div>
 </div>
 <!-- END Main Content -->
-@endsection
-@section('script')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
         <script>
             // $('#audience').addClass('active');
             function ConfirmDelete()
@@ -158,4 +159,6 @@
                 $('#editcountry').modal('toggle');
             });
         </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -41,10 +41,23 @@ class OperatorController extends Controller
     public function create()
     {
         $title = 'Create - operator';
-        
+
         $countries = Country::all()->pluck('title','id');
-        
+
         return view('operator.create',compact('title','countries'  ));
+    }
+
+    public function showOperatorCountry()
+    {
+        //dd("omar");
+        $title = 'Create - operator';
+        return view('operator.input',compact('title'));
+    }
+
+    public function show()
+    {
+        $title = 'Create - operator';
+        return view('operator.input',compact('title'));
     }
 
     /**
@@ -59,7 +72,7 @@ class OperatorController extends Controller
                 'title' => 'required',
                 'country_id' => 'required'
             ]);
-        
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
@@ -72,14 +85,14 @@ class OperatorController extends Controller
 
         $operator = new Operator();
 
-        
+
         $operator->title = $request->title;
 
-        
-        
+
+
         $operator->country_id = $request->country_id;
 
-        
+
         $operator->save();
         $request->session()->flash('success', 'Created successfuly');
         return redirect('operator');
@@ -98,11 +111,11 @@ class OperatorController extends Controller
                 'title' => 'required',
                 'country_id' => 'required'
             ]);
-        
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-        
+
         $operator = Operator::where([['title',$request->title],['country_id',$request->country_id],['id','<>',$request->operator_id]])->first();
         if ($operator) {
             $request->session()->flash('failed', 'Operator Already Exists');
@@ -110,13 +123,13 @@ class OperatorController extends Controller
         }
 
         $operator = Operator::findOrfail($request->operator_id);
-    	
+
         $operator->title = $request->title;
-        
-        
+
+
         $operator->country_id = $request->country_id;
 
-        
+
         $operator->save();
 
         $request->session()->flash('success', 'Updated successfuly');
@@ -134,7 +147,7 @@ class OperatorController extends Controller
     {
      	$operator = Operator::findOrfail($id);
      	$operator->delete();
-        
+
         $request->session()->flash('success', 'Updated successfuly');
 
         return back();
