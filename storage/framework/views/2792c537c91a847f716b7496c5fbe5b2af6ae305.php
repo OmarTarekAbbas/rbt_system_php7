@@ -1,10 +1,8 @@
-
-@extends('template')
-@section('page_title')
+<?php $__env->startSection('page_title'); ?>
     File System
-@stop
-@section('content')
-    @include('errors')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+    <?php echo $__env->make('errors', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <div class="row">
         <div class="col-md-12">
             <div class="box">
@@ -16,9 +14,9 @@
                     </div>
                 </div>
                 <div class="box-content">
-                        <strong class="text-danger font-weight-bold"> <span>*</span> in folder content , create new folder with tody date {{ date('Y-m-d') }} and put track in it .</strong>
+                        <strong class="text-danger font-weight-bold"> <span>*</span> in folder content , create new folder with tody date <?php echo e(date('Y-m-d')); ?> and put track in it .</strong>
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="{{url('elFinder/elfinder')}}"></iframe>
+                        <iframe class="embed-responsive-item" src="<?php echo e(url('elFinder/elfinder')); ?>"></iframe>
                     </div>
                 </div>
             </div>
@@ -26,14 +24,16 @@
 
     </div>
 
-@stop
+<?php $__env->stopSection(); ?>
 
 
 
 
-@section('script')
+<?php $__env->startSection('script'); ?>
     <script>
         $('#content').addClass('active');
         $('#content-list-tracks').addClass('active');
     </script>
-@stop
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

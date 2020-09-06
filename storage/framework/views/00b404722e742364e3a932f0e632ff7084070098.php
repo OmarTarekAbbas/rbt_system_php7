@@ -1,8 +1,7 @@
-@extends('template')
-@section('page_title')
+<?php $__env->startSection('page_title'); ?>
 Contents
-@stop
-@section('content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
 
 
 <div class="row">
@@ -17,13 +16,13 @@ Contents
             </div>
             <div class="box-content">
                 <div class="btn-group">
-                    @if(Auth::user()->hasRole(['super_admin','admin']))
-                    <a class="btn btn-circle btn-success show-tooltip" href="{{url('content/create')}}"
+                    <?php if(Auth::user()->hasRole(['super_admin','admin'])): ?>
+                    <a class="btn btn-circle btn-success show-tooltip" href="<?php echo e(url('content/create')); ?>"
                         title="Create New content" href="#"><i class="fa fa-plus"></i></a>
                     <a id="delete_button" onclick="delete_selected('contents')"
                         class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i
                             class="fa fa-trash-o"></i></a>
-                    @endif
+                    <?php endif; ?>
                 </div><br><br>
                 <div class="table-responsive" style="border:0">
                     <table class="table table-advance" id="example">
@@ -42,62 +41,62 @@ Contents
                         </thead>
                         <tbody>
                             <?php $x = 0; ?>
-                            @foreach($contents as $key=>$content)
+                            <?php $__currentLoopData = $contents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$content): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td><input type="checkbox" name="selected_rows[]" value="{{$content->id}}"
+                                <td><input type="checkbox" name="selected_rows[]" value="<?php echo e($content->id); ?>"
                                         onclick="collect_selected(this)"></td>
-                                <td>{{  $key+1  }}</td>
-                                <td>{{ $content->content_title }}</td>
-                                <td>{{$content->content_type}}</td>
-                                <td>{{$content->internal_coding}}</td>
-                                @if($content->path)
-                                @if(!strcmp($content->content_type,'image'))
+                                <td><?php echo e($key+1); ?></td>
+                                <td><?php echo e($content->content_title); ?></td>
+                                <td><?php echo e($content->content_type); ?></td>
+                                <td><?php echo e($content->internal_coding); ?></td>
+                                <?php if($content->path): ?>
+                                <?php if(!strcmp($content->content_type,'image')): ?>
                                 <td>
-                                    <img src="{{$content->path}}" alt="{{ $content->content_title }}" style="width: 50%">
+                                    <img src="<?php echo e($content->path); ?>" alt="<?php echo e($content->content_title); ?>" style="width: 50%">
                                 </td>
-                                @elseif(!strcmp($content->content_type,'video'))
+                                <?php elseif(!strcmp($content->content_type,'video')): ?>
                                 <td>
-                                    <video class="content_audios" controls >
-                                        <source src="{{$content->path}}">
+                                    <video class="content_audios" controls>
+                                        <source src="<?php echo e($content->path); ?>">
                                         </audio>
                                 </td>
-                                @else
+                                <?php else: ?>
                                 <td>
                                     <audio class="content_audios" controls style="width: 50%">
-                                        <source src="{{$content->path}}">
+                                        <source src="<?php echo e($content->path); ?>">
                                     </audio>
                                 </td>
-                                @endif
-                                @else
+                                <?php endif; ?>
+                                <?php else: ?>
                                 <td>--</td>
-                                @endif
-                                @if($content->occasion)
-                                <td>{!!$content->occasion->title!!}</td>
-                                @else
+                                <?php endif; ?>
+                                <?php if($content->occasion): ?>
+                                <td><?php echo $content->occasion->title; ?></td>
+                                <?php else: ?>
                                 <td>--</td>
-                                @endif
-                                @if($content->provider)
-                                <td>{!!$content->provider->title!!}</td>
-                                @else
+                                <?php endif; ?>
+                                <?php if($content->provider): ?>
+                                <td><?php echo $content->provider->title; ?></td>
+                                <?php else: ?>
                                 <td>--</td>
-                                @endif
+                                <?php endif; ?>
                                 <td class="visible-md visible-lg">
                                     <div class="btn-group">
                                         <a class="btn btn-sm btn-success show-tooltip" title=""
-                                            href="{{url('rbt/excel?content_id='.$content->id)}}"
+                                            href="<?php echo e(url('rbt/excel?content_id='.$content->id)); ?>"
                                             data-original-title="Add Rbt"><i class="fa fa-plus"></i></a>
                                         <a class="btn btn-sm show-tooltip" title=""
-                                            href="{{url('content/'.$content->id.'/edit')}}"
+                                            href="<?php echo e(url('content/'.$content->id.'/edit')); ?>"
                                             data-original-title="Edit"><i class="fa fa-edit"></i></a>
                                         <a class="btn btn-sm btn-danger show-tooltip" title=""
                                             onclick="return confirm('Are you sure you want to delete this ?');"
-                                            href="{{url('content/'.$content->id.'/delete')}}"
+                                            href="<?php echo e(url('content/'.$content->id.'/delete')); ?>"
                                             data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                                     </div>
                                 </td>
                             </tr>
                             <?php $x++; ?>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
                 </div>
@@ -107,12 +106,14 @@ Contents
 </div>
 
 
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script>
 $('#content').addClass('active');
 $('#content-index').addClass('active');
 </script>
 
-@stop
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
