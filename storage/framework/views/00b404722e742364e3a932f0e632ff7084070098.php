@@ -2,8 +2,6 @@
 Contents
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-
-
 <div class="row">
     <div class="col-md-12">
         <div class="box box-blue">
@@ -17,8 +15,8 @@ Contents
             <div class="box-content">
                 <div class="btn-group">
                     <?php if(Auth::user()->hasRole(['super_admin','admin'])): ?>
-                    <a class="btn btn-circle btn-success show-tooltip" href="<?php echo e(url('content/create')); ?>"
-                        title="Create New content" href="#"><i class="fa fa-plus"></i></a>
+                    <!-- <a class="btn btn-circle btn-success show-tooltip" href="<?php echo e(url('content/create')); ?>"
+                        title="Create New content" href="#"><i class="fa fa-plus"></i></a> -->
                     <a id="delete_button" onclick="delete_selected('contents')"
                         class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i
                             class="fa fa-trash-o"></i></a>
@@ -56,7 +54,7 @@ Contents
                                 </td>
                                 <?php elseif(!strcmp($content->content_type,'video')): ?>
                                 <td>
-                                    <video class="content_audios" controls>
+                                    <video class="content_audios" controls >
                                         <source src="<?php echo e($content->path); ?>">
                                         </audio>
                                 </td>

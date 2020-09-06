@@ -74,22 +74,29 @@
                 ajax: "{!! url('rbt/allData') !!}",
                 columns: [
                     {data: "index", searchable: false, orderable: false},
-                    {data: "id"},
-                    {data: "type"},
-                    {data: "track_title_en"},
-                    {data: "code"},
-                    {data: "artist"},
-                    {data: "track_file"},
-                    {data: "operator"},
-                    {data: "occasion_id"},
-                    {data: "content_id"},
-                    {data: "owner"},
-                    {data: "aggregator_id"},
+                    {data: "id",name:"id"},
+                    {data: "type",name:"type"},
+                    {data: "track_title_en",name:"track_title_en"},
+                    {data: "code",name:"code"},
+                    {data: "artist",name:"artist"},
+                    {data: "track_file",name:"track_file"},
+                    {data: "operator",name:"operator"},
+                    {data: "occasion_id",name:"occasion_id"},
+                    {data: "content_id",name:"content_id"},
+                    {data: "owner",name:"owner"},
+                    {data: "aggregator_id",name:"aggregator_id"},
                     {data: "action", searchable: false}
                 ]
                 , "pageLength": 10
             });
         });
+        $(function(){
+        $("audio").on("play", function() {
+            $("audio").not(this).each(function(index, audio) {
+                audio.pause();
+            });
+        });
+    });
     </script>
 
 

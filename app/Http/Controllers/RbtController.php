@@ -62,7 +62,7 @@ class RbtController extends Controller
         $title = 'Index - rbt';
         $rbts = Rbt::all();
 
-        $datatable = Datatables::of($rbts)
+        $datatable = \Datatables::of($rbts)
             ->addColumn('index', function (Rbt $rbt) {
                 return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$rbt->id}}" class="roles" onclick="collect_selected(this)">';
             })
@@ -83,7 +83,7 @@ class RbtController extends Controller
             })
             ->addColumn('track_file', function (Rbt $rbt) {
                 if ($rbt->track_file)
-                    return '<audio class="rbt_audios" controls>
+                    return '<audio class="content_audios" controls>
                                 <source src="'.url($rbt->track_file).'">
                             </audio>';
                 else
@@ -561,6 +561,7 @@ class RbtController extends Controller
                 }
                 elseif (array_search($columns[$index],$rbt_columns))
                 {
+
                     $search_key_value[$columns[$index]] = $item ;
                 }
             }
@@ -581,11 +582,20 @@ class RbtController extends Controller
                 $sign = ">=" ;
                 $index = "created_at" ;
             }
+            elseif($index=="track_title_en")
+            {
+                $sign = "like" ;
+            }
 
             $counter++ ;
             if ($counter == $size)
             {
-                $string_query .= "`rbts`.`$index`"." $sign '$value'" ;
+                if($index=="track_title_en") {
+                    $string_query .= "`rbts`.`$index`"." $sign '%$value%'" ;
+                } else {
+                    $string_query .= "`rbts`.`$index`"." $sign '$value'" ;
+                }
+
             }
             else
             {
