@@ -493,7 +493,9 @@ class RbtController extends Controller
         if ($request->aggregator_id != "") {
             $rbt->aggregator_id = $request->aggregator_id;
         }
-
+        if ($request->content_id != "") {
+            $rbt->content_id = $request->content_id;
+        }
 
         $rbt->save();
 
