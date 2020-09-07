@@ -1,11 +1,8 @@
-
-
-@extends('template')
-@section('page_title')
+<?php $__env->startSection('page_title'); ?>
     Contents
-@stop
-@section('content')
-    @include('errors')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+    <?php echo $__env->make('errors', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <div class="row">
         <div class="col-md-12">
             <div class="box">
@@ -17,51 +14,52 @@
                     </div>
                 </div>
                 <div class="box-content">
-                    <form method = 'POST' class="form-horizontal" action = '{!! url("content")!!}/{!!$content->id!!}/update' enctype="multipart/form-data">
-                        <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
+                    <form method = 'POST' class="form-horizontal" action = '<?php echo url("content"); ?>/<?php echo $content->id; ?>/update' enctype="multipart/form-data">
+                        <input type = 'hidden' name = '_token' value = '<?php echo e(Session::token()); ?>'>
                         <input type = 'hidden' name = '_method' value = 'patch'>
                         <div class="form-group">
                             <label class="col-sm-3 col-lg-2 control-label"  for="track_title_en">Content Title *</label>
                              <div class="col-sm-9 col-lg-10 controls">
-                            <input id="content_title" name = "content_title" value="{{$content->content_title}}" type="text" class="form-control input-lg" required>
+                            <input id="content_title" name = "content_title" value="<?php echo e($content->content_title); ?>" type="text" class="form-control input-lg" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 col-lg-2 control-label"  for="code">content Type *</label>
                              <div class="col-sm-9 col-lg-10 controls">
-                                 {!! Form::select('content_type', ['image'=>'image','video' =>'video','audio' => 'audio'], $content->content_type, ['class' => 'form-control input-lg' , 'required' => 'required']) !!}
+                                 <?php echo Form::select('content_type', ['image'=>'image','video' =>'video','audio' => 'audio'], $content->content_type, ['class' => 'form-control input-lg' , 'required' => 'required']); ?>
+
                             </div>
                         </div>
-                        @if($content->path)
-                            @if(file_exists($content->path))
-                                @if(!strcmp($content->content_type,'audio'))
+                        <?php if($content->path): ?>
+                            <?php if(file_exists($content->path)): ?>
+                                <?php if(!strcmp($content->content_type,'audio')): ?>
                                 <div class="form-group">
                                     <label class="col-sm-3 col-lg-2 control-label">Track </label>
                                     <div class="col-sm-9 col-lg-10 controls">
                                         <audio controls>
-                                            <source src="{{$content->path}}" width="100%" type="audio/ogg">
+                                            <source src="<?php echo e($content->path); ?>" width="100%" type="audio/ogg">
                                         </audio>
                                     </div>
                                 </div>
-                                @elseif(!strcmp($content->content_type,'video'))
+                                <?php elseif(!strcmp($content->content_type,'video')): ?>
                                 <div class="form-group">
                                     <label class="col-sm-3 col-lg-2 control-label">Track </label>
                                     <div class="col-sm-9 col-lg-10 controls">
                                         <video controls>
-                                            <source src="{{$content->path}}" width="100%" type="audio/ogg">
+                                            <source src="<?php echo e($content->path); ?>" width="100%" type="audio/ogg">
                                         </video>
                                     </div>
                                 </div>
-                                @else
+                                <?php else: ?>
                                 <div class="form-group">
                                     <label class="col-sm-3 col-lg-2 control-label">Track </label>
                                     <div class="col-sm-9 col-lg-10 controls">
-                                        <img src="{{$content->path}}" width="100%" controls>
+                                        <img src="<?php echo e($content->path); ?>" width="100%" controls>
                                     </div>
                                 </div>
-                                @endif
-                            @endif
-                        @endif
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
                         <div class="form-group">
                           <label class="col-sm-3 col-lg-2 control-label">Track file</label>
                           <div class="col-sm-9 col-lg-10 controls">
@@ -89,9 +87,9 @@
                             <div class="col-sm-9 col-lg-10 controls">
                                 <select class="form-control chosen" data-placeholder="Choose a Occasion" name="occasion_id" tabindex="1" required>
                                 <option value=""></option>
-                                @foreach($occasions as $key => $value)
-                                    <option value="{{$key}}" {{($content->occasion_id == $key) ? 'selected' : ''}}>{{$value}}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $occasions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($key); ?>" <?php echo e(($content->occasion_id == $key) ? 'selected' : ''); ?>><?php echo e($value); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                         </div>
@@ -102,9 +100,9 @@
                             <div class="col-sm-9 col-lg-10 controls">
                                 <select class="form-control chosen" data-placeholder="Choose a provider" name="provider_id" tabindex="1" >
                                     <option value=""></option>
-                                    @foreach($providers as $key => $value)
-                                        <option value="{{$key}}" {{($content->provider_id == $key) ? 'selected' : ''}}>{{$value}}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $providers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($key); ?>" <?php echo e(($content->provider_id == $key) ? 'selected' : ''); ?>><?php echo e($value); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                         </div>
@@ -121,11 +119,13 @@
 
     </div>
 
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
     <script>
         $('#content').addClass('active');
         $('#content-create').addClass('active');
     </script>
-@stop
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

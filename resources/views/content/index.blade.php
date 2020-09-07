@@ -3,6 +3,9 @@
 Contents
 @stop
 @section('content')
+
+
+
 <div class="row">
     <div class="col-md-12">
         <div class="box box-blue">
@@ -24,9 +27,9 @@ Contents
                     @endif
                 </div><br><br>
                 <div class="table-responsive" style="border:0">
-                    <table class="table table-advance" id="example">
+                    <table class="table table-advance data_content">
                         <thead>
-                            <tr>
+                        <tr>
                                 <th style="width:18px"><input type="checkbox" /></th>
                                 <th>id</th>
                                 <th>Content Title</th>
@@ -39,63 +42,7 @@ Contents
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $x = 0; ?>
-                            @foreach($contents as $key=>$content)
-                            <tr>
-                                <td><input type="checkbox" name="selected_rows[]" value="{{$content->id}}"
-                                        onclick="collect_selected(this)"></td>
-                                <td>{{  $key+1  }}</td>
-                                <td>{{ $content->content_title }}</td>
-                                <td>{{$content->content_type}}</td>
-                                <td>{{$content->internal_coding}}</td>
-                                @if($content->path)
-                                @if(!strcmp($content->content_type,'image'))
-                                <td>
-                                    <img src="{{$content->path}}" alt="{{ $content->content_title }}" style="width: 50%">
-                                </td>
-                                @elseif(!strcmp($content->content_type,'video'))
-                                <td>
-                                    <video class="content_audios" controls >
-                                        <source src="{{$content->path}}">
-                                        </audio>
-                                </td>
-                                @else
-                                <td>
-                                    <audio class="content_audios" controls style="width: 50%">
-                                        <source src="{{$content->path}}">
-                                    </audio>
-                                </td>
-                                @endif
-                                @else
-                                <td>--</td>
-                                @endif
-                                @if($content->occasion)
-                                <td>{!!$content->occasion->title!!}</td>
-                                @else
-                                <td>--</td>
-                                @endif
-                                @if($content->provider)
-                                <td>{!!$content->provider->title!!}</td>
-                                @else
-                                <td>--</td>
-                                @endif
-                                <td class="visible-md visible-lg">
-                                    <div class="btn-group">
-                                        <a class="btn btn-sm btn-success show-tooltip" title=""
-                                            href="{{url('rbt/excel?content_id='.$content->id)}}"
-                                            data-original-title="Add Rbt"><i class="fa fa-plus"></i></a>
-                                        <a class="btn btn-sm show-tooltip" title=""
-                                            href="{{url('content/'.$content->id.'/edit')}}"
-                                            data-original-title="Edit"><i class="fa fa-edit"></i></a>
-                                        <a class="btn btn-sm btn-danger show-tooltip" title=""
-                                            onclick="return confirm('Are you sure you want to delete this ?');"
-                                            href="{{url('content/'.$content->id.'/delete')}}"
-                                            data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php $x++; ?>
-                            @endforeach
+
                         </tbody>
                     </table>
                 </div>
@@ -111,6 +58,67 @@ Contents
 <script>
 $('#content').addClass('active');
 $('#content-index').addClass('active');
-</script>
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+        }
+    });
+    $(document).ready(function() {
+        $('.data_content').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "search": {
+                "regex": true
+            },
+            ajax: "{!! url('content/allData') !!}",
+            columns: [{
+                    data: "index",
+                    searchable: false,
+                    orderable: false
+                },
+                {
+                    data: "id",
+                    name: "id"
+                },
+                {
+                    data: "content_title",
+                    name: "content_title"
+                },
+                {
+                    data: "content_type",
+                    name: "content_type"
+                },
+                {
+                    data: "internal_coding",
+                    name: "internal_coding"
+                },
+                {
+                    data: "path",
+                    name: "path"
+                },
+                {
+                    data: "occasion",
+                    name: "occasion"
+                },
+                {
+                    data: "provider",
+                    name: "provider"
+                },
+                {
+                    data: "action",
+                    searchable: false
+                }
+            ],
+            "pageLength": 10
+        });
+    });
+        $(document).ajaxComplete(function() {
+        $("audio").on("play", function() {
+            $("audio").not(this).each(function(index, audio) {
+                audio.pause();
+            });
+        });
+    });
+</script>
 @stop

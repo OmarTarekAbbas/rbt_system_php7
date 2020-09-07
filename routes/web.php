@@ -173,7 +173,7 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
 
     Route::resource('department','DepartmentController');
     Route::get('department/{id}/delete','DepartmentController@destroy');
-    Route::resource('content','ContentController');
+    //Route::resource('content','ContentController');
     Route::get('contents/excel','ContentController@create_excel');
     Route::post('contents/excel','ContentController@excel_store');
     Route::get('content/{id}/delete','ContentController@destroy');
@@ -181,6 +181,14 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::get('contents/file_system','ContentController@list_file_system') ;
     Route::get('contents/upload_tracks','ContentController@multi_upload') ;
     Route::post('contents/save_tracks','ContentController@save_tracks');
+    Route::get('content/allData', 'ContentController@allData');
+    Route::get('content', 'ContentController@index');
+    Route::get('content/{id}/delete', 'ContentController@destroy');
+    Route::get('content/{id}/edit', 'ContentController@edit');
+    Route::PATCH('content/{id}/update', 'ContentController@update');
+    Route::get('content/create', 'ContentController@create');
+    Route::post('content', 'ContentController@store');
+
 });
 
 

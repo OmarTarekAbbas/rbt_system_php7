@@ -60,14 +60,22 @@ class RbtController extends Controller
     public function allData(Request $request)
     {
         $title = 'Index - rbt';
-        $rbts = Rbt::all();
+        // $rbts = Rbt::all();
+
+        $rbts = Rbt::select('*','rbts.id AS rbt_id','providers.title as provider','occasions.title as occasion','operators.title as operator','aggregators.title as aggregator','contents.content_title as content')
+        ->leftjoin('providers','providers.id','=','rbts.provider_id')
+        ->leftjoin('occasions','occasions.id','=','rbts.occasion_id')
+        ->leftjoin('operators','operators.id','=','rbts.operator_id')
+        ->leftjoin('aggregators','aggregators.id','=','rbts.aggregator_id')
+        ->leftjoin('contents','contents.id','=','rbts.content_id')
+        ->get();
 
         $datatable = \Datatables::of($rbts)
             ->addColumn('index', function (Rbt $rbt) {
                 return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$rbt->id}}" class="roles" onclick="collect_selected(this)">';
             })
             ->addColumn('id', function (Rbt $rbt) {
-                return $rbt->id;
+                return $rbt->rbt_id;
             })
             ->addColumn('type', function (Rbt $rbt) {
                 return $rbt->type ? 'NEW' : 'OLD';
@@ -78,29 +86,30 @@ class RbtController extends Controller
             ->addColumn('code', function (Rbt $rbt) {
                 return $rbt->code;
             })
-            ->addColumn('artist', function (Rbt $rbt) {
-                return ($rbt->provider->title) ? $rbt->provider->title : "--";
+            ->addColumn('provider', function (Rbt $rbt) {
+                return ($rbt->provider) ? $rbt->provider : "--";
             })
             ->addColumn('track_file', function (Rbt $rbt) {
                 if ($rbt->track_file)
-                    return '<audio class="content_audios" controls>
+                    return '<audio class="content_audios" onclick="myFunction()" controls>
                                 <source src="'.url($rbt->track_file).'">
-                            </audio>';
+                            </audio>
+                            ';
                 else
                     return '--';
             })
             ->addColumn('operator', function (Rbt $rbt) {
-                return $rbt->operator->title;
+                return $rbt->operator;
             })
-            ->addColumn('occasion_id', function (Rbt $rbt) {
+            ->addColumn('occasion', function (Rbt $rbt) {
                 if ($rbt->occasion_id)
-                    return $rbt->occasion->title;
+                    return $rbt->occasion;
                 else
                     return '--';
             })
-            ->addColumn('content_id', function (Rbt $rbt) {
+            ->addColumn('content', function (Rbt $rbt) {
                 if ($rbt->content_id)
-                    return $rbt->content->content_title;
+                    return $rbt->content;
                 else
                     return '--';
             })
@@ -110,9 +119,9 @@ class RbtController extends Controller
                 else
                     return '--';
             })
-            ->addColumn('aggregator_id', function (Rbt $rbt) {
+            ->addColumn('aggregator', function (Rbt $rbt) {
                 if ($rbt->aggregator_id)
-                    return $rbt->aggregator->title;
+                    return $rbt->aggregator;
                 else
                     return '--';
             })
