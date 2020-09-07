@@ -129,8 +129,8 @@ class RbtController extends Controller
                 if (Auth::user()->hasRole(['super_admin', 'admin']))
                     return '<td class="visible-md visible-lg">
                             <div class="btn-group">
-                                <a class="btn btn-sm show-tooltip" href="' . url("rbt/" . $rbt->id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("rbt/" . $rbt->id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
+                                <a class="btn btn-sm show-tooltip" href="' . url("rbt/" . $rbt->rbt_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("rbt/" . $rbt->rbt_id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
                             </div>
                         </td>';
             })
