@@ -49,7 +49,7 @@ class ContentController extends Controller
             })
             ->addColumn('path', function (Content $content) {
                 if ($content->path)
-                    return '<audio class="content_audios" id="parent" controls>
+                    return '<audio class="content_audios" controls>
                                 <source src="' . url($content->path) . '">
                             </audio>';
                 else

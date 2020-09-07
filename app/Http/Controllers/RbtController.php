@@ -91,7 +91,7 @@ class RbtController extends Controller
             })
             ->addColumn('track_file', function (Rbt $rbt) {
                 if ($rbt->track_file)
-                    return '<audio class="content_audios" onclick="myFunction()" controls>
+                    return '<audio class="content_audios" controls>
                                 <source src="'.url($rbt->track_file).'">
                             </audio>
                             ';
