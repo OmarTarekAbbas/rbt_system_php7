@@ -21,7 +21,9 @@ RBTs
                     <a class="btn btn-circle btn-success show-tooltip" href="{{url('rbt/create')}}" title="Create New Rbt" href="#"><i class="fa fa-plus"></i></a>
                     <a id="delete_button" onclick="delete_selected('rbts')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
                     @endif
-                </div><br><br>
+                </div>
+                <br>
+                <br>
                 <div class="table-responsive" style="border:0">
                     <table class="table table-advance data_rbt">
                         <thead>

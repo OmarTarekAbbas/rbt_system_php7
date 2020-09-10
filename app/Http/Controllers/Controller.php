@@ -55,4 +55,22 @@ class Controller extends BaseController
             unlink($image_path) ;
         }
     }
+
+    public function __construct()
+	{
+
+		//$this->middleware('ipblocked');
+		$driver             = config('database.default');
+        $database           = config('database.connections');
+
+        $this->db           = $database[$driver]['database'];
+        $this->dbuser       = $database[$driver]['username'];
+        $this->dbpass       = $database[$driver]['password'];
+        $this->dbhost       = $database[$driver]['host'];
+
+        // Load Sximo Config
+        $sximo 	= config('sximo');
+        $this->config = $sximo ;
+        $this->data['sximoconfig'] = $sximo ;
+	}
 }

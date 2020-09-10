@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleHasPermissionsTableSeeder::class);
         $this->call(CountriesTableSeeder::class);
         $this->call(OperatorsTableSeeder::class);
+        $this->call(OperatorsTableSeeder::class);
+        //$this->call(TbModuleTableSeeder::class);
     }
 }
