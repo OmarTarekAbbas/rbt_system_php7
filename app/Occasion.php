@@ -13,9 +13,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Occasion extends Model
 {
-	
-	
+
+
     protected $table = 'occasions';
-    protected $fillable = ['title'];
-	
+    protected $fillable = ['title','country_id'];
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
 }

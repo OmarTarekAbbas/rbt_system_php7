@@ -471,4 +471,10 @@ class ContentController extends Controller
     {
         return view('content.file_system');
     }
+
+    public function getContents($provider_id)
+    {
+        $contents = Content::where('provider_id',$provider_id)->get();
+        return $contents;
+    }
 }

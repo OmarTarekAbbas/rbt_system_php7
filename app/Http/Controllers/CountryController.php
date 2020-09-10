@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Country;
 use Amranidev\Ajaxis\Ajaxis;
+use App\Occasion;
+use App\Operator;
 use URL;
 use Validator;
 /**
@@ -37,7 +39,7 @@ class CountryController extends Controller
     public function create()
     {
         $title = 'Create - country';
-        
+
         return view('country.create');
     }
 
@@ -52,20 +54,20 @@ class CountryController extends Controller
         $validator = Validator::make($request->all(),[
                 'title' => 'required|unique:countries,title'
             ]);
-        
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
         $country = new Country();
 
-        
+
         $country->title = $request->title;
 
-        
-        
+
+
         $country->save();
-        
+
         $request->session()->flash('success', 'Created successfuly');
 
         return back();
@@ -84,16 +86,16 @@ class CountryController extends Controller
         $validator = Validator::make($request->all(),[
                 'title' => 'required|unique:countries,title,'.$request->country_id
             ]);
-        
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
         $country = Country::findOrfail($request->country_id);
-    	
+
         $country->title = $request->title;
-        
-        
+
+
         $country->save();
 
         $request->session()->flash('success', 'Updated successfuly');
@@ -114,5 +116,17 @@ class CountryController extends Controller
         $request->session()->flash('success', 'Deleted successfuly');
 
         return back();
+    }
+
+    public function getOperators($country_id)
+    {
+        $operators = Operator::where('country_id',$country_id)->get();
+        return $operators;
+    }
+
+    public function getOccasions($country_id)
+    {
+        $occasions = Occasion::where('country_id',$country_id)->get();
+        return $occasions;
     }
 }

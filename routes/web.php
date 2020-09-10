@@ -209,3 +209,8 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin|account']],function
   Route::get('report/search','ReportController@search') ;
   Route::post('report/search','ReportController@search_result');
 });
+
+Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
+    Route::resource('roadmaps','RoadMapController',['as' => 'admin']);
+    Route::get('roadmaps/calendar/index','RoadMapController@calendarIndex')->name('admin.roadmaps.calendar.index');
+});

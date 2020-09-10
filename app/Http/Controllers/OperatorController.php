@@ -152,4 +152,5 @@ class OperatorController extends Controller
 
         return back();
     }
+
 }

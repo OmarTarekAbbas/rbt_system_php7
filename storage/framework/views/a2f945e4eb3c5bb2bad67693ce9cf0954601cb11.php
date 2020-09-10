@@ -1,13 +1,13 @@
-@extends('template')
-@section('page_title')
+<?php $__env->startSection('page_title'); ?>
     Occasions
-@stop
-@section('content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
 <div class="modal fade" id="SenderModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form method = 'POST' action = "{{url('occasion')}}" class="form-horizontal">
-      {{ csrf_field() }}
+      <form method = 'POST' action = "<?php echo e(url('occasion')); ?>" class="form-horizontal">
+      <?php echo e(csrf_field()); ?>
+
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Add Occasion</h4>
@@ -16,7 +16,8 @@
         <div class="form-group">
             <label for="country_id" class="col-xs-3 col-lg-2 control-label">Country</label>
             <div class="col-sm-9 col-lg-10 controls">
-                {!! Form::select('country_id',$countries,null,['class'=>'form-control chosen-rtl' , 'id' => 'country_id' ,'required' => true,'style'=>'height: 48px;'])!!}
+                <?php echo Form::select('country_id',$countries,null,['class'=>'form-control chosen-rtl' , 'id' => 'country_id' ,'required' => true,'style'=>'height: 48px;']); ?>
+
             </div>
         </div>
         <div class="form-group">
@@ -40,8 +41,9 @@
 <div class="modal fade" id="editoccasion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form method = 'POST' action = "{{url('occasion/update')}}" class="form-horizontal">
-      {{ csrf_field() }}
+      <form method = 'POST' action = "<?php echo e(url('occasion/update')); ?>" class="form-horizontal">
+      <?php echo e(csrf_field()); ?>
+
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Update Occasion</h4>
@@ -50,7 +52,8 @@
         <div class="form-group">
             <label for="country_id" class="col-xs-3 col-lg-2 control-label">Country</label>
             <div class="col-sm-9 col-lg-10 controls">
-                {!! Form::select('country_id',$countries,null,['class'=>'form-control chosen-rtl' , 'id' => 'country_id' ,'required' => true,'style'=>'height: 48px;'])!!}
+                <?php echo Form::select('country_id',$countries,null,['class'=>'form-control chosen-rtl' , 'id' => 'country_id' ,'required' => true,'style'=>'height: 48px;']); ?>
+
             </div>
         </div>
         <div class="form-group">
@@ -70,15 +73,15 @@
   </div>
 </div>
 
-@if (count($errors) > 0)
+<?php if(count($errors) > 0): ?>
     <div class="alert alert-danger">
         <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
+            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li><?php echo e($error); ?></li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </ul>
     </div>
-@endif
+<?php endif; ?>
 <!-- BEGIN Main Content -->
 <div class="row">
     <div class="col-md-12">
@@ -91,7 +94,7 @@
                 </div>
             </div>
             <div class="box-content">
-                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                <?php if(Auth::user()->hasAnyRole(['super_admin','admin'])): ?>
                 <div class="btn-toolbar pull-right clearfix">
                     <div class="btn-group">
                         <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
@@ -103,7 +106,7 @@
                         <input id="search" type="text" placeholder="Search" class="form-control input-sm" table_name="occasions"/>
                     </div>
                 </div>
-                @endif
+                <?php endif; ?>
                 <br/><br/>
                 <div class="clearfix"></div>
 
@@ -114,29 +117,30 @@
                                 <th style="width:18px"><input type="checkbox" /></th>
                                 <th class="search">Title</th>
                                 <th class="search">Country</th>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                                <?php if(Auth::user()->hasAnyRole(['super_admin','admin'])): ?>
                                 <th>Delete</th>
-                                @endif
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($occasions as $occasion)
+                        <?php $__currentLoopData = $occasions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $occasion): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr class="table-flag-blue">
                                 <td><input type="checkbox" /></td>
-                                <td >{!!$occasion->title!!}</td>
-                                <td >{!!$occasion->country->title!!}</td>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                                <td ><?php echo $occasion->title; ?></td>
+                                <td ><?php echo $occasion->country->title; ?></td>
+                                <?php if(Auth::user()->hasAnyRole(['super_admin','admin'])): ?>
                                <td>
-                                <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" ><i id="{{$occasion->id}}" class="fa fa-edit"></i></a>
-                                <a class="btn btn-sm btn-danger show-tooltip" title=""   onclick="return confirm('Are you sure you want to delete {{ $occasion->title }} ?')"     href="{{url('/occasion/'.$occasion->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                                <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" ><i id="<?php echo e($occasion->id); ?>" class="fa fa-edit"></i></a>
+                                <a class="btn btn-sm btn-danger show-tooltip" title=""   onclick="return confirm('Are you sure you want to delete <?php echo e($occasion->title); ?> ?')"     href="<?php echo e(url('/occasion/'.$occasion->id.'/delete')); ?>" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                                 </td>
-                               @endif
+                               <?php endif; ?>
                             </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
                     <div class="pull-right" id="pageination">
-                        {{ $occasions->render() }}
+                        <?php echo e($occasions->render()); ?>
+
                     </div>
                     <div class="pull-right" id="pageination1">
 
@@ -147,8 +151,8 @@
     </div>
 </div>
 <!-- END Main Content -->
-@endsection
-@section('script')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
         <script>
             // $('#audience').addClass('active');
             function ConfirmDelete()
@@ -187,7 +191,7 @@
                     var v= $(this).html();
                     columns.push(v);
                 });
-                $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+                $.ajaxSetup({ headers: { 'csrftoken' : '<?php echo e(csrf_token()); ?>' } });
                 $.ajax({
                     method: "get",
                     url: "<?=url('search')?>",
@@ -218,4 +222,6 @@
             });
 
         </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
