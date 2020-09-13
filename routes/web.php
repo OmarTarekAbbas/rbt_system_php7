@@ -192,6 +192,9 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::post('content', 'ContentController@store');
     // Start Routes for fullcontracts
     Route::resource('fullcontracts', 'FullcontractsController');
+    Route::get('fullcontracts/{id}/delete', 'FullcontractsController@destroy');
+    Route::get('/client_type', 'FullcontractsController@getClient');
+
     // End Routes for fullcontracts
 
 });

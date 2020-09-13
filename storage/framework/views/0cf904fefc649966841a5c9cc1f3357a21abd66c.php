@@ -60,7 +60,7 @@ Contract
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Label <span class="asterix"> * </span> </label>
-                                    <input type='text' name='contract_label' id='contract_label' value='' required class='form-control' />
+                                    <input type='text' name='contract_label' value="<?php echo e($contract->contract_label); ?>" id='contract_label' value='' required class='form-control' />
                                 </div>
 
                                 <div class="form-group  ">
@@ -68,15 +68,15 @@ Contract
                                     <select name='first_party_id' rows='5' id='first_party_id' class='select2 ' required>
                                         <option value="">-- Please Select --</option>
                                         <?php $__currentLoopData = $first_parties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $first_partie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($first_partie->first_party_id); ?>"><?php echo e($first_partie->first_party_title); ?></option>
+                                        <option value="<?php echo e($first_partie->first_party_id); ?>" <?php if($contract->first_party_id==$first_partie->first_party_id): ?> selected="selected" <?php endif; ?>><?php echo e($first_partie->first_party_title); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> First Party ? <span class="asterix"> * </span> </label>
-                                    <input type="checkbox" class="radio_check" value="1" checked="checked" name='first_party_select' /> Yes
-                                    <input type="checkbox" class="radio_check" value="0" name='first_party_select' /> No
+                                    <input type="checkbox" class="radio_check" value="1"  name='first_party_select'  <?php if($contract->first_party_select): ?> checked="checked" <?php endif; ?> /> Yes
+                                    <input type="checkbox" class="radio_check" value="0" name='first_party_select' <?php if(!$contract->first_party_select): ?> checked="checked" <?php endif; ?>  /> No
                                 </div>
 
                                 <div class="form-group  ">
@@ -84,21 +84,21 @@ Contract
                                     <select name='first_party_percentage' rows='5' id='first_party_percentage' class='select2 ' required>
                                         <option value="">-- Please Select --</option>
                                         <?php $__currentLoopData = $percentages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $percentage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($percentage->id); ?>"><?php echo e($percentage->percentage); ?></option>
+                                        <option value="<?php echo e($percentage->id); ?>" <?php if($contract->first_party_percentage==$percentage->id): ?> selected="selected" <?php endif; ?>><?php echo e($percentage->percentage); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Copies <span class="asterix"> * </span> </label>
-                                    <input type="checkbox" class="radio_check" checked="checked" value="1" name='copies' /> 1 Copy
-                                    <input type="checkbox" class="radio_check" value="2" name='copies' /> 2 Copy
-                                    <input type="checkbox" class="radio_check" value="3" name='copies' /> 3 Copy
+                                    <input type="checkbox" class="radio_check" value="1" name='copies' <?php if($contract->copies == 1): ?> checked="checked" <?php endif; ?> /> 1 Copy
+                                    <input type="checkbox" class="radio_check" value="2" name='copies' <?php if($contract->copies == 2): ?> checked="checked" <?php endif; ?> /> 2 Copy
+                                    <input type="checkbox" class="radio_check" value="3" name='copies' <?php if($contract->copies == 3): ?> checked="checked" <?php endif; ?> /> 3 Copy
                                 </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Pages <span class="asterix"> * </span> </label>
-                                    <input type='text' name='pages' id='pages' value='' required class='form-control form-control-sm ' />
+                                    <input type='text' name='pages' id='pages' value='<?php echo e($contract->pages); ?>' required class='form-control form-control-sm ' />
                                 </div>
 
                             </section>
@@ -109,7 +109,7 @@ Contract
                                     <select name='service_type_id' rows='5' id='service_type_id' class='select2 ' required>
                                         <option value="">-- Please Select --</option>
                                         <?php $__currentLoopData = $service_types; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service_type): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($service_type->id); ?>"><?php echo e($service_type->service_type_title); ?></option>
+                                        <option value="<?php echo e($service_type->id); ?>" <?php if($contract->service_type_id==$service_type->id): ?> selected="selected" <?php endif; ?>><?php echo e($service_type->service_type_title); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
@@ -119,7 +119,7 @@ Contract
                                     <select name='second_party_type_id' rows='5' id='second_party_type_cli' class="form-control" required>
                                         <option value="">-- Please Select --</option>
                                         <?php $__currentLoopData = $second_partys; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $second_party): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($second_party->id); ?>"><?php echo e($second_party->second_party_type_title); ?></option>
+                                        <option value="<?php echo e($second_party->id); ?>" <?php if($contract->second_party_type_id==$second_party->id): ?> selected="selected" <?php endif; ?> ><?php echo e($second_party->second_party_type_title); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
@@ -167,22 +167,22 @@ Contract
                                     <select name='contract_duration_id' rows='5' id='contract_duration_id' class='select2 ' required>
                                     <option value="">-- Please Select --</option>
                                         <?php $__currentLoopData = $contract_durations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $contract_duration): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($contract_duration->contract_duration_id); ?>"><?php echo e($contract_duration->contract_duration_title); ?></option>
+                                        <option value="<?php echo e($contract_duration->contract_duration_id); ?>" <?php if($contract->contract_duration_id==$contract_duration->contract_duration_id): ?> selected="selected" <?php endif; ?>><?php echo e($contract_duration->contract_duration_title); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Renewal Status <span class="asterix"> * </span> </label>
-                                    <input type="checkbox" class="radio_check" value="1" checked="checked" name='renewal_status' /> AR
-                                    <input type="checkbox" class="radio_check" value="1" name='renewal_status' /> No
-                                    <input type="checkbox" class="radio_check" value="1" name='renewal_status' /> RBAO
+                                    <input type="checkbox" class="radio_check" value="1" name='renewal_status' <?php if($contract->renewal_status == 1): ?> checked="checked" <?php endif; ?> /> AR
+                                    <input type="checkbox" class="radio_check" value="0" name='renewal_status' <?php if($contract->renewal_status == 0): ?> checked="checked" <?php endif; ?> /> No
+                                    <input type="checkbox" class="radio_check" value="2" name='renewal_status' <?php if($contract->renewal_status == 2): ?> checked="checked" <?php endif; ?> /> RBAO
                                 </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Contract Status <span class="asterix"> * </span> </label>
-                                    <input type="checkbox" class="radio_check" value="1" checked="checked" name='contract_status' /> Active
-                                    <input type="checkbox" class="radio_check" value="1" name='contract_status' /> Terminated
+                                    <input type="checkbox" class="radio_check" value="1" name='contract_status' <?php if($contract->contract_status == 1): ?> checked="checked" <?php endif; ?> /> Active
+                                    <input type="checkbox" class="radio_check" value="0" name='contract_status' <?php if($contract->contract_status == 0): ?> checked="checked" <?php endif; ?> /> Terminated
                                 </div>
 
                                 <div class="form-group  ">
@@ -209,7 +209,7 @@ Contract
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Notes </label>
-                                    <textarea name='contract_notes' rows='5' id='contract_notes' class='form-control form-control-sm '></textarea>
+                                    <textarea name='contract_notes' value='<?php echo e($contract->contract_notes); ?>' rows='5' id='contract_notes' class='form-control form-control-sm '></textarea>
                                 </div>
                             </section>
                         </div>
@@ -218,9 +218,6 @@ Contract
                 </div>
             </form>
             <script type="text/javascript">
-                $(document).ready(function() {
-
-                });
                 $(".submitted-button").hide()
                 $("#wizard-step").steps({
                     headerTag: "h3",
