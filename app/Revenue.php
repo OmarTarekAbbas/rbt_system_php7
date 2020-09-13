@@ -19,6 +19,11 @@ class Revenue extends Model
         return $this->belongsTo('App\Currency');
     }
 
+    public function serivce_type()
+    {
+        return $this->belongsTo('App\ServiceTypes');
+    }
+
     public function source()
     {
         $source_type = $this->source_type;
@@ -35,6 +40,15 @@ class Revenue extends Model
         switch ($value){
             case 1: return 'Operator';
             case 2: return 'Aggregator';
+            default: return 'Error';
+        }
+    }
+
+    public function getIsCollectedAttribute($value)
+    {
+        switch ($value){
+            case 1: return 'Yes';
+            case 2: return 'No';
             default: return 'Error';
         }
     }

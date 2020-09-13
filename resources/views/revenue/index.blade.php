@@ -40,10 +40,10 @@
                                         <td>{{$revenue->year}}</td>
                                         <td>{{$revenue->month}}</td>
                                         <td>{{$revenue->source_type}}</td>
-                                        <td>{{optional($revenue->source)->title}}</td>
+                                        <td>{{optional($revenue->source)->title ?? optional($revenue->source)->second_party_title}}</td>
                                         <td>{{$revenue->amount}}</td>
                                         <td>{{optional($revenue->currency)->title}}</td>
-                                        <td>{{$revenue->serivce_type_id}}</td>
+                                        <td>{{optional($revenue->serivce_type)->service_type_title}}</td>
                                         <td>{{$revenue->is_collected}}</td>
 										<td class="visible-md visible-lg">
 											<div class="btn-group">
