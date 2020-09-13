@@ -51,7 +51,6 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::resource('aggregator', '\App\Http\Controllers\AggregatorController');
 });
 
-
 // aggregators admin routes
 Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::post('aggregator', '\App\Http\Controllers\AggregatorController@store');
@@ -212,4 +211,16 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin|account']], funct
     Route::get('report', '\App\Http\Controllers\ReportController@index');
     Route::get('report/search', 'ReportController@search');
     Route::post('report/search', 'ReportController@search_result');
+});
+
+
+// aggregators view routes
+Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
+    //currency
+    Route::get('currency', 'CurrencyController@index');
+    Route::post('currency', 'CurrencyController@store');
+    Route::post('currency/update', 'CurrencyController@update');
+    Route::get('currency/{id}/delete', 'CurrencyController@destroy');
+
+    //
 });

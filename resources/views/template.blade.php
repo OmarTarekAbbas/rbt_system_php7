@@ -290,6 +290,20 @@
                 <!-- END Submenu -->
             </li>
 
+            <li id="currency">
+                <a href="#" class="dropdown-toggle">
+                    <i class="glyphicon glyphicon-cog"></i>
+                    <span>Currency</span>
+                    <b class="arrow fa fa-angle-right"></b>
+                </a>
+
+                <!-- BEGIN Submenu -->
+                <ul class="submenu">
+                    <li id="currency-index"><a href="{{url('currency')}}">Currency</a></li>
+                </ul>
+                <!-- END Submenu -->
+            </li>
+
             <li id="provider">
                 <a href="#" class="dropdown-toggle">
                     <i class="glyphicon glyphicon-heart-empty"></i>
