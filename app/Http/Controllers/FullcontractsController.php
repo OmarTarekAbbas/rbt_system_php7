@@ -13,7 +13,7 @@ class FullcontractsController extends Controller
     {
         $contracts = Contract::all();
         //dd($contract);
-        return view('fullcontracts.index',compact("contracts"));
+        return view('fullcontracts.index', compact("contracts"));
     }
 
     public function show($id)
@@ -21,6 +21,15 @@ class FullcontractsController extends Controller
         $contract = Contract::find($id);
         //dd($contract);
         return view('fullcontracts.view', compact('contract'));
+    }
 
+    public function create()
+    {
+        return view('fullcontracts.create');
+    }
+
+    public function store()
+    {
+        dd("omar");
     }
 }
