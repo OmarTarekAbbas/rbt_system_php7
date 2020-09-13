@@ -222,5 +222,6 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::post('currency/update', 'CurrencyController@update');
     Route::get('currency/{id}/delete', 'CurrencyController@destroy');
 
-    //
+    //Revenue
+    Route::resource('revenue', 'RevenueController');
 });

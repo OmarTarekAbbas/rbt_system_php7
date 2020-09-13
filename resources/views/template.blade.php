@@ -413,6 +413,20 @@
                 <!-- END Submenu -->
             </li>
 
+            <li id="revenue">
+                <a href="#" class="dropdown-toggle">
+                    <i class="glyphicon glyphicon-cog"></i>
+                    <span>Revenue</span>
+                    <b class="arrow fa fa-angle-right"></b>
+                </a>
+
+                <!-- BEGIN Submenu -->
+                <ul class="submenu">
+                    <li id="revenue-index"><a href="{{url('revenue')}}">Revenue</a></li>
+                </ul>
+                <!-- END Submenu -->
+            </li>
+
         </ul>
         <!-- END Navlist -->
 
