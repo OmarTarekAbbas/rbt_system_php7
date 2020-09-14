@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Content;
 use App\Occasion;
 use App\Provider;
+use App\Rbt;
 
 class ContentController extends Controller
 {
@@ -476,5 +477,10 @@ class ContentController extends Controller
     {
         $contents = Content::where('provider_id',$provider_id)->get();
         return $contents;
+    }
+    public function getTracks($content_id)
+    {
+        $tracks = Rbt::where('content_id',$content_id)->get();
+        return $tracks;
     }
 }
