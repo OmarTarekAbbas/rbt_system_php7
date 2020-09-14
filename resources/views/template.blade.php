@@ -332,20 +332,6 @@
                 <!-- END Submenu -->
             </li>
 
-            <li id="occasion">
-                <a href="#" class="dropdown-toggle">
-                    <i class="glyphicon glyphicon-copyright-mark"></i>
-                    <span>Contracts</span>
-                    <b class="arrow fa fa-angle-right"></b>
-                </a>
-
-                <!-- BEGIN Submenu -->
-                <ul class="submenu">
-                    <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
-                </ul>
-                <!-- END Submenu -->
-            </li>
-
             @endif
 
             <li id="content">
@@ -423,6 +409,20 @@
                 <!-- BEGIN Submenu -->
                 <ul class="submenu">
                     <li id="revenue-index"><a href="{{url('revenue')}}">Revenue</a></li>
+                </ul>
+                <!-- END Submenu -->
+            </li>
+
+            <li id="occasion">
+                <a href="#" class="dropdown-toggle">
+                    <i class="glyphicon glyphicon-copyright-mark"></i>
+                    <span>Contracts</span>
+                    <b class="arrow fa fa-angle-right"></b>
+                </a>
+
+                <!-- BEGIN Submenu -->
+                <ul class="submenu">
+                    <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
                 </ul>
                 <!-- END Submenu -->
             </li>
