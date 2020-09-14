@@ -41,18 +41,18 @@ class CurrencyController extends Controller
         $validator = Validator::make($request->all(),[
                 'title' => 'required|unique:types,title'
             ]);
-        
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
         $currency = new Currency();
 
-        
+
         $currency->title = $request->title;
 
-        
-        
+
+
         $currency->save();
 
         $request->session()->flash('success', 'Created successfuly');
@@ -70,18 +70,17 @@ class CurrencyController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(),[
-                'title' => 'required|unique:currencies,title,'.$request->currency_id
-            ]);
-        
+            'title' => 'required|unique:currencies,title,'.$request->currency_id
+        ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
         $currency = Currency::findOrfail($request->currency_id);
-    	
+
         $currency->title = $request->title;
-        
-        
+
         $currency->save();
 
         $request->session()->flash('success', 'Updated successfuly');
@@ -99,7 +98,7 @@ class CurrencyController extends Controller
     {
      	$currency = Currency::findOrfail($id);
      	$currency->delete();
-        
+
         $request->session()->flash('success', 'Deleted successfuly');
 
         return back();

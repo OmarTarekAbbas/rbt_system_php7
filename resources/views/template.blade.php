@@ -290,6 +290,20 @@
                 <!-- END Submenu -->
             </li>
 
+            <li id="currency">
+                <a href="#" class="dropdown-toggle">
+                    <i class="glyphicon glyphicon-cog"></i>
+                    <span>Currency</span>
+                    <b class="arrow fa fa-angle-right"></b>
+                </a>
+
+                <!-- BEGIN Submenu -->
+                <ul class="submenu">
+                    <li id="currency-index"><a href="{{url('currency')}}">Currency</a></li>
+                </ul>
+                <!-- END Submenu -->
+            </li>
+
             <li id="provider">
                 <a href="#" class="dropdown-toggle">
                     <i class="glyphicon glyphicon-heart-empty"></i>
@@ -381,6 +395,34 @@
                         <li id="report-index"><a href="{{url('report')}}">Report</a></li>
                         <li id="report-search"><a href="{{url('report/search')}}">Search in reports</a></li>
                     @endif
+                </ul>
+                <!-- END Submenu -->
+            </li>
+
+            <li id="revenue">
+                <a href="#" class="dropdown-toggle">
+                    <i class="glyphicon glyphicon-cog"></i>
+                    <span>Revenue</span>
+                    <b class="arrow fa fa-angle-right"></b>
+                </a>
+
+                <!-- BEGIN Submenu -->
+                <ul class="submenu">
+                    <li id="revenue-index"><a href="{{url('revenue')}}">Revenue</a></li>
+                </ul>
+                <!-- END Submenu -->
+            </li>
+
+            <li id="occasion">
+                <a href="#" class="dropdown-toggle">
+                    <i class="glyphicon glyphicon-copyright-mark"></i>
+                    <span>Contracts</span>
+                    <b class="arrow fa fa-angle-right"></b>
+                </a>
+
+                <!-- BEGIN Submenu -->
+                <ul class="submenu">
+                    <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
                 </ul>
                 <!-- END Submenu -->
             </li>

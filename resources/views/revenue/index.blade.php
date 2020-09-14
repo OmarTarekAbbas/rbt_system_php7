@@ -1,0 +1,79 @@
+@extends('template')
+@section('page_title')
+	Revenue
+@stop
+@section('content')
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-black">
+				<div class="box-title">
+					<h3><i class="fa fa-table"></i> Revenue Table</h3>
+					<div class="box-tool">
+						<a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+						<a data-action="close" href="#"><i class="fa fa-times"></i></a>
+					</div>
+				</div>
+				<div class="box-content">
+                    <div class="btn-toolbar pull-right clearfix">
+                        <div class="btn-group">
+                            <a class="btn btn-success show-tooltip" title="Add" href="{{url('revenue/create')}}"><i class="fa fa-plus"></i> Add Revenue</a>
+                        </div>
+                    </div>
+                    <br/><br/>
+                    <div class="clearfix"></div>
+
+					<div class="table-responsive">
+						<table id="example" class="table table-striped dt-responsive" cellspacing="0" width="100%">
+							<thead>
+							<tr>
+								<th>ID<div></div><div></div></th>
+								<th>Contract</th>
+								<th>Year</th>
+								<th>Month</th>
+								<th>Source Type</th>
+								<th>Source</th>
+								<th>Amount</th>
+								<th>Currency</th>
+								<th>Serivce Type</th>
+								<th>Is Collected</th>
+								<th class="visible-md visible-lg" style="width:130px">Action</th>
+							</tr>
+							</thead>
+							<tbody>
+							@foreach($revenues as $revenue)
+									<tr class="table-flag-blue">
+                                        <td>{{$revenue->id}}</td>
+                                        <td>{{$revenue->contract->contract_code}}<span class="btn btn-sm">{{$revenue->contract->contract_label}}</span></td>
+                                        <td>{{$revenue->year}}</td>
+                                        <td>{{$revenue->month}}</td>
+                                        <td>{{$revenue->source_type}}</td>
+                                        <td>{{optional($revenue->source)->title ?? optional($revenue->source)->second_party_title}}</td>
+                                        <td>{{$revenue->amount}}</td>
+                                        <td>{{optional($revenue->currency)->title}}</td>
+                                        <td>{{optional($revenue->serivce_type)->service_type_title}}</td>
+                                        <td>{{$revenue->is_collected}}</td>
+										<td class="visible-md visible-lg">
+											<div class="btn-group">
+												<a class="btn btn-sm btn-primary show-tooltip" title="" href="{{url('revenue/'.$revenue->id)}}" data-original-title="view"><i class="fa fa-eye"></i></a>
+												<a class="btn btn-sm show-tooltip" title="" href="{{url('revenue/'.$revenue->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+												<a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('revenue/'.$revenue->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+											</div>
+										</td>
+									</tr>
+							@endforeach
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+@stop
+
+@section('script')
+	<script>
+		$('#revenue').addClass('active');
+		$('#revenue-index').addClass('active');
+	</script>
+@stop

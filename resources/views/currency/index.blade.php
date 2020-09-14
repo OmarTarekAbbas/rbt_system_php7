@@ -13,22 +13,22 @@
         <h4 class="modal-title" id="myModalLabel">Add currency</h4>
       </div>
       <div class="modal-body">
-        
+
         <div class="form-group">
            <label class="col-sm-3 col-lg-2 control-label">Title</label>
            <div class="col-sm-9 col-lg-10 controls">
               <input type="text" placeholder="Title" name = "title" class="form-control" />
            </div>
         </div>
-        
+
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
         </form>
     </div>
-      
-      
+
+
   </div>
 </div>
 
@@ -42,7 +42,7 @@
         <h4 class="modal-title" id="myModalLabel">Update currency</h4>
       </div>
       <div class="modal-body">
-        
+
         <div class="form-group">
            <label class="col-sm-3 col-lg-2 control-label">Title</label>
            <div class="col-sm-9 col-lg-10 controls">
@@ -50,7 +50,7 @@
               <input type="hidden" name="currency_id" id="currency_id">
            </div>
         </div>
-        
+
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Save</button>
@@ -83,12 +83,12 @@
             <div class="box-content">
                 <div class="btn-toolbar pull-right clearfix">
                     <div class="btn-group">
-                        <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-success show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i> Add Currency</a>
                     </div>
                 </div>
                 <br/><br/>
                 <div class="clearfix"></div>
-                
+
                 <div class="table-responsive" style="border:0">
                     <table class="table table-advance" id="table1">
                         <thead>
@@ -138,13 +138,14 @@
                 // alert('msg');
                 /* Act on the event */
                 var name = $(this).closest('td').prev('td').text();
-                var id = $(this).children().attr('id');
+                var id = $(this).attr('id');
                 // alert(name);
                 // alert(id);
                 // $('#edit-form-role').attr('action', '');
                 $('#edit-currency').val(name);
                 $('#currency_id').val(id);
                 $('#editcurrency').modal('toggle');
-            }); 
+            });
         </script>
 @endsection
+
