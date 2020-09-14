@@ -283,6 +283,7 @@ Contract
                 url: "{{url('/client_type')}}",
                 data: {
                     body: $(this).val(),
+                    contract_id: "{{$contract->second_party_id}}",
                     _token: token
                 }
             })
