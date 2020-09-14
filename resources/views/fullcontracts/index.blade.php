@@ -16,12 +16,12 @@ Contract
             <div class="box-content">
                 <div class="btn-group">
                     <a class="btn btn-circle btn-success show-tooltip" href="{{url('fullcontracts/create')}}" title="Create New Rbt" href="#"><i class="fa fa-plus"></i></a>
-                    <a id="delete_button" onclick="delete_selected('rbts')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
+                    <a id="delete_button" onclick="delete_selected('contracts')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
                 </div>
                 <br>
                 <br>
                 <div class="table-responsive" style="border:0">
-                    <table class="table table-advance data_rbt">
+                    <table class="table table-advance data_contract">
                         <thead>
                             <tr>
                                 <th style="width:18px"><input type="checkbox" /></th>
@@ -36,27 +36,7 @@ Contract
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($contracts as $contract)
-                            <tr class="table-flag-blue">
-                                <td><input type="checkbox"></td>
-                                <td>{{$contract->id}}</td>
-                                <td>{{$contract->contract_code}}</td>
-                                <td>{{$contract->service_type->service_type_title}}</td>
-                                <td>{{$contract->contract_label}}</td>
-                                <td> {{ date('F j, Y',strtotime($contract->contract_date)) }}</td>
-                                <td>
-                                    <div class="btn btn-outline-success">{{$contract->contract_status ? 'Active' : 'Not Active'}}</div>
-                                </td>
-                                <td>{{ date('F j, Y',strtotime($contract->contract_expiry_date)) }}</td>
-                                <td class="visible-md visible-lg">
-                                    <div class="btn-group">
-                                        <a class="btn btn-sm btn-primary show-tooltip " title="" href="{{url('fullcontracts/'.$contract->id)}}" data-original-title="Show"><i class="fa fa-eye"></i></a>
-                                        <a class="btn btn-sm show-tooltip teet" title="" href="{{url('fullcontracts/'.$contract->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
-                                        <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('fullcontracts/'.$contract->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
+
                         </tbody>
                     </table>
                 </div>
@@ -70,7 +50,61 @@ Contract
 
 @section('script')
 <script>
-		$('#contract').addClass('active');
-		$('#contract-index').addClass('active');
-	</script>
+    $('#contract').addClass('active');
+    $('#contract-index').addClass('active');
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+        }
+    });
+    $(document).ready(function() {
+        $('.data_contract').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "search": {
+                "regex": true
+            },
+            ajax: "{!! url('contracts/allData') !!}",
+            columns: [{
+                    data: "index",
+                    searchable: false,
+                    orderable: false
+                },
+                {
+                    data: "id",
+                    name: "id"
+                },
+                {
+                    data: "code",
+                    name: "code"
+                },
+                {
+                    data: "service_type",
+                    name: "service_type"
+                },
+                {
+                    data: "contract_label",
+                    name: "contract_label"
+                },
+                {
+                    data: "contract_date",
+                    name: "contract_date"
+                },
+                {
+                    data: "contract_status",
+                    name: "contract_status"
+                },
+                {
+                    data: "contract_expiry_date",
+                    name: "contract_expiry_date"
+                },
+                {
+                    data: "action",
+                    searchable: false
+                }
+            ],
+            "pageLength": 10
+        });
+    });
+</script>
 @stop

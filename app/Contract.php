@@ -50,10 +50,4 @@ class Contract extends Model
     {
         return $this->belongsTo('App\ServiceTypes');
     }
-
-    public function second_party()
-    {
-        return $this->belongsTo('App\SecondParty');
-    }
-
 }
