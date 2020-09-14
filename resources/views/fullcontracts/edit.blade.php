@@ -27,6 +27,12 @@ Contract
         border: none;
         cursor: pointer;
     }
+    .dropdown-toggle::after {
+    display: none;
+}
+.nav-list>li {
+    width: 100%;
+}
 </style>
 
 <div id="preloader"></div>
@@ -35,7 +41,7 @@ Contract
         <a href="javascript:;" class="toggleMenu flying-button"><i class="lni-menu"></i></a>
         <div class="page-inner">
             <div class="ajaxLoading"></div>
-            <form method="POST" action="{{url('fullcontracts')}}" class="form-vertical validated sximo-form" id="FormTable" enctype="multipart/form-data">
+            <form method="POST" action="{{url('fullcontracts/'.$contract->id.'/update')}}" class="form-vertical validated sximo-form" id="FormTable" enctype="multipart/form-data">
                 @csrf
                 <div class="toolbar-nav">
                     <div class="row">
@@ -69,7 +75,7 @@ Contract
                                     <select name='first_party_id' rows='5' id='first_party_id' class='select2 ' required>
                                         <option value="">-- Please Select --</option>
                                         @foreach($first_parties as $first_partie)
-                                        <option value="{{$first_partie->first_party_id}}" @if($contract->first_party_id==$first_partie->first_party_id) selected="selected" @endif>{{$first_partie->first_party_title}}</option>
+                                        <option value="{{$first_partie->id}}" @if($contract->first_party_id==$first_partie->id) selected="selected" @endif>{{$first_partie->first_party_title}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -127,7 +133,8 @@ Contract
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Client <span class="asterix"> * </span> </label>
-                                    <select name='second_party_id' rows='5' id='second_party_id' class='select2 ' required></select>
+                                    <select name='second_party_id' rows='5' id='second_party_id' class='select2 ' required>
+                                    </select>
                                 </div>
 
                                 <div class="form-group  ">
@@ -135,17 +142,17 @@ Contract
                                     <select name='country_title[]' multiple rows='5' id='country_title' class='select2 ' required>
                                     <option value="">-- Please Select --</option>
                                         @foreach($countries as $country)
-                                        <option value="{{$country->title}}">{{$country->title}}</option>
+                                        <option value="{{$country->title}}" @if($contract->country_title==$country->title) selected="selected" @endif>{{$country->title}}</option>
                                         @endforeach
                                     </select>
                                 </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Operators <span class="asterix"> * </span> </label>
-                                    <select name='operator_title[]' multiple rows='5' id='operator_title' class='select2 ' required>
+                                    <select name='operator_title[]' multiple rows='5'  id='operator_title' class='select2 ' required>
                                     <option value="">-- Please Select --</option>
                                         @foreach($operators as $operator)
-                                        <option value="{{$operator->title}}">{{$operator->title}}</option>
+                                        <option value="{{$operator->title}}" @if($contract->operator_title==$operator->title) selected="selected" @endif>{{$operator->title}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -156,7 +163,7 @@ Contract
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Contract Date <span class="asterix"> * </span> </label>
                                     <div class="input-group input-group-sm m-b" style="width:150px !important;">
-                                        <input class="form-control form-control-sm date" name="contract_date" type="text" value="">
+                                        <input class="form-control form-control-sm date" name="contract_date" type="text" value="{{$contract->contract_date}}">
                                         <div class="input-group-append">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></span></div>
                                         </div>
@@ -189,7 +196,7 @@ Contract
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Expiry Date <span class="asterix"> * </span> </label>
                                     <div class="input-group input-group-sm m-b" style="width:150px !important;">
-                                        <input class="form-control form-control-sm date" name="contract_expiry_date" type="text" value="">
+                                        <input class="form-control form-control-sm date" name="contract_expiry_date" type="text" value="{{$contract->contract_expiry_date}}">
                                         <div class="input-group-append">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></span></div>
                                         </div>
@@ -210,7 +217,7 @@ Contract
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Notes </label>
-                                    <textarea name='contract_notes' value='{{$contract->contract_notes}}' rows='5' id='contract_notes' class='form-control form-control-sm '></textarea>
+                                    <textarea name='contract_notes' rows='5' id='contract_notes' class='form-control form-control-sm '>{{$contract->contract_notes}}</textarea>
                                 </div>
                             </section>
                         </div>

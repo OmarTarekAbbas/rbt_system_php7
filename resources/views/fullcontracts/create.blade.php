@@ -27,6 +27,12 @@ Contract
         border: none;
         cursor: pointer;
     }
+    .dropdown-toggle::after {
+    display: none;
+}
+.nav-list>li {
+    width: 100%;
+}
 </style>
 
 <div id="preloader"></div>
@@ -66,10 +72,10 @@ Contract
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Company <span class="asterix"> * </span> </label>
-                                    <select name='first_party_id' rows='5' id='first_party_id' class='select2 ' required>
+                                    <select name='first_party_id' rows='5' id='first_party_id' class='select2' required>
                                         <option value="">-- Please Select --</option>
                                         @foreach($first_parties as $first_partie)
-                                        <option value="{{$first_partie->first_party_id}}">{{$first_partie->first_party_title}}</option>
+                                        <option value="{{$first_partie->id}}">{{$first_partie->first_party_title}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -176,14 +182,14 @@ Contract
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Renewal Status <span class="asterix"> * </span> </label>
                                     <input type="checkbox" class="radio_check" value="1" checked="checked" name='renewal_status' /> AR
-                                    <input type="checkbox" class="radio_check" value="1" name='renewal_status' /> No
-                                    <input type="checkbox" class="radio_check" value="1" name='renewal_status' /> RBAO
+                                    <input type="checkbox" class="radio_check" value="0" name='renewal_status' /> No
+                                    <input type="checkbox" class="radio_check" value="2" name='renewal_status' /> RBAO
                                 </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Contract Status <span class="asterix"> * </span> </label>
                                     <input type="checkbox" class="radio_check" value="1" checked="checked" name='contract_status' /> Active
-                                    <input type="checkbox" class="radio_check" value="1" name='contract_status' /> Terminated
+                                    <input type="checkbox" class="radio_check" value="0" name='contract_status' /> Terminated
                                 </div>
 
                                 <div class="form-group  ">

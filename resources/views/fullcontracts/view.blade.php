@@ -55,12 +55,13 @@ Contract
 
                             <tr>
                                 <td width='30%' class='label-view text-right'>First Party </td>
-                                <td>{{$contract->first_party}} </td>
+
+                                <td>{{$first_partie->first_party_title}} </td>
                             </tr>
 
                             <tr>
                                 <td width='30%' class='label-view text-right'>Second Party </td>
-                                <td>{{$contract->second_party}} </td>
+                                <td>{{$second_parties->second_party_title}} </td>
                             </tr>
 
                             <tr>
@@ -154,7 +155,7 @@ Contract
 
                             <tr>
                                 <td width='30%' class='label-view text-right'>Second Party Type </td>
-                                <td>{{ $contract->second_party_type_id }}</td>
+                                <td>{{ $second_party_types->second_party_type_title }}</td>
                             </tr>
 
                         </tbody>
