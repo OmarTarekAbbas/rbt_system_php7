@@ -228,3 +228,8 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     //Revenue
     Route::resource('revenue', 'RevenueController');
 });
+
+Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
+    Route::resource('roadmaps','RoadMapController',['as' => 'admin']);
+    Route::get('roadmaps/calendar/index','RoadMapController@calendarIndex')->name('admin.roadmaps.calendar.index');
+});

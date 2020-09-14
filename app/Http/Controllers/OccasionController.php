@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Occasion;
 use Amranidev\Ajaxis\Ajaxis;
+use App\Country;
 use URL;
 use Validator;
 
@@ -27,7 +28,8 @@ class OccasionController extends Controller
     {
         $title = 'Index - occasion';
         $occasions = Occasion::paginate(6);
-        return view('occasion.index',compact('occasions','title'));
+        $countries = Country::all()->pluck('title','id');
+        return view('occasion.index',compact('occasions','title','countries'));
     }
     /**
      * Store a newly created resource in storage.
@@ -40,18 +42,20 @@ class OccasionController extends Controller
          $validator = Validator::make($request->all(),[
                 'title' => 'required|unique:countries,title'
             ]);
-        
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
         $occasion = new Occasion();
 
-        
+
         $occasion->title = $request->title;
 
-        
-        
+        $occasion->country_id = $request->country_id;
+
+
+
         $occasion->save();
         $request->session()->flash('success', 'Created successfuly');
         return redirect('occasion');
@@ -70,16 +74,17 @@ class OccasionController extends Controller
         $validator = Validator::make($request->all(),[
                 'title' => 'required|unique:occasions,title,'.$request->occasion_id
             ]);
-        
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
         $occasion = Occasion::findOrfail($request->occasion_id);
-    	
+
         $occasion->title = $request->title;
         
-        
+        $occasion->country_id = $request->country_id;
+
         $occasion->save();
 
         $request->session()->flash('success', 'Updated successfuly');

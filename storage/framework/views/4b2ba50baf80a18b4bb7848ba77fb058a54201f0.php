@@ -9,19 +9,19 @@
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!--page specific css styles-->
-    <link rel="stylesheet" type="text/css" href="{{url('assets/chosen-bootstrap/chosen.min.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets/jquery-tags-input/jquery.tagsinput.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets/jquery-pwstrength/jquery.pwstrength.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-fileupload/bootstrap-fileupload.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-duallistbox/duallistbox/bootstrap-duallistbox.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets/dropzone/downloads/css/dropzone.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-colorpicker/css/colorpicker.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-timepicker/compiled/timepicker.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets/clockface/css/clockface.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-datepicker/css/datepicker.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-daterangepicker/daterangepicker.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-switch/static/stylesheets/bootstrap-switch.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css')}}" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(url('assets/chosen-bootstrap/chosen.min.css')); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(url('assets/jquery-tags-input/jquery.tagsinput.css')); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(url('assets/jquery-pwstrength/jquery.pwstrength.css')); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(url('assets/bootstrap-fileupload/bootstrap-fileupload.css')); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(url('assets/bootstrap-duallistbox/duallistbox/bootstrap-duallistbox.css')); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(url('assets/dropzone/downloads/css/dropzone.css')); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(url('assets/bootstrap-colorpicker/css/colorpicker.css')); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(url('assets/bootstrap-timepicker/compiled/timepicker.css')); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(url('assets/clockface/css/clockface.css')); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(url('assets/bootstrap-datepicker/css/datepicker.css')); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(url('assets/bootstrap-daterangepicker/daterangepicker.css')); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(url('assets/bootstrap-switch/static/stylesheets/bootstrap-switch.css')); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(url('assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css')); ?>" />
 
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
@@ -29,19 +29,19 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" />
 
     <!--base css styles-->
-    <link rel="stylesheet" href="{{url('assets/bootstrap/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{url('assets/font-awesome/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="<?php echo e(url('assets/bootstrap/css/bootstrap.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(url('assets/font-awesome/css/font-awesome.min.css')); ?>">
     <!--page specific css styles-->
-    <link rel="stylesheet" href="{{url('assets/data-tables/bootstrap3/dataTables.bootstrap.css')}}" />
+    <link rel="stylesheet" href="<?php echo e(url('assets/data-tables/bootstrap3/dataTables.bootstrap.css')); ?>" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
 
     <!--flaty css styles-->
-    <link rel="stylesheet" href="{{url('css/flaty.css')}}">
-    <link rel="stylesheet" href="{{url('css/flaty-responsive.css')}}">
+    <link rel="stylesheet" href="<?php echo e(url('css/flaty.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(url('css/flaty-responsive.css')); ?>">
 
-    <link rel="shortcut icon" href="{{url('img/favicon.png')}}">
+    <link rel="shortcut icon" href="<?php echo e(url('img/favicon.png')); ?>">
 
-    <meta name="token" content="{{ csrf_token() }}">
+    <meta name="token" content="<?php echo e(csrf_token()); ?>">
 
     <script>
         function ConfirmDelete()
@@ -117,7 +117,7 @@
     <button type="button" class="navbar-toggle navbar-btn collapsed" data-toggle="collapse" data-target="#sidebar">
         <span class="fa fa-bars"></span>
     </button>
-    <a class="navbar-brand" href="{{url('/')}}">
+    <a class="navbar-brand" href="<?php echo e(url('/')); ?>">
         <small>
             <i class="fa fa-user-secret"></i>
             Admin Panel
@@ -131,17 +131,17 @@
             <li class="hidden-xs">
                     <a data-toggle="dropdown" class="dropdown-toggle" @click="read_notify()" href="#">
                         <i class="fa fa-bell"></i>
-                        <span class="badge badge-important">@{{notify_count}}</span>
+                        <span class="badge badge-important">{{notify_count}}</span>
                     </a>
                     <!-- BEGIN Notifications Dropdown -->
                     <ul class="dropdown-navbar dropdown-menu">
                         <li class="nav-header animt">
                             <i class="fa fa-warning"></i>
-                            @{{notify_count}} Notifications
+                            {{notify_count}} Notifications
                         </li>
                         <li v-for="item in all_notifications" class="notify" style="width:100%">
                             <a :href="item.link">
-                                <p><strong>@{{item.name}}</strong> @{{item.subject}}</p>
+                                <p><strong>{{item.name}}</strong> {{item.subject}}</p>
                             </a>
                         </li>
                         <li class="more">
@@ -156,8 +156,9 @@
         <li class="user-profile">
             <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
                         <span class="hhh" id="user_info">
-                            {!! Auth::user()->name !!}
-                            {{-- User --}}
+                            <?php echo Auth::user()->name; ?>
+
+                            
                         </span>
                 <i class="fa fa-caret-down"></i>
             </a>
@@ -165,7 +166,7 @@
             <!-- BEGIN User Dropdown -->
             <ul class="dropdown-menu dropdown-navbar" id="user_menu">
                 <li>
-                    <a href="{{url('user_profile')}}">
+                    <a href="<?php echo e(url('user_profile')); ?>">
                         <i class="fa fa-user"></i>
                         Edit Profile
                     </a>
@@ -176,12 +177,13 @@
                 <li class="divider"></li>
 
                 <li>
-                    <a href="{{url('logout')}}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+                    <a href="<?php echo e(url('logout')); ?>" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
                         <i class="fa fa-off"></i>
-                        @lang('messages.logout')
+                        <?php echo app('translator')->getFromJson('messages.logout'); ?>
                     </a>
-                    <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
+                    <form id="frm-logout" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
+                        <?php echo e(csrf_field()); ?>
+
                     </form>
                 </li>
             </ul>
@@ -199,7 +201,7 @@
     <div id="sidebar" class="navbar-collapse collapse">
         <!-- BEGIN Navlist -->
         <ul class="nav nav-list">
-           @if(Auth::user()->hasRole('super_admin'))
+           <?php if(Auth::user()->hasRole('super_admin')): ?>
              <li id="user">
                 <a href="#" class="dropdown-toggle">
                     <i class="glyphicon glyphicon-user"></i>
@@ -210,8 +212,8 @@
                 <!-- BEGIN Submenu -->
 
                 <ul class="submenu">
-                    <li id="user-create"><a href="{{url('users/new')}}">Create User</a></li>
-                    <li id="user-index"><a href="{{url('users')}}">Users</a></li>
+                    <li id="user-create"><a href="<?php echo e(url('users/new')); ?>">Create User</a></li>
+                    <li id="user-index"><a href="<?php echo e(url('users')); ?>">Users</a></li>
                 </ul>
                 <!-- END Submenu -->
             </li>
@@ -225,13 +227,13 @@
 
                 <!-- BEGIN Submenu -->
                 <ul class="submenu">
-                    <li id="role-create"><a href="{{url('roles/new')}}">Create Role</a></li>
-                    <li id="role-index"><a href="{{url('roles')}}">Roles</a></li>
+                    <li id="role-create"><a href="<?php echo e(url('roles/new')); ?>">Create Role</a></li>
+                    <li id="role-index"><a href="<?php echo e(url('roles')); ?>">Roles</a></li>
                 </ul>
                 <!-- END Submenu -->
             </li>
-            @endif
-            @if(Auth::user()->hasRole(['super_admin','admin']))
+            <?php endif; ?>
+            <?php if(Auth::user()->hasRole(['super_admin','admin'])): ?>
             <li id="department">
                     <a href="#" class="dropdown-toggle">
                         <i class="glyphicon glyphicon-briefcase"></i>
@@ -242,8 +244,8 @@
                     <!-- BEGIN Submenu -->
 
                     <ul class="submenu">
-                        <li id="department-create"><a href="{{url('department/create')}}">Create Department</a></li>
-                        <li id="department-index"><a href="{{url('department')}}">Departments</a></li>
+                        <li id="department-create"><a href="<?php echo e(url('department/create')); ?>">Create Department</a></li>
+                        <li id="department-index"><a href="<?php echo e(url('department')); ?>">Departments</a></li>
                     </ul>
                     <!-- END Submenu -->
                 </li>
@@ -257,7 +259,7 @@
 
                 <!-- BEGIN Submenu -->
                 <ul class="submenu">
-                    <li id="country-index"><a href="{{url('country')}}">Country</a></li>
+                    <li id="country-index"><a href="<?php echo e(url('country')); ?>">Country</a></li>
                 </ul>
                 <!-- END Submenu -->
             </li>
@@ -271,7 +273,7 @@
 
                 <!-- BEGIN Submenu -->
                 <ul class="submenu">
-                    <li id="aggregator-index"><a href="{{url('aggregator')}}">Aggregator</a></li>
+                    <li id="aggregator-index"><a href="<?php echo e(url('aggregator')); ?>">Aggregator</a></li>
                 </ul>
                 <!-- END Submenu -->
             </li>
@@ -285,21 +287,7 @@
 
                 <!-- BEGIN Submenu -->
                 <ul class="submenu">
-                    <li id="operator-index"><a href="{{url('operator')}}">Operator</a></li>
-                </ul>
-                <!-- END Submenu -->
-            </li>
-
-            <li id="currency">
-                <a href="#" class="dropdown-toggle">
-                    <i class="glyphicon glyphicon-cog"></i>
-                    <span>Currency</span>
-                    <b class="arrow fa fa-angle-right"></b>
-                </a>
-
-                <!-- BEGIN Submenu -->
-                <ul class="submenu">
-                    <li id="currency-index"><a href="{{url('currency')}}">Currency</a></li>
+                    <li id="operator-index"><a href="<?php echo e(url('operator')); ?>">Operator</a></li>
                 </ul>
                 <!-- END Submenu -->
             </li>
@@ -313,7 +301,7 @@
 
                 <!-- BEGIN Submenu -->
                 <ul class="submenu">
-                    <li id="provider-index"><a href="{{url('provider')}}">Artists</a></li>
+                    <li id="provider-index"><a href="<?php echo e(url('provider')); ?>">Artists</a></li>
                 </ul>
                 <!-- END Submenu -->
             </li>
@@ -327,26 +315,12 @@
 
                 <!-- BEGIN Submenu -->
                 <ul class="submenu">
-                    <li id="occasion-index"><a href="{{url('occasion')}}">Occasion</a></li>
+                    <li id="occasion-index"><a href="<?php echo e(url('occasion')); ?>">Occasion</a></li>
                 </ul>
                 <!-- END Submenu -->
             </li>
 
-            <li id="occasion">
-                <a href="#" class="dropdown-toggle">
-                    <i class="glyphicon glyphicon-copyright-mark"></i>
-                    <span>Contracts</span>
-                    <b class="arrow fa fa-angle-right"></b>
-                </a>
-
-                <!-- BEGIN Submenu -->
-                <ul class="submenu">
-                    <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
-                </ul>
-                <!-- END Submenu -->
-            </li>
-
-            @endif
+            <?php endif; ?>
 
             <li id="content">
                 <a href="#" class="dropdown-toggle">
@@ -357,12 +331,12 @@
 
                 <!-- BEGIN Submenu -->
                 <ul class="submenu">
-                        {{-- <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a></li> --}}
-                        <li id="content-excel"><a href="{{url('contents/excel')}}">Create Content</a></li>
-                        <li id="content-index"><a href="{{url('content')}}">Contents</a></li>
-                        <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">List tracks</a></li>
-                        <li id="content-upload-tracks"><a href="{{url('contents/upload_tracks')}}">Upload multi tracks</a></li>
-                        {{-- <li id="rbt-search"><a href="{{url('rbt/search')}}">Search in RBTs</a></li> --}}
+                        
+                        <li id="content-excel"><a href="<?php echo e(url('contents/excel')); ?>">Create Content</a></li>
+                        <li id="content-index"><a href="<?php echo e(url('content')); ?>">Contents</a></li>
+                        <li id="content-list-tracks"><a href="<?php echo e(url('contents/file_system')); ?>">List tracks</a></li>
+                        <li id="content-upload-tracks"><a href="<?php echo e(url('contents/upload_tracks')); ?>">Upload multi tracks</a></li>
+                        
                 </ul>
                 <!-- END Submenu -->
             </li>
@@ -377,16 +351,16 @@
 
                 <!-- BEGIN Submenu -->
                 <ul class="submenu">
-                    @if(Auth::user()->hasRole(['super_admin','admin','account']))
-                    @if(Auth::user()->hasRole(['super_admin','admin']))
-                        <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a></li>
-                        <li id="rbt-excel"><a href="{{url('rbt/excel')}}">Create RBT</a></li>
-                        <li id="rbt-upload-tracks"><a href="{{url('rbt/upload_tracks')}}">Upload multi tracks</a></li>
-                        <li id="rbt-list-tracks"><a href="{{url('rbt/file_system')}}">List tracks</a></li>
-                    @endif
-                        <li id="rbt-index"><a href="{{url('rbt')}}">RBTs</a></li>
-                        <li id="rbt-search"><a href="{{url('rbt/search')}}">Search in RBTs</a></li>
-                    @endif
+                    <?php if(Auth::user()->hasRole(['super_admin','admin','account'])): ?>
+                    <?php if(Auth::user()->hasRole(['super_admin','admin'])): ?>
+                        <li id="rbt-statistics"><a href="<?php echo e(url('rbt/statistics')); ?>">RBT Statistics</a></li>
+                        <li id="rbt-excel"><a href="<?php echo e(url('rbt/excel')); ?>">Create RBT</a></li>
+                        <li id="rbt-upload-tracks"><a href="<?php echo e(url('rbt/upload_tracks')); ?>">Upload multi tracks</a></li>
+                        <li id="rbt-list-tracks"><a href="<?php echo e(url('rbt/file_system')); ?>">List tracks</a></li>
+                    <?php endif; ?>
+                        <li id="rbt-index"><a href="<?php echo e(url('rbt')); ?>">RBTs</a></li>
+                        <li id="rbt-search"><a href="<?php echo e(url('rbt/search')); ?>">Search in RBTs</a></li>
+                    <?php endif; ?>
 
                 </ul>
                 <!-- END Submenu -->
@@ -401,28 +375,14 @@
 
                 <!-- BEGIN Submenu -->
                 <ul class="submenu">
-                    @if(Auth::user()->hasRole(['super_admin','admin','account']))
-                    @if(Auth::user()->hasRole(['super_admin','admin']))
-                        <li id="report-statistics"><a href="{{url('report/statistics')}}">Statistics</a></li>
-                        <li id="report-excel"><a href="{{url('report/excel')}}">Report Excel</a></li>
-                    @endif
-                        <li id="report-index"><a href="{{url('report')}}">Report</a></li>
-                        <li id="report-search"><a href="{{url('report/search')}}">Search in reports</a></li>
-                    @endif
-                </ul>
-                <!-- END Submenu -->
-            </li>
-
-            <li id="revenue">
-                <a href="#" class="dropdown-toggle">
-                    <i class="glyphicon glyphicon-cog"></i>
-                    <span>Revenue</span>
-                    <b class="arrow fa fa-angle-right"></b>
-                </a>
-
-                <!-- BEGIN Submenu -->
-                <ul class="submenu">
-                    <li id="revenue-index"><a href="{{url('revenue')}}">Revenue</a></li>
+                    <?php if(Auth::user()->hasRole(['super_admin','admin','account'])): ?>
+                    <?php if(Auth::user()->hasRole(['super_admin','admin'])): ?>
+                        <li id="report-statistics"><a href="<?php echo e(url('report/statistics')); ?>">Statistics</a></li>
+                        <li id="report-excel"><a href="<?php echo e(url('report/excel')); ?>">Report Excel</a></li>
+                    <?php endif; ?>
+                        <li id="report-index"><a href="<?php echo e(url('report')); ?>">Report</a></li>
+                        <li id="report-search"><a href="<?php echo e(url('report/search')); ?>">Search in reports</a></li>
+                    <?php endif; ?>
                 </ul>
                 <!-- END Submenu -->
             </li>
@@ -436,9 +396,9 @@
 
                 <!-- BEGIN Submenu -->
                 <ul class="submenu">
-                    <li id="roadmap-create"><a href="{{route('admin.roadmaps.create')}}">Create Road Map</a></li>
-                    <li id="roadmap-index"><a href="{{route('admin.roadmaps.index')}}">Road Map</a></li>
-                    <li id="roadmap-calendar"><a href="{{route('admin.roadmaps.calendar.index')}}">Road Map Calendar</a></li>
+                    <li id="roadmap-create"><a href="<?php echo e(route('admin.roadmaps.create')); ?>">Create Road Map</a></li>
+                    <li id="roadmap-index"><a href="<?php echo e(route('admin.roadmaps.index')); ?>">Road Map</a></li>
+                    <li id="roadmap-calendar"><a href="<?php echo e(route('admin.roadmaps.calendar.index')); ?>">Road Map Calendar</a></li>
                 </ul>
                 <!-- END Submenu -->
             </li>
@@ -459,7 +419,7 @@
         <!-- BEGIN Page Title -->
         <div class="page-title">
             <div>
-                <h1><i class="fa fa-file-o"></i> @yield('page_title')</h1>
+                <h1><i class="fa fa-file-o"></i> <?php echo $__env->yieldContent('page_title'); ?></h1>
             </div>
         </div>
         <!-- END Page Title -->
@@ -467,16 +427,16 @@
         <!-- BEGIN Breadcrumb -->
         <div id="breadcrumbs">
             <ul class="breadcrumb">
-                <li class="active"><i class="fa fa-home"></i> Home/ @yield('page_title') </li>
+                <li class="active"><i class="fa fa-home"></i> Home/ <?php echo $__env->yieldContent('page_title'); ?> </li>
             </ul>
         </div>
         <!-- END Breadcrumb -->
 
-        @include('partial.flash')
-        @yield('content')
+        <?php echo $__env->make('partial.flash', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <?php echo $__env->yieldContent('content'); ?>
         </div>
         <div class="footer" align="center">
-            <p>{{\Carbon\Carbon::now()->year}} © iVAS Template</p>
+            <p><?php echo e(\Carbon\Carbon::now()->year); ?> © iVAS Template</p>
         </div>
         <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
     </div>
@@ -487,45 +447,45 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.1.4.min.js"><\/script>')</script>
 
-<script src="{{url('assets/bootstrap/js/bootstrap.min.js')}}"></script>
-<script src="{{url('assets/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
-<script src="{{url('assets/jquery-cookie/jquery.cookie.js')}}"></script>
+<script src="<?php echo e(url('assets/bootstrap/js/bootstrap.min.js')); ?>"></script>
+<script src="<?php echo e(url('assets/jquery-slimscroll/jquery.slimscroll.min.js')); ?>"></script>
+<script src="<?php echo e(url('assets/jquery-cookie/jquery.cookie.js')); ?>"></script>
 
 <!--page specific plugin scripts-->
-<script src="{{url('assets/flot/jquery.flot.js')}}"></script>
-<script src="{{url('assets/flot/jquery.flot.resize.js')}}"></script>
-<script src="{{url('assets/flot/jquery.flot.pie.js')}}"></script>
-<script src="{{url('assets/flot/jquery.flot.stack.js')}}"></script>
-<script src="{{url('assets/flot/jquery.flot.crosshair.js')}}"></script>
-<script src="{{url('assets/sparkline/jquery.sparkline.min.js')}}"></script>
+<script src="<?php echo e(url('assets/flot/jquery.flot.js')); ?>"></script>
+<script src="<?php echo e(url('assets/flot/jquery.flot.resize.js')); ?>"></script>
+<script src="<?php echo e(url('assets/flot/jquery.flot.pie.js')); ?>"></script>
+<script src="<?php echo e(url('assets/flot/jquery.flot.stack.js')); ?>"></script>
+<script src="<?php echo e(url('assets/flot/jquery.flot.crosshair.js')); ?>"></script>
+<script src="<?php echo e(url('assets/sparkline/jquery.sparkline.min.js')); ?>"></script>
 
 
-<script type="text/javascript" src="{{url('assets/chosen-bootstrap/chosen.jquery.min.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/bootstrap-inputmask/bootstrap-inputmask.min.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/jquery-tags-input/jquery.tagsinput.min.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/jquery-pwstrength/jquery.pwstrength.min.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/bootstrap-fileupload/bootstrap-fileupload.min.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/bootstrap-duallistbox/duallistbox/bootstrap-duallistbox.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/dropzone/downloads/dropzone.min.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/bootstrap-timepicker/js/bootstrap-timepicker.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/clockface/js/clockface.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/bootstrap-daterangepicker/date.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/bootstrap-switch/static/js/bootstrap-switch.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/chosen-bootstrap/chosen.jquery.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/bootstrap-inputmask/bootstrap-inputmask.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/jquery-tags-input/jquery.tagsinput.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/jquery-pwstrength/jquery.pwstrength.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/bootstrap-fileupload/bootstrap-fileupload.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/bootstrap-duallistbox/duallistbox/bootstrap-duallistbox.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/dropzone/downloads/dropzone.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/bootstrap-timepicker/js/bootstrap-timepicker.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/clockface/js/clockface.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/bootstrap-datepicker/js/bootstrap-datepicker.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/bootstrap-daterangepicker/date.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/bootstrap-daterangepicker/daterangepicker.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/bootstrap-switch/static/js/bootstrap-switch.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/ckeditor/ckeditor.js')); ?>"></script>
 
-<script type="text/javascript" src="{{url('assets/data-tables/jquery.dataTables.js')}}"></script>
-<script type="text/javascript" src="{{url('assets/data-tables/bootstrap3/dataTables.bootstrap.js')}}"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/data-tables/jquery.dataTables.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(url('assets/data-tables/bootstrap3/dataTables.bootstrap.js')); ?>"></script>
 <!--flaty scripts-->
-<script src="{{url('js/flaty.js')}}"></script>
-<script src="{{url('js/flaty-demo-codes.js')}}"></script>
-<script src="{{url('js/pusher.min.js')}}"></script>
-<script src="{{url('js/pusher_config.js')}}"></script>
-<script src="{{url('js/vue.min.js')}}"></script>
+<script src="<?php echo e(url('js/flaty.js')); ?>"></script>
+<script src="<?php echo e(url('js/flaty-demo-codes.js')); ?>"></script>
+<script src="<?php echo e(url('js/pusher.min.js')); ?>"></script>
+<script src="<?php echo e(url('js/pusher_config.js')); ?>"></script>
+<script src="<?php echo e(url('js/vue.min.js')); ?>"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 
 <script>
@@ -557,7 +517,7 @@
         methods:{
             read_notify:function(){
                 var _this = this
-                $.get("{{url('read_notify')}}",function(data,status){
+                $.get("<?php echo e(url('read_notify')); ?>",function(data,status){
                     _this.notify_count=0
                 })
             }
@@ -565,7 +525,7 @@
         computed:{
             all_notifications:function(){
                 var _this = this
-                var data = "{{json_encode(all_notify())}}";
+                var data = "<?php echo e(json_encode(all_notify())); ?>";
                this.notification_data = JSON.parse(data.replace(/&quot;/g,'"'))
                for (let index = 0; index < this.notification_data.length; index++) {
                    let object={
@@ -580,7 +540,7 @@
             }
         },
         mounted(){
-            this.channel = pusher.subscribe('private-notification.{{\Auth::id()}}');
+            this.channel = pusher.subscribe('private-notification.<?php echo e(\Auth::id()); ?>');
             var _this = this;
             this.channel.bind('notify-event', function(data) {
                 let object={
@@ -590,7 +550,7 @@
                     }
                 _this.notifications.push(object)
                 $('.fa-bell').addClass('anim-swing')
-                let audio = new Audio("{{url('uploads/facebook_sound.mp3')}}");
+                let audio = new Audio("<?php echo e(url('uploads/facebook_sound.mp3')); ?>");
                 audio.play();
                 _this.notify_count++;
             });
@@ -634,11 +594,11 @@
         var tb_name = document.createElement("input") ;
         var csrf = document.createElement("input") ;
         csrf.name = "_token" ;
-        csrf.value= "{{ csrf_token() }}" ;
+        csrf.value= "<?php echo e(csrf_token()); ?>" ;
         csrf.type = "hidden" ;
 
         form.method = "POST";
-        form.action = "{{url('delete_multiselect')}}";
+        form.action = "<?php echo e(url('delete_multiselect')); ?>";
 
         element.value= selected_list ;
         element.name = "selected_list" ;
@@ -666,7 +626,7 @@
             });
         });
     </script> -->
-@yield('script')
+<?php echo $__env->yieldContent('script'); ?>
 
 </body>
 </html>
