@@ -189,7 +189,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::PATCH('content/{id}/update', 'ContentController@update');
     Route::get('content/create', 'ContentController@create');
     Route::post('content', 'ContentController@store');
-    
+
     // Start Routes for fullcontracts
     Route::resource('fullcontracts', 'FullcontractsController');
     Route::post('fullcontracts/{id}/update', 'FullcontractsController@update');
@@ -229,6 +229,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
 
     //Revenue
     Route::resource('revenue', 'RevenueController');
+    // Route::get('revenue', 'RevenueController');
 });
 
 Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
