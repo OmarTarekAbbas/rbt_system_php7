@@ -352,7 +352,7 @@ class RbtController extends Controller
                         $rbt['owner'] = $row->provider ; // ex:  ARPU
                         $rbt['operator_id'] = $request->operator_id;
                         $rbt['aggregator_id'] = $request->aggregator_id;
-                        $rbt['content_id'] = $row->master_content_code;
+                        $rbt['content_id'] = $request->content_id ?? $row->master_content_code;
                         $rbt['type'] = 1 ; // new excel
                     }
                     else{
@@ -363,7 +363,7 @@ class RbtController extends Controller
                         $rbt['provider_id'] = $provider_id ;
                         $rbt['operator_id'] = $request->operator_id;
                         $rbt['aggregator_id'] = $request->aggregator_id;
-                        $rbt['content_id'] = $row->master_content_code;
+                        $rbt['content_id'] = $request->content_id ?? $row->master_content_code;
                     }
                     //dd($rbt);
 

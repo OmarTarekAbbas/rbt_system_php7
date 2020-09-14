@@ -1,8 +1,7 @@
-@extends('template')
-@section('page_title')
+<?php $__env->startSection('page_title'); ?>
 Contents
-@stop
-@section('content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
 
 
 
@@ -18,13 +17,13 @@ Contents
             </div>
             <div class="box-content">
                 <div class="btn-group">
-                    @if(Auth::user()->hasRole(['super_admin','admin']))
-                     <a class="btn btn-circle btn-success show-tooltip" href="{{url('content/create')}}"
+                    <?php if(Auth::user()->hasRole(['super_admin','admin'])): ?>
+                     <a class="btn btn-circle btn-success show-tooltip" href="<?php echo e(url('content/create')); ?>"
                         title="Create New content" href="#"><i class="fa fa-plus"></i></a>
                     <a id="delete_button" onclick="delete_selected('contents')"
                         class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i
                             class="fa fa-trash-o"></i></a>
-                    @endif
+                    <?php endif; ?>
                 </div><br><br>
                 <div class="table-responsive" style="border:0">
                     <table class="table table-advance data_content">
@@ -52,9 +51,9 @@ Contents
 </div>
 
 
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script>
 $('#content').addClass('active');
 $('#content-index').addClass('active');
@@ -71,7 +70,7 @@ $('#content-index').addClass('active');
             "search": {
                 "regex": true
             },
-            ajax: "{!! url('content/allData') !!}",
+            ajax: "<?php echo url('content/allData'); ?>",
             columns: [{
                     data: "index",
                     searchable: false,
@@ -121,4 +120,6 @@ $('#content-index').addClass('active');
         });
     });
 </script>
-@stop
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
