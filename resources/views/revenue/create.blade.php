@@ -15,12 +15,12 @@ Revenues
                 </div>
             </div>
             <div class="box-content">
-                <form class="form-horizontal" action="{{url('revenue')}}" method="post">
+                <form class="form-horizontal" action="{{url('revenue')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Contract *</label>
                         <div class="col-sm-9 col-lg-10 controls">
-                            <select class="form-control" data-placeholder="Choose a Contract id" name="contract_id"
+                            <select id="contract_id" class="form-control" data-placeholder="Choose a Contract id" name="contract_id"
                                 tabindex="1" required>
                                 @foreach($contracts as $contract)
                                 <option value="{{$contract->id}}">{{$contract->contract_label}}</option>
@@ -59,22 +59,10 @@ Revenues
                     <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Source Type *</label>
                         <div class="col-sm-9 col-lg-10 controls">
-                            <select class="form-control" data-placeholder="Choose a source type" name="source_type"
-                                tabindex="1" required>
-                                <option value="operator">Operator</option>
-                                <option value="aggregator">Aggregator</option>
-                            </select>
-                            <span class="help-inline">Choose Source Type</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 col-lg-2 control-label">Source Type *</label>
-                        <div class="col-sm-9 col-lg-10 controls">
                             <select id="source_type" class="form-control" data-placeholder="Choose a source type" name="source_type"
                                 tabindex="1" required>
-                                <option value="operator">Operator</option>
-                                <option value="aggregator">Aggregator</option>
+                                <option value="1">Operator</option>
+                                <option value="2">Aggregator</option>
                             </select>
                             <span class="help-inline">Choose Source Type</span>
                         </div>
@@ -85,9 +73,76 @@ Revenues
                         <div class="col-sm-9 col-lg-10 controls">
                             <select id="source_id" class="form-control" data-placeholder="Choose a source type" name="source_id"
                                 tabindex="1" required>
+                                @foreach ($operators as $operator)
+                                    <option value="{{$operator->id}}">{{$operator->title}}</option>
+                                @endforeach
                             </select>
                             <span class="help-inline">Choose Source</span>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label">Amount *</label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <input id="amount" class="form-control" type="number" placeholder="Choose Amount" name="amount" required>
+                            <span class="help-inline">Choose Amount</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label">Currency  *</label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <select class="form-control" data-placeholder="Choose a Currency" name="currency_id"
+                                tabindex="1" required>
+                                @foreach ($currencies as $currency)
+                                    <option value="{{$currency->id}}">{{$currency->title}}</option>
+                                @endforeach
+                            </select>
+                            <span class="help-inline">Choose Currency</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label">Service Type  *</label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <select class="form-control" data-placeholder="Choose a Service Type" name="serivce_type_id"
+                                tabindex="1" required>
+                                @foreach ($ServiceTypes as $ServiceType)
+                                    <option value="{{$ServiceType->id}}">{{$ServiceType->service_type_title}}</option>
+                                @endforeach
+                            </select>
+                            <span class="help-inline">Choose Service Type</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label">Is Collected *</label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <select class="form-control" data-placeholder="Choose a Is Collected" name="is_collected"
+                                tabindex="1" required>
+                                <option value="1">Yes</option>
+                                <option value="2">No</option>
+                            </select>
+                            <span class="help-inline">Choose Is Collected</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label">Notes</label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <input class="form-control" type="text" style="padding-bottom:100px;padding-top:20px" placeholder="Notes" name="notes" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label">Reports *</label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <input class="form-control" type="file" placeholder="Reports" name="reports" required>
+                        </div>
+                    </div>
+
+                    <div id="Contract_services" class="container">
+                        <h6 class="alert alert-info">Services</h6>
                     </div>
 
                     <div class="form-group">
@@ -107,17 +162,37 @@ Revenues
 @section('script')
 <script>
     $('#revenue').addClass('active');
-        $('#revenue-create').addClass('active');
+    $('#revenue-create').addClass('active');
 </script>
 
 <script>
     $('#source_type').change(function (e) {
+        var source_type = $(this).val();
         $.ajax({
             type: "post",
             url: "{{url('comboselect/source_id')}}",
-            data: $(this).val();,
+            data: { 'source_type': source_type },
             success: function (response) {
-                console.log(response);
+                $('#source_id').empty();
+                for (const option of response) {
+                    $('#source_id').append( $('<option>').val(option.id).text(option.title) );
+                }
+            }
+        });
+    });
+
+    $('#contract_id').change(function (e) {
+        var contract_id = $(this).val();
+        $.ajax({
+            type: "post",
+            url: "{{url('comboselect/contract_services')}}",
+            data: { 'contract_id': contract_id },
+            success: function (response) {
+                $('#Contract_services').empty();
+                for (const service of response) {
+                    $('#Contract_services').html().append( $('<lable>').text(service.title) );
+                    $('#Contract_services').html().append( $('<input>').val(service.id).attr('name', service.title) );
+                }
             }
         });
     });
