@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Revenue;
+use App\Contract;
 use Illuminate\Http\Request;
 
 class RevenueController extends Controller
@@ -26,7 +27,8 @@ class RevenueController extends Controller
      */
     public function create()
     {
-        return view('revenue.create');
+        $contracts = Contract::all(['id', 'contract_label']);
+        return view('revenue.create', compact('contracts'));
     }
 
     /**
