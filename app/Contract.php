@@ -50,4 +50,6 @@ class Contract extends Model
     {
         return $this->belongsTo('App\ServiceTypes');
     }
+
+
 }

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Party;
 use App\Revenue;
 use App\Contract;
+use App\Currency;
+use App\Operator;
+use App\ServiceTypes;
 use Illuminate\Http\Request;
 
 class RevenueController extends Controller
@@ -28,7 +32,10 @@ class RevenueController extends Controller
     public function create()
     {
         $contracts = Contract::all(['id', 'contract_label']);
-        return view('revenue.create', compact('contracts'));
+        $operators = Operator::all(['id', 'title']);
+        $currencies = Currency::all(['id', 'title']);
+        $ServiceTypes = ServiceTypes::all(['id', 'service_type_title']);
+        return view('revenue.create', compact('contracts', 'operators', 'currencies', 'ServiceTypes'));
     }
 
     /**
@@ -85,5 +92,18 @@ class RevenueController extends Controller
     public function destroy(Revenue $revenue)
     {
         //
+    }
+
+    public function comboSelectSourceId(Request $request)
+    {
+        if($request->source_type == 1)
+        return Operator::all(['id', 'title']);
+        return Party::where('second_party_type_id', 1)->select('second_party_id AS id')->select('second_party_title AS title')->get();
+    }
+
+    public function comboSelectContractServices(Request $request)
+    {
+        $contract_id = $request->contract_id;
+        $contract = Contract::find($contract_id);
     }
 }
