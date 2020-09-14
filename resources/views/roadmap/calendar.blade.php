@@ -3,10 +3,10 @@
 	RoadMap
 @stop
 @section('content')
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+    <link rel='stylesheet' href='{{url('assets/fullcalendar/theme/sunny.css')}}' />
+    <link href="{{url('assets/fullcalendar/fullcalendar/fullcalendar.css')}}" rel='stylesheet' />
+    <link href="{{url('assets/fullcalendar/fullcalendar/fullcalendar.print.css')}}" rel='stylesheet' media='print' />
+
 	<div class="row">
 		<div class="col-md-12">
 			<div class="box box-black">
@@ -19,7 +19,7 @@
 				</div>
 				<div class="box-content">
                     {!! $calendar->calendar() !!}
-                    {!! $calendar->script() !!}
+
 				</div>
 			</div>
 		</div>
@@ -31,5 +31,9 @@
 	<script>
 		$('#roadmap').addClass('active');
 		$('#roadmap-calendar').addClass('active');
-	</script>
+    </script>
+        <script src="{{url('assets/fullcalendar/lib/jquery.min.js')}}"></script>
+        <script src="{{url('assets/fullcalendar/lib/jquery-ui.custom.min.js')}}"></script>
+        <script src="{{url('assets/fullcalendar/fullcalendar/fullcalendar.min.js')}}"></script>
+    {!! $calendar->script() !!}
 @stop

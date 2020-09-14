@@ -557,6 +557,23 @@
     })
 </script>
 <script>
+    $(document).ready(function () {
+        // $('#example').DataTable();
+        var el = $('.chosen-rtl');
+        if ("<?php echo App::getLocale(); ?>" == "ar") {
+            el.chosen({
+                rtl: true,
+                width: '100%'
+            });
+        }
+        else {
+            el.addClass("chosen");
+            el.removeClass("chosen-rtl");
+            $(".chosen").chosen();
+        }
+    });
+</script>
+<script>
     $(document).ready(function() {
         $('#example').DataTable();
     } );

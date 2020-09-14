@@ -92,8 +92,10 @@ class RoadMapController extends Controller
             );
         }
 
-        $calendar = \Calendar::addEvents($event);
+        $calendar = \Calendar::addEvents($event)->setOptions([
+            // 'theme' => true
+        ]);
 
-        return view('roadmap.calendar',compact('calendar'))
+        return view('roadmap.calendar',compact('calendar'));
     }
 }

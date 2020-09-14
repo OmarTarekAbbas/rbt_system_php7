@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('operators/{id}','CountryController@getOperators');
 Route::get('occasions/{id}','CountryController@getOccasions');
 Route::get('contents/{id}','ContentController@getContents');
+Route::get('tracks/{id}','ContentController@getTracks');
