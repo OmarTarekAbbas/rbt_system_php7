@@ -1,14 +1,15 @@
-<?php $__env->startSection('page_title'); ?>
+@extends('template')
+@section('page_title')
 Contract
-<?php $__env->stopSection(); ?>
-<?php $__env->startSection('content'); ?>
-<link href="<?php echo e(url('assets/contract/css/sximo.min.css')); ?>" rel="stylesheet">
-<link href="<?php echo e(url('assets/contract/css/core.css')); ?>" rel="stylesheet">
-<link href="<?php echo e(url('assets/contract/css/blue.css')); ?>" rel="stylesheet">
-<script type="text/javascript" src="<?php echo e(url('assets/contract/js/sximo.min.js')); ?>"></script>
-<script type="text/javascript" src="<?php echo e(url('assets/contract/js/sximo.js')); ?>"></script>
+@stop
+@section('content')
+<link href="{{url('assets/contract/css/sximo.min.css')}}" rel="stylesheet">
+<link href="{{url('assets/contract/css/core.css')}}" rel="stylesheet">
+<link href="{{url('assets/contract/css/blue.css')}}" rel="stylesheet">
+<script type="text/javascript" src="{{url('assets/contract/js/sximo.min.js')}}"></script>
+<script type="text/javascript" src="{{url('assets/contract/js/sximo.js')}}"></script>
 <style>
-    @media  screen and (min-width: 768px) {
+    @media screen and (min-width: 768px) {
         .page-wrapper .page-content {
             padding-left: unset;
         }
@@ -34,8 +35,8 @@ Contract
         <a href="javascript:;" class="toggleMenu flying-button"><i class="lni-menu"></i></a>
         <div class="page-inner">
             <div class="ajaxLoading"></div>
-            <form method="POST" action="<?php echo e(url('fullcontracts')); ?>" class="form-vertical validated sximo-form" id="FormTable" enctype="multipart/form-data">
-                <?php echo csrf_field(); ?>
+            <form method="POST" action="{{url('fullcontracts')}}" class="form-vertical validated sximo-form" id="FormTable" enctype="multipart/form-data">
+                @csrf
                 <div class="toolbar-nav">
                     <div class="row">
                         <div class="col-md-6 ">
@@ -45,7 +46,7 @@ Contract
                             </div>
                         </div>
                         <div class="col-md-6 text-right ">
-                            <a href="<?php echo e(url('fullcontracts')); ?>" class="tips btn   btn-sm " title="Back"><i class="fa  fa-times"></i></a>
+                            <a href="{{url('fullcontracts')}}" class="tips btn   btn-sm " title="Back"><i class="fa  fa-times"></i></a>
                         </div>
                     </div>
                 </div>
@@ -60,45 +61,45 @@ Contract
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Label <span class="asterix"> * </span> </label>
-                                    <input type='text' name='contract_label' id='contract_label' value='' required class='form-control' />
+                                    <input type='text' name='contract_label' value="{{$contract->contract_label}}" id='contract_label' value='' required class='form-control' />
                                 </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Company <span class="asterix"> * </span> </label>
                                     <select name='first_party_id' rows='5' id='first_party_id' class='select2 ' required>
                                         <option value="">-- Please Select --</option>
-                                        <?php $__currentLoopData = $first_parties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $first_partie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($first_partie->first_party_id); ?>"><?php echo e($first_partie->first_party_title); ?></option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        @foreach($first_parties as $first_partie)
+                                        <option value="{{$first_partie->first_party_id}}" @if($contract->first_party_id==$first_partie->first_party_id) selected="selected" @endif>{{$first_partie->first_party_title}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> First Party ? <span class="asterix"> * </span> </label>
-                                    <input type="checkbox" class="radio_check" value="1" checked="checked" name='first_party_select' /> Yes
-                                    <input type="checkbox" class="radio_check" value="0" name='first_party_select' /> No
+                                    <input type="checkbox" class="radio_check" value="1"  name='first_party_select'  @if($contract->first_party_select) checked="checked" @endif /> Yes
+                                    <input type="checkbox" class="radio_check" value="0" name='first_party_select' @if(!$contract->first_party_select) checked="checked" @endif  /> No
                                 </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> First Party (%) <span class="asterix"> * </span> </label>
                                     <select name='first_party_percentage' rows='5' id='first_party_percentage' class='select2 ' required>
                                         <option value="">-- Please Select --</option>
-                                        <?php $__currentLoopData = $percentages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $percentage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($percentage->id); ?>"><?php echo e($percentage->percentage); ?></option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        @foreach($percentages as $percentage)
+                                        <option value="{{$percentage->id}}" @if($contract->first_party_percentage==$percentage->id) selected="selected" @endif>{{$percentage->percentage}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Copies <span class="asterix"> * </span> </label>
-                                    <input type="checkbox" class="radio_check" checked="checked" value="1" name='copies' /> 1 Copy
-                                    <input type="checkbox" class="radio_check" value="2" name='copies' /> 2 Copy
-                                    <input type="checkbox" class="radio_check" value="3" name='copies' /> 3 Copy
+                                    <input type="checkbox" class="radio_check" value="1" name='copies' @if($contract->copies == 1) checked="checked" @endif /> 1 Copy
+                                    <input type="checkbox" class="radio_check" value="2" name='copies' @if($contract->copies == 2) checked="checked" @endif /> 2 Copy
+                                    <input type="checkbox" class="radio_check" value="3" name='copies' @if($contract->copies == 3) checked="checked" @endif /> 3 Copy
                                 </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Pages <span class="asterix"> * </span> </label>
-                                    <input type='text' name='pages' id='pages' value='' required class='form-control form-control-sm ' />
+                                    <input type='text' name='pages' id='pages' value='{{$contract->pages}}' required class='form-control form-control-sm ' />
                                 </div>
 
                             </section>
@@ -108,9 +109,9 @@ Contract
                                     <label for="ipt" class=" control-label "> Service Type <span class="asterix"> * </span> </label>
                                     <select name='service_type_id' rows='5' id='service_type_id' class='select2 ' required>
                                         <option value="">-- Please Select --</option>
-                                        <?php $__currentLoopData = $service_types; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service_type): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($service_type->id); ?>"><?php echo e($service_type->service_type_title); ?></option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        @foreach($service_types as $service_type)
+                                        <option value="{{$service_type->id}}" @if($contract->service_type_id==$service_type->id) selected="selected" @endif>{{$service_type->service_type_title}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
@@ -118,9 +119,9 @@ Contract
                                     <label for="ipt" class=" control-label "> Client Type <span class="asterix"> * </span> </label>
                                     <select name='second_party_type_id' rows='5' id='second_party_type_cli' class="form-control" required>
                                         <option value="">-- Please Select --</option>
-                                        <?php $__currentLoopData = $second_partys; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $second_party): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($second_party->id); ?>"><?php echo e($second_party->second_party_type_title); ?></option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        @foreach($second_partys as $second_party)
+                                        <option value="{{$second_party->id}}" @if($contract->second_party_type_id==$second_party->id) selected="selected" @endif >{{$second_party->second_party_type_title}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
@@ -133,9 +134,9 @@ Contract
                                     <label for="ipt" class=" control-label "> Countries <span class="asterix"> * </span> </label>
                                     <select name='country_title[]' multiple rows='5' id='country_title' class='select2 ' required>
                                     <option value="">-- Please Select --</option>
-                                        <?php $__currentLoopData = $countries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($country->title); ?>"><?php echo e($country->title); ?></option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        @foreach($countries as $country)
+                                        <option value="{{$country->title}}">{{$country->title}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
@@ -143,9 +144,9 @@ Contract
                                     <label for="ipt" class=" control-label "> Operators <span class="asterix"> * </span> </label>
                                     <select name='operator_title[]' multiple rows='5' id='operator_title' class='select2 ' required>
                                     <option value="">-- Please Select --</option>
-                                        <?php $__currentLoopData = $operators; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $operator): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($operator->title); ?>"><?php echo e($operator->title); ?></option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        @foreach($operators as $operator)
+                                        <option value="{{$operator->title}}">{{$operator->title}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
@@ -166,23 +167,23 @@ Contract
                                     <label for="ipt" class=" control-label "> Contract Duration <span class="asterix"> * </span> </label>
                                     <select name='contract_duration_id' rows='5' id='contract_duration_id' class='select2 ' required>
                                     <option value="">-- Please Select --</option>
-                                        <?php $__currentLoopData = $contract_durations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $contract_duration): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($contract_duration->contract_duration_id); ?>"><?php echo e($contract_duration->contract_duration_title); ?></option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        @foreach($contract_durations as $contract_duration)
+                                        <option value="{{$contract_duration->contract_duration_id}}" @if($contract->contract_duration_id==$contract_duration->contract_duration_id) selected="selected" @endif>{{$contract_duration->contract_duration_title}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Renewal Status <span class="asterix"> * </span> </label>
-                                    <input type="checkbox" class="radio_check" value="1" checked="checked" name='renewal_status' /> AR
-                                    <input type="checkbox" class="radio_check" value="1" name='renewal_status' /> No
-                                    <input type="checkbox" class="radio_check" value="1" name='renewal_status' /> RBAO
+                                    <input type="checkbox" class="radio_check" value="1" name='renewal_status' @if($contract->renewal_status == 1) checked="checked" @endif /> AR
+                                    <input type="checkbox" class="radio_check" value="0" name='renewal_status' @if($contract->renewal_status == 0) checked="checked" @endif /> No
+                                    <input type="checkbox" class="radio_check" value="2" name='renewal_status' @if($contract->renewal_status == 2) checked="checked" @endif /> RBAO
                                 </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Contract Status <span class="asterix"> * </span> </label>
-                                    <input type="checkbox" class="radio_check" value="1" checked="checked" name='contract_status' /> Active
-                                    <input type="checkbox" class="radio_check" value="1" name='contract_status' /> Terminated
+                                    <input type="checkbox" class="radio_check" value="1" name='contract_status' @if($contract->contract_status == 1) checked="checked" @endif /> Active
+                                    <input type="checkbox" class="radio_check" value="0" name='contract_status' @if($contract->contract_status == 0) checked="checked" @endif /> Terminated
                                 </div>
 
                                 <div class="form-group  ">
@@ -209,7 +210,7 @@ Contract
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Notes </label>
-                                    <textarea name='contract_notes' rows='5' id='contract_notes' class='form-control form-control-sm '></textarea>
+                                    <textarea name='contract_notes' value='{{$contract->contract_notes}}' rows='5' id='contract_notes' class='form-control form-control-sm '></textarea>
                                 </div>
                             </section>
                         </div>
@@ -218,9 +219,6 @@ Contract
                 </div>
             </form>
             <script type="text/javascript">
-                $(document).ready(function() {
-
-                });
                 $(".submitted-button").hide()
                 $("#wizard-step").steps({
                     headerTag: "h3",
@@ -248,9 +246,9 @@ Contract
         </div>
     </main>
 </div>
-<?php $__env->stopSection(); ?>
+@stop
 
-<?php $__env->startSection('script'); ?>
+@section('script')
 <script>
     $('#contract').addClass('active');
     $('#contract-index').addClass('active');
@@ -270,12 +268,12 @@ Contract
         }
     });
 
-    var token = '<?php echo e(Session::token()); ?>';
+    var token = '{{Session::token()}}';
     $('#second_party_type_cli').on('change', function() {
         console.log("omar");
         $.ajax({
                 method: 'GET',
-                url: "<?php echo e(url('/client_type')); ?>",
+                url: "{{url('/client_type')}}",
                 data: {
                     body: $(this).val(),
                     _token: token
@@ -287,6 +285,4 @@ Contract
     });
 </script>
 
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+@stop
