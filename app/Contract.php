@@ -50,4 +50,9 @@ class Contract extends Model
     {
         return $this->belongsTo('App\ServiceTypes');
     }
+
+    public function contract_service()
+    {
+        return $this->hasMany('App\ContractService');
+    }
 }

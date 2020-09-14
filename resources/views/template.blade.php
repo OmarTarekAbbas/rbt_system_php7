@@ -413,7 +413,7 @@
                 <!-- END Submenu -->
             </li>
 
-            <li id="occasion">
+            <li id="contract">
                 <a href="#" class="dropdown-toggle">
                     <i class="glyphicon glyphicon-copyright-mark"></i>
                     <span>Contracts</span>
@@ -423,8 +423,11 @@
                 <!-- BEGIN Submenu -->
                 <ul class="submenu">
                     <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
+                    <li id="contractservice-index"><a href="{{url('contractservice')}}">Service</a></li>
+
                 </ul>
                 <!-- END Submenu -->
+
             </li>
 
             <li id="roadmap">
