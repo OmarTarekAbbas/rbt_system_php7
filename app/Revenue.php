@@ -53,4 +53,9 @@ class Revenue extends Model
         }
     }
 
+    public function amount_services()
+    {
+        return $this->belongsToMany(contractservice::class,'amount_revenu','revenu_id','contract_service_id')->withPivot('id', 'amount');
+    }
+
 }

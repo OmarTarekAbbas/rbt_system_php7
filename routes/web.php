@@ -236,6 +236,8 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
 
     //Revenue
     Route::resource('revenue', 'RevenueController');
+    Route::get('revenue/{id}/delete', 'RevenueController@destroy');
+    Route::post('revenue/{id}/update', 'RevenueController@update');
     Route::post('comboselect/source_id', 'RevenueController@comboSelectSourceId');
     Route::post('comboselect/contract_services', 'RevenueController@comboSelectContractServices');
 });
