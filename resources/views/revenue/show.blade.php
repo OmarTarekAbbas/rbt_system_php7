@@ -54,13 +54,20 @@ Revenue
                                 <td>{{$revenue->amount}} </td>
                             </tr>
 
+                            @foreach ($revenue->amount_services as $service)
+                            <tr>
+                                <td width='30%' class='label-view text-right'>{{$service->title}}</td>
+                                <td>{{$service->pivot->amount}} </td>
+                            </tr>
+                            @endforeach
+
                             <tr>
                                 <td width='30%' class='label-view text-right'>Currency</td>
                                 <td>{{optional($revenue->currency)->title}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Serivce Type</td>
+                                <td width='30%' class='label-view text-right'>Service Type</td>
                                 <td>{{$revenue->serivce_type->service_type_title}} </td>
                             </tr>
 
@@ -77,7 +84,7 @@ Revenue
                             <tr>
                                 <td width='30%' class='label-view text-right'>Report Attachment *</td>
                                 <td>
-                                    <iframe src="{{url('uploads/revenue/'.$revenue->reports)}}">
+                                    <a href="{{url('uploads/revenue/'.$revenue->reports)}}">{{$revenue->reports}}</a>
                                 </td>
                             </tr>
 
