@@ -25,6 +25,11 @@ Revenue
                             </tr>
 
                             <tr>
+                                <td width='30%' class='label-view text-right'>Contract</td>
+                                <td>{{optional($revenue->contract)->contract_code ." ". optional($revenue->contract)->contract_label}} </td>
+                            </tr>
+
+                            <tr>
                                 <td width='30%' class='label-view text-right'>Year</td>
                                 <td>{{$revenue->year}} </td>
                             </tr>
@@ -41,7 +46,7 @@ Revenue
 
                             <tr>
                                 <td width='30%' class='label-view text-right'>Source</td>
-                                <td>{{optional($revenue->source)->second_party_title}} </td>
+                                <td>{{optional($revenue->source)->title ?? optional($revenue->source)->second_party_title}} </td>
                             </tr>
 
                             <tr>
@@ -70,8 +75,10 @@ Revenue
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Reports</td>
-                                <td><img width="150px" src="{{url('uploads/revenue/'.$revenue->reports)}}"> </td>
+                                <td width='30%' class='label-view text-right'>Report Attachment *</td>
+                                <td>
+                                    <iframe src="{{url('uploads/revenue/'.$revenue->reports)}}">
+                                </td>
                             </tr>
 
                         </tbody>

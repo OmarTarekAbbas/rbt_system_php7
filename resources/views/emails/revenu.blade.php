@@ -20,9 +20,15 @@
                 <td width="600" valign="top" align="center" bgcolor="#FFFFFF"  style="font-weight: bold;color:#000;font-size:18px">
                     Amount
                 </td>
-                <td width="600" valign="top" align="center" bgcolor="#FFFFFF"  style="font-weight: bold;color:#000;font-size:18px">
+                {{-- <td width="600" valign="top" align="center" bgcolor="#FFFFFF"  style="font-weight: bold;color:#000;font-size:18px">
                     Currency
+                </td> --}}
+
+                @foreach ($revenu->amount_services as $service)
+                <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="font-weight: bold;color:#000;font-size:18px">
+                    {{$service->title}}
                 </td>
+                @endforeach
             </tr>
 
             <tr>
@@ -38,9 +44,15 @@
                 <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="color:#000;font-size:16px">
                     {{$revenu->amount}}
                 </td>
-                <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="color:#000;font-size:16px">
+                {{-- <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="color:#000;font-size:16px">
                     {{$revenu->currency->title}}
+                </td> --}}
+
+                @foreach ($revenu->amount_services as $service)
+                <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="color:#000;font-size:16px">
+                    {{ $service->pivot->amount }} {{$revenu->currency->title}}
                 </td>
+                @endforeach
             </tr>
         </table>
 		<p> Thank You </p><br /><br />

@@ -33,7 +33,7 @@ Revenues
                     <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Amount *</label>
                         <div class="col-sm-9 col-lg-10 controls">
-                            <input id="amount" class="form-control" type="number" value="{{$revenue->amount}}" placeholder="Choose Amount" name="amount" required>
+                            <input id="amount" class="form-control" type="text" value="{{$revenue->amount}}" placeholder="Choose Amount" name="amount" required>
                             <span class="help-inline">Choose Amount</span>
                         </div>
                     </div>
@@ -140,11 +140,10 @@ Revenues
                             <input class="form-control" type="text" style="padding-bottom:100px;padding-top:20px" placeholder="Notes" name="notes" value="{{$revenue->notes}}">
                         </div>
                     </div>
-                    <img width="150px" src="{{url('uploads/revenue/'.$revenue->reports)}}">
                     <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Reports *</label>
                         <div class="col-sm-9 col-lg-10 controls">
-                            <input class="form-control" type="file" placeholder="Reports" name="reports">
+                            <input class="form-control" type="file" accept=".xls,.pdf" placeholder="Reports" name="reports">
                         </div>
                     </div>
 
@@ -159,7 +158,6 @@ Revenues
     </div>
 
 </div>
-
 @stop
 
 @section('script')
@@ -171,7 +169,7 @@ Revenues
 <script>
 
     $(document).ready(function () {
-        var source_type = $(this).val();
+        var source_type = $('#source_type').val();
         var revenue_source_id = "{{$revenue->source_id}}";
         $.ajax({
             type: "post",

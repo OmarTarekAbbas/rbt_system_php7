@@ -43,7 +43,7 @@
 							@foreach($revenues as $revenue)
 									<tr class="table-flag-blue">
                                         <td>{{$revenue->id}}</td>
-                                        <td>{{$revenue->contract->contract_code}}<span class="btn btn-sm">{{$revenue->contract->contract_label}}</span></td>
+                                        <td>{{optional($revenue->contract)->contract_code}}<span class="btn btn-sm">{{optional($revenue->contract)->contract_label}}</span></td>
                                         <td>{{$revenue->year}}</td>
                                         <td>{{$revenue->month}}</td>
                                         <td>{{$revenue->source_type}}</td>

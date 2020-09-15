@@ -33,7 +33,7 @@ Revenues
                     <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Amount *</label>
                         <div class="col-sm-9 col-lg-10 controls">
-                            <input id="amount" class="form-control" type="number" placeholder="Choose Amount" name="amount" required>
+                            <input id="amount" class="form-control" type="text" placeholder="Choose Amount" name="amount" required>
                             <span class="help-inline">Choose Amount</span>
                         </div>
                     </div>
@@ -141,9 +141,9 @@ Revenues
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 col-lg-2 control-label">Reports *</label>
+                        <label class="col-sm-3 col-lg-2 control-label">Report Attachment *</label>
                         <div class="col-sm-9 col-lg-10 controls">
-                            <input class="form-control" type="file" placeholder="Reports" name="reports" required>
+                            <input class="form-control" type="file" accept=".xls, .xlsx, .pdf" placeholder="Reports" name="reports" required>
                         </div>
                     </div>
 
@@ -185,6 +185,22 @@ Revenues
 
     $('#contract_id').change(function (e) {
         var contract_id = $(this).val();
+        $.ajax({
+            type: "post",
+            url: "{{url('comboselect/contract_services')}}",
+            data: { 'contract_id': contract_id },
+            success: function (response) {
+                $('#Contract_services').empty();
+                for (const service of response) {
+                    $('#Contract_services').append( $('<lable>').text(service.title) );
+                    $('#Contract_services').append( $('<input class="form-control">').attr('name', 'service['+(service.id)+']' ) );
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        var contract_id = $('#contract_id').val();
         $.ajax({
             type: "post",
             url: "{{url('comboselect/contract_services')}}",
