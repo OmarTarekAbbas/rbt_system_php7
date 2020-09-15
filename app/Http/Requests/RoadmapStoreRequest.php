@@ -37,7 +37,10 @@ class RoadmapStoreRequest extends FormRequest
             // 'aggregator_support' => 'required',
             // 'operator_support' => 'required',
             // 'promotion_support' => 'required',
-          //  'entry_by' => ''
+            'entry_by' => '',
+            'provider_id' => '',
+            'content_id' => '',
+            'content_track_ids' => ''
         ];
     }
 }
