@@ -162,10 +162,7 @@ Contract
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Contract Date <span class="asterix"> * </span> </label>
                                     <div class="input-group input-group-sm m-b" style="width:150px !important;">
-                                        <input class="form-control form-control-sm date" name="contract_date" type="text" value="">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></span></div>
-                                        </div>
+                                        <input class="form-control form-control-sm date" name="contract_date" type="date" value="">
                                     </div>
                                 </div>
 
@@ -195,10 +192,7 @@ Contract
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Expiry Date <span class="asterix"> * </span> </label>
                                     <div class="input-group input-group-sm m-b" style="width:150px !important;">
-                                        <input class="form-control form-control-sm date" name="contract_expiry_date" type="text" value="">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></span></div>
-                                        </div>
+                                        <input class="form-control form-control-sm date" name="contract_expiry_date" type="date" value="">
                                     </div>
                                 </div>
 
