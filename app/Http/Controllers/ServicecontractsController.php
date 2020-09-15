@@ -42,10 +42,14 @@ class ServicecontractsController extends Controller
         $this->validate($request, [
             'name' => 'title',
         ]);
-        $contract = new ContractService();
-        $contract->contract_id = $request->contract_id;
-        $contract->title = $request->title;
-        $contract->save();
+
+        $service['contract_id'] = $request->contract_id;
+
+        foreach($request->title as $id => $title){
+            $old_service['id'] = $id;
+            $service['title'] = $title;
+            $contract = ContractService::updateOrCreate($old_service, $service);
+        }
         $request->session()->flash('success', 'Add Contract Service Successfully');
         return redirect('contractservice');
     }

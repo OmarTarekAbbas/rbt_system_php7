@@ -18,16 +18,9 @@ CotractSrvice
             <div class="box-content">
 
                 {!! Form::open(["url"=>"contractservice","class"=>"form-horizontal","method"=>"POST","files"=>"True"]) !!}
-                <div class="form-group">
-                    <label class="col-sm-3 col-lg-2 control-label">Title <span class="text-danger">*</span></label>
-                    <div class="col-sm-9 col-lg-10 controls">
-                        {!! Form::text('title',null,['placeholder'=>'Title','class'=>'form-control btn-lg','required']) !!}
-                    </div>
-                </div>
-
 
                 <div class="form-group">
-                    <label class="col-sm-3 col-lg-2 control-label">Contract Id <span class="text-danger">*</span></label>
+                    <label class="col-sm-3 col-lg-2 control-label">Contract<span class="text-danger">*</span></label>
                     <div class="col-sm-9 col-lg-10 controls">
                         <select class="form-control chosen" data-placeholder="Choose a Role" name="contract_id" tabindex="1" required>
                             <option value="">-- Please Select --</option>
@@ -36,6 +29,14 @@ CotractSrvice
                             @endforeach
                         </select>
                     </div>
+                </div>
+
+                <div id="service_input">
+
+                </div>
+
+                <div class="container text-center">
+                    <a id="add_service" class="btn btn-success" style="width:25%;margin:20px"><i class="fa fa-plus-square" aria-hidden="true"></i> Add Service</a>
                 </div>
 
                 <div class="form-group">
@@ -56,5 +57,36 @@ CotractSrvice
 <script>
     $('#operator').addClass('active');
     $('#operator_create').addClass('active');
+</script>
+<script>
+    $('.chosen').change(function(){
+        var contract_id = $(this).val();
+        $.ajax({
+            type: "post",
+            url: "{{url('comboselect/contract_services')}}",
+            data: {'contract_id': contract_id},
+            success: function (response) {
+                $("#service_input").html('');
+                for (const service of response) {
+                    $('#service_input').append(`<div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label">Title <span class="text-danger">*</span> <a class="btn btn-danger remove_service" onclick="$(this).parent().parent().remove();"><i class="fa fa-minus-square" aria-hidden="true"></i></a></label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <input placeholder="Title" class="form-control btn-lg" required="" name="title[${service.id}]" value="${service.title}" type="text">
+                        </div>
+                    </div>`);
+                }
+            }
+        });
+    })
+
+    $('#add_service').click(function(){
+        $('#service_input').append(`<div class="form-group">
+            <label class="col-sm-3 col-lg-2 control-label">Title <span class="text-danger">*</span> <a class="btn btn-danger remove_service"  onclick="$(this).parent().parent().remove();"><i class="fa fa-minus-square" aria-hidden="true"></i></a></label>
+            <div class="col-sm-9 col-lg-10 controls">
+                <input placeholder="Title" class="form-control btn-lg" required="" name="title[]" type="text">
+            </div>
+        </div>`);
+    })
+
 </script>
 @stop
