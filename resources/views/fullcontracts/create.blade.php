@@ -197,11 +197,9 @@ Contract
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> Expiry Date <span class="asterix"> * </span> </label>
-
-
                   <div class="input-group input-group-sm m-b" style="width:170px !important;">
                     <div id="datepicker" class="input-group date datepicker_ivas">
-                      <input class="form-control form-control-sm " name="contract_expiry_date" type="text" value=""/>
+                      <input class="form-control form-control-sm " name="contract_expiry_date" type="text"  value="0000000" />
                       <div class="input-group-addon" style="width: 25%;padding: 3px 12px;background: #FFF;"><i class="fa fa-calendar"></i></div>
                     </div>
                   </div>
