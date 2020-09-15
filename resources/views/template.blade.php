@@ -33,13 +33,15 @@
     <link rel="stylesheet" href="{{url('assets/font-awesome/css/font-awesome.min.css')}}">
     <!--page specific css styles-->
     <link rel="stylesheet" href="{{url('assets/data-tables/bootstrap3/dataTables.bootstrap.css')}}" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" />
 
     <!--flaty css styles-->
     <link rel="stylesheet" href="{{url('css/flaty.css')}}">
     <link rel="stylesheet" href="{{url('css/flaty-responsive.css')}}">
+    <link rel="stylesheet" href="{{url('css/flaty-responsive.css')}}">
 
-    <link rel="shortcut icon" href="{{url('img/favicon.png')}}">
+    <!-- <link rel="shortcut icon" href="{{url('img/favicon.png')}}"> -->
 
     <meta name="token" content="{{ csrf_token() }}">
 
@@ -530,6 +532,24 @@
 <script src="{{url('js/pusher_config.js')}}"></script>
 <script src="{{url('js/vue.min.js')}}"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+
+<script>
+//   $(function () {
+//   $(".datepicker_ivas").datepicker({
+//       dateFormat: "mm/dd/yy",
+//         autoclose: false,
+//         todayHighlight: true
+//   });
+// });
+$(document).ready(function () {
+    $('.datepicker_ivas').datepicker({ dateFormat: "mm/dd/yy", changeMonth: true,
+        changeYear: true, yearRange: '1900:2020'
+    }).val('');
+});
+
+
+</script>
 
 <script>
      $.ajaxSetup({
