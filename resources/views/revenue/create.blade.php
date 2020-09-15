@@ -31,6 +31,33 @@ Revenues
                     </div>
 
                     <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label">Amount *</label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <input id="amount" class="form-control" type="number" placeholder="Choose Amount" name="amount" required>
+                            <span class="help-inline">Choose Amount</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label">Currency  *</label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <select class="form-control" data-placeholder="Choose a Currency" name="currency_id"
+                                tabindex="1" required>
+                                @foreach ($currencies as $currency)
+                                    <option value="{{$currency->id}}">{{$currency->title}}</option>
+                                @endforeach
+                            </select>
+                            <span class="help-inline">Choose Currency</span>
+                        </div>
+                    </div>
+
+                    <div class="container" style="padding: 20px">
+                        <h6 class="alert alert-info">Amount per service</h6>
+                        <div id="Contract_services">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Year *</label>
                         <div class="col-sm-9 col-lg-10 controls">
                             <select class="form-control" data-placeholder="Choose a year" name="year"
@@ -82,27 +109,6 @@ Revenues
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 col-lg-2 control-label">Amount *</label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <input id="amount" class="form-control" type="number" placeholder="Choose Amount" name="amount" required>
-                            <span class="help-inline">Choose Amount</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 col-lg-2 control-label">Currency  *</label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <select class="form-control" data-placeholder="Choose a Currency" name="currency_id"
-                                tabindex="1" required>
-                                @foreach ($currencies as $currency)
-                                    <option value="{{$currency->id}}">{{$currency->title}}</option>
-                                @endforeach
-                            </select>
-                            <span class="help-inline">Choose Currency</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Service Type  *</label>
                         <div class="col-sm-9 col-lg-10 controls">
                             <select class="form-control" data-placeholder="Choose a Service Type" name="serivce_type_id"
@@ -130,7 +136,7 @@ Revenues
                     <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Notes</label>
                         <div class="col-sm-9 col-lg-10 controls">
-                            <input class="form-control" type="text" style="padding-bottom:100px;padding-top:20px" placeholder="Notes" name="notes" required>
+                            <input class="form-control" type="text" style="padding-bottom:100px;padding-top:20px" placeholder="Notes" name="notes">
                         </div>
                     </div>
 
@@ -139,10 +145,6 @@ Revenues
                         <div class="col-sm-9 col-lg-10 controls">
                             <input class="form-control" type="file" placeholder="Reports" name="reports" required>
                         </div>
-                    </div>
-
-                    <div id="Contract_services" class="container">
-                        <h6 class="alert alert-info">Services</h6>
                     </div>
 
                     <div class="form-group">
@@ -190,8 +192,8 @@ Revenues
             success: function (response) {
                 $('#Contract_services').empty();
                 for (const service of response) {
-                    $('#Contract_services').html().append( $('<lable>').text(service.title) );
-                    $('#Contract_services').html().append( $('<input>').val(service.id).attr('name', service.title) );
+                    $('#Contract_services').append( $('<lable>').text(service.title) );
+                    $('#Contract_services').append( $('<input class="form-control">').attr('name', 'service['+(service.id)+']' ) );
                 }
             }
         });
