@@ -34,10 +34,10 @@ class RoadmapStoreRequest extends FormRequest
             'aggregator_id' => 'required',
             'operator_id' => 'required',
             'occasion_id' => 'required',
-            'aggregator_support' => 'required',
-            'operator_support' => 'required',
-            'promotion_support' => 'required',
-            'entry_by' => ''
+            // 'aggregator_support' => 'required',
+            // 'operator_support' => 'required',
+            // 'promotion_support' => 'required',
+          //  'entry_by' => ''
         ];
     }
 }

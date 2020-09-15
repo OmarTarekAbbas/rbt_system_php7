@@ -139,7 +139,7 @@ Departments
                         </div>
                     </div>
 
-                    <div class="row append-row">
+                    {{-- <div class="row append-row">
                         <div class="col-md-3 init-input">
                             <div class="box box-red">
                                 <div class="box-title">
@@ -171,7 +171,7 @@ Departments
                             </div>
                             <!-- END Left Side -->
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="form-group">
                         <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">

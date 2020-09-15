@@ -16,8 +16,9 @@
         <div class="form-group">
             <label for="country_id" class="col-xs-3 col-lg-2 control-label">Country</label>
             <div class="col-sm-9 col-lg-10 controls">
-                {!! Form::select('country_id',$countries,null,['class'=>'form-control chosen-rtl' , 'id' => 'country_id' ,'required' => true,'style'=>'height: 48px;'])!!}
+                {!! Form::select('country_id',$countries,null,['class'=>'form-control' , 'id' => 'country_id' ,'required' => true])!!}
             </div>
+
         </div>
         <div class="form-group">
            <label class="col-sm-3 col-lg-2 control-label">Title</label>
@@ -50,7 +51,7 @@
         <div class="form-group">
             <label for="country_id" class="col-xs-3 col-lg-2 control-label">Country</label>
             <div class="col-sm-9 col-lg-10 controls">
-                {!! Form::select('country_id',$countries,null,['class'=>'form-control chosen-rtl' , 'id' => 'country_id' ,'required' => true,'style'=>'height: 48px;'])!!}
+                {!! Form::select('country_id',$countries,null,['class'=>'form-control' , 'id' => 'country_id' ,'required' => true])!!}
             </div>
         </div>
         <div class="form-group">
