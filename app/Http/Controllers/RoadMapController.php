@@ -30,10 +30,19 @@ class RoadMapController extends Controller
         $request = array_merge($request->validated(),[
             'entry_by'  => auth()->id(),
             'event_start_date' => date('Y-m-d',strtotime($request->event_start_date)),
-            'event_end_date' => date('Y-m-d',strtotime($request->event_end_date))
+            'event_end_date' => date('Y-m-d',strtotime($request->event_end_date)),
+            'content_track_ids' => array_values($request['content_track_ids'])
         ]);
 
+        // return $request;
+
         $roadMap = Roadmap::create($request);
+
+        if (isset($request['provider_id'])) {
+            foreach ($request['provider_id'] as $key => $value) {
+                $roadMap->providers()->attach([$value => ['content_id' => $request['content_id'][$key], 'rbt_track_specs' => implode(',',$request['content_track_ids'][$key]) ] ]);
+            }
+        }
 
         return redirect('roadmaps');
     }
@@ -59,7 +68,15 @@ class RoadMapController extends Controller
 
         //return $request;
 
-        $roadMap = $roadmap->update($request);
+        $roadMap = tap($roadmap, function($roadmap) use ($request){
+            $roadmap->update($request);
+        });
+
+        // if ($request->has('provider_id')) {
+        //     foreach ($request->provider_id as $key => $value) {
+        //         $roadmap->providers->sync([$value => ['content_id' => $request->content_id[$key], 'rbt_track_specs' => implode(',',$request->content_track_ids[$key]) ] ]);
+        //     }
+        // }
 
         return redirect('roadmaps');
     }
@@ -75,27 +92,27 @@ class RoadMapController extends Controller
 
     public function calendarIndex()
     {
-        $events = Roadmap::all();
-        $event = [];
-        foreach($events as $row) {
-            $end_date = $row->event_end_date. "24:00:00";
-            $event[] = \Calendar::event(
-                $row->event_title,
-                true,
-                new \DateTime($row->event_start_date),
-                new \DateTime($row->event_end_date),
-                $row->id,
-                [
-                    'color' => $row->event_color,
-                    'url' => url('roadmaps/' .$row->id . '/edit')
-                ]
-            );
-        }
+        // $events = Roadmap::all();
+        // $event = [];
+        // foreach($events as $row) {
+        //     $end_date = $row->event_end_date. "24:00:00";
+        //     $event[] = \Calendar::event(
+        //         $row->event_title,
+        //         true,
+        //         new \DateTime($row->event_start_date),
+        //         new \DateTime($row->event_end_date),
+        //         $row->id,
+        //         [
+        //             'color' => $row->event_color,
+        //             'url' => url('roadmaps/' .$row->id . '/edit')
+        //         ]
+        //     );
+        // }
 
-        $calendar = \Calendar::addEvents($event)->setOptions([
-            // 'theme' => true
-        ]);
+        // $calendar = \Calendar::addEvents($event)->setOptions([
+        //     // 'theme' => true
+        // ]);
 
-        return view('roadmap.calendar',compact('calendar'));
+        // return view('roadmap.calendar',compact('calendar'));
     }
 }

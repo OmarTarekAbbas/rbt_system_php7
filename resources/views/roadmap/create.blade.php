@@ -3,6 +3,9 @@
 Departments
 @stop
 @section('content')
+@php
+    static $x=0;
+@endphp
 @include('errors')
 <div class="row">
     <div class="col-md-12">
@@ -164,7 +167,7 @@ Departments
                                     <div class="form-group">
                                         <label for="content_id" class="col-xs-3 col-lg-2 control-label">Tracks</label>
                                         <div class="col-sm-9 col-lg-10 controls">
-                                            {!! Form::select('content_track_ids[]',[],null,['class'=>'form-control chosen-rtl' , 'multiple' , 'id' => 'content_track_ids' ,'required' => true,'style'=>'height: 48px;'])!!}
+                                            {!! Form::select('content_track_ids[0][]',[],null,['class'=>'form-control chosen-rtl' , 'multiple' , 'id' => 'content_track_ids' ,'required' => true,'style'=>'height: 48px;'])!!}
                                         </div>
                                     </div>
                                 </div>
@@ -210,6 +213,9 @@ Departments
         $.get("{{ url('/api/operators/') }}/"+country_id,function(response) {
             form = createOperaotrForm(response)
             $('#operator_id').html(form)
+            $(".chosen").each(function() {
+                $(this).trigger("chosen:updated");
+            })
         });
     }
 
@@ -219,6 +225,9 @@ Departments
         $.get("{{ url('/api/occasions/') }}/"+country_id,function(response) {
             occasionform = createOccasionForm(response)
             $('#occasion_id').html(occasionform)
+            $(".chosen").each(function() {
+                $(this).trigger("chosen:updated");
+            })
         });
     }
 
@@ -308,14 +317,14 @@ Departments
         return input
     }
 
-
+    var x = 2
     $(document).on('click','.fa-plus',function(){
-        form = getFormCopy()
+        form = getFormCopy(x++)
         $('.append-row').append(form)
         initChosen()
     })
 
-    function getFormCopy(){
+    function getFormCopy(x){
         var form = '<div class="col-md-3 init-input">\
                         <div class="box box-red">\
                             <div class="box-title">\
@@ -337,7 +346,7 @@ Departments
                                 <div class="form-group">\
                                     <label for="content_id" class="col-xs-3 col-lg-2 control-label">Content</label>\
                                     <div class="col-sm-9 col-lg-10 controls">\
-                                        {!! Form::select("content_track_ids[]",[],null,["class"=>"form-control chosen-rtl" , "multiple" , "id" => "content_track_ids" ,"required" => true,"style"=>"height: 48px;"])!!}\
+                                        {!! Form::select("content_track_ids[".++$x."][]",[],null,["class"=>"form-control chosen-rtl" , "multiple" , "id" => "content_track_ids" ,"required" => true,"style"=>"height: 48px;"])!!}\
                                     </div>\
                                 </div>\
                             </div>\

@@ -10,4 +10,9 @@ class Roadmap extends Model
                           'operator_id','occasion_id','aggregator_support','operator_support','promotion_support','entry_by','event_start_date','event_end_date'];
 
     protected $dates  = ['event_start_date','event_end_date'];
+
+    public function providers()
+    {
+        return $this->belongsToMany('App\Provider','provider_contents','provider_id','roadmap_id')->withPivot(['content_id','rbt_track_specs','id']);
+    }
 }

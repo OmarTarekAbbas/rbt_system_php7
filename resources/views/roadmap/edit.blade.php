@@ -103,40 +103,6 @@ Departments
                             <!-- END Left Side -->
                         </div>
 
-                        {{-- <div class="col-md-3">
-                            <div class="box box-red">
-                                <div class="box-title">
-                                    <h3><i class="fa fa-bars"></i> Provider / Content</h3>
-                                </div>
-                                <!-- BEGIN Left Side -->
-                                <div class="box-content">
-                                    <div class="form-group">
-                                        <label for="provider_id" class="col-xs-3 col-lg-2 control-label">Provider</label>
-                                        <div class="col-sm-9 col-lg-10 controls">
-                                            {!! Form::select('provider_id',$providers,null,['class'=>'form-control chosen-rtl' , 'id' => 'provider_id' ,'required' => true,'style'=>'height: 48px;'])!!}
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="content_id" class="col-xs-3 col-lg-2 control-label">Content</label>
-                                        <div class="col-sm-9 col-lg-10 controls">
-                                            {!! Form::select('content_id',[],null,['class'=>'form-control chosen-rtl' , 'id' => 'content_id' ,'required' => true,'style'=>'height: 48px;'])!!}
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="textfield1" class="col-xs-3 col-lg-2 control-label">content track specs
-                                            </label>
-                                        <div class="col-sm-9 col-lg-10 controls">
-                                            <input type="text" value="{{$roadmap->}}" name="textfield1" id="textfield1"
-                                                placeholder="Text input" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END Left Side -->
-                        </div> --}}
-
                         <div class="col-md-4">
                             <div class="box box-red">
                                 <div class="box-title">
@@ -168,17 +134,50 @@ Departments
                                                 class="form-control">{{$roadmap->promotion_support}}</textarea>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row append-row">
+                        <div class="col-md-3 init-input">
+                            <div class="box box-red">
+                                <div class="box-title">
+                                    <h3><i class="fa fa-bars"></i> Provider / Content &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-trash pull-right"></i> &nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-plus pull-right"></i> </h3>
+                                </div>
+                                <!-- BEGIN Left Side -->
+                                <div class="box-content">
+                                    <div class="form-group">
+                                        <label for="provider_id" class="col-xs-3 col-lg-2 control-label">Provider</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            {!! Form::select('provider_id[]',$providers,null,['class'=>'form-control chosen-rtl' , 'id' => 'provider_id' ,'required' => true,'style'=>'height: 48px;'])!!}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group content">
+                                        <label for="content_id" class="col-xs-3 col-lg-2 control-label">Content</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            {!! Form::select('content_id[]',[],null,['class'=>'form-control chosen-rtl' , 'id' => 'content_id' ,'required' => true,'style'=>'height: 48px;'])!!}
+                                        </div>
+                                    </div>
 
                                     <div class="form-group">
-                                        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
-                                            <button type="submit" class="btn btn-primary"><i
-                                                    class="fa fa-check"></i> Save</button>
-                                            <button type="button" class="btn">Cancel</button>
+                                        <label for="content_id" class="col-xs-3 col-lg-2 control-label">Tracks</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            {!! Form::select('content_track_ids[]',[],null,['class'=>'form-control chosen-rtl' , 'multiple' , 'id' => 'content_track_ids' ,'required' => true,'style'=>'height: 48px;'])!!}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- END Left Side -->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+                            <button type="submit" class="btn btn-primary"><i
+                                    class="fa fa-check"></i> Save</button>
+                            <button type="button" class="btn">Cancel</button>
                         </div>
                     </div>
                 </form>
@@ -198,16 +197,11 @@ Departments
     $(document).on('ready',function(){
         getOperators( $('#country_id').val() )
         getOccasions( $('#country_id').val() )
-        getContents( $('#provider_id').val() )
     })
 
     $('#country_id').change(function(){
         getOperators($(this).val())
         getOccasions($(this).val())
-    })
-
-    $('#provider_id').change(function(){
-        getContents($(this).val())
     })
 
     // api for get operators
@@ -219,21 +213,6 @@ Departments
         });
     }
 
-    // create input for operators
-    function createOperaotrForm(operators) {
-        var input = ''
-        var selected = ''
-        Object.keys(operators).forEach(key => {
-            selected = ''
-            if(operators[key].id == parseInt('{{$roadmap->operator_id}}')) {
-                console.log('ok');
-                selected = 'selected'
-            }
-            input+='<option '+selected+' value="'+operators[key].id+'">'+operators[key].title+'</option>'
-        });
-        return input
-    }
-
     // api for get occasions
     function getOccasions(country_id) {
         var occasion = []
@@ -243,41 +222,175 @@ Departments
         });
     }
 
+    // create input for operators
+    function createOperaotrForm(operators) {
+        var input = ''
+        Object.keys(operators).forEach(key => {
+            input+='<option value="'+operators[key].id+'">'+operators[key].title+'</option>'
+        });
+        return input
+    }
+
     // create input for occasion
     function createOccasionForm(occasions) {
         var input = ''
-        var selected = ''
         Object.keys(occasions).forEach(key => {
-            selected = ''
-            if(occasions[key].id == parseInt('{{$roadmap->occasion_id}}')) {
-                selected = 'selected'
-            }
-            input+='<option '+selected+' value="'+occasions[key].id+'">'+occasions[key].title+'</option>'
+            input+='<option value="'+occasions[key].id+'">'+occasions[key].title+'</option>'
         });
         return input
     }
+</script>
 
+<script>
+    $(document).on('ready',function(){
+        getContents( $('#provider_id').val(), function(){
+            getTracks($('#content_id').val())
+        })
+    })
+
+    $(document).on('change','#provider_id', function(){
+        var _this2 = $(this)
+        getContents($(this).val(), function(){
+            content_id = $(_this2).parent().parent().siblings('.content').children('.controls').children('#content_id')
+            getTracks(content_id.val(), _this2)
+        }, $(this))
+    })
+    
+    $(document).on('change','#content_id', function(){
+        getTracks($(this).val(),$(this))
+    })
     // api for get Content
-    function getContents(provider_id) {
+    function getContents(provider_id, callback, _this = '') {
         var occasion = []
+        var _this3 = _this
         $.get("{{ url('/api/contents/') }}/"+provider_id,function(response) {
             contentform = createContentForm(response)
-            $('#content_id').html(contentform)
+            if(_this3 && _this3 != '') {
+                $(_this3).parent().parent().siblings('.content').children('.controls').children('#content_id').html(contentform)
+            } else {
+                $('#content_id').html(contentform)
+            }
+            callback()
+            $(".chosen").each(function() {
+                $(this).trigger("chosen:updated");
+            })
+        });
+
+    }
+    // api for get tracks
+    function getTracks(content_id, _this = '') {
+        var occasion = []
+        var _this3   = _this
+        $.get("{{ url('/api/tracks/') }}/"+content_id,function(response) {
+            trackform = createTracktForm(response)
+            if(_this3 && _this3 != '') {
+                $(_this3).parent().parent().siblings().last().children('.controls').children('#content_track_ids').html(trackform)
+            } else {
+                $('#content_track_ids').html(trackform)
+            }
+            $(".chosen").each(function() {
+                $(this).trigger("chosen:updated");
+            })
         });
     }
-
     // create input for content
     function createContentForm(contents) {
         var input = ''
-        var selected = ''
         Object.keys(contents).forEach(key => {
-            selected = ''
-            if(contents[key].id == parseInt('{{$roadmap->content_id}}')) {
-                selected = 'selected'
-            }
-            input+='<option '+selected+' value="'+contents[key].id+'">'+contents[key].content_title+'</option>'
+            input+='<option value="'+contents[key].id+'">'+contents[key].content_title+'</option>'
         });
         return input
     }
+    // create input for content
+    function createTracktForm(tracks) {
+        var input = ''
+        Object.keys(tracks).forEach(key => {
+            input+='<option class="far play" data-src="{{url("/")}}/'+tracks[key].track_file+'" value="'+tracks[key].id+'">'+tracks[key].track_title_en+'</option>'
+        });
+        return input
+    }
+
+
+    $(document).on('click','.fa-plus',function(){
+        form = getFormCopy()
+        $('.append-row').append(form)
+        initChosen()
+    })
+
+    function getFormCopy(){
+        var form = '<div class="col-md-3 init-input">\
+                        <div class="box box-red">\
+                            <div class="box-title">\
+                                <h3><i class="fa fa-bars"></i> Provider / Content &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-trash pull-right"></i> &nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-plus pull-right"></i> </h3>\
+                            </div>\
+                            <div class="box-content">\
+                                <div class="form-group">\
+                                    <label for="provider_id" class="col-xs-3 col-lg-2 control-label">Provider</label>\
+                                    <div class="col-sm-9 col-lg-10 controls">\
+                                        {!! Form::select("provider_id[]",$providers,null,["class"=>"form-control chosen-rtl" , "id" => "provider_id" ,"required" => true,"style"=>"height: 48px;"]) !!}\
+                                    </div>\
+                                </div>\
+                                <div class="form-group content">\
+                                    <label for="content_id" class="col-xs-3 col-lg-2 control-label">Tracks</label>\
+                                    <div class="col-sm-9 col-lg-10 controls">\
+                                        {!! Form::select("content_id[]",[],null,["class"=>"form-control chosen-rtl" , "id" => "content_id" ,"required" => true,"style"=>"height: 48px;"])!!}\
+                                    </div>\
+                                </div>\
+                                <div class="form-group">\
+                                    <label for="content_id" class="col-xs-3 col-lg-2 control-label">Content</label>\
+                                    <div class="col-sm-9 col-lg-10 controls">\
+                                        {!! Form::select("content_track_ids[]",[],null,["class"=>"form-control chosen-rtl" , "multiple" , "id" => "content_track_ids" ,"required" => true,"style"=>"height: 48px;"])!!}\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>'
+        return form;
+    }
+
+    $(document).on('click','.fa-trash',function(){
+        if($('.append-row').children().length > 1)
+            $(this).parent().parent().parent().parent().remove()
+    })
+
+    function initChosen() {
+        var el = $('.chosen-rtl');
+        if ("<?php echo App::getLocale(); ?>" == "ar") {
+            el.chosen({
+                rtl: true,
+                width: '100%'
+            });
+        }
+        else {
+            el.addClass("chosen");
+            el.removeClass("chosen-rtl");
+            $(".chosen").chosen();
+        }
+    }
+
+    let audio = new Audio();
+
+    $('#content_track_ids').change(function(){
+        console.log($(this).children('option:selected').data('src'));
+        if (!audio.paused) {
+            audio.pause();
+        }
+
+        audio.src = $(this).children('option:selected').data('src')
+
+        if ($(this).children('option:selected').hasClass('play')) {
+            $(this).children('option:selected').removeClass('play').addClass('pause')
+
+            $('.far').not($(this).children('option:selected')).each(function() {
+                if ($(this).hasClass('pause')) {
+                    $(this).removeClass('pause').addClass('play')
+                }
+            })
+            audio.play();
+        } else {
+            $(this).children('option:selected').removeClass('pause').addClass('play')
+        }
+    })
+
 </script>
 @stop
