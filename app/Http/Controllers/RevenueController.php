@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Party;
+use Validator;
 use App\Revenue;
 use App\Contract;
 use App\Currency;
 use App\Operator;
 use App\ServiceTypes;
-use Validator;
+use App\ContractService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -213,5 +214,13 @@ class RevenueController extends Controller
         $contract_id = $request->contract_id;
         $contract = Contract::find($contract_id);
         return $contract->contract_service;
+    }
+
+    public function comboSelectRemoveContractServices(Request $request)
+    {
+        $service_id = $request->service_id;
+        $ContractService = ContractService::find($service_id);
+        $ContractService->delete();
+        return 'true';
     }
 }

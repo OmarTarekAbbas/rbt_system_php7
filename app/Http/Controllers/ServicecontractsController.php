@@ -30,8 +30,13 @@ class ServicecontractsController extends Controller
     {
     }
 
-    public function create()
+    public function create($id = null)
     {
+        if($id){
+          $contract_show = Contract::find($id);
+          return view('servicecontracts.create',compact('contract_show'));
+        }
+
         $contracts = Contract::all();
         return view('servicecontracts.create',compact('contracts'));
 
@@ -51,7 +56,7 @@ class ServicecontractsController extends Controller
             $contract = ContractService::updateOrCreate($old_service, $service);
         }
         $request->session()->flash('success', 'Add Contract Service Successfully');
-        return redirect('contractservice');
+        return redirect('fullcontracts');
     }
 
     public function edit($id)
