@@ -2,29 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Rbt;
-use Illuminate\Support\Facades\Schema;
 use URL;
-use Excel;
+use Auth;
 use File;
-use App\Provider;
+use Excel;
+use App\Rbt;
+use Validator;
+use Datatables;
+use App\Content;
+use App\Occasion;
 
 
 use App\Operator;
 
 
-use App\Occasion;
+use App\Provider;
 
 
 use App\Aggregator;
 
-use App\Content;
-use Auth;
-use Validator;
-use Datatables;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 
 /**
@@ -464,7 +465,7 @@ class RbtController extends Controller
         if ($request->hasFile('track_file')) {
             $old_path = explode('/',$rbt->track_file) ;
             if ($rbt->track_file) {
-                File::delete($rbt->track_file);
+              Storage::disk('local')->delete($rbt->track_file);
             }
             $ex = $request->file('track_file')->getClientOriginalExtension();
             $extentions = array('mp3','wav','ogg','m4a');
@@ -472,14 +473,15 @@ class RbtController extends Controller
                 $request->file('track_file')->move($old_path[0]."/".$old_path[1],$rbt->track_title_en.".wav");
                 $track_file = $old_path[0]."/".$old_path[1]."/".$rbt->track_title_en.".wav" ;
                 $rbt->track_file = $track_file;
+                Storage::disk('local')->putFileAs($rbt->track_file, $request->file('track_file'));
+                dd(Storage::disk('local')->putFileAs($rbt->track_file, $request->file('track_file')));
             }else{
                 $request->session()->flash('failed', 'Rbt file must be an audio');
-
+                dd($request);
                 return redirect('/rbt/'.$id.'/edit');
 
             }
         }
-
 
 
         $rbt->operator_id = $request->operator_id;
