@@ -13,6 +13,6 @@ class Roadmap extends Model
 
     public function providers()
     {
-        return $this->belongsToMany('App\Provider','provider_contents','provider_id','roadmap_id')->withPivot(['content_id','rbt_track_specs','id']);
+        return $this->belongsToMany('App\Provider','provider_contents','roadmap_id','provider_id')->withPivot(['content_id','rbt_track_specs','id']);
     }
 }

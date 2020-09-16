@@ -311,7 +311,7 @@ Departments
         Object.keys(tracks).forEach(key => {
             input+= `<div class="row text-center">
                         <div class="col-md-2 text-right">
-                            <input type="checkbox" value="${tracks[key].id}" name="content_track_ids[${x++}][]">
+                            <input type="checkbox" value="${tracks[key].id}" name="content_track_ids[${x}][]">
                         </div>
                         <div class="col-md-2 text-right">
                             <i data-src="{{url("/")}}/${tracks[key].track_file}" class="fa fa-play play_pause"></i>
@@ -321,6 +321,7 @@ Departments
                         </div>
                     </div>`
         });
+        x++;
         return input
     }
 
