@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Rbt;
 use App\Content;
+use App\Country;
 use App\Occasion;
 use App\Provider;
-use App\Rbt;
+use Illuminate\Http\Request;
 
 class ContentController extends Controller
 {
@@ -72,7 +73,8 @@ class ContentController extends Controller
             ->addColumn('action', function (Content $content) {
                 return '<td class="visible-md visible-lg">
                             <div class="btn-group">
-                            <a class="btn btn-sm btn-success show-tooltip" title="" href="' . url("rbt/excel?content_id=" . $content->content_id) . '" ><i class="fa fa-plus"></i></a>
+                                <a class="btn btn-sm btn-info show-tooltip" title="list traks" href="' . url("contents/file_system") . '" ><i class="fa fa-music"></i></a>
+                                <a class="btn btn-sm btn-success show-tooltip" title="" href="' . url("rbt/excel?content_id=" . $content->content_id) . '" ><i class="fa fa-plus"></i></a>
                                 <a class="btn btn-sm show-tooltip" href="' . url("content/" . $content->content_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
                                 <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("content/" . $content->content_id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
                             </div>
@@ -188,6 +190,8 @@ class ContentController extends Controller
                         } else {
                             $occ = array();
                             $occ['title'] = $row->occasion;
+                            $country = Country::where('title','LIKE', "%$row->country%")->first();
+                            $occ['country_id'] = $country->id ?? all_countries();
                             $create = Occasion::create($occ);
                             $occasion_id = $create->id;
                         }
