@@ -171,7 +171,6 @@ class RbtController extends Controller
             $validator = Validator::make($request->all(),[
                 'track_title_en' => 'required',
                 'code' => 'required|numeric',
-                'social_media_code' => 'numeric',
                 'operator_id' => 'required',
             ]);
         }
@@ -432,7 +431,6 @@ class RbtController extends Controller
             $validator = Validator::make($request->all(),[
                 'track_title_en' => 'required',
                 'code' => 'required|numeric',
-                'social_media_code' => 'numeric',
                 'operator_id' => 'required',
             ]);
         }
