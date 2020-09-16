@@ -59,6 +59,7 @@ Departments
                                                 placeholder="Event End Date"  data-date-format="dd-mm-yyyy"  class="form-control">
                                         </div>
                                     </div>
+                                  </div>
 
                             </div>
                             <!-- END Left Side -->
