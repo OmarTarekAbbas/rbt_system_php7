@@ -3,9 +3,6 @@
 Departments
 @stop
 @section('content')
-@php
-    static $x=0;
-@endphp
 @include('errors')
 <div class="row">
     <div class="col-md-12">
@@ -165,10 +162,21 @@ Departments
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="content_id" class="col-xs-3 col-lg-2 control-label">Tracks</label>
+                                        <div class="row track-row" >
+                                            {{-- <div class="col-md-2">
+                                                <input type="checkbox" name="content_track_ids[0][]" value="1">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <i class="fa fa-play"></i>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <p> trackname </p>
+                                            </div> --}}
+                                        </div>
+                                        {{-- <label for="content_id" class="col-xs-3 col-lg-2 control-label">Tracks</label>
                                         <div class="col-sm-9 col-lg-10 controls">
                                             {!! Form::select('content_track_ids[0][]',[],null,['class'=>'form-control chosen-rtl' , 'multiple' , 'id' => 'content_track_ids' ,'required' => true,'style'=>'height: 48px;'])!!}
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -251,6 +259,7 @@ Departments
 </script>
 
 <script>
+    var x= 0 
     $(document).on('ready',function(){
         getContents( $('#provider_id').val(), function(){
             getTracks($('#content_id').val())
@@ -291,9 +300,9 @@ Departments
         $.get("{{ url('/api/tracks/') }}/"+content_id,function(response) {
             trackform = createTracktForm(response)
             if(_this3 && _this3 != '') {
-                $(_this3).parent().parent().siblings().last().children('.controls').children('#content_track_ids').html(trackform)
+                $(_this3).parent().parent().siblings().last().children('.track-row').html(trackform)
             } else {
-                $('#content_track_ids').html(trackform)
+                $('.track-row').html(trackform)
             }
             $(".chosen").each(function() {
                 $(this).trigger("chosen:updated");
@@ -312,19 +321,28 @@ Departments
     function createTracktForm(tracks) {
         var input = ''
         Object.keys(tracks).forEach(key => {
-            input+='<option class="far play" data-src="{{url("/")}}/'+tracks[key].track_file+'" value="'+tracks[key].id+'">'+tracks[key].track_title_en+'</option>'
+            // input+='<option class="far play" data-src="{{url("/")}}/'+tracks[key].track_file+'" value="'+tracks[key].id+'">'+tracks[key].track_title_en+'</option>'
+            input+= `<div class="col-md-2">
+                        <input type="checkbox" value="${tracks[key].id}" name="content_track_ids[${x}][]">
+                    </div>
+                    <div class="col-md-2">
+                        <i data-src="{{url("/")}}/${tracks[key].track_file}" class="fa fa-play"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <p class="pull-left"> ${tracks[key].track_title_en} </p>
+                    </div>`
         });
         return input
     }
 
-    var x = 2
+
     $(document).on('click','.fa-plus',function(){
-        form = getFormCopy(x++)
+        form = getFormCopy()
         $('.append-row').append(form)
         initChosen()
     })
 
-    function getFormCopy(x){
+    function getFormCopy(){
         var form = '<div class="col-md-3 init-input">\
                         <div class="box box-red">\
                             <div class="box-title">\
@@ -346,7 +364,7 @@ Departments
                                 <div class="form-group">\
                                     <label for="content_id" class="col-xs-3 col-lg-2 control-label">Content</label>\
                                     <div class="col-sm-9 col-lg-10 controls">\
-                                        {!! Form::select("content_track_ids[".++$x."][]",[],null,["class"=>"form-control chosen-rtl" , "multiple" , "id" => "content_track_ids" ,"required" => true,"style"=>"height: 48px;"])!!}\
+                                        <select required name="content_track_ids['+(++x)+'][]" class="form-control chosen-rtl" multiple id="content_track_ids" style="height: 48px;"></select>\
                                     </div>\
                                 </div>\
                             </div>\

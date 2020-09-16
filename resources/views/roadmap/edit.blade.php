@@ -140,6 +140,7 @@ Departments
                     </div>
 
                     <div class="row append-row">
+                    @foreach($roadmap->providers as $content)
                         <div class="col-md-3 init-input">
                             <div class="box box-red">
                                 <div class="box-title">
@@ -150,27 +151,28 @@ Departments
                                     <div class="form-group">
                                         <label for="provider_id" class="col-xs-3 col-lg-2 control-label">Provider</label>
                                         <div class="col-sm-9 col-lg-10 controls">
-                                            {!! Form::select('provider_id[]',$providers,null,['class'=>'form-control chosen-rtl' , 'id' => 'provider_id' ,'required' => true,'style'=>'height: 48px;'])!!}
+                                            {!! Form::select('provider_id[]',$providers,$content->pivot->provider_id,['class'=>'form-control chosen-rtl' , 'id' => 'provider_id' ,'required' => true,'style'=>'height: 48px;'])!!}
                                         </div>
                                     </div>
 
                                     <div class="form-group content">
                                         <label for="content_id" class="col-xs-3 col-lg-2 control-label">Content</label>
                                         <div class="col-sm-9 col-lg-10 controls">
-                                            {!! Form::select('content_id[]',[],null,['class'=>'form-control chosen-rtl' , 'id' => 'content_id' ,'required' => true,'style'=>'height: 48px;'])!!}
+                                            {!! Form::select('content_id[]',[],null,['class'=>'form-control chosen-rtl' , 'data-content' => $content->pivot->content_id , 'id' => 'content_id' ,'required' => true,'style'=>'height: 48px;'])!!}
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="content_id" class="col-xs-3 col-lg-2 control-label">Tracks</label>
                                         <div class="col-sm-9 col-lg-10 controls">
-                                            {!! Form::select('content_track_ids[]',[],null,['class'=>'form-control chosen-rtl' , 'multiple' , 'id' => 'content_track_ids' ,'required' => true,'style'=>'height: 48px;'])!!}
+                                            {!! Form::select('content_track_ids[]',[],null,['class'=>'form-control chosen-rtl' , 'data-track' => $content->pivot->content_track_ids ,  'multiple' , 'id' => 'content_track_ids' ,'required' => true,'style'=>'height: 48px;'])!!}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- END Left Side -->
                         </div>
+                    @endforeach
                     </div>
 
                     <div class="form-group">
@@ -194,6 +196,7 @@ Departments
     $('#roadmap').addClass('active');
     $('#roadmap-create').addClass('active');
 
+   
     $(document).on('ready',function(){
         getOperators( $('#country_id').val() )
         getOccasions( $('#country_id').val() )
@@ -210,6 +213,9 @@ Departments
         $.get("{{ url('/api/operators/') }}/"+country_id,function(response) {
             form = createOperaotrForm(response)
             $('#operator_id').html(form)
+            $(".chosen").each(function() {
+                $(this).trigger("chosen:updated");
+            })
         });
     }
 
@@ -219,6 +225,9 @@ Departments
         $.get("{{ url('/api/occasions/') }}/"+country_id,function(response) {
             occasionform = createOccasionForm(response)
             $('#occasion_id').html(occasionform)
+            $(".chosen").each(function() {
+                $(this).trigger("chosen:updated");
+            })
         });
     }
 
@@ -242,12 +251,12 @@ Departments
 </script>
 
 <script>
+    var x= 0 
     $(document).on('ready',function(){
         getContents( $('#provider_id').val(), function(){
             getTracks($('#content_id').val())
         })
     })
-
     $(document).on('change','#provider_id', function(){
         var _this2 = $(this)
         getContents($(this).val(), function(){
@@ -255,7 +264,6 @@ Departments
             getTracks(content_id.val(), _this2)
         }, $(this))
     })
-    
     $(document).on('change','#content_id', function(){
         getTracks($(this).val(),$(this))
     })
@@ -312,7 +320,7 @@ Departments
 
 
     $(document).on('click','.fa-plus',function(){
-        form = getFormCopy()
+        form = getFormCopy(x)
         $('.append-row').append(form)
         initChosen()
     })
@@ -339,7 +347,7 @@ Departments
                                 <div class="form-group">\
                                     <label for="content_id" class="col-xs-3 col-lg-2 control-label">Content</label>\
                                     <div class="col-sm-9 col-lg-10 controls">\
-                                        {!! Form::select("content_track_ids[]",[],null,["class"=>"form-control chosen-rtl" , "multiple" , "id" => "content_track_ids" ,"required" => true,"style"=>"height: 48px;"])!!}\
+                                        <select required name="content_track_ids['+(++x)+'][]" class="form-control chosen-rtl" multiple id="content_track_ids" style="height: 48px;"></select>\
                                     </div>\
                                 </div>\
                             </div>\
