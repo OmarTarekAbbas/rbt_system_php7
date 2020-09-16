@@ -56,7 +56,7 @@ class ServicecontractsController extends Controller
             $contract = ContractService::updateOrCreate($old_service, $service);
         }
         $request->session()->flash('success', 'Add Contract Service Successfully');
-        return redirect('fullcontracts');
+        return back();
     }
 
     public function edit($id)
