@@ -89,30 +89,30 @@ function access($attr, $path, $data, $volume, $isDir, $relpath) {
 		:  null;                                 // else elFinder decide it itself
 }
 
-$allowUploadsExtensions = array("all") ; 
+$allowUploadsExtensions = array("all") ;
 
 $method= "aes-128-cbc";
-$ENCRYPTION_KEY = '!@#$$%~##!@' ; 
-$iv = str_repeat(chr(0), 16); 
-$decrypted_username = openssl_decrypt($_COOKIE['nn'], $method, $ENCRYPTION_KEY, 0, $iv); // database username 
-$decrypted_password = openssl_decrypt($_COOKIE['pp'], $method, $ENCRYPTION_KEY, 0, $iv); // database password 
-$decrypted_database = openssl_decrypt($_COOKIE['dd'], $method, $ENCRYPTION_KEY, 0, $iv); // database name 
+$ENCRYPTION_KEY = '!@#$$%~##!@' ;
+$iv = str_repeat(chr(0), 16);
+$decrypted_username = openssl_decrypt($_COOKIE['nn'], $method, $ENCRYPTION_KEY, 0, $iv); // database username
+$decrypted_password = openssl_decrypt($_COOKIE['pp'], $method, $ENCRYPTION_KEY, 0, $iv); // database password
+$decrypted_database = openssl_decrypt($_COOKIE['dd'], $method, $ENCRYPTION_KEY, 0, $iv); // database name
 
 
-$host = "localhost"  ;  
+$host = "localhost"  ;
 
-$conn = mysqli_connect($host,$decrypted_username,$decrypted_password,$decrypted_database) ; 
+$conn = mysqli_connect($host,$decrypted_username,$decrypted_password,$decrypted_database) ;
 
-$query = "SELECT value FROM settings WHERE settings.key LIKE '%uploadAllow%' " ; 
+$query = "SELECT value FROM settings WHERE settings.key LIKE '%uploadAllow%' " ;
 
 $run = mysqli_query($conn,$query) ;
 
 if($run)
 {
-	$row = mysqli_fetch_row($run) ; 
+	$row = mysqli_fetch_row($run) ;
 	if($row)
 	{
-		$allowUploadsExtensions = $row[0] ; 
+		$allowUploadsExtensions = $row[0] ;
 		$allowUploadsExtensions = explode(",",$allowUploadsExtensions);
 	}
 }

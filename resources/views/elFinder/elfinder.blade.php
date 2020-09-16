@@ -31,7 +31,7 @@
 							googleDocsMimes : ['application/pdf', 'image/tiff', 'application/vnd.ms-office', 'application/msword', 'application/vnd.ms-word', 'application/vnd.ms-excel', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
 						}
 					}
-					// bootCalback calls at before elFinder boot up 
+					// bootCalback calls at before elFinder boot up
 					,bootCallback : function(fm, extraObj) {
 						/* any bind functions etc. */
 						fm.bind('init', function() {
