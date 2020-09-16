@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2020-09-15 10:32:29
+Date: 2020-09-16 15:13:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -44,11 +44,17 @@ CREATE TABLE `amount_revenu` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of amount_revenu
 -- ----------------------------
+INSERT INTO `amount_revenu` VALUES ('1', '31', '1', '50', null, null);
+INSERT INTO `amount_revenu` VALUES ('2', '32', '1', '50', null, null);
+INSERT INTO `amount_revenu` VALUES ('3', '31', '2', '50', null, null);
+INSERT INTO `amount_revenu` VALUES ('4', '32', '2', '50', null, null);
+INSERT INTO `amount_revenu` VALUES ('5', '31', '3', '50.59', null, null);
+INSERT INTO `amount_revenu` VALUES ('6', '32', '3', '50', null, null);
 
 -- ----------------------------
 -- Table structure for `contents`
@@ -73,15 +79,14 @@ CREATE TABLE `contents` (
   CONSTRAINT `contents_occasion_id_foreign` FOREIGN KEY (`occasion_id`) REFERENCES `occasions` (`id`) ON DELETE CASCADE,
   CONSTRAINT `contents_provider_id_foreign` FOREIGN KEY (`provider_id`) REFERENCES `providers` (`id`) ON DELETE CASCADE,
   CONSTRAINT `contents_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of contents
 -- ----------------------------
-INSERT INTO `contents` VALUES ('3', 'content1', 'audio', '/uploads/content/2020-09-14/1600088541369.wav', null, null, '1', null, '3', '2020-09-14 12:57:33', '2020-09-14 13:02:21');
-INSERT INTO `contents` VALUES ('4', 'content2', 'audio', '/uploads/content/2020-09-14/1600088517886.wav', null, null, '1', null, '3', '2020-09-14 12:58:21', '2020-09-14 13:01:57');
-INSERT INTO `contents` VALUES ('5', 'content3', 'audio', '/uploads/content/2020-09-14/1600088349592.mp3', null, null, '2', null, '3', '2020-09-14 12:58:48', '2020-09-14 12:59:09');
-INSERT INTO `contents` VALUES ('6', 'content4', 'audio', '/uploads/content/2020-09-14/1600088377542.mp3', null, null, '2', null, '3', '2020-09-14 12:59:37', '2020-09-14 13:02:59');
+INSERT INTO `contents` VALUES ('7', 'content1', 'audio', '/uploads/content/2020-09-15/1600192101583.wav', null, '7', '1', null, '5', '2019-08-25 13:32:00', '2020-09-15 17:48:21');
+INSERT INTO `contents` VALUES ('10', 'content2', 'video', '/uploads/content/2019-08-26/1566824917306.mp4', null, '10', '2', null, '6', '2019-08-25 13:32:00', '2019-08-26 11:08:37');
+INSERT INTO `contents` VALUES ('18', 'content3', 'audio', '/uploads/content/2019-08-26/1566824979385.wav', null, '18', '3', null, '7', '2019-08-26 07:18:21', '2019-08-26 11:09:39');
 
 -- ----------------------------
 -- Table structure for `contracts`
@@ -124,12 +129,14 @@ CREATE TABLE `contracts` (
   KEY `contracts_second_party_id_foreign` (`second_party_id`),
   KEY `contracts_contract_duration_id_foreign` (`contract_duration_id`),
   KEY `second_party_type_id` (`second_party_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of contracts
 -- ----------------------------
 INSERT INTO `contracts` VALUES ('1', 'C#2020/09/14/1600096765', '2', 'rotana - filters', '1', '1', '28', '', '', '2', '0', '2020-09-09', '1', '1', '1', '2021-01-09', 'Egypt,KSA,kuwait', 'etisalat,Vodafone', '1', '5', '1600096765.pdf', 'notes', null, null, null, 'super admin', '0', '2020-09-14 15:19:25', '2020-09-14 15:19:25', '2');
+INSERT INTO `contracts` VALUES ('2', 'C#2020/09/15/1600165586', '2', 'contact2', '1', '1', '28', '', '', '2', '0', '2020-09-17', '1', '1', '1', '2020-09-24', 'Egypt', 'Vodafone', '1', '5', '1600165586.pdf', null, null, null, null, 'super admin', '0', '2020-09-15 10:26:26', '2020-09-15 10:26:26', '2');
+INSERT INTO `contracts` VALUES ('3', 'C#2020/09/16/1600253892', '2', 'contract3', '1', '1', '24', '', '', '3', '0', '2020-10-08', '3', '0', '0', '2020-10-08', 'Egypt,KSA', 'etisalat,Vodafone', '1', '5', '1600252558.pdf', 'nnnnnnnnnnnn', null, null, null, 'super admin', '0', '2020-09-16 10:35:58', '2020-09-16 10:58:12', '1');
 
 -- ----------------------------
 -- Table structure for `contract_duration`
@@ -165,7 +172,7 @@ CREATE TABLE `contract_services` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of contract_services
@@ -174,6 +181,12 @@ INSERT INTO `contract_services` VALUES ('29', '4', 'mishri', '2020-09-10 09:23:5
 INSERT INTO `contract_services` VALUES ('30', '7', 'hamed', '2020-09-10 09:23:58', '2020-09-10 09:23:58');
 INSERT INTO `contract_services` VALUES ('31', '1', 'service1', '2020-09-14 15:20:31', '2020-09-14 15:20:31');
 INSERT INTO `contract_services` VALUES ('32', '1', 'service2', '2020-09-14 15:20:44', '2020-09-14 15:20:44');
+INSERT INTO `contract_services` VALUES ('33', '2', 'service3', '2020-09-15 12:10:27', '2020-09-15 12:10:27');
+INSERT INTO `contract_services` VALUES ('34', '2', 'service4', '2020-09-15 12:10:38', '2020-09-15 12:10:38');
+INSERT INTO `contract_services` VALUES ('35', '2', 'service5', '2020-09-15 15:28:11', '2020-09-15 15:28:11');
+INSERT INTO `contract_services` VALUES ('36', '3', 'service1', '2020-09-16 11:26:22', '2020-09-16 11:26:22');
+INSERT INTO `contract_services` VALUES ('37', '3', 'service2', '2020-09-16 11:26:22', '2020-09-16 11:26:22');
+INSERT INTO `contract_services` VALUES ('38', '3', 'service3', '2020-09-16 11:26:22', '2020-09-16 11:26:22');
 
 -- ----------------------------
 -- Table structure for `countries`
@@ -185,7 +198,7 @@ CREATE TABLE `countries` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of countries
@@ -193,6 +206,7 @@ CREATE TABLE `countries` (
 INSERT INTO `countries` VALUES ('1', 'Egypt', '2019-02-11 13:12:04', '2019-02-11 13:12:04');
 INSERT INTO `countries` VALUES ('2', 'KSA', '2019-02-11 13:12:10', '2019-02-11 13:12:10');
 INSERT INTO `countries` VALUES ('3', 'kuwait', '2020-09-06 11:52:17', '2020-09-06 11:52:17');
+INSERT INTO `countries` VALUES ('4', 'All countries', '2020-09-15 11:55:46', '2020-09-15 11:55:46');
 
 -- ----------------------------
 -- Table structure for `currencies`
@@ -263,7 +277,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of migrations
@@ -323,6 +337,7 @@ INSERT INTO `migrations` VALUES ('58', '2019_10_13_091104_add_sql_seed', '6');
 INSERT INTO `migrations` VALUES ('59', '2020_09_14_150218_add_currency_to_curruncies', '7');
 INSERT INTO `migrations` VALUES ('60', '2020_09_14_145753_create_amount_revenu_table', '8');
 INSERT INTO `migrations` VALUES ('61', '2020_09_14_145806_create_revenus_table', '8');
+INSERT INTO `migrations` VALUES ('62', '2020_09_15_144447_drop_orgin_key_in_provider_contetns_table', '9');
 
 -- ----------------------------
 -- Table structure for `notifications`
@@ -361,12 +376,16 @@ CREATE TABLE `occasions` (
   PRIMARY KEY (`id`),
   KEY `occasions_country_id_foreign` (`country_id`),
   CONSTRAINT `occasions_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of occasions
 -- ----------------------------
-INSERT INTO `occasions` VALUES ('3', 'islamic', '2020-09-14 12:45:59', '2020-09-14 12:45:59', '1');
+INSERT INTO `occasions` VALUES ('5', 'hajj', '2020-09-15 12:00:06', '2020-09-15 12:00:06', '4');
+INSERT INTO `occasions` VALUES ('6', 'Nationali Ksa day', '2020-09-15 12:00:25', '2020-09-15 12:00:25', '2');
+INSERT INTO `occasions` VALUES ('7', 'Ramdan', '2020-09-15 12:00:37', '2020-09-15 12:00:37', '4');
+INSERT INTO `occasions` VALUES ('8', 'national Kuwait Day', '2020-09-15 12:00:59', '2020-09-15 12:00:59', '3');
+INSERT INTO `occasions` VALUES ('9', 'National Egypt Day', '2020-09-15 12:03:45', '2020-09-15 12:03:45', '1');
 
 -- ----------------------------
 -- Table structure for `operators`
@@ -381,7 +400,7 @@ CREATE TABLE `operators` (
   PRIMARY KEY (`id`),
   KEY `operators_country_id_foreign` (`country_id`),
   CONSTRAINT `operators_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of operators
@@ -390,6 +409,10 @@ INSERT INTO `operators` VALUES ('1', 'etisalat', '1', '2019-02-11 13:12:35', '20
 INSERT INTO `operators` VALUES ('4', 'Vodafone', '1', '2019-02-11 15:23:49', '2019-03-14 08:33:53');
 INSERT INTO `operators` VALUES ('5', 'Orange', '1', '2019-03-14 08:36:10', '2019-03-14 08:36:10');
 INSERT INTO `operators` VALUES ('6', 'zain', '3', '2020-09-06 11:53:15', '2020-09-06 11:53:15');
+INSERT INTO `operators` VALUES ('7', 'ooredoo', '3', '2020-09-15 11:50:39', '2020-09-15 11:50:39');
+INSERT INTO `operators` VALUES ('8', 'stc', '3', '2020-09-15 11:50:48', '2020-09-15 11:50:48');
+INSERT INTO `operators` VALUES ('9', 'zain', '2', '2020-09-15 11:50:58', '2020-09-15 11:50:58');
+INSERT INTO `operators` VALUES ('10', 'mobily', '2', '2020-09-15 11:51:07', '2020-09-15 11:51:07');
 
 -- ----------------------------
 -- Table structure for `password_resets`
@@ -493,15 +516,14 @@ CREATE TABLE `provider_contents` (
   PRIMARY KEY (`id`),
   KEY `provider_contents_roadmap_id_foreign` (`roadmap_id`),
   KEY `provider_contents_provider_id_foreign` (`provider_id`),
-  KEY `provider_contents_content_id_foreign` (`content_id`),
-  CONSTRAINT `provider_contents_content_id_foreign` FOREIGN KEY (`content_id`) REFERENCES `contents` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `provider_contents_provider_id_foreign` FOREIGN KEY (`provider_id`) REFERENCES `providers` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `provider_contents_roadmap_id_foreign` FOREIGN KEY (`roadmap_id`) REFERENCES `roadmaps` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `provider_contents_content_id_foreign` (`content_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of provider_contents
 -- ----------------------------
+INSERT INTO `provider_contents` VALUES ('1', '1', '1', '7', '18,19', null, null);
+INSERT INTO `provider_contents` VALUES ('2', '2', '1', '10', '21', null, null);
 
 -- ----------------------------
 -- Table structure for `rbts`
@@ -538,15 +560,15 @@ CREATE TABLE `rbts` (
   CONSTRAINT `rbts_occasion_id_foreign` FOREIGN KEY (`occasion_id`) REFERENCES `occasions` (`id`) ON DELETE CASCADE,
   CONSTRAINT `rbts_operator_id_foreign` FOREIGN KEY (`operator_id`) REFERENCES `operators` (`id`) ON DELETE CASCADE,
   CONSTRAINT `rbts_provider_id_foreign` FOREIGN KEY (`provider_id`) REFERENCES `providers` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of rbts
 -- ----------------------------
-INSERT INTO `rbts` VALUES ('14', 'rbt1', null, null, null, null, '123', null, null, 'uploads/2020-09-14/rbt1.wav', '1', '3', '1', '0', '2020-09-14 13:16:39', '2020-09-14 13:16:39', '1', '3', '14_1_1');
-INSERT INTO `rbts` VALUES ('15', 'rbt2', null, null, null, null, '456', null, null, 'uploads/2020-09-14/rbt2.wav', '1', '3', '1', '0', '2020-09-14 13:16:39', '2020-09-14 13:16:39', '1', '3', '15_1_1');
-INSERT INTO `rbts` VALUES ('16', 'rbt3', null, null, null, null, '789', null, null, 'uploads/2020-09-14/rbt3.wav', '1', '3', '1', '0', '2020-09-14 13:16:39', '2020-09-14 13:16:39', '2', '3', '16_1_1');
-INSERT INTO `rbts` VALUES ('17', 'rbt4', null, null, null, null, '4544', null, null, 'uploads/2020-09-14/rbt4.wav', '1', '3', '1', '0', '2020-09-14 13:16:39', '2020-09-14 13:16:39', '2', '3', '17_1_1');
+INSERT INTO `rbts` VALUES ('18', 'rbt1', null, null, null, null, '123', null, null, 'uploads/2020-09-15/rbt1.wav', '6', '5', '1', '0', '2020-09-15 17:51:58', '2020-09-15 17:51:58', '1', '7', '18_3_6');
+INSERT INTO `rbts` VALUES ('19', 'rbt2', null, null, null, null, '456', null, null, 'uploads/2020-09-15/rbt2.wav', '6', '5', '1', '0', '2020-09-15 17:51:58', '2020-09-15 17:51:58', '1', '7', '19_3_6');
+INSERT INTO `rbts` VALUES ('20', 'rbt3', null, null, null, null, '789', '4444', null, 'uploads/2020-09-15/rbt3.wav', '6', '5', '1', '0', '2020-09-15 17:51:58', '2020-09-16 09:28:53', '2', '10', '20_3_6');
+INSERT INTO `rbts` VALUES ('21', 'rbt4', null, null, null, null, '4544', null, null, 'uploads/2020-09-15/rbt4.wav', '6', '5', '1', '0', '2020-09-15 17:51:58', '2020-09-15 17:51:58', '2', '10', '21_3_6');
 
 -- ----------------------------
 -- Table structure for `reports`
@@ -603,11 +625,13 @@ CREATE TABLE `revenus` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of revenus
 -- ----------------------------
+INSERT INTO `revenus` VALUES ('2', '1', '2020', 'July', '2', '26', '100', '2', '5', '1', null, 'E8sXUg4fkjr0my8mT1mRCMlCGElynr3tMifFGdx6.xlsx', '2020-09-15 12:43:07', '2020-09-15 12:43:07');
+INSERT INTO `revenus` VALUES ('3', '1', '2020', 'August', '1', '6', '100.59', '2', '6', '1', 'gggggggg', 'bPnhB3UWlPpKo5S3hfw22Ki2Whh6ISLvzH9E4fhg.xlsx', '2020-09-16 11:02:20', '2020-09-16 11:02:20');
 
 -- ----------------------------
 -- Table structure for `roadmaps`
@@ -640,11 +664,12 @@ CREATE TABLE `roadmaps` (
   CONSTRAINT `roadmaps_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE CASCADE,
   CONSTRAINT `roadmaps_occasion_id_foreign` FOREIGN KEY (`occasion_id`) REFERENCES `occasions` (`id`) ON DELETE CASCADE,
   CONSTRAINT `roadmaps_operator_id_foreign` FOREIGN KEY (`operator_id`) REFERENCES `operators` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of roadmaps
 -- ----------------------------
+INSERT INTO `roadmaps` VALUES ('1', 'event1', '#82128c', '', '2020-09-20', '2020-09-22', '0', '3', '8', '1', '6', null, null, null, '1', '2020-09-16 09:42:47', '2020-09-16 09:42:47');
 
 -- ----------------------------
 -- Table structure for `roles`
