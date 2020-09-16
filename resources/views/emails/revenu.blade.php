@@ -29,6 +29,9 @@
                     {{$service->title}}
                 </td>
                 @endforeach
+                <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="font-weight: bold;color:#000;font-size:18px">
+                  Report
+              </td>
             </tr>
 
             <tr>
@@ -53,6 +56,9 @@
                     {{ $service->pivot->amount }} {{$revenu->currency->title}}
                 </td>
                 @endforeach
+                <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="color:#000;font-size:16px">
+                  <a href="{{url("uploads/revenue/$revenu->reports")}}">View Report</a>
+              </td>
             </tr>
         </table>
 		<p> Thank You </p><br /><br />

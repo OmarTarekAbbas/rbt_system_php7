@@ -202,6 +202,11 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::resource('contractservice', 'ServicecontractsController');
     Route::get('contractservice/{id}/delete', 'ServicecontractsController@destroy');
     Route::get('contractservice/create/{id}', 'ServicecontractsController@create');
+<<<<<<< HEAD
+=======
+    Route::post('fullcontracts/{id}/update', 'ServicecontractsController@update');
+
+>>>>>>> origin/yousef
     // End Routes for service
 
 });

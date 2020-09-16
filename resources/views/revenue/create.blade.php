@@ -202,8 +202,14 @@ Revenues
       success: function(response) {
         $('#Contract_services').empty();
         for (const service of response) {
-          $('#Contract_services').append($('<lable class="col-sm-3 col-lg-2 ">').text(service.title));
-          $('#Contract_services').append($('<input class="form-control col-sm-9 col-lg-10">').attr('name', 'service[' + (service.id) + ']'));
+          $('#Contract_services').append(`<div class="row">
+                  <div class="form-group" id="Contract_services_top">
+                    <label class="col-sm-3 col-lg-2 control-label">${service.title}</label>
+                    <div class="col-sm-9 col-lg-10 controls">
+                      <input id="amount" class="form-control" type="text" placeholder="Choose Amount" name="service[${service.id}]" required>
+                    </div>
+                  </div>
+                </div>`);
         }
       }
     });
@@ -220,8 +226,14 @@ Revenues
       success: function(response) {
         $('#Contract_services').empty();
         for (const service of response) {
-          $('#Contract_services').append($('<lable class="col-sm-3 col-lg-2 ">').text(service.title));
-          $('#Contract_services').append($('<input class="form-control col-sm-9 col-lg-10">').attr('name', 'service[' + (service.id) + ']'));
+          $('#Contract_services').append(`<div class="row">
+                  <div class="form-group" id="Contract_services_top">
+                    <label class="col-sm-3 col-lg-2 control-label">${service.title}</label>
+                    <div class="col-sm-9 col-lg-10 controls">
+                      <input id="amount" class="form-control" type="text" placeholder="Choose Amount" name="service[${service.id}]" required>
+                    </div>
+                  </div>
+                </div>`);
         }
       }
     });
