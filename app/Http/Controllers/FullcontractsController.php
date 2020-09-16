@@ -62,8 +62,8 @@ class FullcontractsController extends Controller
 
                 return '<td class="visible-md visible-lg">
                             <div class="btn-group">
-                                <a class="btn btn-sm btn-secondary show-tooltip " title="" href="' . url("contractservice/create/" . $contract->id) . '" data-original-title="Show"><i class="fa fa-arrow-right"></i></a>
-                                <a class="btn btn-sm btn-primary show-tooltip " title="" href="' . url("fullcontracts/" . $contract->id) . '" data-original-title="Show"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-sm btn-secondary show-tooltip " href="' . url("contractservice/create/" . $contract->id) . '" title="View Services"><i class="fa fa-arrow-right"></i></a>
+                                <a class="btn btn-sm btn-primary show-tooltip " href="' . url("fullcontracts/" . $contract->id) . '" title="Show"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-sm show-tooltip" href="' . url("fullcontracts/" . $contract->id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
                                 <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("fullcontracts/" . $contract->id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
                             </div>

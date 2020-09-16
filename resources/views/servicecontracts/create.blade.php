@@ -59,8 +59,8 @@ Contract Service
 @stop
 @section('script')
 <script>
-    $('#operator').addClass('active');
-    $('#operator_create').addClass('active');
+    $('#contract').addClass('active');
+    $('#contract_create').addClass('active');
 </script>
 <script>
   function removeContractService(service_id) {
