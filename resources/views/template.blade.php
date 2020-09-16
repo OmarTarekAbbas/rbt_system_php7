@@ -528,8 +528,8 @@
 <!--flaty scripts-->
 <script src="{{url('js/flaty.js')}}"></script>
 <script src="{{url('js/flaty-demo-codes.js')}}"></script>
-<script src="{{url('js/pusher.min.js')}}"></script>
-<script src="{{url('js/pusher_config.js')}}"></script>
+{{--  <script src="{{url('js/pusher.min.js')}}"></script>
+<script src="{{url('js/pusher_config.js')}}"></script>  --}}
 <script src="{{url('js/vue.min.js')}}"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
@@ -569,7 +569,7 @@ $(document).ready(function () {
         // console.log(e, $el, value);
     });
 </script>
-<script>
+{{--  <script>
   var app = new Vue({
         el:'#app',
         data:{
@@ -620,7 +620,7 @@ $(document).ready(function () {
         }
 
     })
-</script>
+</script>  --}}
 <script>
     $(document).ready(function () {
         // $('#example').DataTable();

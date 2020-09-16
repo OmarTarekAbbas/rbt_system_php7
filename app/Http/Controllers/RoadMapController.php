@@ -92,27 +92,27 @@ class RoadMapController extends Controller
 
     public function calendarIndex()
     {
-        // $events = Roadmap::all();
-        // $event = [];
-        // foreach($events as $row) {
-        //     $end_date = $row->event_end_date. "24:00:00";
-        //     $event[] = \Calendar::event(
-        //         $row->event_title,
-        //         true,
-        //         new \DateTime($row->event_start_date),
-        //         new \DateTime($row->event_end_date),
-        //         $row->id,
-        //         [
-        //             'color' => $row->event_color,
-        //             'url' => url('roadmaps/' .$row->id . '/edit')
-        //         ]
-        //     );
-        // }
+        $events = Roadmap::all();
+        $event = [];
+        foreach($events as $row) {
+            $end_date = $row->event_end_date. "24:00:00";
+            $event[] = \Calendar::event(
+                $row->event_title,
+                true,
+                new \DateTime($row->event_start_date),
+                new \DateTime($row->event_end_date),
+                $row->id,
+                [
+                    'color' => $row->event_color,
+                    'url' => url('roadmaps/' .$row->id . '/edit')
+                ]
+            );
+        }
 
-        // $calendar = \Calendar::addEvents($event)->setOptions([
-        //     // 'theme' => true
-        // ]);
+        $calendar = \Calendar::addEvents($event)->setOptions([
+            // 'theme' => true
+        ]);
 
-        // return view('roadmap.calendar',compact('calendar'));
+        return view('roadmap.calendar',compact('calendar'));
     }
 }

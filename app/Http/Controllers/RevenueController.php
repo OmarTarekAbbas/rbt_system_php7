@@ -91,7 +91,7 @@ class RevenueController extends Controller
         }
 
         Mail::send('emails.revenu', ['revenu' => $revenue], function ($m) {
-            $m->to('yousef.ashraf@ivas.com.eg')->subject('revenue');
+            $m->to('emad.mohamed@ivas.com.eg')->subject('revenue');
         });
 
         return redirect('revenue')->with('success', 'revenue created successfully');
