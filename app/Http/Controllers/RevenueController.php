@@ -36,7 +36,7 @@ class RevenueController extends Controller
     public function create()
     {
         $contracts = Contract::all(['id', 'contract_label']);
-        $operators = Operator::all(['id', 'title']);
+        $operators = Operator::all();
         $currencies = Currency::all(['id', 'title']);
         $ServiceTypes = ServiceTypes::all(['id', 'service_type_title']);
         return view('revenue.create', compact('contracts', 'operators', 'currencies', 'ServiceTypes'));
@@ -92,7 +92,7 @@ class RevenueController extends Controller
         }
 
         Mail::send('emails.revenu', ['revenu' => $revenue], function ($m) {
-          $m->to('emad@ivas.com.eg')->subject('revenue');
+          $m->to(setting('super_email'))->subject('revenue');
         });
 
       return redirect('revenue')->with('success', 'revenue created successfully');

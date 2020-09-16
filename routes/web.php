@@ -75,6 +75,8 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
 // note that Route::resource must be below other routes
 Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::resource('country', '\App\Http\Controllers\CountryController');
+    Route::resource('setting', '\App\Http\Controllers\SettingController');
+    Route::get('setting/{id}/delete', '\App\Http\Controllers\SettingController@destroy');
 });
 
 //operator  admin Routes
@@ -244,5 +246,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
 
 Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::resource('roadmaps','RoadMapController',['as' => 'admin']);
+    Route::get('roadmaps/{id}/delete','RoadMapController@destroy');
+    Route::get('roadmap/allData', 'RoadMapController@allData');
     Route::get('roadmaps/calendar/index','RoadMapController@calendarIndex')->name('admin.roadmaps.calendar.index');
 });

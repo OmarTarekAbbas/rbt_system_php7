@@ -16,31 +16,26 @@
 				<div class="box-content">
 
 					<div class="table-responsive">
-						<table id="example" class="table table-striped dt-responsive" cellspacing="0" width="100%">
-							<thead>
-							<tr>
-								<th style="width:18px"><input type="checkbox"></th>
-								<th>Event Title</th>
-								<th>Event Color</th>
-								<th class="visible-md visible-lg" style="width:130px">Action</th>
-							</tr>
-							</thead>
-							<tbody>
-							@foreach($roadmaps as $roadmap)
-									<tr class="table-flag-blue">
-										<td><input type="checkbox"></td>
-										<td>{{$roadmap->event_title}}</td>
-										<td> <span style="color:{{$roadmap->event_color}}">color</span></td>
-										<td class="visible-md visible-lg">
-											<div class="btn-group">
-												<a class="btn btn-sm show-tooltip" title="" href="{{url('roadmaps/'.$roadmap->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
-												<a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('roadmaps/'.$roadmap->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-											</div>
-										</td>
-									</tr>
-							@endforeach
-							</tbody>
-						</table>
+            <table class="table table-advance data_content">
+              <thead>
+              <tr>
+                      <th style="width:18px"><input type="checkbox" /></th>
+                      <th>id</th>
+                      <th>Event Title</th>
+                      <th>Event Color</th>
+                      <th>Occasion</th>
+                      <th>Country</th>
+                      <th>Operaotr</th>
+                      <th>aggregator</th>
+                      <th>event end date</th>
+                      <th>event end date</th>
+                      <th class="visible-md visible-lg" style="width:130px">Action</th>
+                  </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+          </table>
 					</div>
 				</div>
 			</div>
@@ -53,5 +48,63 @@
 	<script>
 		$('#roadmap').addClass('active');
 		$('#roadmap-index').addClass('active');
+
+    $(document).ready(function() {
+        $('.data_content').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "search": {
+                "regex": true
+            },
+            ajax: "{!! url('roadmap/allData') !!}",
+            columns: [{
+                    data: "index",
+                    searchable: false,
+                    orderable: false
+                },
+                {
+                    data: "id",
+                    name: "id"
+                },
+                {
+                    data: "event_title",
+                    name: "event_title"
+                },
+                {
+                    data: "event_color",
+                    name: "event_color"
+                },
+                {
+                    data: "occasion",
+                    name: "occasion"
+                },
+                {
+                    data: "country",
+                    name: "country"
+                },
+                {
+                    data: "operator",
+                    name: "operator"
+                },
+                {
+                    data: "aggregator",
+                    name: "aggregator"
+                },
+                {
+                    data: "event_end_date",
+                    name: "event_end_date"
+                },
+                {
+                    data: "event_start_date",
+                    name: "event_start_date"
+                },
+                {
+                    data: "action",
+                    searchable: false
+                }
+            ],
+            "pageLength": 10
+        });
+    });
 	</script>
 @stop

@@ -11,11 +11,81 @@ use Illuminate\Http\Request;
 
 class RoadMapController extends Controller
 {
-    public function index(Request $request)
-    {
-        $roadmaps = Roadmap::all();
-        return view('roadmap.index',compact('roadmaps'));
-    }
+  public function index()
+  {
+      $title = 'Index - Roadmap';
+      $roadmaps = Roadmap::all();
+      return view('roadmap.index', compact('roadmaps', 'title'));
+  }
+
+  public function allData(Request $request)
+  {
+      //$roadmaps = Roadmap::all();
+
+      $roadmaps = Roadmap::select('*','roadmaps.id AS roadmap_id','occasions.title as occasion','countries.title as country','operators.title as operator','aggregators.title as aggregator')
+      ->join('occasions','occasions.id','=','roadmaps.occasion_id')
+      ->join('countries','countries.id','=','roadmaps.country_id')
+      ->join('operators','countries.id','=','operators.country_id')
+      ->join('aggregators','aggregators.id','=','roadmaps.aggregator_id')
+      ->groupBy('roadmap_id')
+      ->get();
+      $datatable = \Datatables::of($roadmaps)
+          ->addColumn('index', function (Roadmap $roadmap) {
+              return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$roadmap->roadmap_id}}" class="roles" onclick="collect_selected(this)">';
+          })
+          ->addColumn('id', function (Roadmap $roadmap) {
+              return $roadmap->roadmap_id;
+          })
+          ->addColumn('event_title', function (Roadmap $roadmap) {
+              return $roadmap->event_title;
+          })
+          ->addColumn('event_color', function (Roadmap $roadmap) {
+              return $roadmap->event_color;
+          })
+          ->addColumn('aggregator', function (Roadmap $roadmap) {
+              if ($roadmap->aggregator)
+                  return $roadmap->aggregator;
+              else
+                  return '--';
+          })
+          ->addColumn('occasion', function (Roadmap $roadmap) {
+              if ($roadmap->occasion)
+                  return $roadmap->occasion;
+              else
+                  return '--';
+          })
+          ->addColumn('operator', function (Roadmap $roadmap) {
+              if ($roadmap->operator)
+                  return $roadmap->operator;
+              else
+                  return '--';
+          })
+          ->addColumn('country', function (Roadmap $roadmap) {
+              if ($roadmap->country)
+                  return $roadmap->country;
+              else
+                  return '--';
+          })
+          ->addColumn('event_start_date', function (Roadmap $roadmap) {
+            return $roadmap->event_start_date->format('Y-m-d');
+          })
+          ->addColumn('event_end_date', function (Roadmap $roadmap) {
+            return $roadmap->event_end_date->format('Y-m-d');
+          })
+          ->addColumn('action', function (Roadmap $roadmap) {
+              return '<td class="visible-md visible-lg">
+                          <div class="btn-group">
+                              <a class="btn btn-sm show-tooltip" href="' . url("roadmaps/" . $roadmap->roadmap_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
+                              <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("roadmaps/" . $roadmap->roadmap_id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
+                          </div>
+                      </td>';
+          })
+
+          ->escapeColumns([])
+          ->make(true);
+
+      return $datatable;
+  }
 
     public function create()
     {
@@ -74,7 +144,7 @@ class RoadMapController extends Controller
 
         // if ($request->has('provider_id')) {
         //     foreach ($request->provider_id as $key => $value) {
-        //         $roadmap->providers->sync([$value => ['content_id' => $request->content_id[$key], 'rbt_track_specs' => implode(',',$request->content_track_ids[$key]) ] ]);
+        //         $roadmap->providers->sync([$value => ['roadmap_id' => $request->roadmap_id[$key], 'rbt_track_specs' => implode(',',$request->roadmap_track_ids[$key]) ] ]);
         //     }
         // }
 

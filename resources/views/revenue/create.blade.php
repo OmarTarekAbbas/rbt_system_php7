@@ -109,7 +109,7 @@ Revenues
             <div class="col-sm-9 col-lg-10 controls">
               <select id="source_id" class="form-control" data-placeholder="Choose a source type" name="source_id" tabindex="1" required>
                 @foreach ($operators as $operator)
-                <option value="{{$operator->id}}">{{$operator->title}}</option>
+                <option value="{{$operator->id}}">{{$operator->country->title . '_'.$operator->title}}</option>
                 @endforeach
               </select>
               <span class="help-inline">Choose Source</span>

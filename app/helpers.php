@@ -64,3 +64,9 @@ function send_notification($message,$dep,$data){
         ]);
         broadcast(new Notifications($message,$user,$link))->toOthers();
 }
+
+  function setting($key)
+  {
+    $data = \DB::table('settings')->where('key', 'like', '%' . $key . '%')->first();
+    return $data ? $data->value : '';
+  }

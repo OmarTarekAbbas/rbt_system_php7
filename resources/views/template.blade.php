@@ -233,6 +233,22 @@
           </ul>
           <!-- END Submenu -->
         </li>
+
+        <li id="setting">
+          <a href="#" class="dropdown-toggle">
+              <i class="fa fa-gears"></i>
+              <span>Setting</span>
+              <b class="arrow fa fa-angle-right"></b>
+          </a>
+
+          <!-- BEGIN Submenu -->
+          <ul class="submenu">
+              <li id="setting-create"><a href="{{url('setting/create')}}">Add Settings</a></li>
+              <li id="setting-index"><a href="{{url('setting')}}">Settings</a></li>
+          </ul>
+          <!-- END Submenu -->
+       </li>
+
         @endif
         @if(Auth::user()->hasRole(['super_admin','admin']))
         <li id="department">

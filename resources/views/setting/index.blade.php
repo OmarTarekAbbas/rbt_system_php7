@@ -19,28 +19,51 @@
 	            <div class="box-content">
 					<div class="btn-toolbar pull-right">
 						<div class="btn-group">
-							<a class="btn btn-circle show-tooltip" title="" href="{{url('setting/new')}}" data-original-title="Add new record"><i class="fa fa-plus"></i></a>
+							<a class="btn btn-circle show-tooltip" title="" href="{{url('setting/create')}}" data-original-title="Add new record"><i class="fa fa-plus"></i></a>
+							<?php
+								$table_name = "settings" ;
+							?>
 						</div>
 					</div>
 					<br><br>
 					<div class="table-responsive">
-						<table class="table table-advance">
+						<table id="example" class="table table-striped dt-responsive" cellspacing="0" width="100%">
 						<thead>
 							<tr>
-								<th style="width:18px"><input type="checkbox"></th>
+								<th style="width:18px"><input type="checkbox" onclick="select_all('settings')"></th>
 								<th>Key</th>
 								<th>Value</th>
-								{{-- <th>Created at</th> --}}
 								<th class="visible-md visible-lg" style="width:130px">Action</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="tablecontents">
 						@foreach($settings as $setting)
 							<tr class="table-flag-blue">
-								<td><input type="checkbox"></td>
+								<td><input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$setting->id}}" onclick="collect_selected(this)"></td>
 								<td>{{$setting->key}}</td>
-								<td>{{$setting->value}}</td>
-								{{-- <td>{{$setting->created_at}}</td> --}}
+								<td>
+									@if(file_exists($setting->value))
+                                     @if($setting->type_id == "3")
+										<img src="{{url($setting->value)}}" width="300" height="225">
+                                     @elseif($setting->type_id == "4")
+                                       <video controls="" width="300" height="225">
+                                        	<source src="{{url($setting->value)}}" preload="none">
+                                        </video>
+                                     @elseif($setting->type_id == "5")
+                                       <audio controls="">
+                                            <source src="{{url($setting->value)}}" type="audio/mpeg" preload="none">
+                                        </audio>
+                                     @endif
+									@elseif($setting->type->title == 'selector')
+										@if($setting->value)
+										 True
+										@else
+										 False
+										@endif
+									@else
+										{!! $setting->value !!}
+									@endif
+								</td>
 								<td class="visible-md visible-lg">
 								    <div class="btn-group">
 								    	<a class="btn btn-sm show-tooltip" title="" href="{{url('setting/'.$setting->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
@@ -60,6 +83,53 @@
 
 @stop
 @section('script')
+    <script type="text/javascript" src="//code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+
+    // $(function () {
+    // $("#example").DataTable();
+		//
+    // $( "#tablecontents" ).sortable({
+    //   items: "tr",
+    //   cursor: 'move',
+    //   opacity: 0.6,
+    //   update: function() {
+    //       sendOrderToServer();
+    //   }
+    // });
+		//
+    // function sendOrderToServer() {
+    //   var order = [];
+    //   $('tr.table-flag-blue').each(function(index,element) {
+    //     order.push({
+    //       id: $(this).attr('data-id'),
+    //       position: index+1
+    //     });
+    //   });
+		//
+    //   $.ajax({
+    //     type: "POST",
+    //     dataType: "json",
+    //     url: "{{ url('sortabledatatable') }}",
+    //     data: {
+    //       order:order,
+    //       _token: '{{csrf_token()}}'
+    //     },
+    //     success: function(response) {
+    //         if (response.status == "success") {
+    //           console.log(response);
+    //         } else {
+    //           console.log(response);
+    //         }
+    //     }
+    //   });
+		//
+    // }
+    // });
+
+    </script>
 	<script>
 		$('#setting').addClass('active');
 		$('#setting-index').addClass('active');
