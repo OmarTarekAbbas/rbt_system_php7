@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Rbt;
 use App\Content;
+use App\Country;
 use App\Occasion;
 use App\Provider;
-use App\Rbt;
+use Illuminate\Http\Request;
 
 class ContentController extends Controller
 {
@@ -188,6 +189,8 @@ class ContentController extends Controller
                         } else {
                             $occ = array();
                             $occ['title'] = $row->occasion;
+                            $country = Country::where('title','LIKE', "%$row->country%")->first();
+                            $occ['country_id'] = $country->id ?? all_countries();
                             $create = Occasion::create($occ);
                             $occasion_id = $create->id;
                         }
