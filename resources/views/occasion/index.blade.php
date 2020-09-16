@@ -51,7 +51,7 @@
         <div class="form-group">
             <label for="country_id" class="col-xs-3 col-lg-2 control-label">Country</label>
             <div class="col-sm-9 col-lg-10 controls">
-                {!! Form::select('country_id',$countries,null,['class'=>'form-control' , 'id' => 'country_id' ,'required' => true])!!}
+                {!! Form::select('country_id',$countries,null,['class'=>'form-control' , 'id' => 'country_id_edit' ,'required' => true])!!}
             </div>
         </div>
         <div class="form-group">
@@ -128,7 +128,7 @@
                                 <td >{!!$occasion->country->title!!}</td>
                                 @if(Auth::user()->hasAnyRole(['super_admin','admin']))
                                <td>
-                                <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" ><i id="{{$occasion->id}}" class="fa fa-edit"></i></a>
+                                <a class="btn btn-sm show-tooltip modalToaggal teet" href="#"  data-country_id="{{$occasion->country->id}}" data-occasion_title="{{$occasion->title}}"><i id="{{$occasion->id}}" class="fa fa-edit"></i></a>
                                 <a class="btn btn-sm btn-danger show-tooltip" title=""   onclick="return confirm('Are you sure you want to delete {{ $occasion->title }} ?')"     href="{{url('/occasion/'.$occasion->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                                 </td>
                                @endif
@@ -167,13 +167,13 @@
             $(document).on("click",'.teet',function() {
                 // alert('msg');
                 /* Act on the event */
-                var name = $(this).closest('td').prev('td').text();
-                var id = $(this).children().attr('id');
-                // alert(name);
-                // alert(id);
+                var id = $(this).data('country_id')
+                var name = $(this).data('occasion_title')
+                console.log(id);
+                console.log(name);
                 // $('#edit-form-role').attr('action', '');
+                $('#country_id_edit').val(id);
                 $('#edit-occasion').val(name);
-                $('#occasion_id').val(id);
                 $('#editoccasion').modal('toggle');
             });
         </script>
