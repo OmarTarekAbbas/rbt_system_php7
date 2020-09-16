@@ -45,7 +45,7 @@ Departments
                                         <label for="event_start_date" class="col-xs-3 col-lg-2 control-label"> Event Start Date</label>
                                         <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date="12-02-2012" data-date-format="dd-mm-yyyy" >
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            <input type="text" name="event_start_date" id="event_start_date"
+                                            <input type="text" name="event_start_date" id="event_start_date" autocomplete="off"
                                                 placeholder="Event Start Date" data-date="12-02-2012" data-date-format="dd-mm-yyyy"  class="form-control date-picker">
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@ Departments
                                         <label for="event_end_date" class="col-xs-3 col-lg-2 control-label"> Event End Date</label>
                                         <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date="12-02-2012" data-date-format="dd-mm-yyyy" >
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            <input type="text" name="event_end_date" id="event_end_date"
+                                            <input type="text" name="event_end_date" id="event_end_date" autocomplete="off"
                                                 placeholder="Event End Date" data-date="12-02-2012" data-date-format="dd-mm-yyyy"  class="form-control date-picker">
                                         </div>
                                     </div>
@@ -322,14 +322,16 @@ Departments
         var input = ''
         Object.keys(tracks).forEach(key => {
             // input+='<option class="far play" data-src="{{url("/")}}/'+tracks[key].track_file+'" value="'+tracks[key].id+'">'+tracks[key].track_title_en+'</option>'
-            input+= `<div class="col-md-2">
-                        <input type="checkbox" value="${tracks[key].id}" name="content_track_ids[${x}][]">
-                    </div>
-                    <div class="col-md-2">
-                        <i data-src="{{url("/")}}/${tracks[key].track_file}" class="fa fa-play"></i>
-                    </div>
-                    <div class="col-md-8">
-                        <p class="pull-left"> ${tracks[key].track_title_en} </p>
+            input+= `<div class="row text-center">
+                        <div class="col-md-2">
+                            <input type="checkbox" value="${tracks[key].id}" name="content_track_ids[${x}][]">
+                        </div>
+                        <div class="col-md-2">
+                            <i data-src="{{url("/")}}/${tracks[key].track_file}" class="fa fa-play"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <p class="pull-left"> ${tracks[key].track_title_en} </p>
+                        </div>
                     </div>`
         });
         return input
