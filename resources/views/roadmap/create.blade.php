@@ -162,21 +162,9 @@ Departments
                                     </div>
 
                                     <div class="form-group">
-                                        <div class="row track-row" >
-                                            {{-- <div class="col-md-2">
-                                                <input type="checkbox" name="content_track_ids[0][]" value="1">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <i class="fa fa-play"></i>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <p> trackname </p>
-                                            </div> --}}
+                                        <div class="row track-row">
+
                                         </div>
-                                        {{-- <label for="content_id" class="col-xs-3 col-lg-2 control-label">Tracks</label>
-                                        <div class="col-sm-9 col-lg-10 controls">
-                                            {!! Form::select('content_track_ids[0][]',[],null,['class'=>'form-control chosen-rtl' , 'multiple' , 'id' => 'content_track_ids' ,'required' => true,'style'=>'height: 48px;'])!!}
-                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -321,16 +309,15 @@ Departments
     function createTracktForm(tracks) {
         var input = ''
         Object.keys(tracks).forEach(key => {
-            // input+='<option class="far play" data-src="{{url("/")}}/'+tracks[key].track_file+'" value="'+tracks[key].id+'">'+tracks[key].track_title_en+'</option>'
             input+= `<div class="row text-center">
-                        <div class="col-md-2">
-                            <input type="checkbox" value="${tracks[key].id}" name="content_track_ids[${x}][]">
+                        <div class="col-md-2 text-right">
+                            <input type="checkbox" value="${tracks[key].id}" name="content_track_ids[${x++}][]">
                         </div>
-                        <div class="col-md-2">
-                            <i data-src="{{url("/")}}/${tracks[key].track_file}" class="fa fa-play"></i>
+                        <div class="col-md-2 text-right">
+                            <i data-src="{{url("/")}}/${tracks[key].track_file}" class="fa fa-play play_pause"></i>
                         </div>
-                        <div class="col-md-8">
-                            <p class="pull-left"> ${tracks[key].track_title_en} </p>
+                        <div class="col-md-8 text-right">
+                            <p class="text-right"> ${tracks[key].track_title_en} </p>
                         </div>
                     </div>`
         });
@@ -364,9 +351,7 @@ Departments
                                     </div>\
                                 </div>\
                                 <div class="form-group">\
-                                    <label for="content_id" class="col-xs-3 col-lg-2 control-label">Content</label>\
-                                    <div class="col-sm-9 col-lg-10 controls">\
-                                        <select required name="content_track_ids['+(++x)+'][]" class="form-control chosen-rtl" multiple id="content_track_ids" style="height: 48px;"></select>\
+                                     <div class="row track-row">\
                                     </div>\
                                 </div>\
                             </div>\
@@ -395,29 +380,30 @@ Departments
         }
     }
 
-    let audio = new Audio();
+     let audio = new Audio();
 
-    $('#content_track_ids').change(function(){
-        console.log($(this).children('option:selected').data('src'));
-        if (!audio.paused) {
-            audio.pause();
-        }
+    $(document).on('click','.play_pause',function(e) {
+      e.preventDefault()
 
-        audio.src = $(this).children('option:selected').data('src')
+      if (!audio.paused) {
+        audio.pause();
+      }
+      
 
-        if ($(this).children('option:selected').hasClass('play')) {
-            $(this).children('option:selected').removeClass('play').addClass('pause')
+      audio.src = $(this).data('src')
 
-            $('.far').not($(this).children('option:selected')).each(function() {
-                if ($(this).hasClass('pause')) {
-                    $(this).removeClass('pause').addClass('play')
-                }
-            })
-            audio.play();
-        } else {
-            $(this).children('option:selected').removeClass('pause').addClass('play')
-        }
+      if ($(this).hasClass('fa-play')) {
+        $(this).removeClass('fa-play').addClass('fa-pause')
+
+        $('.play_pause').not($(this)).each(function() {
+          if ($(this).hasClass('fa-pause')) {
+            $(this).removeClass('fa-pause').addClass('fa-play')
+          }
+        })
+        audio.play();
+      } else {
+        $(this).removeClass('fa-pause').addClass('fa-play')
+      }
     })
-
 </script>
 @stop
