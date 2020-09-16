@@ -44,7 +44,7 @@ static $x=0;
 
                   <div class="form-group">
                     <label for="event_start_date" class="col-xs-3 col-lg-2 control-label"> Event Start Date</label>
-                    <div class="input-group date date-picker col-sm-9 col-lg-10 controls" >
+                    <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="dd/mm/yyyy">
                       <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                       <input type="text" name="event_start_date" id="event_start_date" placeholder="Event Start Date" data-date="12-02-2012" data-date-format="dd-mm-yyyy" class="form-control ">
                     </div>
@@ -52,7 +52,7 @@ static $x=0;
 
                   <div class="form-group">
                     <label for="event_end_date" class="col-xs-3 col-lg-2 control-label"> Event End Date</label>
-                    <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                    <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="dd/mm/yyyy">
                       <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                       <input type="text" name="event_end_date" id="event_end_date" placeholder="Event End Date" data-date="12-02-2012" data-date-format="dd-mm-yyyy" class="form-control">
                     </div>
