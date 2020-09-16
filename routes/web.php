@@ -201,7 +201,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     // Start Routes for service
     Route::resource('contractservice', 'ServicecontractsController');
     Route::get('contractservice/{id}/delete', 'ServicecontractsController@destroy');
-
+    Route::get('contractservice/create/{id}', 'ServicecontractsController@create');
     // End Routes for service
 
 });
@@ -239,6 +239,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::post('revenue/{id}/update', 'RevenueController@update');
     Route::post('comboselect/source_id', 'RevenueController@comboSelectSourceId');
     Route::post('comboselect/contract_services', 'RevenueController@comboSelectContractServices');
+    Route::post('comboselect/remove_contract_services', 'RevenueController@comboSelectRemoveContractServices');
 });
 
 Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
