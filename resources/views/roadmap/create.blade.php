@@ -231,7 +231,7 @@ Departments
     function createOperaotrForm(operators) {
         var input = ''
         Object.keys(operators).forEach(key => {
-            input+='<option value="'+operators[key].id+'">'+operators[key].title+'</option>'
+            input+='<option value="'+operators[key].id+'">'+ operators[key].country.title +'_'+ operators[key].title +'</option>'
         });
         return input
     }

@@ -120,7 +120,7 @@ class CountryController extends Controller
 
     public function getOperators($country_id)
     {
-        $operators = Operator::where('country_id',$country_id)->get();
+        $operators = Operator::with('country')->where('country_id',$country_id)->get();
         return $operators;
     }
 

@@ -114,7 +114,7 @@ class RoadMapController extends Controller
             }
         }
 
-        return redirect('roadmaps');
+        return redirect('roadmaps/calendar/index');
     }
 
     public function edit($id)
@@ -148,7 +148,7 @@ class RoadMapController extends Controller
         //     }
         // }
 
-        return redirect('roadmaps');
+        return redirect('roadmaps/calendar/index');
     }
 
     public function destroy($id)
