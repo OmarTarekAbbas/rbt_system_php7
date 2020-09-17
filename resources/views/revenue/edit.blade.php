@@ -179,9 +179,15 @@ Revenues
                 $('#source_id').empty();
                 for (const option of response) {
                     if(option.id == revenue_source_id){
-                      $('#source_id').append($('<option selected>').val(option.id).text(option.country.title+'_'+option.title));
+                      if(option.country)
+                        $('#source_id').append($('<option selected>').val(option.id).text(option.country.title+'_'+option.title));
+                      else
+                        $('#source_id').append($('<option>').val(option.id).text(option.country.title+'_'+option.title));
                     }else{
-                      $('#source_id').append($('<option>').val(option.id).text(option.country.title+'_'+option.title));
+                      if(option.country)
+                        $('#source_id').append($('<option>').val(option.id).text(option.country.title+'_'+option.title));
+                      else
+                        $('#source_id').append($('<option>').val(option.id).text(option.title));
                     }
                 }
             }

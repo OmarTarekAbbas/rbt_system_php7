@@ -118,15 +118,22 @@ class CountryController extends Controller
         return back();
     }
 
-    public function getOperators($country_id)
+    public function getOperators($country_id = '')
     {
-        $operators = Operator::with('country')->where('country_id',$country_id)->get();
-        return $operators;
+        $operators = Operator::with('country');
+        if($country_id != ''){
+          $operators = $operators->where('country_id',$country_id);
+        }
+        return $operators->get();
     }
 
-    public function getOccasions($country_id)
+    public function getOccasions($country_id = '')
     {
-        $occasions = Occasion::where('country_id',$country_id)->get();
-        return $occasions;
+        $occasions = Occasion::query();
+        if($country_id != ''){
+          $occasions = $occasions->where('country_id',$country_id);
+        }
+        return $occasions->get();
+
     }
 }
