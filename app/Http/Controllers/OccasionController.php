@@ -70,7 +70,6 @@ class OccasionController extends Controller
      */
     public function update(Request $request)
     {
-        // return $request->all();
         $validator = Validator::make($request->all(),[
           'title' => 'required'
         ]);
