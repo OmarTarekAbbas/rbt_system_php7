@@ -6,50 +6,77 @@ Departments
 @include('errors')
 <style>
 
-  /*Checkboxes styles*/
-  .input_checkbox[type="checkbox"] { display: none; }
 
-  .input_checkbox[type="checkbox"] + .label_checkbox {
-    /* display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 20px;
-    font: 14px/20px 'Open Sans', Arial, sans-serif;
-    color: #ddd;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none; */
+  .z-checkbox input[type="checkbox"] {
+     display: none;
+     appearance: none;
+  }
+   .z-checkbox input[type="checkbox"]:checked + label:after {
+     transform: scale(1) rotate(0deg);
+  }
+   .z-checkbox label {
+     position: relative;
+     cursor: pointer;
+     padding-left: 20px;
+     cursor: pointer;
+     font-size: 13px;
+     color: #777;
+  }
+   .z-checkbox label:before {
+     content: '';
+     width: 20px;
+     height: 20px;
+     background-color: #eee;
+     border: 1px solid #ccc;
+     position: absolute;
+     left: 0;
+     top: 0;
+     border-radius: 4px;
+     -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+     -ms-border-radius: 4px;
+     -o-border-radius: 4px;
+  }
+   .z-checkbox label:after {
+     font-family: 'FontAwesome';
+     font-weight: 900;
+     content: "\f00c";
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 20px;
+     height: 20px;
+     background-color: #fff;
+     border: 1px solid #000;
+     color: #000;
+     font-size: 16px;
+     line-height: 18px;
+     text-align: center;
+     transform: scale(0) rotate(360deg);
+     transition: all 0.3s ease-in-out;
+     border-radius: 4px;
+     -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+     -ms-border-radius: 4px;
+     -o-border-radius: 4px;
+  }
+   .z-checkbox label:hover {
+     text-decoration: underline !important;
+     font-weight: 700;
   }
 
-  .input_checkbox[type="checkbox"] + .label_checkbox:last-child { margin-bottom: 0; }
 
-  .input_checkbox[type="checkbox"] + .label_checkbox:before {
-    content: '';
-    display: block;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #e47373;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: .6;
-    -webkit-transition: all .12s, border-color .08s;
-    transition: all .12s, border-color .08s;
+
+  .row_strip:nth-child(odd) {
+    background: #e9f0f9;
+    margin-top: 0.5rem !important;
   }
 
-  .input_checkbox[type="checkbox"]:checked + .label_checkbox:before {
-    width: 10px;
-    top: -5px;
-    left: 5px;
-    border-radius: 0;
-    opacity: 1;
-    border-top-color: transparent;
-    border-left-color: transparent;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
+  .row_strip:nth-child(even) {
+    background: #f7a1a173;
+    margin-bottom: 0.99rem !important;
   }
-  </style>
+</style>
 <div class="row">
     <div class="col-md-12">
         <div class="box">
@@ -93,7 +120,7 @@ Departments
 
                                     <div class="form-group">
                                         <label for="event_start_date" class="col-xs-3 col-lg-2 control-label"> Event Start Date</label>
-                                        <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date="12-02-2012" data-date-format="dd-mm-yyyy" >
+                                        <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date="12-02-2012" data-date-format="dd-mm-yyyy" style="width: 78%; margin: 0 auto;">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                             <input type="text" value="{{$roadmap->event_start_date->format('d-m-Y')}}" name="event_start_date" id="event_start_date"
                                                 placeholder="Event Start Date" data-date="12-02-2012" data-date-format="dd-mm-yyyy"  class="form-control date-picker">
@@ -102,7 +129,7 @@ Departments
 
                                     <div class="form-group">
                                         <label for="event_end_date" class="col-xs-3 col-lg-2 control-label"> Event End Date</label>
-                                        <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date="12-02-2012" data-date-format="dd-mm-yyyy" >
+                                        <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date="12-02-2012" data-date-format="dd-mm-yyyy" style="width: 78%; margin: 0 auto;">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                             <input type="text" value="{{$roadmap->event_end_date->format('d-m-Y')}}" name="event_end_date" id="event_end_date"
                                                 placeholder="Event End Date" data-date="12-02-2012" data-date-format="dd-mm-yyyy"  class="form-control date-picker">
@@ -212,7 +239,7 @@ Departments
                                     </div>
 
                                     <div class="form-group">
-                                      <div class="row track-row" data-tracks="{{$content->pivot->rbt_track_specs}}" style="background: #0000001f; width: 70%; margin: 0 auto; border-radius: 0.5rem;">
+                                      <div class="row track-row" data-tracks="{{$content->pivot->rbt_track_specs}}" style="width: 70%; margin: 0 auto; border-radius: 0.5rem;">
 
                                       </div>
                                     </div>
@@ -371,18 +398,18 @@ Departments
         if(track_ids != '' && track_ids.includes(tracks[key].id)) {
           checked = 'checked'
         }
-        input += `<div class="row text-center" style="width: 60%; margin: 0 auto; padding: 10px 0;">
-                          <div class="col-md-4">
-                            <input id="box-${y}" ${checked} class="input_checkbox" type="checkbox" value="${tracks[key].id}" name="content_track_ids[${x}][]">
-                            <label for="box-${y}" class="label_checkbox"></label>
-                          </div>
-                          <div class="col-md-4">
-                              <i style="color: #e47373;" data-src="{{url("/")}}/${tracks[key].track_file}" class="fa fa-play play_pause"></i>
-                          </div>
-                          <div class="col-md-4">
-                              <p class="text-right"> ${tracks[key].track_title_en} </p>
-                          </div>
-                      </div>`
+        input += `<div class="row row_strip text-center" style="width: 80%; margin: 10px auto; padding: 10px 10px; border-radius: 8px;">
+                        <div class="col-md-4 z-checkbox">
+                          <input id="box-${y}" ${checked} class="input_checkbox" type="checkbox" value="${tracks[key].id}" name="content_track_ids[${x}][]">
+                          <label class="label_checkbox" for="box-${y}"></label>
+                        </div>
+                        <div class="col-md-4">
+                            <i style="color: #000; line-height: 35px;" data-src="{{url("/")}}/${tracks[key].track_file}" class="fa fa-play play_pause"></i>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="text-right" style="font-weight: bold; margin-top: 7px;"> ${tracks[key].track_title_en} </p>
+                        </div>
+                    </div>`
       });
       x++;
       return input
@@ -416,9 +443,9 @@ Departments
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                      <div class="row track-row" data-tracks="" style="background: #0000001f; width: 70%; margin: 0 auto; border-radius: 0.5rem;">
+                                      <div class="row track-row" data-tracks="" style="width: 70%; margin: 0 auto; border-radius: 0.5rem;">
 
-                                      </div>
+</div>
                                     </div>
                                 </div>
                             </div>`
