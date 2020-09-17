@@ -1,6 +1,6 @@
 @extends('template')
 @section('page_title')
-    Artists
+    Providers
 @stop
 @section('content')
 <div class="modal fade" id="SenderModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -10,25 +10,25 @@
       {{ csrf_field() }}
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add Artist</h4>
+        <h4 class="modal-title" id="myModalLabel">Add Provider</h4>
       </div>
       <div class="modal-body">
-        
+
         <div class="form-group">
            <label class="col-sm-3 col-lg-2 control-label">Title</label>
            <div class="col-sm-9 col-lg-10 controls">
               <input type="text" placeholder="Title" name = "title" class="form-control" />
            </div>
         </div>
-        
+
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
         </form>
     </div>
-      
-      
+
+
   </div>
 </div>
 
@@ -39,10 +39,10 @@
       {{ csrf_field() }}
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Update Artist</h4>
+        <h4 class="modal-title" id="myModalLabel">Update Provider</h4>
       </div>
       <div class="modal-body">
-        
+
         <div class="form-group">
            <label class="col-sm-3 col-lg-2 control-label">Title</label>
            <div class="col-sm-9 col-lg-10 controls">
@@ -50,7 +50,7 @@
               <input type="hidden" name="provider_id" id="provider_id">
            </div>
         </div>
-        
+
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Save</button>
@@ -74,7 +74,7 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-title">
-                <h3><i class="fa fa-code-fork"></i>Artists</h3>
+                <h3><i class="fa fa-code-fork"></i>Providers</h3>
                 <div class="box-tool">
                     <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
                     <a data-action="close" href="#"><i class="fa fa-times"></i></a>
@@ -162,7 +162,7 @@
                 $('#edit-provider').val(name);
                 $('#provider_id').val(id);
                 $('#editprovider').modal('toggle');
-            }); 
+            });
         </script>
         <script>
             // do search

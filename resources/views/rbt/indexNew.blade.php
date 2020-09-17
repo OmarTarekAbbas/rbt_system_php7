@@ -21,8 +21,8 @@
                             <tr>
                                 <th style="width:18px"><input type="checkbox"></th>
                                 <th>id</th>
-                                <th>Artist Name English</th>
-                                <th>Artist Name Arabic</th>
+                                <th>Provider Name English</th>
+                                <th>Provider Name Arabic</th>
                                 <th>Rbt Name English</th>
                                 <th>Rbt Name Arabic</th>
                                 <th>Album</th>
@@ -37,7 +37,7 @@
                             </thead>
                             <tbody>
                             <?php $x = 0; ?>
-                            @foreach($rbts as $rbt) 
+                            @foreach($rbts as $rbt)
                                 <tr>
                                     <td><input type="checkbox"></td>
                                     <td>{{  $rbt->id  }}</td>
@@ -65,7 +65,7 @@
                                     @else
                                         <td>--</td>
                                     @endif
-                                    
+
                                     @if($rbt->aggregator_id)
                                         <td>{!!$rbt->aggregator->title!!}</td>
                                     @else
@@ -79,7 +79,7 @@
                                     </td>
                                 </tr>
                                 <?php $x++; ?>
-                            @endforeach 
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -30,14 +30,14 @@
                     </div>
 
                     <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label"  for="track_title_en">Artist Name English </label>
+                        <label class="col-sm-3 col-lg-2 control-label"  for="track_title_en">Provider Name English </label>
                         <div class="col-sm-9 col-lg-10 controls">
                             <input id="input3"  name = "search_field[]"  type="text" class="form-control input-lg" >
                         </div>
                     </div>
 
                     <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label">Artist Name Arabic </label>
+                        <label class="col-sm-3 col-lg-2 control-label">Provider Name Arabic </label>
                         <div class="col-sm-9 col-lg-10 controls">
                             <input id="input4" name = "search_field[]" type="text" class="form-control input-lg" >
                         </div>
@@ -317,7 +317,7 @@
         }
 
         function export_excel() {
-            
+
 
             //getting data from our table
             var data_type = 'data:application/vnd.ms-excel';

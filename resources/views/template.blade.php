@@ -326,13 +326,13 @@
         <li id="provider">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-heart-empty"></i>
-            <span>Artists</span>
+            <span>Providers</span>
             <b class="arrow fa fa-angle-right"></b>
           </a>
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
-            <li id="provider-index"><a href="{{url('provider')}}">Artists</a></li>
+            <li id="provider-index"><a href="{{url('provider')}}">Providers</a></li>
           </ul>
           <!-- END Submenu -->
         </li>
