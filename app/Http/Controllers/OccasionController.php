@@ -72,8 +72,8 @@ class OccasionController extends Controller
     {
         // return $request->all();
         $validator = Validator::make($request->all(),[
-                'title' => 'required|unique:occasions,title,'.$request->occasion_id
-            ]);
+          'title' => 'required'
+        ]);
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
@@ -82,7 +82,7 @@ class OccasionController extends Controller
         $occasion = Occasion::findOrfail($request->occasion_id);
 
         $occasion->title = $request->title;
-        
+
         $occasion->country_id = $request->country_id;
 
         $occasion->save();

@@ -315,6 +315,7 @@ class RbtController extends Controller
                         {
                             $occ = array() ;
                             $occ['title'] = $row->occasion ;
+                            $occ['country_id'] = all_countries();
                             $create = Occasion::create($occ) ;
                             $occasion_id = $create->id ;
                         }
@@ -479,7 +480,6 @@ class RbtController extends Controller
                 $request->session()->flash('failed', 'Rbt file must be an audio');
                 dd($request);
                 return redirect('/rbt/'.$id.'/edit');
-
             }
         }
 
@@ -519,7 +519,7 @@ class RbtController extends Controller
 
     public function getDownload()
     {
-        $file= base_path(). "/uploads/rbt/rbt.xlsx";
+        $file= base_path(). "/rbt.xlsx";
 
         $headers = array(
                   'Content-Type: application/xlsx',
@@ -530,7 +530,7 @@ class RbtController extends Controller
 
     public function getDownloadNew()
     {
-        $file= base_path(). "/uploads/rbt/rbtNew.xlsx";
+        $file= base_path(). "/rbtNew.xlsx";
 
         $headers = array(
             'Content-Type: application/xlsx',

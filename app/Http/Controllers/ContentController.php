@@ -190,8 +190,7 @@ class ContentController extends Controller
                         } else {
                             $occ = array();
                             $occ['title'] = $row->occasion;
-                            $country = Country::where('title','LIKE', "%$row->country%")->first();
-                            $occ['country_id'] = $country->id ?? all_countries();
+                            $occ['country_id'] = all_countries();
                             $create = Occasion::create($occ);
                             $occasion_id = $create->id;
                         }
@@ -306,7 +305,7 @@ class ContentController extends Controller
 
     public function getDownload()
     {
-        $file = base_path() . "/uploads/content/content.xlsx";
+        $file = base_path() . "/content.xlsx";
 
         $headers = array(
             'Content-Type: application/xlsx',
