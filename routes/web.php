@@ -106,6 +106,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
 
 //occasion admin routes
 Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
+    Route::get('occasion', '\App\Http\Controllers\OccasionController@index');
     Route::post('occasion', '\App\Http\Controllers\OccasionController@store');
     Route::post('occasion/update', '\App\Http\Controllers\OccasionController@update');
     Route::get('occasion/{id}/delete', '\App\Http\Controllers\OccasionController@destroy');
@@ -113,9 +114,9 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
 
 
 //occasion view routes
-Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
-    Route::resource('occasion', '\App\Http\Controllers\OccasionController');
-});
+// Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
+//     Route::resource('occasion', '\App\Http\Controllers\OccasionController');
+// });
 
 
 // RBT admin roles
@@ -191,6 +192,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::PATCH('content/{id}/update', 'ContentController@update');
     Route::get('content/create', 'ContentController@create');
     Route::post('content', 'ContentController@store');
+    Route::get('content/{id}/rbts', 'ContentController@show_rbt');
 
     // Start Routes for fullcontracts
     Route::resource('fullcontracts', 'FullcontractsController');

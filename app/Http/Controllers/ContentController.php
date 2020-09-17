@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Rbt;
 use App\Content;
-use App\Country;
 use App\Occasion;
 use App\Provider;
+use App\Rbt;
 use Illuminate\Http\Request;
 
 class ContentController extends Controller
@@ -29,10 +28,10 @@ class ContentController extends Controller
     {
         //$contents = Content::all();
 
-        $contents = Content::select('*','contents.id AS content_id','providers.title as provider','occasions.title as occasion')
-        ->join('providers','providers.id','=','contents.provider_id')
-        ->join('occasions','occasions.id','=','contents.occasion_id')
-        ->get();
+        $contents = Content::select('*', 'contents.id AS content_id', 'providers.title as provider', 'occasions.title as occasion')
+            ->join('providers', 'providers.id', '=', 'contents.provider_id')
+            ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
+            ->get();
         $datatable = \Datatables::of($contents)
             ->addColumn('index', function (Content $content) {
                 return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$content->id}}" class="roles" onclick="collect_selected(this)">';
@@ -50,30 +49,36 @@ class ContentController extends Controller
                 return $content->internal_coding;
             })
             ->addColumn('path', function (Content $content) {
-                if ($content->path)
+                if ($content->path) {
                     return '<audio class="content_audios" controls>
                                 <source src="' . url($content->path) . '">
                             </audio>';
-                else
+                } else {
                     return '--';
+                }
+
             })
 
             ->addColumn('occasion', function (Content $content) {
-                if ($content->occasion)
+                if ($content->occasion) {
                     return $content->occasion;
-                else
+                } else {
                     return '--';
+                }
+
             })
             ->addColumn('provider', function (Content $content) {
-                if ($content->provider)
+                if ($content->provider) {
                     return $content->provider;
-                else
+                } else {
                     return '--';
+                }
+
             })
             ->addColumn('action', function (Content $content) {
                 return '<td class="visible-md visible-lg">
                             <div class="btn-group">
-                                <a class="btn btn-sm btn-info show-tooltip" title="list traks" href="' . url("contents/file_system") . '" ><i class="fa fa-music"></i></a>
+                                <a class="btn btn-sm btn-info show-tooltip" title="list traks" href="' . url("content/$content->id/rbts") . '" ><i class="fa fa-music"></i></a>
                                 <a class="btn btn-sm btn-success show-tooltip" title="" href="' . url("rbt/excel?content_id=" . $content->content_id) . '" ><i class="fa fa-plus"></i></a>
                                 <a class="btn btn-sm show-tooltip" href="' . url("content/" . $content->content_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
                                 <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("content/" . $content->content_id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
@@ -103,7 +108,7 @@ class ContentController extends Controller
             'provider_id' => 'required',
             'occasion_id' => 'required',
             'path' => '',
-            'image_preview' => ''
+            'image_preview' => '',
         ]);
 
         if ($validator->fails()) {
@@ -152,7 +157,6 @@ class ContentController extends Controller
         return view('content.excel', compact('title', 'providers', 'occasions'));
     }
 
-
     public function excel_store(Request $request)
     {
         // $validator = Validator::make($request->all(),[
@@ -168,7 +172,7 @@ class ContentController extends Controller
         ini_set('memory_limit', -1);
 
         if ($request->hasFile('fileToUpload')) {
-            $ext =  $request->file('fileToUpload')->getClientOriginalExtension();
+            $ext = $request->file('fileToUpload')->getClientOriginalExtension();
             if ($ext != 'xls' && $ext != 'xlsx' && $ext != 'csv') {
                 $request->session()->flash('failed', 'File must be excel');
                 return back();
@@ -176,14 +180,14 @@ class ContentController extends Controller
 
             $file = $request->file('fileToUpload');
             $filename = time() . '_' . $file->getClientOriginalName();
-            if (!$file->move(base_path() . '/uploads/content/excel',  $filename)) {
+            if (!$file->move(base_path() . '/uploads/content/excel', $filename)) {
                 return back();
             }
 
             \Excel::filter('chunk')->load(base_path() . '/uploads/content/excel/' . $filename)->chunk(100, function ($results) use ($request, &$counter, &$total_counter) {
                 foreach ($results as $row) {
                     $total_counter++;
-                    if (isset($row->occasion) &&  $row->occasion != "") {
+                    if (isset($row->occasion) && $row->occasion != "") {
                         $check_occasion = Occasion::where('title', 'LIKE', '%' . $row->occasion . '%')->first();
                         if ($check_occasion) {
                             $occasion_id = $check_occasion->id;
@@ -195,7 +199,7 @@ class ContentController extends Controller
                             $occasion_id = $create->id;
                         }
                     } else {
-                        $occasion_id = NULL;
+                        $occasion_id = null;
                     }
                     $check_provider = Provider::where('title', 'LIKE', '%' . $row->content_owner . '%')->first();
                     if ($check_provider) {
@@ -233,8 +237,6 @@ class ContentController extends Controller
         return redirect('content');
     }
 
-
-
     public function edit($id)
     {
         $title = "Content - Edit";
@@ -253,7 +255,7 @@ class ContentController extends Controller
             'provider_id' => 'required',
             'occasion_id' => 'required',
             'path' => '',
-            'image_preview' => ''
+            'image_preview' => '',
         ]);
 
         if ($validator->fails()) {
@@ -328,14 +330,14 @@ class ContentController extends Controller
         $rbt_columns = Schema::getColumnListing('rbts');
         $columns = array(
             1 => "track_title_en", 2 => "track_title_ar", 3 => "artist_name_en", 4 => "artist_name_ar",
-            5 => "album_name", 6 => "code", 7 => "social_media_code", 8 => "owner", 9 => "from", 10 => "to", 11 => "operator_id", 12 => "occasion_id", 13 => "aggregator_id", 14 => "provider_id", 15 => "type"
+            5 => "album_name", 6 => "code", 7 => "social_media_code", 8 => "owner", 9 => "from", 10 => "to", 11 => "operator_id", 12 => "occasion_id", 13 => "aggregator_id", 14 => "provider_id", 15 => "type",
         );
 
         $search_key_value = array();
         foreach ($request['search_field'] as $index => $item) {
-            if (strlen($item) == 0)
+            if (strlen($item) == 0) {
                 continue;
-            else {
+            } else {
                 if ($index == 9) {
                     $item = date("Y-m-d", strtotime($item));
                     $search_key_value['from'] = $item;
@@ -375,23 +377,19 @@ class ContentController extends Controller
                    JOIN operators ON rbts.operator_id = operators.id
                    JOIN occasions ON rbts.occasion_id = occasions.id";
 
-
-
-        if (empty($string_query))
+        if (empty($string_query)) {
             $where = "";
-        else
+        } else {
             $where = " WHERE " . $string_query;
-
+        }
 
         if (Auth::user()->hasRole(['account'])) {
             if ($where) {
-                $select  .= " And aggregators.id=" . Auth::user()->aggregator_id;
+                $select .= " And aggregators.id=" . Auth::user()->aggregator_id;
             } else {
-                $select  .= " where aggregators.id=" . Auth::user()->aggregator_id;
+                $select .= " where aggregators.id=" . Auth::user()->aggregator_id;
             }
         }
-
-
 
         $query = $select . $where;
         $search_result = \DB::select($query);
@@ -452,10 +450,12 @@ class ContentController extends Controller
         }
         if ($from_month && $from_year && $to_month && $to_year) {
             $where = " WHERE ";
-            if ($operator)
+            if ($operator) {
                 $duration_query = ' AND (reports.year > ' . $from_year . ' OR ( reports.month >= ' . $from_month . ' AND reports.year = ' . $from_year . ')) AND (reports.year < ' . $to_year . ' OR ( reports.month <= ' . $to_month . ' AND reports.year = ' . $to_year . ')) ';
-            else
+            } else {
                 $duration_query = ' (reports.year > ' . $from_year . ' OR ( reports.month >= ' . $from_month . ' AND reports.year = ' . $from_year . ')) AND (reports.year < ' . $to_year . ' OR ( reports.month <= ' . $to_month . ' AND reports.year = ' . $to_year . ')) ';
+            }
+
         }
         if ($num_of_rbts) {
             $num_of_rbts_query = " LIMIT " . $num_of_rbts . " OFFSET 0";
@@ -470,7 +470,6 @@ class ContentController extends Controller
         return $reports;
     }
 
-
     public function list_file_system()
     {
         return view('content.file_system');
@@ -478,12 +477,20 @@ class ContentController extends Controller
 
     public function getContents($provider_id)
     {
-        $contents = Content::where('provider_id',$provider_id)->get();
+        $contents = Content::where('provider_id', $provider_id)->get();
         return $contents;
     }
     public function getTracks($content_id)
     {
-        $tracks = Rbt::where('content_id',$content_id)->get();
+        $tracks = Rbt::where('content_id', $content_id)->get();
         return $tracks;
+    }
+
+    public function show_rbt($id)
+    {
+        $title = 'Index - rbt';
+        $rbts = Rbt::where('content_id', $id)->get();
+
+        return view('content.rbtindex', compact('rbts', 'title'));
     }
 }

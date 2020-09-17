@@ -11,14 +11,8 @@ use Validator;
 use Datatables;
 use App\Content;
 use App\Occasion;
-
-
 use App\Operator;
-
-
 use App\Provider;
-
-
 use App\Aggregator;
 
 use Illuminate\Http\Request;
@@ -62,7 +56,7 @@ class RbtController extends Controller
     {
         $title = 'Index - rbt';
         // $rbts = Rbt::all();
-
+        $content_id = $request->all();
         $rbts = Rbt::select('*','rbts.id AS rbt_id','providers.title as provider','occasions.title as occasion','operators.title as operator','aggregators.title as aggregator','contents.content_title as content')
         ->leftjoin('providers','providers.id','=','rbts.provider_id')
         ->leftjoin('occasions','occasions.id','=','rbts.occasion_id')
