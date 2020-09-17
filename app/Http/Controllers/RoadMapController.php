@@ -40,7 +40,7 @@ class RoadMapController extends Controller
               return $roadmap->event_title;
           })
           ->addColumn('event_color', function (Roadmap $roadmap) {
-              return $roadmap->event_color;
+              return "<div class='text-center' style='width: 42%;height: 19px;font-size:12px;font-weight:bolder;background-color: {$roadmap->event_color};color: #fff;'>Color</div>";
           })
           ->addColumn('aggregator', function (Roadmap $roadmap) {
               if ($roadmap->aggregator)

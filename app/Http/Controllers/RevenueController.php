@@ -206,7 +206,7 @@ class RevenueController extends Controller
     public function comboSelectSourceId(Request $request)
     {
         if($request->source_type == 1)
-        return Operator::all(['id', 'title']);
+          return Operator::with('country')->get();
         return Party::where('second_party_type_id', 1)->select( array( 'second_party_id AS id', 'second_party_title AS title' ) )->get();
     }
 
