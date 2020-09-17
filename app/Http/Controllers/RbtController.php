@@ -469,7 +469,9 @@ class RbtController extends Controller
                 $track_file = $old_path[0]."/".$old_path[1]."/".$rbt->track_title_en.".wav" ;
                 $rbt->track_file = $track_file;
                 Storage::disk('local')->putFileAs($rbt->track_file, $request->file('track_file'));
-                dd(Storage::disk('local')->putFileAs($rbt->track_file, $request->file('track_file')));
+
+                $request->file('track_file')->move(base_path($path),$request->track_title_en.".wav");
+
             }else{
                 $request->session()->flash('failed', 'Rbt file must be an audio');
                 dd($request);
