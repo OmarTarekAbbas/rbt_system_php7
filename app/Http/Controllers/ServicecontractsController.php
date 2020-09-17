@@ -61,10 +61,6 @@ class ServicecontractsController extends Controller
 
     public function edit($id)
     {
-        $contractServices = ContractService::select('*', 'contract_services.id as id','contracts.contract_code as contract_code')
-        ->join('contracts', 'contracts.id', '=', 'contract_services.contract_id')
-        ->get();
-        return view('servicecontracts.edit',compact('contractServices'));
     }
 
     public function update($id, Request $request)

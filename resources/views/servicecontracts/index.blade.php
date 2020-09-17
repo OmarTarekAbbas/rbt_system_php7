@@ -45,7 +45,7 @@ Cotract Services
                                 <td>{{$contractService->contract_code }} / {{$contractService->contract_label}}</td>
                                 <td>{{$contractService->title}}</td>
                                 <td>
-                                    <a class="btn btn-sm show-tooltip teet" href="{{url('/contractservice/'.$contractService->id.'/edit')}}"><i id="" class="fa fa-edit"></i></a>
+                                    {{-- <a class="btn btn-sm show-tooltip teet" href="{{url('/contractservice/'.$contractService->id.'/edit')}}"><i id="" class="fa fa-edit"></i></a> --}}
                                     <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete {{ $contractService->title }} ?')" href="{{url('/contractservice/'.$contractService->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
