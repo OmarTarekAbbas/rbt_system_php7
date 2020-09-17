@@ -19,14 +19,14 @@
                         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
 
                         <div class="form-group">
-                            <label class="col-sm-3 col-lg-2 control-label"  for="track_title_en">Artist Name English *</label>
+                            <label class="col-sm-3 col-lg-2 control-label"  for="track_title_en">Provider Name English *</label>
                             <div class="col-sm-9 col-lg-10 controls">
                                 <input id="track_title_en" name = "artist_name_en" value="{{$rbt->artist_name_en}}" type="text" class="form-control input-lg" required>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 col-lg-2 control-label"  for="track_title_en">Artist Name Arabic </label>
+                            <label class="col-sm-3 col-lg-2 control-label"  for="track_title_en">Provider Name Arabic </label>
                             <div class="col-sm-9 col-lg-10 controls">
                                 <input id="track_title_en" name = "artist_name_ar" value="{{$rbt->artist_name_ar}}" type="text" class="form-control input-lg" >
                             </div>
