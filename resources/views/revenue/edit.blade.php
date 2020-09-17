@@ -202,7 +202,10 @@ Revenues
             success: function (response) {
                 $('#source_id').empty();
                 for (const option of response) {
-                    $('#source_id').append( $('<option>').val(option.id).text(option.title) );
+                  if(option.country)
+                    $('#source_id').append($('<option>').val(option.id).text(option.country.title+'_'+option.title));
+                  else
+                    $('#source_id').append($('<option>').val(option.id).text(option.title));
                 }
             }
         });
