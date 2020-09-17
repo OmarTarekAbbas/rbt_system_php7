@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Firstparties extends Model
+class Firstpartie extends Model
 {
 
 
@@ -14,6 +14,7 @@ class Firstparties extends Model
         'first_party_title',
         'first_party_joining_date'
     ];
+    protected $dates  = ['first_party_joining_date'];
 
 
 }

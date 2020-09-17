@@ -352,6 +352,22 @@
         </li>
 
         @endif
+        <li id="firstpartie">
+            <a href="#" class="dropdown-toggle">
+              <i class="fa fa-folder-o"></i>
+              <span>FirstPartie</span>
+              <b class="arrow fa fa-angle-right"></b>
+            </a>
+
+            <!-- BEGIN Submenu -->
+            <ul class="submenu">
+              {{-- <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a>
+              </li> --}}
+              <li id="firstpartie-create"><a href="{{url('firstparties/create')}}">Create FirstPartie</a></li>
+              <li id="firstpartie-index"><a href="{{url('firstparties')}}">FirstPartie</a></li>
+            </ul>
+        <!-- END Submenu -->
+        </li>
 
         <li id="content">
           <a href="#" class="dropdown-toggle">
