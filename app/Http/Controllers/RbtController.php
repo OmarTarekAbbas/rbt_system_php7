@@ -463,15 +463,12 @@ class RbtController extends Controller
               Storage::disk('local')->delete($rbt->track_file);
             }
             $ex = $request->file('track_file')->getClientOriginalExtension();
+            $new_file_name = rand('999','999') . $request->file('track_file')->getClientOriginalName();
             $extentions = array('mp3','wav','ogg','m4a');
             if (in_array($ex,$extentions) ) {
-                $request->file('track_file')->move($old_path[0]."/".$old_path[1],$rbt->track_title_en.".wav");
-                $track_file = $old_path[0]."/".$old_path[1]."/".$rbt->track_title_en.".wav" ;
+                $request->file('track_file')->move($old_path[0]."/".$old_path[1],$new_file_name.".wav");
+                $track_file = $old_path[0]."/".$old_path[1]."/".$new_file_name.".wav" ;
                 $rbt->track_file = $track_file;
-                Storage::disk('local')->putFileAs($rbt->track_file, $request->file('track_file'));
-
-                $request->file('track_file')->move(base_path($path),$request->track_title_en.".wav");
-
             }else{
                 $request->session()->flash('failed', 'Rbt file must be an audio');
                 dd($request);
