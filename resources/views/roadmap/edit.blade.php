@@ -4,6 +4,52 @@ Departments
 @stop
 @section('content')
 @include('errors')
+<style>
+
+  /*Checkboxes styles*/
+  .input_checkbox[type="checkbox"] { display: none; }
+
+  .input_checkbox[type="checkbox"] + .label_checkbox {
+    /* display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 20px;
+    font: 14px/20px 'Open Sans', Arial, sans-serif;
+    color: #ddd;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none; */
+  }
+
+  .input_checkbox[type="checkbox"] + .label_checkbox:last-child { margin-bottom: 0; }
+
+  .input_checkbox[type="checkbox"] + .label_checkbox:before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e47373;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: .6;
+    -webkit-transition: all .12s, border-color .08s;
+    transition: all .12s, border-color .08s;
+  }
+
+  .input_checkbox[type="checkbox"]:checked + .label_checkbox:before {
+    width: 10px;
+    top: -5px;
+    left: 5px;
+    border-radius: 0;
+    opacity: 1;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  </style>
 <div class="row">
     <div class="col-md-12">
         <div class="box">
@@ -35,11 +81,14 @@ Departments
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="event_color" class="col-xs-3 col-lg-2 control-label"> Event Color</label>
-                                        <div class="col-sm-9 col-lg-10 controls">
-                                            <input type="text" value="{{$roadmap->event_color}}" name="event_color" id="event_color"
-                                                placeholder="Event Color" class="form-control colorpicker-default">
+                                      <label for="event_color" class="col-xs-3 col-lg-2 control-label"> Event Color</label>
+                                      <div class="col-sm-9 col-lg-10 control">
+                                        <div class="input-group color colorpicker-default" data-color="#3865a8" data-color-format="rgba">
+                                          <span class="input-group-addon"><i style="background-color: rgb(21, 96, 209);width:80px"></i></span>
+                                            <input type="text" name="event_color" id="event_color"
+                                                placeholder="Event Color" class="form-control colorpicker-default" value="{{$roadmap->event_color}}">
                                         </div>
+                                     </div>
                                     </div>
 
                                     <div class="form-group">
@@ -140,7 +189,7 @@ Departments
                     </div>
 
                     <div class="row append-row">
-                    @foreach($roadmap->providers as $content)
+                    @foreach($roadmap->providers as $key => $content)
                         <div class="col-md-3 init-input">
                             <div class="box box-red">
                                 <div class="box-title">
@@ -151,7 +200,7 @@ Departments
                                     <div class="form-group">
                                         <label for="provider_id" class="col-xs-3 col-lg-2 control-label">Provider</label>
                                         <div class="col-sm-9 col-lg-10 controls">
-                                            {!! Form::select('provider_id[]',$providers,$content->pivot->provider_id,['class'=>'form-control chosen-rtl' , 'id' => 'provider_id' ,'required' => true,'style'=>'height: 48px;'])!!}
+                                            {!! Form::select('provider_id[]',$providers,$content->pivot->provider_id,['class'=>'provider_id form-control chosen-rtl' , 'id' => 'provider_id_'.$key ,'required' => true,'style'=>'height: 48px;'])!!}
                                         </div>
                                     </div>
 
@@ -163,10 +212,9 @@ Departments
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="content_id" class="col-xs-3 col-lg-2 control-label">Tracks</label>
-                                        <div class="col-sm-9 col-lg-10 controls">
-                                            {!! Form::select('content_track_ids[]',[],null,['class'=>'form-control chosen-rtl' , 'data-track' => $content->pivot->content_track_ids ,  'multiple' , 'id' => 'content_track_ids' ,'required' => true,'style'=>'height: 48px;'])!!}
-                                        </div>
+                                      <div class="row track-row" data-tracks="{{$content->pivot->rbt_track_specs}}" style="background: #0000001f; width: 70%; margin: 0 auto; border-radius: 0.5rem;">
+
+                                      </div>
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +244,7 @@ Departments
     $('#roadmap').addClass('active');
     $('#roadmap-create').addClass('active');
 
-   
+
     $(document).on('ready',function(){
         getOperators( $('#country_id').val() )
         getOccasions( $('#country_id').val() )
@@ -235,7 +283,7 @@ Departments
     function createOperaotrForm(operators) {
         var input = ''
         Object.keys(operators).forEach(key => {
-            input+='<option value="'+operators[key].id+'">'+operators[key].title+'</option>'
+          input += `<option value="${operators[key].id}">${operators[key].country.title} _ ${operators[key].title}</option>`
         });
         return input
     }
@@ -251,154 +299,176 @@ Departments
 </script>
 
 <script>
-    var x= 0 
+    var x= 0
+    var y = 0
+
     $(document).on('ready',function(){
-        getContents( $('#provider_id').val(), function(){
-            getTracks($('#content_id').val())
-        })
+      $('.provider_id').each(function(){
+        var _this = $(this)
+        getContents(_this.val(), function(){
+            content_id = $(_this).parent().parent().siblings('.content').children('.controls').children('#content_id')
+            getTracks(content_id.val(),_this)
+        },_this)
+      })
     })
-    $(document).on('change','#provider_id', function(){
-        var _this2 = $(this)
+
+    $(document).on('change','.provider_id', function(){
+        var _this = $(this)
         getContents($(this).val(), function(){
-            content_id = $(_this2).parent().parent().siblings('.content').children('.controls').children('#content_id')
-            getTracks(content_id.val(), _this2)
+            content_id = $(_this).parent().parent().siblings('.content').children('.controls').children('#content_id')
+            getTracks(content_id.val(), _this)
         }, $(this))
     })
+
     $(document).on('change','#content_id', function(){
         getTracks($(this).val(),$(this))
     })
     // api for get Content
-    function getContents(provider_id, callback, _this = '') {
-        var occasion = []
+    function getContents(provider_id, callback, _this) {
         var _this3 = _this
         $.get("{{ url('/api/contents/') }}/"+provider_id,function(response) {
-            contentform = createContentForm(response)
-            if(_this3 && _this3 != '') {
-                $(_this3).parent().parent().siblings('.content').children('.controls').children('#content_id').html(contentform)
-            } else {
-                $('#content_id').html(contentform)
-            }
+            content_form = $(_this3).parent().parent().siblings('.content').children('.controls').children('#content_id')
+            content_id = content_form.data('content')
+            content_input = createContentForm(response,content_id)
+            content_form.html(content_input)
             callback()
-            $(".chosen").each(function() {
-                $(this).trigger("chosen:updated");
-            })
+            content_form.trigger("chosen:updated");
         });
 
     }
     // api for get tracks
-    function getTracks(content_id, _this = '') {
-        var occasion = []
-        var _this3   = _this
-        $.get("{{ url('/api/tracks/') }}/"+content_id,function(response) {
-            trackform = createTracktForm(response)
-            if(_this3 && _this3 != '') {
-                $(_this3).parent().parent().siblings().last().children('.controls').children('#content_track_ids').html(trackform)
-            } else {
-                $('#content_track_ids').html(trackform)
-            }
-            $(".chosen").each(function() {
-                $(this).trigger("chosen:updated");
-            })
-        });
+    function getTracks(content_id, _this) {
+      var _this3 = _this
+      $.get("{{ url('/api/tracks/') }}/" + content_id, function(response) {
+        trackform = $(_this3).parent().parent().siblings().last().children('.track-row')
+        track_ids = trackform.data('tracks')
+        trackinput= createTracktForm(response,track_ids)
+        trackform.html(trackinput)
+        $(".chosen").each(function() {
+          $(this).trigger("chosen:updated");
+        })
+      });
     }
     // create input for content
-    function createContentForm(contents) {
+    function createContentForm(contents,content_id='') {
         var input = ''
         Object.keys(contents).forEach(key => {
-            input+='<option value="'+contents[key].id+'">'+contents[key].content_title+'</option>'
+          var selected = ''
+            if(content_id != '' && content_id == contents[key].id) {
+              selected = 'selected'
+            }
+            input+='<option '+selected+' value="'+contents[key].id+'">'+contents[key].content_title+'</option>'
         });
         return input
     }
     // create input for content
-    function createTracktForm(tracks) {
-        var input = ''
-        Object.keys(tracks).forEach(key => {
-            input+='<option class="far play" data-src="{{url("/")}}/'+tracks[key].track_file+'" value="'+tracks[key].id+'">'+tracks[key].track_title_en+'</option>'
-        });
-        return input
+    function createTracktForm(tracks,track_ids) {
+      var input = ''
+      track_ids = track_ids.split(',').map(Number);
+      Object.keys(tracks).forEach(key => {
+        y=y+1
+        var checked = ''
+        if(track_ids != '' && track_ids.includes(tracks[key].id)) {
+          checked = 'checked'
+        }
+        input += `<div class="row text-center" style="width: 60%; margin: 0 auto; padding: 10px 0;">
+                          <div class="col-md-4">
+                            <input id="box-${y}" ${checked} class="input_checkbox" type="checkbox" value="${tracks[key].id}" name="content_track_ids[${x}][]">
+                            <label for="box-${y}" class="label_checkbox"></label>
+                          </div>
+                          <div class="col-md-4">
+                              <i style="color: #e47373;" data-src="{{url("/")}}/${tracks[key].track_file}" class="fa fa-play play_pause"></i>
+                          </div>
+                          <div class="col-md-4">
+                              <p class="text-right"> ${tracks[key].track_title_en} </p>
+                          </div>
+                      </div>`
+      });
+      x++;
+      return input
     }
 
 
-    $(document).on('click','.fa-plus',function(){
-        form = getFormCopy(x)
-        $('.append-row').append(form)
-        initChosen()
-    })
+  $(document).on('click', '.fa-plus', function() {
+    form = getFormCopy()
+    $('.append-row').append(form)
+    initChosen()
+  })
 
-    function getFormCopy(){
-        var form = '<div class="col-md-3 init-input">\
-                        <div class="box box-red">\
-                            <div class="box-title">\
-                                <h3><i class="fa fa-bars"></i> Provider / Content &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-trash pull-right"></i> &nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-plus pull-right"></i> </h3>\
-                            </div>\
-                            <div class="box-content">\
-                                <div class="form-group">\
-                                    <label for="provider_id" class="col-xs-3 col-lg-2 control-label">Provider</label>\
-                                    <div class="col-sm-9 col-lg-10 controls">\
-                                        {!! Form::select("provider_id[]",$providers,null,["class"=>"form-control chosen-rtl" , "id" => "provider_id" ,"required" => true,"style"=>"height: 48px;"]) !!}\
-                                    </div>\
-                                </div>\
-                                <div class="form-group content">\
-                                    <label for="content_id" class="col-xs-3 col-lg-2 control-label">Tracks</label>\
-                                    <div class="col-sm-9 col-lg-10 controls">\
-                                        {!! Form::select("content_id[]",[],null,["class"=>"form-control chosen-rtl" , "id" => "content_id" ,"required" => true,"style"=>"height: 48px;"])!!}\
-                                    </div>\
-                                </div>\
-                                <div class="form-group">\
-                                    <label for="content_id" class="col-xs-3 col-lg-2 control-label">Content</label>\
-                                    <div class="col-sm-9 col-lg-10 controls">\
-                                        <select required name="content_track_ids['+(++x)+'][]" class="form-control chosen-rtl" multiple id="content_track_ids" style="height: 48px;"></select>\
-                                    </div>\
-                                </div>\
-                            </div>\
-                        </div>\
-                    </div>'
-        return form;
+  function getFormCopy() {
+    var form = ` <div class="col-md-3 init-input">
+                            <div class="box box-red">
+                                <div class="box-title">
+                                    <h3><i class="fa fa-bars"></i> Provider / Content &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-trash pull-right"></i> &nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-plus pull-right"></i> </h3>
+                                </div>
+                                <!-- BEGIN Left Side -->
+                                <div class="box-content">
+                                    <div class="form-group">
+                                        <label for="provider_id" class="col-xs-3 col-lg-2 control-label">Provider</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            {!! Form::select('provider_id[]',$providers,null,['class'=>'provider_id form-control chosen-rtl' , 'id' => 'provider_id' ,'required' => true,'style'=>'height: 48px;'])!!}
+                                        </div>
+                                    </div>
+                                    <div class="form-group content">
+                                        <label for="content_id" class="col-xs-3 col-lg-2 control-label">Content</label>
+                                        <div class="col-sm-9 col-lg-10 controls">
+                                            {!! Form::select('content_id[]',[],null,['class'=>'form-control chosen-rtl' , 'data-content' => '' , 'id' => 'content_id' ,'required' => true,'style'=>'height: 48px;'])!!}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <div class="row track-row" data-tracks="" style="background: #0000001f; width: 70%; margin: 0 auto; border-radius: 0.5rem;">
+
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>`
+    return form;
+  }
+
+  $(document).on('click', '.fa-trash', function() {
+    if ($('.append-row').children().length > 1)
+      $(this).parent().parent().parent().parent().remove()
+  })
+
+  function initChosen() {
+    var el = $('.chosen-rtl');
+    if ("<?php echo App::getLocale(); ?>" == "ar") {
+      el.chosen({
+        rtl: true,
+        width: '100%'
+      });
+    } else {
+      el.addClass("chosen");
+      el.removeClass("chosen-rtl");
+      $(".chosen").chosen();
+    }
+  }
+
+  let audio = new Audio();
+
+  $(document).on('click', '.play_pause', function(e) {
+    e.preventDefault()
+
+    if (!audio.paused) {
+      audio.pause();
     }
 
-    $(document).on('click','.fa-trash',function(){
-        if($('.append-row').children().length > 1)
-            $(this).parent().parent().parent().parent().remove()
-    })
 
-    function initChosen() {
-        var el = $('.chosen-rtl');
-        if ("<?php echo App::getLocale(); ?>" == "ar") {
-            el.chosen({
-                rtl: true,
-                width: '100%'
-            });
+    audio.src = $(this).data('src')
+
+    if ($(this).hasClass('fa-play')) {
+      $(this).removeClass('fa-play').addClass('fa-pause')
+
+      $('.play_pause').not($(this)).each(function() {
+        if ($(this).hasClass('fa-pause')) {
+          $(this).removeClass('fa-pause').addClass('fa-play')
         }
-        else {
-            el.addClass("chosen");
-            el.removeClass("chosen-rtl");
-            $(".chosen").chosen();
-        }
+      })
+      audio.play();
+    } else {
+      $(this).removeClass('fa-pause').addClass('fa-play')
     }
-
-    let audio = new Audio();
-
-    $('#content_track_ids').change(function(){
-        console.log($(this).children('option:selected').data('src'));
-        if (!audio.paused) {
-            audio.pause();
-        }
-
-        audio.src = $(this).children('option:selected').data('src')
-
-        if ($(this).children('option:selected').hasClass('play')) {
-            $(this).children('option:selected').removeClass('play').addClass('pause')
-
-            $('.far').not($(this).children('option:selected')).each(function() {
-                if ($(this).hasClass('pause')) {
-                    $(this).removeClass('pause').addClass('play')
-                }
-            })
-            audio.play();
-        } else {
-            $(this).children('option:selected').removeClass('pause').addClass('play')
-        }
-    })
+  })
 
 </script>
 @stop

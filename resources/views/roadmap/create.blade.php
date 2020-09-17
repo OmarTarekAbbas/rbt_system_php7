@@ -84,12 +84,12 @@ Departments
                     <label for="event_color" class="col-xs-3 col-lg-2 control-label"> Event Color</label>
                     <div class="col-sm-9 col-lg-10 control">
                       <div class="input-group color colorpicker-default" data-color="#3865a8" data-color-format="rgba">
-                        <span class="input-group-addon"><i style="background-color: rgb(21, 96, 209);"></i></span>
+                        <span class="input-group-addon"><i style="background-color: rgb(21, 96, 209);width:80px"></i></span>
                           <input type="text" name="event_color" id="event_color"
                               placeholder="Event Color" class="form-control colorpicker-default" value="#3865a8">
                       </div>
                    </div>
-                </div>
+                  </div>
 
                   <div class="form-group">
                     <label for="event_start_date" class="col-xs-3 col-lg-2 control-label"> Event Start Date</label>
@@ -274,7 +274,7 @@ Departments
   function createOperaotrForm(operators) {
     var input = ''
     Object.keys(operators).forEach(key => {
-      input += '<option value="' + operators[key].id + '">' + operators[key].title + '</option>'
+      input += `<option value="${operators[key].id}">${operators[key].country.title} _ ${operators[key].title}</option>`
     });
     return input
   }
