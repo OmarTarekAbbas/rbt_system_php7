@@ -78,7 +78,7 @@ class ContentController extends Controller
             ->addColumn('action', function (Content $content) {
                 return '<td class="visible-md visible-lg">
                             <div class="btn-group">
-                                <a class="btn btn-sm btn-info show-tooltip" title="list traks" href="' . url("content/$content->id/rbts") . '" ><i class="fa fa-music"></i></a>
+                                <a class="btn btn-sm btn-info show-tooltip" title="list traks" href="' . url("content/$content->content_id/rbts") . '" ><i class="fa fa-music"></i></a>
                                 <a class="btn btn-sm btn-success show-tooltip" title="" href="' . url("rbt/excel?content_id=" . $content->content_id) . '" ><i class="fa fa-plus"></i></a>
                                 <a class="btn btn-sm show-tooltip" href="' . url("content/" . $content->content_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
                                 <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("content/" . $content->content_id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
