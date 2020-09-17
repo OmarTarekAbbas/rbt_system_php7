@@ -13,36 +13,36 @@
         <h4 class="modal-title" id="myModalLabel">Add Type</h4>
       </div>
       <div class="modal-body">
-        
+
         <div class="form-group">
            <label class="col-sm-3 col-lg-2 control-label">Title</label>
            <div class="col-sm-9 col-lg-10 controls">
               <input type="text" placeholder="Title" name = "title" class="form-control" />
            </div>
         </div>
-        
+
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
         </form>
     </div>
-      
-      
+
+
   </div>
 </div>
 
 <div class="modal fade" id="edittype" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form method = 'POST' action = "{{url('type/update')}}" class="form-horizontal">
+      <form method = 'PUT' action = "{{url('type')}}" class="form-horizontal">
       {{ csrf_field() }}
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Update type</h4>
       </div>
       <div class="modal-body">
-        
+
         <div class="form-group">
            <label class="col-sm-3 col-lg-2 control-label">Title</label>
            <div class="col-sm-9 col-lg-10 controls">
@@ -50,7 +50,7 @@
               <input type="hidden" name="type_id" id="type_id">
            </div>
         </div>
-        
+
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Save</button>
@@ -88,7 +88,7 @@
                 </div>
                 <br/><br/>
                 <div class="clearfix"></div>
-                
+
                 <div class="table-responsive" style="border:0">
                     <table class="table table-advance" id="table1">
                         <thead>
@@ -102,7 +102,7 @@
                         @foreach($types as $type)
                             <tr class="table-flag-blue">
                                 <td><input type="checkbox" /></td>
-                                <td>{!!$type->title!!}</td>
+                                <td>{!!$type->service_type_title!!}</td>
                                <td>
                                 <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" ><i id="{{$type->id}}" class="fa fa-edit"></i></a>
                                 <a class="btn btn-sm btn-danger show-tooltip" title=""   onclick="return confirm('Are you sure you want to delete {{ $type->title }} ?')"     href="{{url('/type/'.$type->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
@@ -134,6 +134,7 @@
         <script>
             $('#type').addClass('active');
             $('#type-index').addClass('active');
+
             $('.teet').click(function() {
                 // alert('msg');
                 /* Act on the event */
@@ -145,6 +146,6 @@
                 $('#edit-type').val(name);
                 $('#type_id').val(id);
                 $('#edittype').modal('toggle');
-            }); 
+            });
         </script>
 @endsection

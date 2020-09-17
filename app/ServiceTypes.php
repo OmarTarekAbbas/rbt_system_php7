@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Occasion.
@@ -13,7 +12,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class ServiceTypes extends Model
 {
-
 
     protected $table = 'service_types';
     protected $fillable = [

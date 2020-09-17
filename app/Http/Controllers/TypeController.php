@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Type;
-use Amranidev\Ajaxis\Ajaxis;
 use URL;
+use App\Type;
 use Validator;
+use App\ServiceTypes;
+use Amranidev\Ajaxis\Ajaxis;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
 /**
  * Class TypeController.
  *
@@ -25,7 +26,7 @@ class TypeController extends Controller
     public function index()
     {
         $title = 'Index - type';
-        $types = Type::paginate(6);
+        $types = ServiceTypes::paginate(6);
         return view('type.index',compact('types','title'));
     }
 
@@ -40,18 +41,18 @@ class TypeController extends Controller
         $validator = Validator::make($request->all(),[
                 'title' => 'required|unique:types,title'
             ]);
-        
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
-        $type = new Type();
+        $type = new ServiceTypes();
 
-        
-        $type->title = $request->title;
 
-        
-        
+        $type->service_type_title = $request->title;
+
+
+
         $type->save();
 
         $request->session()->flash('success', 'Created successfuly');
@@ -69,18 +70,17 @@ class TypeController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(),[
-                'title' => 'required|unique:types,title,'.$request->type_id
-            ]);
-        
+                'title' => 'required'
+          ]);
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
-        $type = Type::findOrfail($request->type_id);
-    	
+        $type = ServiceTypes::findOrfail($request->type_id);
+
         $type->title = $request->title;
-        
-        
+
         $type->save();
 
         $request->session()->flash('success', 'Updated successfuly');
@@ -98,7 +98,7 @@ class TypeController extends Controller
      */
     public function destroy($id,Request $request)
     {
-     	$type = Type::findOrfail($id);
+     	$type = ServiceTypes::findOrfail($id);
      	$type->delete();
         $request->session()->flash('success', 'Deleted successfuly');
 
