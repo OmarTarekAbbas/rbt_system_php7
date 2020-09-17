@@ -13,7 +13,7 @@ class Percentage extends Model
     protected $fillable = [
         'percentage',
     ];
-
+    public $timestamps = false;
 
 
 }

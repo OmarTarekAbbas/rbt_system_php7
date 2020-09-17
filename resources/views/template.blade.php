@@ -369,6 +369,22 @@
         <!-- END Submenu -->
         </li>
 
+        <li id="percentage">
+          <a href="#" class="dropdown-toggle">
+            <i class="fa fa-folder-o"></i>
+            <span>Percentage</span>
+            <b class="arrow fa fa-angle-right"></b>
+          </a>
+
+          <!-- BEGIN Submenu -->
+          <ul class="submenu">
+            {{-- <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a>
+            </li> --}}
+            <li id="percentage-create"><a href="{{url('percentages/create')}}">Create Percentage</a></li>
+            <li id="percentage-index"><a href="{{url('percentages')}}">Percentages</a></li>
+          </ul>
+      <!-- END Submenu -->
+      </li>
         <li id="content">
           <a href="#" class="dropdown-toggle">
             <i class="fa fa-folder-o"></i>
