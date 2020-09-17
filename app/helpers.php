@@ -1,10 +1,11 @@
 <?php
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use App\Events\Notifications;
 use App\User;
+use App\Country;
 use App\Department;
 use App\Notification;
+use Illuminate\Http\Request;
+use App\Events\Notifications;
+use Illuminate\Support\Facades\DB;
 function delete_multiselect(Request $request) // select many contract from index table and delete them
 {
     $selected_list =  explode(",",$request['selected_list']);
@@ -47,6 +48,12 @@ function all_notify()
 {
     $Notification = Notification::with('send_user')->where('seen',0)->where('notified_id',\Auth::id())->latest()->take(5)->get();
     return $Notification;
+}
+
+function all_countries()
+{
+    $country_id = Country::where('title', 'LIKE', "%All countries%")->first()->id;
+    return $country_id;
 }
 
 function send_notification($message,$dep,$data){
