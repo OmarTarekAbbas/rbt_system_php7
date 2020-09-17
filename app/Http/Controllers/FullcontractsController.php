@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 use App\Contract;
-use App\Firstparties;
+use App\Firstpartie;
 use App\Percentage;
 use App\ServiceTypes;
 use App\SecondParty;
@@ -86,7 +86,7 @@ class FullcontractsController extends Controller
 
     public function create()
     {
-        $first_parties = Firstparties::all();
+        $first_parties = Firstpartie::all();
         $percentages = Percentage::all();
         $service_types = ServiceTypes::all();
         $second_partys = SecondParty::all();
@@ -141,7 +141,7 @@ class FullcontractsController extends Controller
     public function edit($id)
     {
         $contract = Contract::findOrfail($id);
-        $first_parties = Firstparties::all();
+        $first_parties = Firstpartie::all();
         $percentages = Percentage::all();
         $service_types = ServiceTypes::all();
         $second_partys = SecondParty::all();

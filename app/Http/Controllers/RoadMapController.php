@@ -89,9 +89,10 @@ class RoadMapController extends Controller
 
     public function create()
     {
-        $countries = Country::all()->pluck('title','id');
+        $countries = ['' => 'All Country']+Country::where('title','NOT LIKE','%All countries%')->pluck('title','id')->toArray();
         $aggregators = Aggregator::all()->pluck('title','id');
         $providers = Provider::all()->pluck('title','id');
+
         return view('roadmap.create',compact('countries','aggregators','providers'));
     }
 
@@ -120,7 +121,7 @@ class RoadMapController extends Controller
     public function edit($id)
     {
         $roadmap = Roadmap::find($id);
-        $countries = Country::all()->pluck('title','id');
+        $countries = ['' => 'All Country']+Country::where('title','NOT LIKE','%All countries%')->pluck('title','id')->toArray();
         $aggregators = Aggregator::all()->pluck('title','id');
         $providers = Provider::all()->pluck('title','id');
         return view('roadmap.edit',compact('countries','aggregators','providers','roadmap'));
