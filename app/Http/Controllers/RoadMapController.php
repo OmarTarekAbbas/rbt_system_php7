@@ -40,7 +40,7 @@ class RoadMapController extends Controller
               return $roadmap->event_title;
           })
           ->addColumn('event_color', function (Roadmap $roadmap) {
-              return $roadmap->event_color;
+              return "<div class='text-center' style='width: 42%;height: 19px;font-size:12px;font-weight:bolder;background-color: {$roadmap->event_color};color: #fff;'>Color</div>";
           })
           ->addColumn('aggregator', function (Roadmap $roadmap) {
               if ($roadmap->aggregator)
@@ -133,7 +133,8 @@ class RoadMapController extends Controller
         $request = array_merge($request->validated(),[
             'entry_by'  => auth()->id(),
             'event_start_date' => date('Y-m-d',strtotime($request->event_start_date)),
-            'event_end_date' => date('Y-m-d',strtotime($request->event_end_date))
+            'event_end_date' => date('Y-m-d',strtotime($request->event_end_date)),
+            'content_track_ids' => array_values($request['content_track_ids'])
         ]);
 
         //return $request;
@@ -142,11 +143,13 @@ class RoadMapController extends Controller
             $roadmap->update($request);
         });
 
-        // if ($request->has('provider_id')) {
-        //     foreach ($request->provider_id as $key => $value) {
-        //         $roadmap->providers->sync([$value => ['roadmap_id' => $request->roadmap_id[$key], 'rbt_track_specs' => implode(',',$request->roadmap_track_ids[$key]) ] ]);
-        //     }
-        // }
+        $roadMap->providers()->detach();
+
+        if (isset($request['provider_id'])) {
+          foreach ($request['provider_id'] as $key => $value) {
+              $roadMap->providers()->attach([$value => ['content_id' => $request['content_id'][$key], 'rbt_track_specs' => implode(',',$request['content_track_ids'][$key]) ] ]);
+          }
+      }
 
         return redirect('roadmaps/calendar/index');
     }

@@ -250,3 +250,8 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::get('roadmap/allData', 'RoadMapController@allData');
     Route::get('roadmaps/calendar/index','RoadMapController@calendarIndex')->name('admin.roadmaps.calendar.index');
 });
+
+Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
+    Route::resource('firstparties','FirstpartieController',['as' => 'admin']);
+    Route::get('firstparties/{id}/delete','FirstpartieController@destroy');
+});
