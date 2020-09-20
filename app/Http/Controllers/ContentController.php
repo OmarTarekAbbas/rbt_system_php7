@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\DB;
 
 use App\Content;
@@ -8,6 +9,7 @@ use App\Occasion;
 use App\Provider;
 use App\Rbt;
 use App\Contract;
+use App\Country;
 use Illuminate\Http\Request;
 
 class ContentController extends Controller
@@ -43,9 +45,6 @@ class ContentController extends Controller
       ->addColumn('id', function (Content $content) {
         return $content->content_id;
       })
-      ->addColumn('content_code', function (Content $content) {
-        return $content->content_code;
-      })
       ->addColumn('content_title', function (Content $content) {
         return $content->content_title;
       })
@@ -54,7 +53,7 @@ class ContentController extends Controller
       })
       ->addColumn('internal_coding', function (Content $content) {
         if ($content->internal_coding)
-        return $content->internal_coding;
+          return $content->internal_coding;
         else
           return '--';
       })
@@ -150,7 +149,7 @@ class ContentController extends Controller
       }
     }
     $content = new Content();
-    $content->content_code = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time();
+    $content->internal_coding = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time();
     $content->content_title = $request->content_title;
     $content->provider_id = $request->provider_id;
     $content->path = $request->path;
@@ -158,11 +157,11 @@ class ContentController extends Controller
     $content->occasion_id = $request->occasion_id;
     $content->contract_id = $request->contract_id;
     send_notification('Add New Content You Can Follow It From This Link', 'Operation', $content);
-    //dd($content);
+    //dd($content->save());
     $content->save();
     $request->session()->flash('success', 'Add Content Successfully');
 
-    return redirect('content/'.$content->id);
+    return redirect('content/' . $content->id);
   }
   public function show($id)
   {
@@ -170,8 +169,8 @@ class ContentController extends Controller
     $provider = DB::table('providers')->where('id', $content->provider_id)->first();
     $occasion = DB::table('occasions')->where('id', $content->occasion_id)->first();
     $contract = DB::table('contracts')->where('id', $content->contract_id)->first();
-    return view('content.view', compact('content','provider','occasion','contract'));
-
+    $rbts = DB::table('rbts')->where('content_id', $id)->get();
+    return view('content.view', compact('content', 'provider', 'occasion', 'contract', 'rbts'));
   }
   public function create_excel()
   {
@@ -236,16 +235,26 @@ class ContentController extends Controller
             $create = Provider::create($prov);
             $provider_id = $create->id;
           }
+
+          $check_contract = Contract::where('contract_code', 'LIKE', '%' . $row->contract_code . '%')->first();
+          if ($check_contract) {
+            $contract_id = $check_contract->id;
+          } else {
+            $contract_id = NULL;
+          }
+
           $content_data['content_title'] = $row->content_title;
           $content_data['content_type'] = $row->content_type;
+          $content_data['internal_coding'] = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time();
           $content_data['provider_id'] = $provider_id;
           $content_data['occasion_id'] = $occasion_id;
+          $content_data['contract_id'] = $contract_id;
           $content_data['user_id'] = \Auth::user()->id;
           $content_data['path'] = "uploads/content/" . date('Y-m-d') . "/" . $row->path . ".wav";
           $check = content::create($content_data);
           if ($check) {
             $content = Content::find($check->id);
-            $content->internal_coding = $content->id;
+            //$content->internal_coding = $content->id;
             $content->save();
             $counter++;
           }
@@ -319,7 +328,7 @@ class ContentController extends Controller
 
     $request->session()->flash('success', 'Updated Successfully');
 
-    return redirect('content/'.$id);
+    return redirect('content/' . $id);
   }
   /**
    * Remove the specified resource from storage.
@@ -337,8 +346,8 @@ class ContentController extends Controller
 
   public function getDownload()
   {
-    $file = base_path() . "/uploads/content/content.xlsx";
-
+    $file = base_path() . "/contentexcel/content.xlsx";
+    //dd($file);
     $headers = array(
       'Content-Type: application/xlsx',
     );
