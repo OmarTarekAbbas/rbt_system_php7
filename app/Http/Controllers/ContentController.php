@@ -29,6 +29,7 @@ class ContentController extends Controller
   public function allData(Request $request)
   {
     //$contents = Content::all();
+    $content_id = $request->all();
 
     $contents = Content::select('*', 'contents.id AS content_id', 'providers.title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
       ->join('providers', 'providers.id', '=', 'contents.provider_id')
@@ -85,7 +86,7 @@ class ContentController extends Controller
       ->addColumn('action', function (Content $content) {
         return '<td class="visible-md visible-lg">
                             <div class="btn-group">
-                                <a class="btn btn-sm btn-info show-tooltip" title="list traks" href="' . url("contents/file_system") . '" ><i class="fa fa-music"></i></a>
+                                <a class="btn btn-sm btn-info show-tooltip" title="list traks" href="' . url("content/$content->content_id/rbts") . '" ><i class="fa fa-music"></i></a>
                                 <a class="btn btn-sm btn-primary show-tooltip " href="' . url("content/" . $content->content_id) . '" title="Show"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-sm btn-success show-tooltip" title="" href="' . url("rbt/excel?content_id=" . $content->content_id) . '" ><i class="fa fa-plus"></i></a>
                                 <a class="btn btn-sm show-tooltip" href="' . url("content/" . $content->content_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
@@ -517,4 +518,13 @@ class ContentController extends Controller
     $tracks = Rbt::where('content_id', $content_id)->get();
     return $tracks;
   }
+
+  public function show_rbt($id)
+  {
+      $title = 'Index - rbt';
+      $rbts = Rbt::where('content_id', $id)->get();
+
+      return view('content.rbtindex', compact('rbts', 'title'));
+  }
+
 }
