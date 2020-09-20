@@ -124,7 +124,6 @@ Departments
                       <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                       <input type="text" name="event_start_date" id="event_start_date" autocomplete="off" placeholder="Event Start Date" data-date-format="dd-mm-yyyy" class="form-control">
                     </div>
-
                   </div>
 
                   <div class="form-group">
@@ -134,6 +133,7 @@ Departments
                       <input type="text" name="event_end_date" id="event_end_date" autocomplete="off" placeholder="Event End Date" data-date-format="dd-mm-yyyy" class="form-control">
                     </div>
                   </div>
+
                 </div>
 
               </div>

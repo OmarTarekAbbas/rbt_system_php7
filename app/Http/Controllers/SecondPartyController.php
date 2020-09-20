@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Repository\SecondPartyRepository;
+use App\Http\Requests\SecondPartyStoreRequest;
+use App\Http\Services\SecondPartyStoreService;
+use App\Http\Repository\SecondPartyTypeRepository;
 
 class SecondPartyController extends Controller
 {
@@ -12,6 +15,16 @@ class SecondPartyController extends Controller
      * @var SecondPartyRepository
      */
     private $SecondPartyRepository;
+    /**
+     * SecondPartyTypeRepository
+     * @var SecondPartyTypeRepository
+     */
+    private $SecondPartyTypeRepository;
+    /**
+     * SecondPartyStoreService
+     * @var SecondPartyStoreService
+     */
+    private $SecondPartyStoreService;
 
     /**
      * __construct
@@ -19,10 +32,14 @@ class SecondPartyController extends Controller
      * @param SecondPartyRepository $SecondPartyRepository
      */
     public function __construct(
-      SecondPartyRepository $SecondPartyRepository
+      SecondPartyRepository $SecondPartyRepository,
+      SecondPartyTypeRepository $SecondPartyTypeRepository,
+      SecondPartyStoreService $SecondPartyStoreService
     )
     {
       $this->SecondPartyRepository = $SecondPartyRepository;
+      $this->SecondPartyTypeRepository = $SecondPartyTypeRepository;
+      $this->SecondPartyStoreService = $SecondPartyStoreService;
     }
 
 
@@ -40,54 +57,47 @@ class SecondPartyController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create()
     {
-        //
-    }
+      $SecondPartyTypes = $this->SecondPartyTypeRepository->pluck('second_party_type_title', 'id');
+      return view('secondparty.create', compact('SecondPartyTypes'));
+  }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  SecondPartyStoreRequest $request
+     * @return redirect
      */
-    public function store(Request $request)
+    public function store(SecondPartyStoreRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $SecondParty = $this->SecondPartyStoreService->handle($request->validated());
+        return redirect('SecondParty')->with(['success' => 'Added Successfully!']);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function edit($id)
     {
-        //
+      $SecondPartyTypes = $this->SecondPartyTypeRepository->pluck('second_party_type_title', 'id');
+      $SecondParty = $this->SecondPartyRepository->where('second_party_id', $id)->firstOrFail();
+      return view('secondparty.edit', compact('SecondParty', 'SecondPartyTypes'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  SecondPartyUpdateRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return redirect
      */
-    public function update(Request $request, $id)
+    public function update(SecondPartyUpdateRequest $request, $id)
     {
         //
     }
@@ -100,6 +110,7 @@ class SecondPartyController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $SecondParty = $this->SecondPartyRepository->where('second_party_id', $id)->delete();
+      return back()->with(['success' => 'Deleted Successfully']);
     }
 }
