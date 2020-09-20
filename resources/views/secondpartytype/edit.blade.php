@@ -1,6 +1,6 @@
 @extends('template')
 @section('page_title')
-ServiceTypes
+Second Party Types
 @stop
 @section('content')
 
@@ -11,7 +11,7 @@ ServiceTypes
     <div class="col-md-12">
       <div class="box">
         <div class="box-title">
-          <h3><i class="fa fa-bars"></i>ServiceTypes</h3>
+          <h3><i class="fa fa-bars"></i>Second Party Types</h3>
           <div class="box-tool">
             <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
             <a data-action="close" href="#"><i class="fa fa-times"></i></a>
@@ -20,7 +20,7 @@ ServiceTypes
         <div class="box-content">
 
 
-          <form action="{{url("ServiceTypes/$ServiceType->id")}}" method="POST" class="form-horizontal form-bordered form-row-stripped"
+          <form action="{{url("SecondPartyType/$SecondPartyType->id")}}" method="POST" class="form-horizontal form-bordered form-row-stripped"
             enctype="multipart/form-data" novalidate>
             @method('PATCH')
             @csrf
@@ -29,7 +29,15 @@ ServiceTypes
             <div class="form-group">
               <label for="textfield5" class="col-sm-3 col-lg-2 control-label">title *</label>
               <div class="col-sm-9 col-lg-10 controls">
-                <input type="text" name="service_type_title" id="key" value="{{$ServiceType->service_type_title}}"
+                <input type="text" name="second_party_type_title" id="title" value="{{$SecondPartyType->second_party_type_title}}"
+                  placeholder="title" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="textfield5" class="col-sm-3 col-lg-2 control-label">description *</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <input type="text" name="second_party_type_description" id="description" value="{{$SecondPartyType->second_party_type_description}}"
                   placeholder="title" class="form-control" required>
               </div>
             </div>

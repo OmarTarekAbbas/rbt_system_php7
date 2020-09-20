@@ -2,10 +2,52 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repository\SecondPartyTypeRepository;
+use App\Http\Requests\SecondPartyTypeStoreRequest;
+use App\Http\Services\SecondPartyTypeStoreService;
+use App\Http\Services\SecondPartyTypeUpdateService;
 use Illuminate\Http\Request;
 
 class SecondPartyTypeController extends Controller
 {
+
+    /**
+     * SecondPartyTypeRepository
+     *
+     * @var SecondPartyTypeRepository
+     */
+    private $SecondPartyTypeRepository;
+    /**
+     * SecondPartyTypeStoreService
+     *
+     * @var SecondPartyTypeStoreService
+     */
+    private $SecondPartyTypeStoreService;
+    /**
+     * SecondPartyTypeUpdateService
+     *
+     * @var SecondPartyTypeUpdateService
+     */
+    private $SecondPartyTypeUpdateService;
+
+    /**
+     * __construct
+     *
+     * @param SecondPartyTypeRepository $SecondPartyTypeRepository
+     * @param SecondPartyTypeStoreService $SecondPartyTypeStoreService
+     * @param SecondPartyTypeUpdateService $SecondPartyTypeUpdateService
+     */
+
+    public function __construct(
+        SecondPartyTypeRepository $SecondPartyTypeRepository,
+        SecondPartyTypeStoreService $SecondPartyTypeStoreService,
+        SecondPartyTypeUpdateService $SecondPartyTypeUpdateService
+    ) {
+        $this->SecondPartyTypeRepository = $SecondPartyTypeRepository;
+        $this->SecondPartyTypeStoreService = $SecondPartyTypeStoreService;
+        $this->SecondPartyTypeUpdateService = $SecondPartyTypeUpdateService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +55,8 @@ class SecondPartyTypeController extends Controller
      */
     public function index()
     {
-        //
+        $SecondPartyTypes = $this->SecondPartyTypeRepository->get();
+        return view('secondpartytype.index', compact('SecondPartyTypes'));
     }
 
     /**
@@ -23,52 +66,48 @@ class SecondPartyTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('secondpartytype.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  SecondPartyTypeStoreRequest $request
+     * @return Redirect
      */
-    public function store(Request $request)
+    public function store(SecondPartyTypeStoreRequest $request)
     {
-        //
-    }
+        $this->SecondPartyTypeStoreService->handle($request->validated());
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect('SecondPartyType')->with(['success' => 'Second Party Type created successfully']);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function edit($id)
     {
-        //
+        $SecondPartyType = $this->SecondPartyTypeRepository->findOrFail($id);
+        return view('secondpartytype.edit', compact('SecondPartyType'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  SecondPartyTypeStoreRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Redirect
      */
-    public function update(Request $request, $id)
+    public function update(SecondPartyTypeStoreRequest $request, $id)
     {
-        //
+        $SecondPartyType = $this->SecondPartyTypeRepository->findOrFail($id);
+
+        $this->SecondPartyTypeUpdateService->handle($request->validated(), $SecondPartyType);
+
+        return redirect('SecondPartyType')->with(['success' => 'Second Party Type created updated']);
     }
 
     /**
@@ -79,6 +118,7 @@ class SecondPartyTypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $SecondPartyType = $this->SecondPartyTypeRepository->destroy($id);
+      return back()->with(['success', 'Deleted Successfully']);
     }
 }
