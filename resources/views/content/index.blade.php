@@ -32,10 +32,12 @@ Contents
                         <tr>
                                 <th style="width:18px"><input type="checkbox" /></th>
                                 <th>id</th>
+                                <th>Code</th>
                                 <th>Content Title</th>
                                 <th>Content Type</th>
                                 <th>Internal Coding</th>
                                 <th>content File</th>
+                                <th>Contract Code</th>
                                 <th>Occasion Title</th>
                                 <th>Provider</th>
                                 <th class="visible-md visible-lg" style="width:130px">Action</th>
@@ -82,6 +84,10 @@ $('#content-index').addClass('active');
                     name: "id"
                 },
                 {
+                    data: "content_code",
+                    name: "content_code"
+                },
+                {
                     data: "content_title",
                     name: "content_title"
                 },
@@ -96,6 +102,10 @@ $('#content-index').addClass('active');
                 {
                     data: "path",
                     name: "path"
+                },
+                {
+                    data: "contract_code",
+                    name: "contract_code"
                 },
                 {
                     data: "occasion",
