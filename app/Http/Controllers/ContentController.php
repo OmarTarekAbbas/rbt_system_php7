@@ -42,9 +42,6 @@ class ContentController extends Controller
       ->addColumn('id', function (Content $content) {
         return $content->content_id;
       })
-      ->addColumn('content_code', function (Content $content) {
-        return $content->content_code;
-      })
       ->addColumn('content_title', function (Content $content) {
         return $content->content_title;
       })
@@ -149,7 +146,7 @@ class ContentController extends Controller
       }
     }
     $content = new Content();
-    $content->content_code = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time();
+    $content->internal_coding = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time();
     $content->content_title = $request->content_title;
     $content->provider_id = $request->provider_id;
     $content->path = $request->path;
@@ -157,7 +154,7 @@ class ContentController extends Controller
     $content->occasion_id = $request->occasion_id;
     $content->contract_id = $request->contract_id;
     send_notification('Add New Content You Can Follow It From This Link', 'Operation', $content);
-    //dd($content);
+    //dd($content->save());
     $content->save();
     $request->session()->flash('success', 'Add Content Successfully');
 
@@ -244,7 +241,7 @@ class ContentController extends Controller
           $check = content::create($content_data);
           if ($check) {
             $content = Content::find($check->id);
-            $content->internal_coding = $content->id;
+            //$content->internal_coding = $content->id;
             $content->save();
             $counter++;
           }

@@ -26,7 +26,7 @@ Contents
           <div class="form-group">
             <label class="col-sm-3 col-lg-2 control-label" for="code">content Type *</label>
             <div class="col-sm-9 col-lg-10 controls">
-              {!! Form::select('content_type', ['audio' => 'audio'],null, ['class' => 'form-control input-lg' , 'required' => 'required']) !!}
+              {!! Form::select('content_type', ['image'=>'image','video' =>'video','audio' => 'audio'],null, ['class' => 'form-control input-lg' , 'required' => 'required']) !!}
             </div>
           </div>
 

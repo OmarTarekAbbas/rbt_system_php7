@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Content extends Model
 {
     protected $fillable = ['content_title','content_type','provider_id','internal_coding','path',
-                          'user_id','image_preview','occasion_id'];
+                          'user_id','image_preview','occasion_id','contract_id'];
 
     ///////////////////set image///////////////////////////////
     public function setImagePreviewAttribute($value)

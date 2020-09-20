@@ -34,10 +34,14 @@ Content
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Content Code</td>
-                <td> <a href="#0">{{$content->content_code}} </a></td>
+                <td width='30%' class='label-view text-right'>Internal Coding</td>
+                @if($content->internal_coding)
+                <td>{{ $content->internal_coding }} </td>
+                @else
+                <td>---</td>
+                @endif
               </tr>
-
+              
               <tr>
                 <td width='30%' class='label-view text-right'>Title</td>
                 <td> {{$content->content_title}}</td>
@@ -55,15 +59,6 @@ Content
                     <source src="{{url($content->path)}}">
                   </audio>
                 </td>
-              </tr>
-
-              <tr>
-                <td width='30%' class='label-view text-right'>Internal Coding</td>
-                @if($content->internal_coding)
-                <td>{{ $content->internal_coding }} </td>
-                @else
-                <td>---</td>
-                @endif
               </tr>
 
               <tr>
