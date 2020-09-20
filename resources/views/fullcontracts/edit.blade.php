@@ -144,7 +144,7 @@ Contract
                   <select name='country_title[]' multiple rows='5' id='country_title' class='select2 ' required>
                     <option value="">-- Please Select --</option>
                     @foreach($countries as $country)
-                    <option value="{{$country->title}}" @if($contract->country_title==$country->title) selected="selected" @endif>{{$country->title}}</option>
+                    <option value="{{$country->title}}" @if(in_array($country->title,explode(",",$contract->country_title))) selected="selected" @endif>{{$country->title}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -154,7 +154,7 @@ Contract
                   <select name='operator_title[]' multiple rows='5' id='operator_title' class='select2 ' required>
                     <option value="">-- Please Select --</option>
                     @foreach($operators as $operator)
-                    <option value="{{$operator->title}}" @if($contract->operator_title==$operator->title) selected="selected" @endif>{{$operator->title}}</option>
+                    <option value="{{$operator->title}}" @if(in_array($operator->title,explode(",",$contract->operator_title))) selected="selected" @endif>{{$operator->title}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -278,6 +278,21 @@ Contract
     }
   });
 
+  $(document).on('ready',function(){
+    $.ajax({
+        method: 'GET',
+        url: "{{url('/client_type')}}",
+        data: {
+          body: $('#second_party_type_cli').val(),
+          second_party_id: "{{$contract->second_party_id}}",
+          _token: token
+        }
+      })
+      .done(function(client_type) {
+        $('#second_party_id').html(client_type);
+    });
+  })
+
   var token = '{{Session::token()}}';
   $('#second_party_type_cli').on('change', function() {
     console.log("omar");
@@ -286,7 +301,7 @@ Contract
         url: "{{url('/client_type')}}",
         data: {
           body: $(this).val(),
-          contract_id: "{{$contract->second_party_id}}",
+          second_party_id: "{{$contract->second_party_id}}",
           _token: token
         }
       })

@@ -203,10 +203,13 @@ class FullcontractsController extends Controller
     public function getClient(Request $request)
     {
         $second_parties = DB::table('second_parties')->where('second_party_type_id', $request['body'])->get();
-        //dd($second_parties);
         $clintresult = '<option value="">-- Please Select --</option>';
         foreach ($second_parties as $second_partie) {
-            $clintresult .= '<option value="' . $second_partie->second_party_id . '">' . $second_partie->second_party_title . '</option>';
+          $selected = '';
+          if($request->has('second_party_id') && $request->second_party_id == $second_partie->second_party_id){
+            $selected = 'selected';
+          }
+            $clintresult .= '<option '.$selected.' value="' . $second_partie->second_party_id . '">' . $second_partie->second_party_title . '</option>';
         }
         echo $clintresult;
     }
