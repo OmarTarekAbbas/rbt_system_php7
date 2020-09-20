@@ -9,6 +9,7 @@ use App\Occasion;
 use App\Provider;
 use App\Rbt;
 use App\Contract;
+use App\Country;
 use Illuminate\Http\Request;
 
 class ContentController extends Controller
