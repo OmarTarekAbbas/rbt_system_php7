@@ -1,6 +1,6 @@
 @extends('template')
 @section('page_title')
-Second Party Types
+Second Party
 @stop
 @section('content')
 	@include('errors')
@@ -10,7 +10,7 @@ Second Party Types
 	    <div class="col-md-12">
 	        <div class="box box-black">
 	            <div class="box-title">
-	                <h3><i class="fa fa-table"></i> Second Party types Table</h3>
+	                <h3><i class="fa fa-table"></i> Second Party Table</h3>
 	                <div class="box-tool">
 	                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
 	                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
@@ -20,9 +20,6 @@ Second Party Types
 					<div class="btn-toolbar pull-right">
 						<div class="btn-group">
 							<a class="btn btn-circle show-tooltip" title="" href="{{url('SecondParty/create')}}" data-original-title="Add new record"><i class="fa fa-plus"></i></a>
-							<?php
-								$table_name = "service_types" ;
-							?>
 						</div>
 					</div>
 					<br><br>
@@ -53,9 +50,9 @@ Second Party Types
 								<td>{{$SecondParty->second_party_joining_date}}</td>
 								<td>{{$SecondParty->second_party_terminate_date}}</td>
 								<td>{{$SecondParty->second_party_status}}</td>
-								<td>{{$SecondParty->second_party_identity}}</td>
-								<td>{{$SecondParty->second_party_cr}}</td>
-								<td>{{$SecondParty->second_party_tc}}</td>
+								<td><a target="_blank" href="{{url($SecondParty->second_party_identity)}}">Preview</a></td>
+								<td><a target="_blank" href="{{url($SecondParty->second_party_cr)}}">Preview</a></td>
+								<td><a target="_blank" href="{{url($SecondParty->second_party_tc)}}">Preview</a></td>
 								<td class="visible-md visible-lg">
 								    <div class="btn-group">
 								    	<a class="btn btn-sm show-tooltip" title="" href="{{url('SecondParty/'.$SecondParty->second_party_id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
