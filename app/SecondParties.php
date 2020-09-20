@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\SecondParty;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -28,6 +29,18 @@ class SecondParties extends Model
         'entry_by',
     ];
 
+    public function type()
+    {
+        return $this->belongsTo(SecondParty::class, 'second_party_type_id', 'id');
+    }
 
+    public function getSecondPartyStatusAttribute($value)
+    {
+      switch ($value){
+        case 1: return 'Working';
+        case 2: return 'Tirminated';
+        default: return 'Error';
+      }
+    }
 
 }
