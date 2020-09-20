@@ -441,8 +441,8 @@
           <ul class="submenu">
             {{-- <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a>
         </li> --}}
-        <li id="content-excel"><a href="{{url('content/create')}}">Create Single Content</a></li>
-        <li id="content-excel"><a href="{{url('contents/excel')}}">Create Content Excel</a></li>
+        <li id="content-excel"><a href="{{url('contents/excel')}}">Create Content</a></li>
+        <li id="content-excel"><a href="{{url('content/create')}}">Create Singel Content</a></li>
         <li id="content-index"><a href="{{url('content')}}">Contents</a></li>
         <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">List tracks</a></li>
         <li id="content-upload-tracks"><a href="{{url('contents/upload_tracks')}}">Upload multi tracks</a></li>

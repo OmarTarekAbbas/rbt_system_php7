@@ -193,6 +193,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::get('content/create', 'ContentController@create');
     Route::post('content', 'ContentController@store');
     Route::get('content/{id}/rbts', 'ContentController@show_rbt');
+    Route::get('content/{id}', 'ContentController@show');
 
     // Start Routes for fullcontracts
     Route::resource('fullcontracts', 'FullcontractsController');
