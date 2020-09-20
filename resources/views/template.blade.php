@@ -249,6 +249,21 @@
           <!-- END Submenu -->
        </li>
 
+        <li id="ServiceTypes">
+          <a href="#" class="dropdown-toggle">
+              <i class="fa fa-gears"></i>
+              <span>Service Types</span>
+              <b class="arrow fa fa-angle-right"></b>
+          </a>
+
+          <!-- BEGIN Submenu -->
+          <ul class="submenu">
+              <li id="ServiceTypes-create"><a href="{{url('ServiceTypes/create')}}">Add Service Types</a></li>
+              <li id="ServiceTypes-index"><a href="{{url('ServiceTypes')}}">Service Types</a></li>
+          </ul>
+          <!-- END Submenu -->
+       </li>
+
         @endif
         @if(Auth::user()->hasRole(['super_admin','admin']))
         <li id="department">
@@ -396,7 +411,8 @@
           <ul class="submenu">
             {{-- <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a>
         </li> --}}
-        <li id="content-excel"><a href="{{url('contents/excel')}}">Create Content</a></li>
+        <li id="content-excel"><a href="{{url('content/create')}}">Create Single Content</a></li>
+        <li id="content-excel"><a href="{{url('contents/excel')}}">Create Content Excel</a></li>
         <li id="content-index"><a href="{{url('content')}}">Contents</a></li>
         <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">List tracks</a></li>
         <li id="content-upload-tracks"><a href="{{url('contents/upload_tracks')}}">Upload multi tracks</a></li>

@@ -83,10 +83,11 @@ Contract Service
 @isset($contract_show)
 <script>
   $(document).ready(function() {
+    var contract_id = "{{$contract_show->id}}"
     $.ajax({
       type: "post",
       url: "{{url('comboselect/contract_services')}}",
-      data: "{'contract_id': {{'$contract_show->id'}} }",
+      data: {'contract_id': contract_id },
 
       success: function(response) {
         $("#service_input").html('');
