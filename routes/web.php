@@ -261,4 +261,6 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::resource('percentages','PercentageController',['as' => 'admin']);
     Route::get('percentages/{id}/delete','PercentageController@destroy');
     Route::resource('ServiceTypes', 'ServiceTypesController');
+    Route::resource('SecondPartyType', 'SecondPartyTypeController');
+    Route::resource('SecondParty', 'SecondPartyController');
 });

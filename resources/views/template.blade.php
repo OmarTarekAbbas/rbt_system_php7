@@ -264,6 +264,36 @@
           <!-- END Submenu -->
        </li>
 
+        <li id="SecondPartyType">
+          <a href="#" class="dropdown-toggle">
+              <i class="fa fa-gears"></i>
+              <span>Service Types</span>
+              <b class="arrow fa fa-angle-right"></b>
+          </a>
+
+          <!-- BEGIN Submenu -->
+          <ul class="submenu">
+              <li id="SecondPartyType-create"><a href="{{url('SecondPartyType/create')}}">Add Service Types</a></li>
+              <li id="SecondPartyType-index"><a href="{{url('SecondPartyType')}}">Service Types</a></li>
+          </ul>
+          <!-- END Submenu -->
+       </li>
+
+        <li id="SecondParty">
+          <a href="#" class="dropdown-toggle">
+              <i class="fa fa-gears"></i>
+              <span>SecondParty Types</span>
+              <b class="arrow fa fa-angle-right"></b>
+          </a>
+
+          <!-- BEGIN Submenu -->
+          <ul class="submenu">
+              <li id="SecondParty-create"><a href="{{url('SecondParty/create')}}">Add Service Types</a></li>
+              <li id="SecondParty-index"><a href="{{url('SecondParty')}}">Service Types</a></li>
+          </ul>
+          <!-- END Submenu -->
+       </li>
+
         @endif
         @if(Auth::user()->hasRole(['super_admin','admin']))
         <li id="department">
