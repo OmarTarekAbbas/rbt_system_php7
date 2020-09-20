@@ -4,12 +4,16 @@ Content
 @stop
 @section('content')
 <div class="row">
-  <div class="col-md-6">
-  <a class="btn btn-circle btn-primary show-tooltip " href="{{url('/content')}}" title="List Content"><i class="fa fa-eye"></i></a>
+  <div class="col-md-4">
+    <a class="btn btn-circle btn-primary show-tooltip " href="{{url('/content')}}" title="List Content"><i class="fa fa-eye"></i></a>
   </div>
 
-  <div class="col-md-6" style="text-align: end;">
-  <a class="btn btn-circle btn-success show-tooltip" href="{{url('content/create')}}" title="" data-original-title="Create New content"><i class="fa fa-plus"></i></a>
+  <div class="col-md-4" style="text-align: center;">
+    <a class="btn btn-circle show-tooltip " href="{{url('content/'.$content->id.'/edit')}}" title="List Content"><i class="fa fa-edit"></i></a>
+  </div>
+
+  <div class="col-md-4" style="text-align: end;">
+    <a class="btn btn-circle btn-success show-tooltip" href="{{url('content/create')}}" title="" data-original-title="Create New content"><i class="fa fa-plus"></i></a>
   </div>
   <br>
   <br>
@@ -41,7 +45,7 @@ Content
                 <td>---</td>
                 @endif
               </tr>
-              
+
               <tr>
                 <td width='30%' class='label-view text-right'>Title</td>
                 <td> {{$content->content_title}}</td>
@@ -55,11 +59,22 @@ Content
               <tr>
                 <td width='30%' class='label-view text-right'>Audio</td>
                 <td>
-                  <audio class="content_audios" controls>
+                  <audio class="content_audios" controls style="width: 75%;">
                     <source src="{{url($content->path)}}">
                   </audio>
                 </td>
               </tr>
+
+              <tr>
+                @foreach($rbts as $rbt)
+                <td width='30%' class='label-view text-right'>List Track</td>
+                <td>
+                  <audio class="content_audios" controls>
+                    <source src="{{url($rbt->track_file)}}">
+                  </audio>
+                </td>
+              </tr>
+              @endforeach
 
               <tr>
                 <td width='30%' class='label-view text-right'>provider</td>
