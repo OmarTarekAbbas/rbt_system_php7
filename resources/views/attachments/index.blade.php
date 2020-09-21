@@ -19,7 +19,7 @@ Second Party Types
 	            <div class="box-content">
 					<div class="btn-toolbar pull-right">
 						<div class="btn-group">
-							<a class="btn btn-circle show-tooltip" title="" href="{{url('SecondPartyType/create')}}" data-original-title="Add new record"><i class="fa fa-plus"></i></a>
+							<a class="btn btn-circle show-tooltip" title="" href="{{url('attachments/create')}}" data-original-title="Add new record"><i class="fa fa-plus"></i></a>
 							<?php
 								$table_name = "service_types" ;
 							?>
@@ -30,25 +30,43 @@ Second Party Types
 						<table id="example" class="table table-striped dt-responsive" cellspacing="0" width="100%">
 						<thead>
 							<tr>
-								<th style="width:18px"><input type="checkbox" onclick="select_all('SecondPartyType')"></th>
+								<th style="width:18px"><input type="checkbox" onclick="select_all('Attachments')"></th>
 								<th>Id</th>
-								<th>Second Party Type Title</th>
-								<th>Second Party Type Description</th>
+								<th>attachment code</th>
+								<th>contract</th>
+								<th>attachment_type</th>
+								<th>attachment_title</th>
+								<th>attachment_date</th>
+								<th>attachment_expiry_date</th>
+								<th>contract_expiry_date</th>
+								<th>attachment_pdf</th>
+								<th>attachment_status</th>
+								<th>notes</th>
+								<th>entry_by</th>
 								<th class="visible-md visible-lg" style="width:130px">Action</th>
 							</tr>
 						</thead>
 						<tbody id="tablecontents">
-						@foreach($SecondPartyTypes as $SecondPartyType)
+						@foreach($Attachments as $Attachment)
 							<tr class="table-flag-blue">
-								<td><input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$SecondPartyType->id}}" onclick="collect_selected(this)"></td>
-								<td>{{$SecondPartyType->id}}</td>
-								<td>{{$SecondPartyType->second_party_type_title}}</td>
-								<td>{{$SecondPartyType->second_party_type_description}}</td>
+								<td><input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$Attachment->id}}" onclick="collect_selected(this)"></td>
+								<td>{{$Attachment->id}}</td>
+								<td>{{$Attachment->attachment_code}}</td>
+								<td>{{$Attachment->contract->contract_code}}</td>
+								<td>{{$Attachment->attachment_type}}</td>
+								<td>{{$Attachment->attachment_title}}</td>
+								<td>{{$Attachment->attachment_date}}</td>
+								<td>{{$Attachment->attachment_expiry_date}}</td>
+								<td>{{$Attachment->contract_expiry_date}}</td>
+								<td><a href="{{url($Attachment->attachment_pdf)}}">Preview</a></td>
+								<td>{{$Attachment->attachment_status}}</td>
+								<td>{{$Attachment->notes}}</td>
+								<td>{{$Attachment->entry_by}}</td>
 								<td class="visible-md visible-lg">
 								    <div class="btn-group">
-								    	<a class="btn btn-sm show-tooltip" title="" href="{{url('SecondPartyType/'.$SecondPartyType->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+								    	<a class="btn btn-sm show-tooltip" title="" href="{{url('attachment/'.$Attachment->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
 
-                      <form action="{{url('SecondPartyType/'.$SecondPartyType->id)}}" method="POST" style="display: inline">
+                      <form action="{{url('attachment/'.$Attachment->id)}}" method="POST" style="display: inline">
                         @method('DELETE')
                         @csrf
                         <button class="btn btn-sm btn-danger show-tooltip" type="submit" onclick = 'return ConfirmDelete()' data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
@@ -75,7 +93,7 @@ Second Party Types
 
     </script>
 	<script>
-		$('#SecondPartyType').addClass('active');
-		$('#SecondPartyType-index').addClass('active');
+		$('#Attachment').addClass('active');
+		$('#Attachment-index').addClass('active');
 	</script>
 @stop

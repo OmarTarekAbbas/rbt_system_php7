@@ -294,17 +294,17 @@
           <!-- END Submenu -->
        </li>
 
-        <li id="Attachement">
+        <li id="Attachment">
           <a href="#" class="dropdown-toggle">
               <i class="fa fa-gears"></i>
-              <span>Attachement</span>
+              <span>Attachment</span>
               <b class="arrow fa fa-angle-right"></b>
           </a>
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
-              <li id="Attachement-create"><a href="{{url('Attachement/create')}}">Add Attachement</a></li>
-              <li id="Attachement-index"><a href="{{url('Attachement')}}">Attachement</a></li>
+              <li id="Attachment-create"><a href="{{url('attachment/create')}}">Add Attachment</a></li>
+              <li id="Attachment-index"><a href="{{url('attachment')}}">Attachment</a></li>
           </ul>
           <!-- END Submenu -->
        </li>

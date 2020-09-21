@@ -1,25 +1,25 @@
 <?php
 namespace App\Http\Repository;
 
-use App\Attachement;
+use App\Attachment;
 
-class AttachementRepository {
+class AttachmentRepository {
 
   /**
-   * Attachement
+   * Attachment
    *
-   * @var Attachement $Attachement
+   * @var Attachment $Attachment
    */
-  private $Attachement;
+  private $Attachment;
 
   /**
    * __construct
    *
-   * @param Attachement $Attachement
+   * @param Attachment $Attachment
    */
-  public function __construct(Attachement $Attachement)
+  public function __construct(Attachment $Attachment)
   {
-    $this->Attachement = $Attachement;
+    $this->Attachment = $Attachment;
   }
 
   /**
@@ -31,7 +31,7 @@ class AttachementRepository {
    */
   public function __call($method, $args)
   {
-    return call_user_func_array([$this->Attachement, $method], $args);
+    return call_user_func_array([$this->Attachment, $method], $args);
   }
 
 }
