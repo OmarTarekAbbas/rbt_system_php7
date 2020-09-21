@@ -99,7 +99,7 @@ class SecondPartyController extends Controller
      */
     public function update(SecondPartyUpdateRequest $request, $id)
     {
-        //
+        $SecondParty = $this->SecondPartyRepository->update
     }
 
     /**

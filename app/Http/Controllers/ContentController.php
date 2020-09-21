@@ -30,9 +30,6 @@ class ContentController extends Controller
 
   public function allData(Request $request)
   {
-    //$contents = Content::all();
-    $content_id = $request->all();
-
     $contents = Content::select('*', 'contents.id AS content_id', 'providers.title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
       ->join('providers', 'providers.id', '=', 'contents.provider_id')
       ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
