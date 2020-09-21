@@ -65,7 +65,7 @@ Second Party
 
                     <div class="form-group">
                       <label for="second_party_joining_date" class="col-xs-3 col-lg-2 control-label"> first party joining date</label>
-                      <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy">
+                      <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="yyyy-mm-dd">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         <input type="text" name="second_party_joining_date" id="second_party_joining_date" autocomplete="off" placeholder="first party joining date" data-date-format="yyyy-mm-dd" class="form-control">
                       </div>
@@ -73,7 +73,7 @@ Second Party
 
                     <div class="form-group">
                       <label for="second_party_terminate_date" class="col-xs-3 col-lg-2 control-label"> first party joining date</label>
-                      <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy">
+                      <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="yyyy-mm-dd">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         <input type="text" name="second_party_terminate_date" id="second_party_terminate_date" autocomplete="off" placeholder="first party joining date" data-date-format="yyyy-mm-dd" class="form-control">
                       </div>

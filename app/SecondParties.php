@@ -17,6 +17,7 @@ class SecondParties extends Model
 
 
     protected $table = 'second_parties';
+    protected $primaryKey = 'second_party_id';
     protected $fillable = [
         'second_party_type_id',
         'second_party_title',
@@ -38,7 +39,7 @@ class SecondParties extends Model
     {
       switch ($value){
         case 1: return 'Working';
-        case 2: return 'Tirminated';
+        case 0: return 'Tirminated';
         default: return 'Error';
       }
     }

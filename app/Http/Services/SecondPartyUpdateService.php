@@ -34,9 +34,10 @@ class SecondPartyUpdateService
     /**
      * handle
      * @param array $request
+     * @param SecondParty $SecondParty
      * @return SecondPartyRepository
      */
-    public function handle($request)
+    public function handle($request, $SecondParty)
     {
         if(array_key_exists('second_party_identity', $request)){
           $second_party_identity = $this->UploaderService->upload($request['second_party_identity'], '/secondparty/id/');
@@ -50,7 +51,6 @@ class SecondPartyUpdateService
           $second_party_tc = $this->UploaderService->upload($request['second_party_tc'], '/secondparty/tc/');
           $request['second_party_tc'] = $second_party_tc;
         }
-
-        return $this->SecondPartyRepository->create($request);
+        return $SecondParty->update($request);
     }
 }

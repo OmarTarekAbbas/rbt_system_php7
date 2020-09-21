@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Repository\SecondPartyRepository;
 use App\Http\Requests\SecondPartyStoreRequest;
 use App\Http\Services\SecondPartyStoreService;
+use App\Http\Requests\SecondPartyUpdateRequest;
+use App\Http\Services\SecondPartyUpdateService;
 use App\Http\Repository\SecondPartyTypeRepository;
 
 class SecondPartyController extends Controller
@@ -25,6 +27,11 @@ class SecondPartyController extends Controller
      * @var SecondPartyStoreService
      */
     private $SecondPartyStoreService;
+    /**
+     * SecondPartyUpdateService
+     * @var SecondPartyUpdateService
+     */
+    private $SecondPartyUpdateService;
 
     /**
      * __construct
@@ -32,16 +39,16 @@ class SecondPartyController extends Controller
      * @param SecondPartyRepository $SecondPartyRepository
      */
     public function __construct(
-      SecondPartyRepository $SecondPartyRepository,
-      SecondPartyTypeRepository $SecondPartyTypeRepository,
-      SecondPartyStoreService $SecondPartyStoreService
-    )
-    {
-      $this->SecondPartyRepository = $SecondPartyRepository;
-      $this->SecondPartyTypeRepository = $SecondPartyTypeRepository;
-      $this->SecondPartyStoreService = $SecondPartyStoreService;
+        SecondPartyRepository $SecondPartyRepository,
+        SecondPartyTypeRepository $SecondPartyTypeRepository,
+        SecondPartyStoreService $SecondPartyStoreService,
+        SecondPartyUpdateService $SecondPartyUpdateService
+    ) {
+        $this->SecondPartyRepository = $SecondPartyRepository;
+        $this->SecondPartyTypeRepository = $SecondPartyTypeRepository;
+        $this->SecondPartyStoreService = $SecondPartyStoreService;
+        $this->SecondPartyUpdateService = $SecondPartyUpdateService;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -61,9 +68,9 @@ class SecondPartyController extends Controller
      */
     public function create()
     {
-      $SecondPartyTypes = $this->SecondPartyTypeRepository->pluck('second_party_type_title', 'id');
-      return view('secondparty.create', compact('SecondPartyTypes'));
-  }
+        $SecondPartyTypes = $this->SecondPartyTypeRepository->pluck('second_party_type_title', 'id');
+        return view('secondparty.create', compact('SecondPartyTypes'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -85,9 +92,9 @@ class SecondPartyController extends Controller
      */
     public function edit($id)
     {
-      $SecondPartyTypes = $this->SecondPartyTypeRepository->pluck('second_party_type_title', 'id');
-      $SecondParty = $this->SecondPartyRepository->where('second_party_id', $id)->firstOrFail();
-      return view('secondparty.edit', compact('SecondParty', 'SecondPartyTypes'));
+        $SecondPartyTypes = $this->SecondPartyTypeRepository->pluck('second_party_type_title', 'id');
+        $SecondParty = $this->SecondPartyRepository->where('second_party_id', $id)->firstOrFail();
+        return view('secondparty.edit', compact('SecondParty', 'SecondPartyTypes'));
     }
 
     /**
@@ -99,7 +106,9 @@ class SecondPartyController extends Controller
      */
     public function update(SecondPartyUpdateRequest $request, $id)
     {
-        $SecondParty = $this->SecondPartyRepository->update
+        $SecondParty = $this->SecondPartyRepository->where('second_party_id', $id)->firstOrFail();
+        $this->SecondPartyUpdateService->handle($request->validated(), $SecondParty);
+        return redirect('SecondParty')->with(['success' => 'Updated Successfully!']);
     }
 
     /**
@@ -110,7 +119,7 @@ class SecondPartyController extends Controller
      */
     public function destroy($id)
     {
-      $SecondParty = $this->SecondPartyRepository->where('second_party_id', $id)->delete();
-      return back()->with(['success' => 'Deleted Successfully']);
+        $SecondParty = $this->SecondPartyRepository->where('second_party_id', $id)->delete();
+        return back()->with(['success' => 'Deleted Successfully']);
     }
 }

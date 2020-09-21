@@ -20,7 +20,7 @@ Second Party Types
         <div class="box-content">
 
 
-          <form action="{{url("SecondPartyType/$SecondParty->second_party_type_id")}}" method="POST" class="form-horizontal form-bordered form-row-stripped"
+          <form action="{{url("SecondParty/$SecondParty->second_party_id")}}" method="POST" class="form-horizontal form-bordered form-row-stripped"
             enctype="multipart/form-data" novalidate>
             @method('PATCH')
             @csrf
@@ -66,7 +66,7 @@ Second Party Types
 
                     <div class="form-group">
                       <label for="second_party_joining_date" class="col-xs-3 col-lg-2 control-label"> first party joining date</label>
-                      <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy">
+                      <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="yyyy-mm-dd">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         <input type="text" name="second_party_joining_date" id="second_party_joining_date" autocomplete="off" placeholder="first party joining date" data-date-format="yyyy-mm-dd" class="form-control" value="{{$SecondParty->second_party_joining_date}}">
                       </div>
@@ -74,7 +74,7 @@ Second Party Types
 
                     <div class="form-group">
                       <label for="second_party_terminate_date" class="col-xs-3 col-lg-2 control-label"> first party joining date</label>
-                      <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy">
+                      <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="yyyy-mm-dd">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         <input type="text" name="second_party_terminate_date" id="second_party_terminate_date" autocomplete="off" placeholder="first party joining date" data-date-format="yyyy-mm-dd" class="form-control" value="{{$SecondParty->second_party_terminate_date}}">
                       </div>
@@ -83,8 +83,13 @@ Second Party Types
                     <div class="form-group">
                       <label for="second_party_title" class="col-xs-3 col-lg-2 control-label">Status</label>
                       <div class="col-sm-9 col-lg-10 controls">
-                         {!! Form::radio('second_party_status', 1) !!} working
-                         {!! Form::radio('second_party_status', 0) !!} terminated
+                        @if ($SecondParty->second_party_status == 'Working')
+                        {!! Form::radio('second_party_status', 1, true) !!} working
+                        {!! Form::radio('second_party_status', 0) !!} terminated
+                        @else
+                        {!! Form::radio('second_party_status', 1) !!} working
+                        {!! Form::radio('second_party_status', 0, true) !!} terminated
+                        @endif
                       </div>
                     </div>
 
@@ -100,21 +105,21 @@ Second Party Types
                   </div>
                   <!-- BEGIN Left Side -->
                   <div class="box-content">
-
+                    <td><a target="_blank" href="{{url($SecondParty->second_party_identity)}}">Preview</a></td>
                     <div class="form-group">
                       <label for="second_party_identity" class="col-xs-3 col-lg-2 control-label"> ID </label>
                       <div class="col-sm-9 col-lg-10 controls">
                         <input type="file" name="second_party_identity" id="second_party_identity" placeholder="Second Party Title" class="form-control">
                       </div>
                     </div>
-
+                    <td><a target="_blank" href="{{url($SecondParty->second_party_cr)}}">Preview</a></td>
                     <div class="form-group">
                       <label for="second_party_cr" class="col-xs-3 col-lg-2 control-label"> CR </label>
                       <div class="col-sm-9 col-lg-10 controls">
                         <input type="file" name="second_party_cr" id="second_party_cr" placeholder="Second Party Title" class="form-control">
                       </div>
                     </div>
-
+                    <td><a target="_blank" href="{{url($SecondParty->second_party_tc)}}">Preview</a></td>
                     <div class="form-group">
                       <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> TC </label>
                       <div class="col-sm-9 col-lg-10 controls">
