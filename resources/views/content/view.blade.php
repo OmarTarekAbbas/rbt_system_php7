@@ -5,15 +5,20 @@ Content
 @section('content')
 <div class="row">
   <div class="col-md-4">
-    <a class="btn btn-circle btn-primary show-tooltip " href="{{url('/content')}}" title="List Content"><i class="fa fa-eye"></i></a>
+    <a class="btn btn-circle btn-primary show-tooltip " href="{{url('/content')}}" title="List Content">
+    <i class="fa fa-eye"></i>
+  </a>
+  List Content
   </div>
 
   <div class="col-md-4" style="text-align: center;">
-    <a class="btn btn-circle show-tooltip " href="{{url('content/'.$content->id.'/edit')}}" title="List Content"><i class="fa fa-edit"></i></a>
+    <a class="btn btn-circle show-tooltip " href="{{url('content/'.$content->id.'/edit')}}" title="Edit Content"><i class="fa fa-edit"></i></a>
+    Edit Content
   </div>
 
   <div class="col-md-4" style="text-align: end;">
-    <a class="btn btn-circle btn-success show-tooltip" href="{{url('content/create')}}" title="" data-original-title="Create New content"><i class="fa fa-plus"></i></a>
+    <a class="btn btn-circle btn-success show-tooltip" href="{{url('content/create')}}" title="" data-original-title="Create New Content"><i class="fa fa-plus"></i></a>
+    Create New Content
   </div>
   <br>
   <br>
@@ -65,17 +70,19 @@ Content
                 </td>
               </tr>
 
+              @foreach($rbts as $rbt)
               <tr>
-                @foreach($rbts as $rbt)
-                <td width='30%' class='label-view text-right'>List Track</td>
+                <td width='30%' class='label-view text-right'>{{$rbt->track_title_en}}</td>
                 <td>
-                  <audio class="content_audios" controls>
+                  <audio class="content_audios" controls controls style="width: 35%;">
                     <source src="{{url($rbt->track_file)}}">
                   </audio>
+                  <hr>
+                  <p>{{$rbt->artist_name_en}}</p>
+                  <a href="#0">{{$rbt->internal_coding}}</a>
                 </td>
               </tr>
               @endforeach
-
               <tr>
                 <td width='30%' class='label-view text-right'>provider</td>
                 <td> {{$provider->title}}</td>
@@ -88,7 +95,11 @@ Content
 
               <tr>
                 <td width='30%' class='label-view text-right'>Contract</td>
+                @if($contract)
                 <td> <a href="{{ url('fullcontracts/'.$contract->id) }}"> {{$contract->contract_code}}/{{$contract->contract_label}} </a></td>
+                @else
+                <td>---</td>
+                @endif
               </tr>
 
             </tbody>

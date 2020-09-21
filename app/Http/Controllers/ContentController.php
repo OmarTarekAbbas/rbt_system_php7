@@ -35,7 +35,7 @@ class ContentController extends Controller
     $contents = Content::select('*', 'contents.id AS content_id', 'providers.title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
       ->join('providers', 'providers.id', '=', 'contents.provider_id')
       ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
-      ->join('contracts', 'contracts.id', '=', 'contents.contract_id')
+      ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
       ->get();
     $datatable = \Datatables::of($contents)
       ->addColumn('index', function (Content $content) {
@@ -54,7 +54,7 @@ class ContentController extends Controller
         if ($content->internal_coding)
           return $content->internal_coding;
         else
-          return '--';
+          return '---';
       })
       ->addColumn('path', function (Content $content) {
         if ($content->path)
@@ -62,24 +62,25 @@ class ContentController extends Controller
                                 <source src="' . url($content->path) . '">
                             </audio>';
         else
-          return '--';
+          return '---';
       })
       ->addColumn('contract_code', function (Content $content) {
-        return
-          '<a  href="' . url("fullcontracts/$content->contract_id") . '" >' . $content->contract_code . '/' . $content->contract_label . '</a>
-        ';
+        if ($content->contract_code)
+          return '<a  href="' . url("fullcontracts/$content->contract_id") . '" >' . $content->contract_code . '/' . $content->contract_label . '</a>';
+        else
+          return '---';
       })
       ->addColumn('occasion', function (Content $content) {
         if ($content->occasion)
           return $content->occasion;
         else
-          return '--';
+          return '---';
       })
       ->addColumn('provider', function (Content $content) {
         if ($content->provider)
           return $content->provider;
         else
-          return '--';
+          return '---';
       })
       ->addColumn('action', function (Content $content) {
         return '<td class="visible-md visible-lg">
@@ -169,6 +170,7 @@ class ContentController extends Controller
     $occasion = DB::table('occasions')->where('id', $content->occasion_id)->first();
     $contract = DB::table('contracts')->where('id', $content->contract_id)->first();
     $rbts = DB::table('rbts')->where('content_id', $id)->get();
+    //dd($rbts);
     return view('content.view', compact('content', 'provider', 'occasion', 'contract', 'rbts'));
   }
   public function create_excel()

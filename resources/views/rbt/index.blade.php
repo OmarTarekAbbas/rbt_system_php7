@@ -30,6 +30,7 @@ RBTs
                             <tr>
                                 <th style="width:18px"><input type="checkbox" /></th>
                                 <th>id</th>
+                                <th>Internal Coding</th>
                                 <th>Type</th>
                                 <th>Title</th>
                                 <th>Code</th>
@@ -83,6 +84,10 @@ RBTs
                 {
                     data: "id",
                     name: "id"
+                },
+                {
+                    data: "rbt_internal_coding",
+                    name: "rbt_internal_coding"
                 },
                 {
                     data: "type",
