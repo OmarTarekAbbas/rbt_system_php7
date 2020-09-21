@@ -163,6 +163,7 @@ class ContentController extends Controller
 
     return redirect('content/' . $content->id);
   }
+  
   public function show($id)
   {
     $content = content::find($id);
@@ -173,6 +174,7 @@ class ContentController extends Controller
     //dd($rbts);
     return view('content.view', compact('content', 'provider', 'occasion', 'contract', 'rbts'));
   }
+
   public function create_excel()
   {
     $title = 'Create - Content';

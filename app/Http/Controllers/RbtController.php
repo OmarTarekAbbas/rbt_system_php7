@@ -237,8 +237,24 @@ class RbtController extends Controller
 
         $request->session()->flash('success', 'Add Rbt Successfully');
 
-        return redirect('rbt');
+        return redirect('rbt/' . $rbt->id);
     }
+
+
+    public function show($id)
+    {
+        $rbt = Rbt::select('*','rbts.id AS rbt_id','providers.title as provider','occasions.title as occasion','operators.title as operator','aggregators.title as aggregator','contents.content_title as content','rbts.internal_coding as rbt_internal_coding')
+        ->leftjoin('providers','providers.id','=','rbts.provider_id')
+        ->leftjoin('occasions','occasions.id','=','rbts.occasion_id')
+        ->leftjoin('operators','operators.id','=','rbts.operator_id')
+        ->leftjoin('aggregators','aggregators.id','=','rbts.aggregator_id')
+        ->leftjoin('contents','contents.id','=','rbts.content_id')
+        ->where('rbts.id', $id)
+        ->first();
+        //dd($rbt);
+        return view('rbt.show',compact('rbt'));
+    }
+
 
     public function excel()
     {
@@ -499,7 +515,7 @@ class RbtController extends Controller
 
         $request->session()->flash('success', 'Updated Successfully');
 
-        return redirect('rbt');
+        return redirect('rbt/' . $rbt->id);
     }
     /**
      * Remove the specified resource from storage.

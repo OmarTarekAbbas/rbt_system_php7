@@ -77,9 +77,8 @@ Content
                   <audio class="content_audios" controls controls style="width: 35%;">
                     <source src="{{url($rbt->track_file)}}">
                   </audio>
-                  <hr>
-                  <p>{{$rbt->artist_name_en}}</p>
-                  <a href="#0">{{$rbt->internal_coding}}</a>
+                  <a href="{{ url('rbt/'.$rbt->id) }}">{{$rbt->internal_coding}}</a>
+                  <p>{{$rbt->code}}</p>
                 </td>
               </tr>
               @endforeach
