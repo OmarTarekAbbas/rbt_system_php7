@@ -294,6 +294,21 @@
           <!-- END Submenu -->
        </li>
 
+        <li id="Attachement">
+          <a href="#" class="dropdown-toggle">
+              <i class="fa fa-gears"></i>
+              <span>Attachement</span>
+              <b class="arrow fa fa-angle-right"></b>
+          </a>
+
+          <!-- BEGIN Submenu -->
+          <ul class="submenu">
+              <li id="Attachement-create"><a href="{{url('Attachement/create')}}">Add Attachement</a></li>
+              <li id="Attachement-index"><a href="{{url('Attachement')}}">Attachement</a></li>
+          </ul>
+          <!-- END Submenu -->
+       </li>
+
         @endif
         @if(Auth::user()->hasRole(['super_admin','admin']))
         <li id="department">
