@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Services;
 
+use App\Contract;
 use App\Http\Services\UploaderService;
 use App\Http\Repository\AttachmentRepository;
 
@@ -39,18 +40,24 @@ class AttachmentUpdateService
      */
     public function handle($request, $Attachment)
     {
-        if(array_key_exists('second_party_identity', $request)){
-          $second_party_identity = $this->UploaderService->upload($request['second_party_identity'], '/secondparty/id/');
-          $request['second_party_identity'] = $second_party_identity;
+        if(array_key_exists('attachment_pdf', $request)){
+          $attachment_pdf = $this->UploaderService->upload($request['attachment_pdf'], '/attachments/pdf/');
+          $request['attachment_pdf'] = $attachment_pdf;
         }
-        if(array_key_exists('second_party_cr', $request)){
-          $second_party_cr = $this->UploaderService->upload($request['second_party_cr'], '/secondparty/cr/');
-          $request['second_party_cr'] = $second_party_cr;
+
+        if($Attachment->contract_id != (integer)$request['contract_id']){
+          $contract = Contract::find($request['contract_id']);
+          if ($request['attachment_type'] == 1) {
+            $shortCode = 'AN';
+          } elseif ($request['attachment_type'] == 2) {
+            $shortCode = 'AL';
+          } elseif ($request['attachment_type'] == 3) {
+            $shortCode = 'CR';
+          }
+          $request['attachment_code'] = "$shortCode/$contract->contract_code/".time();
+          $request['contract_expiry_date'] = $contract->contract_expiry_date;
         }
-        if(array_key_exists('second_party_tc', $request)){
-          $second_party_tc = $this->UploaderService->upload($request['second_party_tc'], '/secondparty/tc/');
-          $request['second_party_tc'] = $second_party_tc;
-        }
+
         return $Attachment->update($request);
     }
 }

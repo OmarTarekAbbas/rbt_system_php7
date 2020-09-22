@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Attachment;
 use App\Contract;
-use Illuminate\Http\Request;
 use App\Http\Repository\AttachmentRepository;
 use App\Http\Requests\AttachmentStoreRequest;
-use App\Http\Services\AttachmentStoreService;
 use App\Http\Requests\AttachmentUpdateRequest;
+use App\Http\Services\AttachmentStoreService;
 use App\Http\Services\AttachmentUpdateService;
+use Illuminate\Http\Request;
 
 class AttachmentController extends Controller
 {
@@ -39,7 +39,7 @@ class AttachmentController extends Controller
         AttachmentRepository $AttachmentRepository,
         AttachmentStoreService $AttachmentStoreService,
         AttachmentUpdateService $AttachmentUpdateService
-    ){
+    ) {
         $this->AttachmentRepository = $AttachmentRepository;
         $this->AttachmentStoreService = $AttachmentStoreService;
         $this->AttachmentUpdateService = $AttachmentUpdateService;
@@ -52,9 +52,9 @@ class AttachmentController extends Controller
      */
     public function index()
     {
-      $Attachments = $this->AttachmentRepository->get();
-      return view('attachments.index', compact('Attachments'));
-  }
+        $Attachments = $this->AttachmentRepository->get();
+        return view('attachments.index', compact('Attachments'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -63,7 +63,8 @@ class AttachmentController extends Controller
      */
     public function create()
     {
-        //
+        $contracts = Contract::pluck('contract_label', 'id');
+        return view('attachments.create', compact('contracts'));
     }
 
     /**
@@ -74,7 +75,8 @@ class AttachmentController extends Controller
      */
     public function store(AttachmentStoreRequest $request)
     {
-        //
+        $this->AttachmentStoreService->handle($request->validated());
+        return redirect('attachment')->with(['success' => 'Added Successfully!']);
     }
 
     /**
@@ -83,10 +85,6 @@ class AttachmentController extends Controller
      * @param  \App\Attachment  $Attachment
      * @return \Illuminate\Http\Response
      */
-    public function show(Attachment $Attachment)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -94,9 +92,11 @@ class AttachmentController extends Controller
      * @param  \App\Attachment  $Attachment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Attachment $Attachment)
+    public function edit($id)
     {
-        //
+        $contracts = Contract::pluck('contract_label', 'id');
+        $Attachment = $this->AttachmentRepository->find($id);
+        return view('attachments.edit', compact('contracts', 'Attachment'));
     }
 
     /**
@@ -108,7 +108,9 @@ class AttachmentController extends Controller
      */
     public function update(AttachmentUpdateRequest $request, $id)
     {
-        //
+        $Attachment = $this->AttachmentRepository->find($id);
+        $this->AttachmentUpdateService->handle($request->validated(), $Attachment);
+        return redirect('attachment')->with(['success' => 'Updated Successfully!']);
     }
 
     /**
@@ -119,6 +121,7 @@ class AttachmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Attachment = $this->AttachmentRepository->destroy($id);
+        return back()->with(['success' => 'Deleted Successfully']);
     }
 }

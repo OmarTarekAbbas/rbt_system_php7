@@ -20,8 +20,7 @@ Second Party Types
         <div class="box-content">
 
 
-          <form action="{{url("SecondParty/$SecondParty->second_party_id")}}" method="POST" class="form-horizontal form-bordered form-row-stripped"
-            enctype="multipart/form-data" novalidate>
+          <form action="{{url("SecondParty/$SecondParty->second_party_id")}}" method="POST" class="form-horizontal form-bordered form-row-stripped" enctype="multipart/form-data" novalidate>
             @method('PATCH')
             @csrf
             <input id="hidden_key" name="key" type="hidden" />

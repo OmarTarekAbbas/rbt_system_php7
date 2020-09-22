@@ -24,6 +24,13 @@ class AttachmentStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'contract_id' => 'required',
+            'attachment_type' => 'required',
+            'attachment_title' => 'required',
+            'attachment_date' => 'required',
+            'attachment_expiry_date' => 'required',
+            'attachment_pdf' => 'required',
+            'attachment_status' => 'required'
         ];
     }
 }

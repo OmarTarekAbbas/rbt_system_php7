@@ -19,7 +19,7 @@ Second Party Types
 	            <div class="box-content">
 					<div class="btn-toolbar pull-right">
 						<div class="btn-group">
-							<a class="btn btn-circle show-tooltip" title="" href="{{url('attachments/create')}}" data-original-title="Add new record"><i class="fa fa-plus"></i></a>
+							<a class="btn btn-circle show-tooltip" title="" href="{{url('attachment/create')}}" data-original-title="Add new record"><i class="fa fa-plus"></i></a>
 							<?php
 								$table_name = "service_types" ;
 							?>
@@ -42,7 +42,6 @@ Second Party Types
 								<th>attachment_pdf</th>
 								<th>attachment_status</th>
 								<th>notes</th>
-								<th>entry_by</th>
 								<th class="visible-md visible-lg" style="width:130px">Action</th>
 							</tr>
 						</thead>
@@ -52,7 +51,7 @@ Second Party Types
 								<td><input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$Attachment->id}}" onclick="collect_selected(this)"></td>
 								<td>{{$Attachment->id}}</td>
 								<td>{{$Attachment->attachment_code}}</td>
-								<td>{{$Attachment->contract->contract_code}}</td>
+								<td>{{$Attachment->contract->contract_code}} - {{$Attachment->contract->contract_label}}</td>
 								<td>{{$Attachment->attachment_type}}</td>
 								<td>{{$Attachment->attachment_title}}</td>
 								<td>{{$Attachment->attachment_date}}</td>
@@ -61,7 +60,6 @@ Second Party Types
 								<td><a href="{{url($Attachment->attachment_pdf)}}">Preview</a></td>
 								<td>{{$Attachment->attachment_status}}</td>
 								<td>{{$Attachment->notes}}</td>
-								<td>{{$Attachment->entry_by}}</td>
 								<td class="visible-md visible-lg">
 								    <div class="btn-group">
 								    	<a class="btn btn-sm show-tooltip" title="" href="{{url('attachment/'.$Attachment->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>

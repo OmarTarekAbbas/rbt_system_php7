@@ -25,7 +25,6 @@ class CreateAttachmentsTable extends Migration
             $table->string('attachment_pdf', 255);
             $table->boolean('attachment_status')->comment('1:Active/0:Expired');
             $table->text('notes')->nullable();
-            $table->integer('entry_by');
             $table->timestamps();
         });
     }

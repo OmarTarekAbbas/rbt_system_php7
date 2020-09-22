@@ -1,50 +1,56 @@
 <?php
 namespace App\Http\Services;
 
-use App\Http\Services\UploaderService;
 use App\Http\Repository\AttachmentRepository;
+use App\Http\Services\UploaderService;
+use App\Contract;
 
 class AttachmentStoreService
 {
 
     /**
-     * AttachmentRepository
-     * @var SecondPartyRepository $AttachmentRepository
-     */
+    * AttachmentRepository
+    * @var SecondPartyRepository $AttachmentRepository
+    */
     private $AttachmentRepository;
     /**
-     * UploaderService
-     * @var UploaderService $UploaderService
-     */
+    * UploaderService
+    * @var UploaderService $UploaderService
+    */
     private $UploaderService;
 
     /**
-     * __construct
-     * @param $AttachmentRepository
-     */
+    * __construct
+    * @param $AttachmentRepository
+    */
     public function __construct(
-      AttachmentRepository $AttachmentRepository,
-      UploaderService $UploaderService
-    )
-    {
+        AttachmentRepository $AttachmentRepository,
+        UploaderService $UploaderService
+    ) {
         $this->AttachmentRepository = $AttachmentRepository;
         $this->UploaderService = $UploaderService;
     }
 
     /**
-     * handle
-     * @param array $request
-     * @return AttachmentRepository
-     */
+    * handle
+    * @param array $request
+    * @return AttachmentRepository
+    */
     public function handle($request)
     {
-        $second_party_identity = $this->UploaderService->upload($request['second_party_identity'], '/secondparty/id/');
-        $second_party_cr = $this->UploaderService->upload($request['second_party_cr'], '/secondparty/cr/');
-        $second_party_tc = $this->UploaderService->upload($request['second_party_tc'], '/secondparty/tc/');
+        $attachment_pdf = $this->UploaderService->upload($request['attachment_pdf'], '/attachments/pdf/');
+        $request['attachment_pdf'] = $attachment_pdf;
 
-        $request['second_party_identity'] = $second_party_identity;
-        $request['second_party_cr'] = $second_party_cr;
-        $request['second_party_tc'] = $second_party_tc;
+        $contract = Contract::find($request['contract_id']);
+        if ($request['attachment_type'] == 1) {
+          $shortCode = 'AN';
+        } elseif ($request['attachment_type'] == 2) {
+          $shortCode = 'AL';
+        } elseif ($request['attachment_type'] == 3) {
+          $shortCode = 'CR';
+        }
+        $request['attachment_code'] = "$shortCode/$contract->contract_code/".time();
+        $request['contract_expiry_date'] = $contract->contract_expiry_date;
 
         return $this->AttachmentRepository->create($request);
     }
