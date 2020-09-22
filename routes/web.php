@@ -201,6 +201,10 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::get('fullcontracts/{id}/delete', 'FullcontractsController@destroy');
     Route::get('/client_type', 'FullcontractsController@getClient');
     Route::get('contracts/allData', 'FullcontractsController@allData');
+    Route::get('contract/an/{id}', 'FullcontractsController@annex');
+    Route::get('contract/al/{id}', 'FullcontractsController@authorization');
+    Route::get('contract/cr/{id}', 'FullcontractsController@copyright');
+
     // End Routes for fullcontracts
 
     // Start Routes for service

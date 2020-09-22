@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Datatables;
+use App\Country;
+use App\Contract;
+
+use App\Operator;
+use App\Attachment;
+use App\Percentage;
+use App\Firstpartie;
+use App\SecondParty;
+use App\ServiceTypes;
+use App\ContractDuration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-
-use App\Contract;
-use App\Firstpartie;
-use App\Percentage;
-use App\ServiceTypes;
-use App\SecondParty;
-use App\Country;
-use App\Operator;
-use App\ContractDuration;
-use Datatables;
 
 
 
@@ -57,6 +58,16 @@ class FullcontractsController extends Controller
             })
             ->addColumn('contract_expiry_date', function (Contract $contract) {
                 return  date('F j, Y', strtotime($contract->contract_expiry_date));
+            })
+            ->addColumn('action1', function (Contract $contract) {
+
+                return '<td class="visible-md visible-lg">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-info show-tooltip" href="' . url("contract/an/" . $contract->id) . '" title="annex">AN</a>
+                                <a class="btn btn-sm btn-warning show-tooltip" href="' . url("contract/al/" . $contract->id) . '" title="authorization">AL</a>
+                                <a class="btn btn-sm btn-primary show-tooltip" href="' . url("contract/cr/" . $contract->id) . '" title="copyright">CR</a>
+                            </div>
+                        </td>';
             })
             ->addColumn('action', function (Contract $contract) {
 
@@ -212,6 +223,31 @@ class FullcontractsController extends Controller
             $clintresult .= '<option '.$selected.' value="' . $second_partie->second_party_id . '">' . $second_partie->second_party_title . '</option>';
         }
         echo $clintresult;
+    }
+
+    public function annex($id)
+    {
+      $contract = Contract::find($id);
+      $Attachments = Attachment::where('contract_id', $contract->id)->where('attachment_type', 1)->get();
+      if($Attachments){
+        return view('attachments.index', compact('Attachments'));
+      }
+    }
+    public function authorization($id)
+    {
+      $contract = Contract::find($id);
+      $Attachments = Attachment::where('contract_id', $contract->id)->where('attachment_type', 2)->get();
+      if($Attachments){
+        return view('attachments.index', compact('Attachments'));
+      }
+    }
+    public function copyright($id)
+    {
+      $contract = Contract::find($id);
+      $Attachments = Attachment::where('contract_id', $contract->id)->where('attachment_type', 3)->get();
+      if($Attachments){
+        return view('attachments.index', compact('Attachments'));
+      }
     }
 
 }

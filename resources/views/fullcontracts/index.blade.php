@@ -32,6 +32,7 @@ Contract
                                 <th>Contract Date</th>
                                 <th>Contract Status</th>
                                 <th>Expiry Date</th>
+                                <th class="visible-md visible-lg" style="width:130px">Show Attachments</th>
                                 <th class="visible-md visible-lg" style="width:130px">Action</th>
                             </tr>
                         </thead>
@@ -97,6 +98,10 @@ Contract
                 {
                     data: "contract_expiry_date",
                     name: "contract_expiry_date"
+                },
+                {
+                    data: "action1",
+                    searchable: false
                 },
                 {
                     data: "action",
