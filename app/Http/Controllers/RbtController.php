@@ -552,7 +552,7 @@ class RbtController extends Controller
 
     public function getDownloadNew()
     {
-        $file= base_path(). "/rbtNew.xlsx";
+        $file= base_path(). "/rbtexcel/rbtNew.xlsx";
 
         $headers = array(
             'Content-Type: application/xlsx',
