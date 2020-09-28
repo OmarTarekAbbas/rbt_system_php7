@@ -163,16 +163,25 @@ class ContentController extends Controller
 
     return redirect('content/' . $content->id);
   }
-  
+
   public function show($id)
   {
-    $content = content::find($id);
+    $content  = content::find($id);
     $provider = DB::table('providers')->where('id', $content->provider_id)->first();
     $occasion = DB::table('occasions')->where('id', $content->occasion_id)->first();
     $contract = DB::table('contracts')->where('id', $content->contract_id)->first();
-    $rbts = DB::table('rbts')->where('content_id', $id)->get();
-    //dd($rbts);
-    return view('content.view', compact('content', 'provider', 'occasion', 'contract', 'rbts'));
+    $rbts     = DB::table('rbts')->where('content_id', $id)->get();
+    $occasionRbt = "";
+    $aggregator_id = "";
+    foreach($rbts as $rbt){
+      $occasionRbt = DB::table('occasions')->where('id', $rbt->occasion_id)->first(['title']);
+    }
+    foreach($rbts as $rbt){
+      $aggregator_id = DB::table('aggregators')->where('id', $rbt->aggregator_id)->first(['title']);
+    }
+
+    //dd($aggregator_id);
+    return view('content.view', compact('content', 'provider', 'occasion', 'contract', 'rbts','occasionRbt','aggregator_id'));
   }
 
   public function create_excel()
