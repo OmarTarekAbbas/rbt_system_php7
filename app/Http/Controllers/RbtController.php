@@ -57,7 +57,7 @@ class RbtController extends Controller
         $title = 'Index - rbt';
         // $rbts = Rbt::all();
         $content_id = $request->all();
-        $rbts = Rbt::select('*','rbts.id AS rbt_id','providers.title as provider','occasions.title as occasion','operators.title as operator','aggregators.title as aggregator','contents.content_title as content')
+        $rbts = Rbt::select('*','rbts.id AS rbt_id','providers.title as provider','occasions.title as occasion','operators.title as operator','aggregators.title as aggregator','contents.content_title as content','rbts.internal_coding as rbt_internal_coding')
         ->leftjoin('providers','providers.id','=','rbts.provider_id')
         ->leftjoin('occasions','occasions.id','=','rbts.occasion_id')
         ->leftjoin('operators','operators.id','=','rbts.operator_id')
@@ -72,6 +72,9 @@ class RbtController extends Controller
             ->addColumn('id', function (Rbt $rbt) {
                 return $rbt->rbt_id;
             })
+            ->addColumn('rbt_internal_coding', function (Rbt $rbt) {
+              return ($rbt->rbt_internal_coding) ? $rbt->rbt_internal_coding : "--";
+          })
             ->addColumn('type', function (Rbt $rbt) {
                 return $rbt->type ? 'NEW' : 'OLD';
             })
@@ -124,6 +127,7 @@ class RbtController extends Controller
                 if (Auth::user()->hasRole(['super_admin', 'admin']))
                     return '<td class="visible-md visible-lg">
                             <div class="btn-group">
+                            <a class="btn btn-sm btn-primary show-tooltip " href="' . url("rbt/" . $rbt->rbt_id) . '" title="Show"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-sm show-tooltip" href="' . url("rbt/" . $rbt->rbt_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
                                 <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("rbt/" . $rbt->rbt_id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
                             </div>
@@ -227,13 +231,30 @@ class RbtController extends Controller
             $rbt->provider_id = $request->provider_id;
         }
 
-
+        $rbt->internal_coding = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time() ."/". $rbt->operator_id;
+        //dd($rbt);
         $rbt->save();
 
         $request->session()->flash('success', 'Add Rbt Successfully');
 
-        return redirect('rbt');
+        return redirect('rbt/' . $rbt->id);
     }
+
+
+    public function show($id)
+    {
+        $rbt = Rbt::select('*','rbts.id AS rbt_id','providers.title as provider','occasions.title as occasion','operators.title as operator','aggregators.title as aggregator','contents.content_title as content','rbts.internal_coding as rbt_internal_coding')
+        ->leftjoin('providers','providers.id','=','rbts.provider_id')
+        ->leftjoin('occasions','occasions.id','=','rbts.occasion_id')
+        ->leftjoin('operators','operators.id','=','rbts.operator_id')
+        ->leftjoin('aggregators','aggregators.id','=','rbts.aggregator_id')
+        ->leftjoin('contents','contents.id','=','rbts.content_id')
+        ->where('rbts.id', $id)
+        ->first();
+        //dd($rbt);
+        return view('rbt.show',compact('rbt'));
+    }
+
 
     public function excel()
     {
@@ -367,7 +388,7 @@ class RbtController extends Controller
                     if ($check)
                     {
                         $rbt_edit = Rbt::find($check->id);
-                        $rbt_edit->internal_coding = $check->id.'_'.$check->operator->country->id.'_'.$check->operator->id;
+                        $rbt_edit->internal_coding = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time() ."/". $check->operator->id;
                         $rbt_edit->save();
                         $counter++ ;
                     }
@@ -494,7 +515,7 @@ class RbtController extends Controller
 
         $request->session()->flash('success', 'Updated Successfully');
 
-        return redirect('rbt');
+        return redirect('rbt/' . $rbt->id);
     }
     /**
      * Remove the specified resource from storage.

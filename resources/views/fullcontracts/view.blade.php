@@ -38,7 +38,7 @@ Contract
                                 <td>{{$contract->contract_label}} </td>
                             </tr>
 
-                            <tr>
+                            <!-- <tr>
                                 <td width='30%' class='label-view text-right'>First Party Id </td>
                                 <td>{{$contract->first_party_id}} </td>
                             </tr>
@@ -51,7 +51,7 @@ Contract
                             <tr>
                                 <td width='30%' class='label-view text-right'>Second Party Id </td>
                                 <td>{{$contract->second_party_id}} </td>
-                            </tr>
+                            </tr> -->
 
                             <tr>
                                 <td width='30%' class='label-view text-right'>First Party </td>
@@ -62,6 +62,11 @@ Contract
                             <tr>
                                 <td width='30%' class='label-view text-right'>Second Party </td>
                                 <td>{{$second_parties->second_party_title}} </td>
+                            </tr>
+
+                            <tr>
+                                <td width='30%' class='label-view text-right'>Second Party Type </td>
+                                <td>{{ $second_party_types->second_party_type_title }}</td>
                             </tr>
 
                             <tr>
@@ -153,10 +158,7 @@ Contract
                                 <td>{{ date('F j, Y, g:i a',strtotime($contract->updated_at)) }} </td>
                             </tr>
 
-                            <tr>
-                                <td width='30%' class='label-view text-right'>Second Party Type </td>
-                                <td>{{ $second_party_types->second_party_type_title }}</td>
-                            </tr>
+
 
                         </tbody>
                     </table>
