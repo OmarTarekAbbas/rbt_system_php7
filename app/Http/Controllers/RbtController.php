@@ -355,6 +355,14 @@ class RbtController extends Controller
                         $provider_id = $create->id ;
                     }
 
+                    $check_content = Content::where('internal_coding', 'LIKE', '%' . $row->master_content_code . '%')->first();
+                    if ($check_content) {
+                      $content_id = $check_content->id;
+                    } else {
+                      $content_id = NULL;
+                    }
+
+
                     if ($request['type'])
                     {
                         $rbt['artist_name_en'] = $row->artist_name_english;
@@ -368,7 +376,7 @@ class RbtController extends Controller
                         $rbt['owner'] = $row->provider ; // ex:  ARPU
                         $rbt['operator_id'] = $request->operator_id;
                         $rbt['aggregator_id'] = $request->aggregator_id;
-                        $rbt['content_id'] = $request->content_id ?? $row->master_content_code;
+                        $rbt['content_id'] = $content_id;
                         $rbt['type'] = 1 ; // new excel
                     }
                     else{
@@ -379,7 +387,7 @@ class RbtController extends Controller
                         $rbt['provider_id'] = $provider_id ;
                         $rbt['operator_id'] = $request->operator_id;
                         $rbt['aggregator_id'] = $request->aggregator_id;
-                        $rbt['content_id'] = $request->content_id ?? $row->master_content_code;
+                        $rbt['content_id'] = $content_id;
                     }
                     //dd($rbt);
 
