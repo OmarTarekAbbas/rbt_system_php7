@@ -6,9 +6,9 @@ Content
 <div class="row">
   <div class="col-md-4">
     <a class="btn btn-circle btn-primary show-tooltip " href="{{url('/content')}}" title="List Content">
-    <i class="fa fa-eye"></i>
-  </a>
-  List Content
+      <i class="fa fa-eye"></i>
+    </a>
+    List Content
   </div>
 
   <div class="col-md-4" style="text-align: center;">
@@ -74,11 +74,28 @@ Content
               <tr>
                 <td width='30%' class='label-view text-right'>{{$rbt->track_title_en}}</td>
                 <td>
-                  <audio class="content_audios" controls controls style="width: 35%;">
+                <div class="row">
+                <div class="col-md-4">
+                <audio class="content_audios" controls controls style="width: 100%;">
                     <source src="{{url($rbt->track_file)}}">
                   </audio>
-                  <a href="{{ url('rbt/'.$rbt->id) }}">{{$rbt->internal_coding}}</a>
-                  <p>{{$rbt->code}}</p>
+                </div>
+                <div class="col-md-2">
+                <span style="font-weight: bold;">Internal Coding: </span> <a href="{{ url('rbt/'.$rbt->id) }}">{{$rbt->internal_coding}}</a>
+                </div>
+                <div class="col-md-2">
+                <span style="font-weight: bold;">Code: </span><p>{{$rbt->code}}</p>
+                </div>
+
+                <div class="col-md-2">
+                <span style="font-weight: bold;">Occasion: </span><p>{{$occasionRbt->title}}</p>
+                </div>
+
+                <div class="col-md-2">
+                <span style="font-weight: bold;">Aggregator: </span><p>{{$aggregator_id->title}}</p>
+                </div>
+
+                </div>
                 </td>
               </tr>
               @endforeach
