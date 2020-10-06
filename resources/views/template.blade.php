@@ -536,12 +536,14 @@
         <!-- BEGIN Submenu -->
         <ul class="submenu">
           <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
+          <li id="ContractTemplate-index"><a href="{{url('ContractTemplate')}}">Contract Templates</a></li>
           <li id="contractservice-index"><a href="{{url('contractservice')}}">Service</a></li>
 
         </ul>
         <!-- END Submenu -->
 
       </li>
+
 
       {{--  <li id="roadmap">
         <a href="#" class="dropdown-toggle">

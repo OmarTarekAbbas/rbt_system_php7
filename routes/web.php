@@ -269,4 +269,5 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::resource('SecondPartyType', 'SecondPartyTypeController');
     Route::resource('SecondParty', 'SecondPartyController');
     Route::resource('attachment', 'AttachmentController');
+    Route::resource('ContractTemplate', 'ContractTemplateController');
 });

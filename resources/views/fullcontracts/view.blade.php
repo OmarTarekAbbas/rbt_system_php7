@@ -56,17 +56,17 @@ Contract
                             <tr>
                                 <td width='30%' class='label-view text-right'>First Party </td>
 
-                                <td>{{$first_partie->first_party_title}} </td>
+                                <td>{{$first_partie->first_party_title ?? ''}} </td>
                             </tr>
 
                             <tr>
                                 <td width='30%' class='label-view text-right'>Second Party </td>
-                                <td>{{$second_parties->second_party_title}} </td>
+                                <td>{{$second_parties->second_party_title ?? ''}} </td>
                             </tr>
 
                             <tr>
                                 <td width='30%' class='label-view text-right'>Second Party Type </td>
-                                <td>{{ $second_party_types->second_party_type_title }}</td>
+                                <td>{{ $second_party_types->second_party_type_title ?? ''}}</td>
                             </tr>
 
                             <tr>
