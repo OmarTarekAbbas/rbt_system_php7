@@ -50,9 +50,21 @@ Second Party
 								<td>{{$SecondParty->second_party_joining_date}}</td>
 								<td>{{$SecondParty->second_party_terminate_date}}</td>
 								<td>{{$SecondParty->second_party_status}}</td>
-								<td><a target="_blank" href="{{url($SecondParty->second_party_identity)}}">Preview</a></td>
-								<td><a target="_blank" href="{{url($SecondParty->second_party_cr)}}">Preview</a></td>
-								<td><a target="_blank" href="{{url($SecondParty->second_party_tc)}}">Preview</a></td>
+                @isset($SecondParty->second_party_identity)
+                  <td><a class="btn btn-primary" target="_blank" href="{{url($SecondParty->second_party_identity)}}">Preview</a></td>
+                @else
+                  <td><a class="btn disabled">No File</a></td>
+                @endisset
+                @isset($SecondParty->second_party_cr)
+                  <td><a class="btn btn-primary" target="_blank" href="{{url($SecondParty->second_party_cr)}}">Preview</a></td>
+                  @else
+                  <td><a class="btn disabled">No File</a></td>
+                @endisset
+                @isset($SecondParty->second_party_tc)
+                  <td><a class="btn btn-primary" target="_blank" href="{{url($SecondParty->second_party_tc)}}">Preview</a></td>
+                  @else
+                  <td><a class="btn disabled">No File</a></td>
+                @endisset
 								<td class="visible-md visible-lg">
 								    <div class="btn-group">
 								    	<a class="btn btn-sm show-tooltip" title="" href="{{url('SecondParty/'.$SecondParty->second_party_id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>

@@ -29,9 +29,9 @@ class SecondPartyStoreRequest extends FormRequest
             'second_party_joining_date' => 'required',
             'second_party_terminate_date' => 'required',
             'second_party_status' => 'required',
-            'second_party_identity' => 'required',
-            'second_party_cr' => 'required',
-            'second_party_tc' => 'required',
+            // 'second_party_identity' => 'required',
+            // 'second_party_cr' => 'required',
+            // 'second_party_tc' => 'required',
         ];
     }
 }
