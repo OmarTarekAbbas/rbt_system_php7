@@ -154,7 +154,7 @@ Contract
                   <select name='operator_title[]' multiple rows='5' id='operator_title' class='select2 ' required>
                     <option value="">-- Please Select --</option>
                     @foreach($operators as $operator)
-                    <option value="{{$operator->title}}" @if(in_array($operator->title,explode(",",$contract->operator_title))) selected="selected" @endif>{{$operator->title}}-{{$operator->country->title}}</option>
+                    <option value="{{$operator->title}}-{{$operator->country->title}}" @if(in_array($operator->title."-".$operator->country->title,explode(",",$contract->operator_title))) selected="selected" @endif>{{$operator->title}}-{{$operator->country->title}}</option>
                     @endforeach
                   </select>
                 </div>
