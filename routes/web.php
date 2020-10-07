@@ -270,4 +270,9 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::resource('SecondParty', 'SecondPartyController');
     Route::resource('attachment', 'AttachmentController');
     Route::resource('ContractTemplate', 'ContractTemplateController');
+    Route::get('ContractTemplate/{id}/items', 'ContractTemplateController@showContractTerms');
+    Route::post('ContractTemplate/{id}/storeItem', 'ContractTemplateController@storeContractTerms');
+    Route::post('ContractTemplate/{id}/removeItem', 'ContractTemplateController@destroyContractTerms');
+    Route::post('ContractTemplate/{id}/editItem', 'ContractTemplateController@editContractTerms');
+    Route::get('contract/template/create', 'ContractTemplateController@editContractTerms');
 });

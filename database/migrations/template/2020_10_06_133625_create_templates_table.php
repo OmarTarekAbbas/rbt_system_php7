@@ -14,7 +14,7 @@ class CreateTemplatesTable extends Migration {
 	{
 		Schema::create('contract_templates', function(Blueprint $table)
 		{
-			$table->bigInteger('id');
+			$table->bigIncrements('id');
 			$table->string('title');
 			$table->boolean('content_type')->comment('1:In / 2:Out');
 			$table->timestamps();

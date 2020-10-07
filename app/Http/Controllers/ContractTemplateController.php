@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repository\ContractTemplateRepository;
+use App\Http\Repository\ContractTemplateItemRepository;
 use App\Http\Requests\ContractTemplateStoreRequest;
 use App\Http\Services\ContractTemplateStoreService;
 use App\Http\Services\ContractTemplateUpdateService;
@@ -17,6 +18,12 @@ class ContractTemplateController extends Controller
      * @var ContractTemplateRepository
      */
     private $ContractTemplateRepository;
+    /**
+     * ContractTemplateItemRepository
+     *
+     * @var ContractTemplateItemRepository
+     */
+    private $ContractTemplateItemRepository;
     /**
      * ContractTemplateStoreService
      *
@@ -34,16 +41,19 @@ class ContractTemplateController extends Controller
      * __construct
      *
      * @param ContractTemplateRepository $ContractTemplateRepository
+     * @param ContractTemplateItemRepository $ContractTemplateItemRepository
      * @param ContractTemplateStoreService $ContractTemplateStoreService
      * @param ContractTemplateUpdateService $ContractTemplateUpdateService
      */
 
     public function __construct(
         ContractTemplateRepository $ContractTemplateRepository,
+        ContractTemplateItemRepository $ContractTemplateItemRepository,
         ContractTemplateStoreService $ContractTemplateStoreService,
         ContractTemplateUpdateService $ContractTemplateUpdateService
     ) {
         $this->ContractTemplateRepository = $ContractTemplateRepository;
+        $this->ContractTemplateItemRepository = $ContractTemplateItemRepository;
         $this->ContractTemplateStoreService = $ContractTemplateStoreService;
         $this->ContractTemplateUpdateService = $ContractTemplateUpdateService;
     }
@@ -121,4 +131,65 @@ class ContractTemplateController extends Controller
       $ContractTemplate = $this->ContractTemplateRepository->destroy($id);
       return back()->with(['success', 'Deleted Successfully']);
     }
+
+    /**
+     * show contract terms.
+     *
+     * @param  int  $id
+     * @return View
+     */
+    public function showContractTerms($id)
+    {
+      $ContractTemplate = $this->ContractTemplateRepository->findOrFail($id);
+      $ContractTemplateItems = $ContractTemplate->items;
+      return view('ContractTemplate.items', compact('ContractTemplate', 'ContractTemplateItems'));
+    }
+
+    /**
+     * store contract terms.
+     *
+     * @param  int  $id
+     * @return View
+     */
+    public function storeContractTerms(Request $request, $id)
+    {
+      $ContractTemplate = $this->ContractTemplateRepository->findOrFail($id);
+
+      $ContractTemplateItem['contract_id'] = $ContractTemplate->id;
+      $ContractTemplateItem['item'] = $request->item;
+
+      $ContractTemplateItem = $this->ContractTemplateItemRepository->create($ContractTemplateItem);
+
+      $response['item_id'] = $ContractTemplateItem->id;
+      $response['response'] = 'success';
+      return $response;
+    }
+
+    /**
+     * edit contract terms.
+     *
+     * @param  int  $id
+     */
+    public function editContractTerms(Request $request, $id)
+    {
+      $ContractTemplateItem = $this->ContractTemplateItemRepository->find($id);
+
+      $ContractTemplateItem->item = $request->item;
+
+      $ContractTemplateItem->save();
+
+      return 'success';
+    }
+
+    /**
+     * destroy contract terms.
+     *
+     * @param  int  $id
+     */
+    public function destroyContractTerms($id)
+    {
+      $ContractTemplate = $this->ContractTemplateItemRepository->destroy($id);
+      return 'success';
+    }
+
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateContractItemsTable extends Migration {
+class CreateContractTableItemsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,12 @@ class CreateContractItemsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('contract_template_items', function(Blueprint $table)
+		Schema::create('contract_items', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
-			$table->unsignedBigInteger('template_id')->nullable()->index('contract_template_id');
 			$table->text('item');
+			$table->unsignedBigInteger('department_id')->nullable()->index('department_id');
+			$table->unsignedBigInteger('contract_id')->index('contract_id');
 		});
 	}
 
