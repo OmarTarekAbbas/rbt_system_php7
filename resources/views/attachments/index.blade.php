@@ -1,6 +1,6 @@
 @extends('template')
 @section('page_title')
-Second Party Types
+attachment
 @stop
 @section('content')
 	@include('errors')
@@ -10,7 +10,7 @@ Second Party Types
 	    <div class="col-md-12">
 	        <div class="box box-black">
 	            <div class="box-title">
-	                <h3><i class="fa fa-table"></i> Second Party types Table</h3>
+	                <h3><i class="fa fa-table"></i> attachment Table</h3>
 	                <div class="box-tool">
 	                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
 	                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
