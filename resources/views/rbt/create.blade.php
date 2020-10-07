@@ -72,8 +72,8 @@
                                 <div class="col-sm-9 col-lg-10 controls">
                                     <select class="form-control chosen" data-placeholder="Choose a Operators" name="operator_id" tabindex="1" required>
                                     <option value=""></option>
-                                    @foreach($operators as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
+                                    @foreach($operators as $operator)
+                                        <option value="{{$operator->id}}">{{$operator->title}}-{{$operator->country->title}}</option>
                                     @endforeach
                                     </select>
                                 </div>
@@ -192,8 +192,8 @@
                                 <div class="col-sm-9 col-lg-10 controls">
                                     <select class="form-control chosen" data-placeholder="Choose a Operators" name="operator_id" tabindex="1" required>
                                     <option value=""></option>
-                                    @foreach($operators as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
+                                    @foreach($operators as $operator)
+                                        <option value="{{$operator->id}}">{{$operator->title}}-{{$operator->country->title}}</option>
                                     @endforeach
                                     </select>
                                 </div>

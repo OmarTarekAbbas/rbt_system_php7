@@ -201,7 +201,7 @@ Contract
                   <div class="input-group input-group-sm m-b" style="width:170px !important;">
 
                     <div id="datepicker" class="input-group date ">
-                      <input class="form-control form-control-sm " name="contract_expiry_date" type="text"  value="Select Date" />
+                      <input class="form-control form-control-sm " name="contract_expiry_date" id="contract_expiry_date" type="text"  value="Select Date" />
                       <div class="input-group-addon" style="width: 25%;padding: 3px 12px;background: #FFF;"><i class="fa fa-calendar"></i></div>
                     </div>
                   </div>
@@ -295,5 +295,24 @@ Contract
       });
   });
 </script>
+
+<!-- <script>
+$("#contract_duration_id").change(function() {
+  console.log("omar");
+  var endDate = $(this).val();
+
+  // Calculate expiry date
+  var date = new Date(endDate);
+  date.setMonth(date.getMonth() + 2);
+
+  // Get date parts
+  var yyyy = date.getFullYear();
+  var m = date.getMonth() + 1;
+  var d = date.getDate();
+
+  $("#contract_expiry_date").val(yyyy + "/" + m + "/" + d);
+});
+
+</script> -->
 
 @stop

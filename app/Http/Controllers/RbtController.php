@@ -144,7 +144,7 @@ class RbtController extends Controller
 
     public function create()
     {
-        $operators = Operator::all()->pluck('title','id');
+        $operators = Operator::all();
         $occasions = Occasion::all()->pluck('title','id');
         $aggregators = Aggregator::all()->pluck('title','id');
         $providers = Provider::all()->pluck('title','id') ;
@@ -196,7 +196,7 @@ class RbtController extends Controller
         }
 
         if ($request->hasFile('track_file')) {
-            $path = "uploads/".date('Y-m-d')."/";
+            $path = "uploads/rbts/".date('Y-m-d')."/";
             $ex = $request->file('track_file')->getClientOriginalExtension();
             $extentions = array('mp3','wav','ogg','m4a');
             if (in_array($ex,$extentions) ) {
@@ -251,7 +251,7 @@ class RbtController extends Controller
         ->leftjoin('contents','contents.id','=','rbts.content_id')
         ->where('rbts.id', $id)
         ->first();
-        //dd($rbt);
+        // dd($rbt);
         return view('rbt.show',compact('rbt'));
     }
 
@@ -260,7 +260,7 @@ class RbtController extends Controller
     {
         $title = 'Create - rbt';
 
-        $operators = Operator::all()->pluck('title','id');
+        $operators = Operator::all();
 
         $occasions = Occasion::all()->pluck('title','id');
 
@@ -389,14 +389,13 @@ class RbtController extends Controller
                         $rbt['aggregator_id'] = $request->aggregator_id;
                         $rbt['content_id'] = $content_id;
                     }
-                    //dd($rbt);
-
-                    $rbt['track_file'] = "uploads/".date('Y-m-d')."/".$rbt['track_title_en'].".wav" ;
+                
+                    $rbt['track_file'] = "uploads/rbts/".date('Y-m-d')."/".$rbt['track_title_en'].".wav" ;
                     $check = Rbt::create($rbt) ;
                     if ($check)
                     {
                         $rbt_edit = Rbt::find($check->id);
-                        $rbt_edit->internal_coding = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time() ."/". $check->operator->id;
+                        $rbt_edit->internal_coding = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
                         $rbt_edit->save();
                         $counter++ ;
                     }
@@ -422,7 +421,7 @@ class RbtController extends Controller
      */
     public function edit($id)
     {
-        $operators = Operator::all()->pluck('title','id');
+        $operators = Operator::all();
         $occasions = Occasion::all()->pluck('title','id');
         $aggregators = Aggregator::all()->pluck('title','id');
         $providers = Provider::all()->pluck('title','id') ;
@@ -541,7 +540,7 @@ class RbtController extends Controller
 
     public function getDownload()
     {
-        $file= base_path(). "/rbt.xlsx";
+        $file= base_path(). "/rbtOldExcel/rbt.xlsx";
 
         $headers = array(
                   'Content-Type: application/xlsx',

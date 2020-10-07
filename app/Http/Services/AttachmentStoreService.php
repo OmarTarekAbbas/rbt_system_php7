@@ -38,7 +38,7 @@ class AttachmentStoreService
     */
     public function handle($request)
     {
-        $attachment_pdf = $this->UploaderService->upload($request['attachment_pdf'], '/attachments/pdf/');
+        $attachment_pdf = $this->UploaderService->upload($request['attachment_pdf'], '/attachments/pdf');
         $request['attachment_pdf'] = $attachment_pdf;
 
         $contract = Contract::find($request['contract_id']);

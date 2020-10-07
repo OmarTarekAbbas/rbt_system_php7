@@ -252,15 +252,15 @@ class ContentController extends Controller
           } else {
             $contract_id = NULL;
           }
-
+          $uniqid = uniqid();
           $content_data['content_title'] = $row->content_title;
           $content_data['content_type'] = $row->content_type;
-          $content_data['internal_coding'] = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time();
+          $content_data['internal_coding'] = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') ."/". $uniqid;
           $content_data['provider_id'] = $provider_id;
           $content_data['occasion_id'] = $occasion_id;
           $content_data['contract_id'] = $contract_id;
           $content_data['user_id'] = \Auth::user()->id;
-          $content_data['path'] = "uploads/content/" . date('Y-m-d') . "/" . $row->path . ".wav";
+          $content_data['path'] = "uploads/content/" . date('Y-m-d') . "/" . $row->path;
           $check = content::create($content_data);
           if ($check) {
             $content = Content::find($check->id);

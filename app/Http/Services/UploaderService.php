@@ -37,7 +37,7 @@ class UploaderService
         $file_name = time().'.'.$file->getClientOriginalExtension();
 
         if ($file->move($ourPath['path'], $file_name)) {
-            return 'uploads/'.$folder.'/'.$ourPath['date_path'].$file_name;
+            return 'uploads'.$folder.'/'.$ourPath['date_path'].$file_name;
         }
     }
 }
