@@ -153,7 +153,7 @@ Contract
                   <select name='operator_title[]' multiple rows='5' id='operator_title' class='select2 ' required>
                     <option value="">-- Please Select --</option>
                     @foreach($operators as $operator)
-                    <option value="{{$operator->title}}">{{$operator->title}}</option>
+                    <option value="{{$operator->title}}">{{$operator->title}}-{{$operator->country->title}}</option>
                     @endforeach
                   </select>
                 </div>
