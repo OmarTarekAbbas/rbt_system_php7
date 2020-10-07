@@ -29,6 +29,9 @@ class SecondPartyUpdateRequest extends FormRequest
             'second_party_joining_date' => 'required',
             'second_party_terminate_date' => 'required',
             'second_party_status' => 'required',
+            'second_party_identity' => 'nullable',
+            'second_party_cr' => 'nullable',
+            'second_party_tc' => 'nullable',
         ];
     }
 }
