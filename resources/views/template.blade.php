@@ -34,6 +34,8 @@
   <link rel="stylesheet" href="{{url('assets/font-awesome/css/font-awesome.min.css')}}">
   <!--page specific css styles-->
   <link rel="stylesheet" href="{{url('assets/data-tables/bootstrap3/dataTables.bootstrap.css')}}" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" />
 
@@ -264,6 +266,23 @@
           <!-- END Submenu -->
        </li>
 
+       <li id="firstpartie">
+            <a href="#" class="dropdown-toggle">
+              <i class="fa fa-folder-o"></i>
+              <span>FirstPartie</span>
+              <b class="arrow fa fa-angle-right"></b>
+            </a>
+
+            <!-- BEGIN Submenu -->
+            <ul class="submenu">
+              {{-- <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a>
+              </li> --}}
+              <li id="firstpartie-create"><a href="{{url('firstparties/create')}}">Create FirstPartie</a></li>
+              <li id="firstpartie-index"><a href="{{url('firstparties')}}">FirstPartie</a></li>
+            </ul>
+        <!-- END Submenu -->
+        </li>
+
         <li id="SecondPartyType">
           <a href="#" class="dropdown-toggle">
               <i class="fa fa-gears"></i>
@@ -412,22 +431,7 @@
         </li>
 
         @endif
-        <li id="firstpartie">
-            <a href="#" class="dropdown-toggle">
-              <i class="fa fa-folder-o"></i>
-              <span>FirstPartie</span>
-              <b class="arrow fa fa-angle-right"></b>
-            </a>
 
-            <!-- BEGIN Submenu -->
-            <ul class="submenu">
-              {{-- <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a>
-              </li> --}}
-              <li id="firstpartie-create"><a href="{{url('firstparties/create')}}">Create FirstPartie</a></li>
-              <li id="firstpartie-index"><a href="{{url('firstparties')}}">FirstPartie</a></li>
-            </ul>
-        <!-- END Submenu -->
-        </li>
 
         <li id="percentage">
           <a href="#" class="dropdown-toggle">

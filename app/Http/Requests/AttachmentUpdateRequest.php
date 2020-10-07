@@ -30,7 +30,8 @@ class AttachmentUpdateRequest extends FormRequest
           'attachment_date' => 'required',
           'attachment_expiry_date' => 'required',
           'attachment_pdf' => 'nullable',
-          'attachment_status' => 'required'
+          'attachment_status' => 'required',
+          'notes' => 'required'
         ];
     }
 }

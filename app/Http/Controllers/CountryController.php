@@ -118,6 +118,7 @@ class CountryController extends Controller
         return back();
     }
 
+
     public function getOperators($country_id = '')
     {
         $operators = Operator::with('country');
@@ -135,5 +136,12 @@ class CountryController extends Controller
         }
         return $occasions->get();
 
+    }
+
+    public function list_all_operator($id,Request $request)
+    {
+      $operators = Operator::where('country_id', $id)->get();
+      $countries = Country::all()->pluck('title','id');
+      return view('operator.index', compact('operators', 'countries'));
     }
 }

@@ -75,6 +75,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
 // note that Route::resource must be below other routes
 Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::resource('country', '\App\Http\Controllers\CountryController');
+    Route::get('country/{id}/operator','\App\Http\Controllers\CountryController@list_all_operator');
     Route::resource('setting', '\App\Http\Controllers\SettingController');
     Route::get('setting/{id}/delete', '\App\Http\Controllers\SettingController@destroy');
 });

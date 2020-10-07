@@ -114,6 +114,7 @@
                                 @if(Auth::user()->hasAnyRole(['super_admin','admin']))
                                <td>
                                <a class="btn btn-sm btn-success show-tooltip" title="Add Operator" href="{{url("operator/create_country?country_id=".$country->id."&title=".$country->title)}}" data-original-title="Add Operator"><i class="fa fa-plus"></i></a>
+                                <a class="btn btn-sm show-tooltip" href=" {{url('country/'.$country->id.'/operator')}}" title="Operator"><i class="fa fa-table"></i></a>
                                 <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" {{-- data-toggle="modal" data-target="#editgroup" --}}><i id="{{$country->id}}" class="fa fa-edit"></i></a>
                                 <a class="btn btn-sm btn-danger show-tooltip" title=""   onclick="return confirm('Are you sure you want to delete {{ $country->title }} ?')"     href="{{url('/country/'.$country->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                                 </td>

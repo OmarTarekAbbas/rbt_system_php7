@@ -110,7 +110,7 @@ Second Party Types
 @stop
 @section('script')
 <script>
-    $('#ServiceTypes').addClass('active');
-        $('#ServiceTypes-create').addClass('active');
-</script>
+		$('#Attachment').addClass('active');
+		$('#Attachment-create').addClass('active');
+	</script>
 @stop
