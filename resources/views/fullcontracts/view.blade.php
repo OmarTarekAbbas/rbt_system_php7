@@ -149,6 +149,11 @@ Contract
                             </tr>
 
                             <tr>
+                                <td width='30%' class='label-view text-right'>Contract File </td>
+                                <td> <a href="{{url('uploads/pdf/'.$contract->contract_pdf)}}" target="_blank">Preview</a></td>
+                            </tr>
+
+                            <tr>
                                 <td width='30%' class='label-view text-right'>Created At </td>
                                 <td>{{ date('F j, Y, g:i a',strtotime($contract->updated_at)) }} </td>
                             </tr>
