@@ -236,7 +236,7 @@ input[type="date"]::-webkit-datetime-edit-day-field{
                   </div>
                 </div>
 
-                <div class="form-group  ">
+                {{-- <div class="form-group">
                   <label for="ipt" class=" control-label "> Contract File </label>
                   <div class="fileUpload btn ">
                     <span> <i class="fa fa-copy"></i> </span>
@@ -246,12 +246,30 @@ input[type="date"]::-webkit-datetime-edit-day-field{
                   <div class="contract_pdf-preview preview-upload">
                     <img src='http://localhost/contracts/uploads/images/no-image.png' border='0' width='80' class='img-circle' /></a>
                   </div>
-                </div>
+                </div> --}}
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> Notes </label>
                   <textarea name='contract_notes' rows='5' id='contract_notes' class='form-control form-control-sm '></textarea>
                 </div>
+              </section>
+              <h3>Template</h3>
+              <section>
+
+                <div class="form-group">
+                  <label for="ipt" class=" control-label "> Template <span class="asterix"> * </span> </label>
+                  <select name='template_id' rows='5' id='template_id' class="form-control" required>
+                    <option value="">-- Please Select --</option>
+                    @foreach($templates as $template)
+                    <option value="{{$template->id}}">{{$template->title}}</option>
+                    @endforeach
+                  </select>
+                </div>
+
+                <div id="ContractTemplateItems" class="container box-content" style="border: 2px dashed black; margin: 20px 0px">
+
+                </div>
+
               </section>
             </div>
           </div>
@@ -351,6 +369,18 @@ function setEndDate(endDate, month) {
 
   $("#contract_expiry_date").val(yyyy + "-" + m + "-" + d);
 }
+
+  $('#template_id').change(function (e) {
+    var id = $('#template_id').val();
+    $.ajax({
+      type: "get",
+      url: `{{url('template_items/${id}')}}`,
+      success: function (response) {
+        $('#ContractTemplateItems').html(response);
+      }
+    });
+  });
+
 </script>
 
 @stop
