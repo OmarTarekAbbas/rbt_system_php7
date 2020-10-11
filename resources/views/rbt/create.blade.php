@@ -22,6 +22,7 @@
                             <label class="col-sm-3 col-lg-2 control-label">Rbt Type Select *</label>
                             <div class="col-sm-9 col-lg-10 controls">
                                 <select class="form-control chosen" name="type" tabindex="1" required onchange="change_div(this)">
+                                <option id="pl_set" value="" >-- Please Select --</option>
                                     <option value="old">Old Rbt</option>
                                     <option value="new">New Rbt</option>
                                 </select>
@@ -267,11 +268,13 @@
                 $('#new :input').attr('disabled',false)
                 $('#old').css("display", "none")
                 $('#old :input').attr('disabled',true)
+                $('#pl_set').addClass('hidden')
             }else if(_this.value == "old"){
                 $('#old').css("display", "block")
                 $('#old :input').attr('disabled',false)
                 $('#new').css("display", "none")
                 $('#new :input').attr('disabled',true)
+                $('#pl_set').addClass('hidden')
             }
         }
     </script>

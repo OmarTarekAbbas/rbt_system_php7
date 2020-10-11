@@ -195,6 +195,8 @@ Contract
               </section>
               <h3>Dates/Status/File</h3>
               <section>
+
+
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> Contract Date <span class="asterix"> * </span> </label>
 
@@ -211,7 +213,7 @@ Contract
                   <select name='contract_duration_id' rows='5' id='contract_duration' class="form-control" required>
                     <option value="">-- Please Select --</option>
                     @foreach($contract_durations as $contract_duration)
-                    <option data-type="@if(strpos($contract_duration->contract_duration_title,'Month')) m @else y @endif" value="{{$contract_duration->contract_duration_id}}">{{$contract_duration->contract_duration_title}}</option>
+                    <option data-type="@if(strpos($contract_duration->contract_duration_title,'Month')) month @else years @endif" value="{{$contract_duration->contract_duration_id}}">{{$contract_duration->contract_duration_title}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -240,7 +242,7 @@ Contract
                   </div>
                 </div>
 
-                <div class="form-group  ">
+                {{-- <div class="form-group">
                   <label for="ipt" class=" control-label "> Contract File </label>
                   <div class="fileUpload btn ">
                     <span> <i class="fa fa-copy"></i> </span>
@@ -250,12 +252,30 @@ Contract
                   <div class="contract_pdf-preview preview-upload">
                     <img src='http://localhost/contracts/uploads/images/no-image.png' border='0' width='80' class='img-circle' /></a>
                   </div>
-                </div>
+                </div> --}}
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> Notes </label>
                   <textarea name='contract_notes' rows='5' id='contract_notes' class='form-control form-control-sm '></textarea>
                 </div>
+              </section>
+              <h3>Template</h3>
+              <section>
+
+                <div class="form-group">
+                  <label for="ipt" class=" control-label "> Template <span class="asterix"> * </span> </label>
+                  <select name='template_id' rows='5' id='template_id' class="form-control" required>
+                    <option value="">-- Please Select --</option>
+                    @foreach($templates as $template)
+                    <option value="{{$template->id}}">{{$template->title}}</option>
+                    @endforeach
+                  </select>
+                </div>
+
+                <div id="ContractTemplateItems" class="container box-content" style="border: 2px dashed black; margin: 20px 0px">
+
+                </div>
+
               </section>
             </div>
           </div>
@@ -330,18 +350,23 @@ Contract
 </script>
 
 <script>
-  $("#start_date").change(function() {
-    var endDate = $(this).val();
-    setEndDate(endDate, 12)
-  });
+
 
   $("#contract_duration").change(function() {
-    number = $(this).val()
-    month = $(this).find('option:selected').data('type') == 'm' ? number : (number * 12);
-    console.log(number + "/" + month);
+    number = ($(this).find('option:selected').text()).match(/\d+/)[0];
+    var num = "month";
+    console.log(num.toString() + " / "+ $(this).find('option:selected').data('type'));
+    console.log($(this).find('option:selected').data('type').toString() === num.toString());
+    month = $(this).find('option:selected').data('type') === 'month' ? number : (number * 12);
+    console.log("number" + number + "/" + "month" + month);
 
     setEndDate($("#start_date").val(), month)
   })
+
+  $("#start_date").change(function() {
+    var endDate = $(this).val();
+    setEndDate(endDate, month)
+  });
 
   function setEndDate(endDate, month) {
     // Calculate expiry date

@@ -48,7 +48,7 @@ Operator
 @stop
 @section('script')
 <script>
-    $('#operator').addClass('active');
+    $('#country-index').addClass('active');
     $('#operator_create').addClass('active');
 </script>
 @stop

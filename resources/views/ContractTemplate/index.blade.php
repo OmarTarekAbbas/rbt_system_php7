@@ -46,6 +46,7 @@ Contract Template
 								<td>{{$ContractTemplate->content_type == 1 ? 'IN' : 'OUT'}}</td>
 								<td class="visible-md visible-lg">
 								    <div class="btn-group">
+								    	<a class="btn btn-sm show-tooltip btn-primary" title="" href="{{url('ContractTemplate/'.$ContractTemplate->id.'/items')}}" data-original-title="Show"><i class="fa fa-eye"></i></a>
 								    	<a class="btn btn-sm show-tooltip" title="" href="{{url('ContractTemplate/'.$ContractTemplate->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
 
                       <form action="{{url('ContractTemplate/'.$ContractTemplate->id)}}" method="POST" style="display: inline">

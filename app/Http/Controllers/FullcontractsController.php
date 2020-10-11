@@ -16,12 +16,23 @@ use App\ContractDuration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-
-
-
+use App\Http\Repository\ContractTemplateRepository;
 
 class FullcontractsController extends Controller
 {
+
+    /**
+     * ContractTemplateRepository
+     *
+     * @var ContractTemplateRepository
+     */
+    private $ContractTemplateRepository;
+
+    public function __construct(
+      ContractTemplateRepository $ContractTemplateRepository
+    ) {
+        $this->ContractTemplateRepository = $ContractTemplateRepository;
+    }
 
     public function index()
     {
@@ -104,7 +115,8 @@ class FullcontractsController extends Controller
         $countries = Country::all();
         $operators = Operator::all();
         $contract_durations = ContractDuration::all();
-        return view('fullcontracts.create', compact('first_parties', 'percentages', 'service_types', 'second_partys', 'countries', 'operators', 'contract_durations'));
+        $templates = $this->ContractTemplateRepository->all();
+        return view('fullcontracts.create', compact('first_parties', 'percentages', 'service_types', 'second_partys', 'countries', 'operators', 'contract_durations', 'templates'));
     }
 
     public function store(Request $request)
@@ -248,6 +260,15 @@ class FullcontractsController extends Controller
       if($Attachments){
         return view('attachments.index', compact('Attachments'));
       }
+    }
+
+    public function template_items($id)
+    {
+      $template_items = $this->ContractTemplateRepository->find($id)->items;
+
+      $view = view('fullcontracts.template', compact('template_items'))->render();
+
+      return $view;
     }
 
 }

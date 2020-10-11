@@ -356,8 +356,9 @@
           <!-- BEGIN Submenu -->
           <ul class="submenu">
             <li id="country-index"><a href="{{url('country')}}">Country</a></li>
+            <li id="operator-index"><a href="{{url('operator')}}">Operator</a></li>
+
           </ul>
-          <!-- END Submenu -->
         </li>
 
         <li id="aggregator">
@@ -374,19 +375,7 @@
           <!-- END Submenu -->
         </li>
 
-        <li id="operator">
-          <a href="#" class="dropdown-toggle">
-            <i class="glyphicon glyphicon-cog"></i>
-            <span>Operator</span>
-            <b class="arrow fa fa-angle-right"></b>
-          </a>
-
-          <!-- BEGIN Submenu -->
-          <ul class="submenu">
-            <li id="operator-index"><a href="{{url('operator')}}">Operator</a></li>
-          </ul>
-          <!-- END Submenu -->
-        </li>
+        
 
         <li id="currency">
           <a href="#" class="dropdown-toggle">

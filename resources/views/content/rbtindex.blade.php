@@ -52,7 +52,11 @@ RBTs
                 <td>{{$rbt->owner}}</td>
                 @if(Auth::user()->hasRole(['super_admin','admin']))
                 <td>{{$rbt->aggregator->title}}</td>
-                <td class="visible-md visible-lg" style="width:130px">Action</td>
+                <td class="visible-md visible-lg" style="width:130px">
+                                <a class="btn btn-sm show-tooltip modalToaggal teet" href="{{url('/rbt/'.$rbt->id.'/edit')}}"><i id="{{$rbt->id}}" class="fa fa-edit"></i></a>
+                                <a class="btn btn-sm btn-danger show-tooltip" title=""   onclick="return confirm('Are you sure you want to delete {{ $rbt->title }} ?')"     href="{{url('/rbt/'.$rbt->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                                </td>
+              </td>
                 @endif
               </tr>
               @endforeach
