@@ -389,7 +389,7 @@ class RbtController extends Controller
                         $rbt['aggregator_id'] = $request->aggregator_id;
                         $rbt['content_id'] = $content_id;
                     }
-                
+
                     $rbt['track_file'] = "uploads/rbts/".date('Y-m-d')."/".$rbt['track_title_en'].".wav" ;
                     $check = Rbt::create($rbt) ;
                     if ($check)
