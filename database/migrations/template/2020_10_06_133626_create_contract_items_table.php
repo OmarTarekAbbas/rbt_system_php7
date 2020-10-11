@@ -15,7 +15,7 @@ class CreateContractItemsTable extends Migration {
 		Schema::create('template_items', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->unsignedBigInteger('template_id')->nullable()->index('contract_template_id');
+			$table->unsignedInteger('template_id')->nullable()->index('contract_template_id');
       $table->text('item');
       $table->timestamps();
 		});
