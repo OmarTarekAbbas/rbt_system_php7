@@ -35,36 +35,40 @@ Contract
   .nav-list>li {
     width: 100%;
   }
-  .start_date{
+
+  .start_date {
     text-align: right;
   }
-  input[type="date"]::-webkit-datetime-edit, input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-clear-button {
-  color: #fff;
-  position: relative;
-}
 
-input[type="date"]::-webkit-datetime-edit-year-field{
-  position: absolute !important;
-  padding: 2px;
-  color:#000;
-  left: 0;
-}
+  input[type="date"]::-webkit-datetime-edit,
+  input[type="date"]::-webkit-inner-spin-button,
+  input[type="date"]::-webkit-clear-button {
+    color: #fff;
+    position: relative;
+  }
 
-input[type="date"]::-webkit-datetime-edit-month-field{
-  position: absolute !important;
-  padding: 2px;
-  color:#000;
-  left: 30px;
-}
+  input[type="date"]::-webkit-datetime-edit-year-field {
+    position: absolute !important;
+    padding: 2px;
+    color: #000;
+    left: 0;
+  }
+
+  input[type="date"]::-webkit-datetime-edit-month-field {
+    position: absolute !important;
+    padding: 2px;
+    color: #000;
+    left: 30px;
+  }
 
 
-input[type="date"]::-webkit-datetime-edit-day-field{
-  position: absolute !important;
-  color:#000;
-  padding: 2px;
-  left: 53px;
+  input[type="date"]::-webkit-datetime-edit-day-field {
+    position: absolute !important;
+    color: #000;
+    padding: 2px;
+    left: 53px;
 
-}
+  }
 </style>
 
 <div id="preloader"></div>
@@ -195,19 +199,19 @@ input[type="date"]::-webkit-datetime-edit-day-field{
                   <label for="ipt" class=" control-label "> Contract Date <span class="asterix"> * </span> </label>
 
                   <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                  <!-- value="{{date('Y-m-d')}}" -->
+                    <!-- value="{{date('Y-m-d')}}" -->
                     <div>
-                      <input type="date" class="form-control form-control-sm " name="contract_date"  id="start_date"  />
+                      <input type="date" class="form-control form-control-sm " name="contract_date" id="start_date" />
                     </div>
                   </div>
                 </div>
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> Contract Duration <span class="asterix"> * </span> </label>
-                  <select name='contract_duration_id'  rows='5' id='contract_duration' class='select2' required>
+                  <select name='contract_duration_id' rows='5' id='contract_duration' class="form-control" required>
                     <option value="">-- Please Select --</option>
                     @foreach($contract_durations as $contract_duration)
-                    <option data-type = "@if(strpos($contract_duration->contract_duration_title,'Month')) m @else y @endif" value="{{$contract_duration->contract_duration_id}}">{{$contract_duration->contract_duration_title}}</option>
+                    <option data-type="@if(strpos($contract_duration->contract_duration_title,'Month')) m @else y @endif" value="{{$contract_duration->contract_duration_id}}">{{$contract_duration->contract_duration_title}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -230,7 +234,7 @@ input[type="date"]::-webkit-datetime-edit-day-field{
                   <div class="input-group input-group-sm m-b" style="width:170px !important;">
 
                     <divclass="input-group date ">
-                      <input class="form-control form-control-sm " name="contract_expiry_date" id="contract_expiry_date" type="date"  value="Select Date" />
+                      <input class=" form-control form-control-sm " name=" contract_expiry_date" id="contract_expiry_date" type="date" value="Select Date" />
 
                     </divclass=>
                   </div>
@@ -326,31 +330,31 @@ input[type="date"]::-webkit-datetime-edit-day-field{
 </script>
 
 <script>
-$("#start_date").change(function() {
-  var endDate = $(this).val();
-  setEndDate(endDate,12)
-});
+  $("#start_date").change(function() {
+    var endDate = $(this).val();
+    setEndDate(endDate, 12)
+  });
 
-$("#contract_duration").change(function(){
-  console.log('yes');
-  console.log( $(this).find('option:selected').data('type') );
-  number = $(this).val()
-  month = $(this).find('option:selected').data('type') == 'm' ? number : ( number*12 );
-  setEndDate($("#start_date").val(),month)
-})
+  $("#contract_duration").change(function() {
+    number = $(this).val()
+    month = $(this).find('option:selected').data('type') == 'm' ? number : (number * 12);
+    console.log(number + "/" + month);
 
-function setEndDate(endDate, month) {
+    setEndDate($("#start_date").val(), month)
+  })
+
+  function setEndDate(endDate, month) {
     // Calculate expiry date
-  var date = new Date(endDate);
-  date.setMonth(date.getMonth() + month);
+    var date = new Date(endDate);
+    date.setMonth(date.getMonth() + month);
 
-  // Get date parts
-  var yyyy = date.getFullYear();
-  var m = date.getMonth() + 1;
-  var d = date.getDate() - 1;
+    // Get date parts
+    var yyyy = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate() - 1;
 
-  $("#contract_expiry_date").val(yyyy + "-" + m + "-" + d);
-}
+    $("#contract_expiry_date").val(yyyy + "-" + m + "-" + d);
+  }
 </script>
 
 @stop
