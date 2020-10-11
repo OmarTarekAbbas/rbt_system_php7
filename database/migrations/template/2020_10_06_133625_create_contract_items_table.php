@@ -12,11 +12,12 @@ class CreateContractItemsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('contract_template_items', function(Blueprint $table)
+		Schema::create('template_items', function(Blueprint $table)
 		{
-			$table->bigIncrements('id');
+			$table->increments('id');
 			$table->unsignedBigInteger('template_id')->nullable()->index('contract_template_id');
-			$table->text('item');
+      $table->text('item');
+      $table->timestamps();
 		});
 	}
 

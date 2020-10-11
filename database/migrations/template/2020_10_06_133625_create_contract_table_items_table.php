@@ -14,10 +14,11 @@ class CreateContractTableItemsTable extends Migration {
 	{
 		Schema::create('contract_items', function(Blueprint $table)
 		{
-			$table->bigIncrements('id');
+			$table->increments('id');
 			$table->text('item');
-			$table->unsignedBigInteger('department_id')->nullable()->index('department_id');
-			$table->unsignedBigInteger('contract_id')->index('contract_id');
+			$table->string('department_ids');
+      $table->unsignedBigInteger('contract_id')->index('contract_id');
+			$table->timestamps();
 		});
 	}
 
