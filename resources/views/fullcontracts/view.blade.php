@@ -150,7 +150,7 @@ Contract
 
                             <tr>
                                 <td width='30%' class='label-view text-right'>Contract File </td>
-                                <td> <a href="{{url('uploads/pdf/'.$contract->contract_pdf)}}" target="_blank">Preview</a></td>
+                                <td> <a href="{{url('uploads/pdf/'.$contract->contract_pdf)}}" target="_blank">Review</a></td>
                             </tr>
 
                             <tr>
