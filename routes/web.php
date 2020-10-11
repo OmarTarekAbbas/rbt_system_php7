@@ -275,4 +275,5 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::post('ContractTemplate/{id}/removeItem', 'ContractTemplateController@destroyContractTerms');
     Route::post('ContractTemplate/{id}/editItem', 'ContractTemplateController@editContractTerms');
     Route::get('contract/template/create', 'ContractTemplateController@editContractTerms');
+    Route::get('template_items/{id}', 'FullcontractsController@template_items');
 });

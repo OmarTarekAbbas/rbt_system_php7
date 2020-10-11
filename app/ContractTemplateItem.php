@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContractTemplateItem extends Model
 {
-    protected $fillable = ['contract_id', 'item', 'department_id'];
+    protected $fillable = ['template_id', 'item', 'department_id'];
 
-    public function user()
+    public function contract()
     {
-        return $this->belongsTo('App\ContractTemplate', 'contract_id', 'id');
+        return $this->belongsTo('App\ContractTemplate', 'template_id', 'id');
     }
 }

@@ -10,6 +10,6 @@ class ContractTemplate extends Model
 
     public function items()
     {
-        return $this->hasMany('App\ContractTemplateItem', 'contract_id', 'id');
+        return $this->hasMany('App\ContractTemplateItem', 'template_id', 'id');
     }
 }

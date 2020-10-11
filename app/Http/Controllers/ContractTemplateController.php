@@ -155,7 +155,7 @@ class ContractTemplateController extends Controller
     {
       $ContractTemplate = $this->ContractTemplateRepository->findOrFail($id);
 
-      $ContractTemplateItem['contract_id'] = $ContractTemplate->id;
+      $ContractTemplateItem['template_id'] = $ContractTemplate->id;
       $ContractTemplateItem['item'] = $request->item;
 
       $ContractTemplateItem = $this->ContractTemplateItemRepository->create($ContractTemplateItem);
