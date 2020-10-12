@@ -390,6 +390,7 @@ Departments
     // create input for content
     function createTracktForm(tracks,track_ids) {
       var input = ''
+      track_ids = track_ids.toString()
       track_ids = track_ids.split(',').map(Number);
       Object.keys(tracks).forEach(key => {
         y=y+1
