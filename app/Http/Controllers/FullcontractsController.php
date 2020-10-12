@@ -14,11 +14,12 @@ use App\SecondParty;
 use App\ServiceTypes;
 use App\ContractDuration;
 use App\ContractTemplateItem;
+use App\ContractItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Repository\ContractTemplateRepository;
-
+use PDF;
 class FullcontractsController extends Controller
 {
 
@@ -86,6 +87,7 @@ class FullcontractsController extends Controller
                 return '<td class="visible-md visible-lg">
                             <div class="btn-group">
                                 <a class="btn btn-sm btn-secondary show-tooltip " href="' . url("contractservice/create/" . $contract->id) . '" title="View Services"><i class="fa fa-arrow-right"></i></a>
+                                <a class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="'.url("Contract/".$contract->id."/items/download").'" data-original-title="Show"><i class="fa fa-file"></i></a>
                                 <a class="btn btn-sm btn-primary show-tooltip " href="' . url("fullcontracts/" . $contract->id) . '" title="Show"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-sm show-tooltip" href="' . url("fullcontracts/" . $contract->id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
                                 <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("fullcontracts/" . $contract->id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
@@ -144,6 +146,7 @@ class FullcontractsController extends Controller
         $contract->operator_title = implode(",", $arr_operator);
         $contract->country_title = implode(",", $arr_country);
         $contract->entry_by_details = \Auth::user()->name;
+        $contract->contract_type = $request->contract_type;
         if ($request->hasFile('contract_pdf')) {
             if ($request->file('contract_pdf')->isValid()) {
                 try {
@@ -205,6 +208,7 @@ class FullcontractsController extends Controller
         $contract->operator_title = implode(",", $arr_operator);
         $contract->country_title = implode(",", $arr_country);
         $contract->entry_by_details = \Auth::user()->name;
+        $contract->contract_type = $request->contract_type;
         if ($request->hasFile('contract_pdf')) {
             if ($request->file('contract_pdf')->isValid()) {
                 try {
@@ -288,12 +292,47 @@ class FullcontractsController extends Controller
     public function createContractItems($contract, $data)
     {
         foreach($data['items'] as $item){
-          ContractTemplateItem::create([
+          ContractItem::create([
               'item' => $item,
               'contract_id' => $contract->id,
               'department_ids' => $data['department_ids']
           ]);
         }
     }
+
+    public function downloadContractItems($id) {
+      $row = Contract::find($id);
+      $template_items  = Contract::find($id)->items;
+      if(!count($template_items)){
+        return redirect('uploads/pdf/'.$row->contract_pdf);
+      }
+      $content = view('fullcontracts.template', compact('template_items'))->render();
+
+      $pdf = new PDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+      $pdf::SetTitle($row->title);
+
+      // set some language dependent data:
+      $lg = Array();
+      $lg['a_meta_charset'] = 'UTF-8';
+      $lg['a_meta_dir'] = 'rtl';
+      $lg['a_meta_language'] = 'ar';
+      $lg['w_page'] = 'page';
+      // set some language-dependent strings (optional)
+      $pdf::setLanguageArray($lg);
+      $pdf::setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+      $pdf::setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+      $pdf::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+      $pdf::SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+      $pdf::SetHeaderMargin(PDF_MARGIN_HEADER);
+      $pdf::SetFooterMargin(PDF_MARGIN_FOOTER);
+      $pdf::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+      $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
+      $pdf::setFontSubsetting(true);
+      $pdf::SetFont('freeserif', '', 12);
+      $pdf::AddPage();
+      $pdf::writeHTML($content, true, false, true, false, '');
+      $filename = 'template ' . $row->id . '-' . date("d/m/Y") . '.pdf';
+      $pdf::Output($filename);
+  }
 
 }

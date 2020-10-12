@@ -8,7 +8,7 @@ use App\Http\Requests\ContractTemplateStoreRequest;
 use App\Http\Services\ContractTemplateStoreService;
 use App\Http\Services\ContractTemplateUpdateService;
 use Illuminate\Http\Request;
-
+use PDF;
 class ContractTemplateController extends Controller
 {
 
@@ -191,5 +191,37 @@ class ContractTemplateController extends Controller
       $ContractTemplate = $this->ContractTemplateItemRepository->destroy($id);
       return 'success';
     }
+
+    public function downloadContractTerms($id) {
+      $row = $this->ContractTemplateRepository->find($id);
+      $template_items  = $this->ContractTemplateRepository->find($id)->items;
+      $content = view('fullcontracts.template', compact('template_items'))->render();
+
+      $pdf = new PDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+      $pdf::SetTitle($row->title);
+
+      // set some language dependent data:
+      $lg = Array();
+      $lg['a_meta_charset'] = 'UTF-8';
+      $lg['a_meta_dir'] = 'rtl';
+      $lg['a_meta_language'] = 'ar';
+      $lg['w_page'] = 'page';
+      // set some language-dependent strings (optional)
+      $pdf::setLanguageArray($lg);
+      $pdf::setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+      $pdf::setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+      $pdf::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+      $pdf::SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+      $pdf::SetHeaderMargin(PDF_MARGIN_HEADER);
+      $pdf::SetFooterMargin(PDF_MARGIN_FOOTER);
+      $pdf::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+      $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
+      $pdf::setFontSubsetting(true);
+      $pdf::SetFont('freeserif', '', 12);
+      $pdf::AddPage();
+      $pdf::writeHTML($content, true, false, true, false, '');
+      $filename = 'template ' . $row->id . '-' . date("d/m/Y") . '.pdf';
+      $pdf::Output($filename);
+  }
 
 }

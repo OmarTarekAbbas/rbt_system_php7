@@ -272,9 +272,11 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::resource('attachment', 'AttachmentController');
     Route::resource('ContractTemplate', 'ContractTemplateController');
     Route::get('ContractTemplate/{id}/items', 'ContractTemplateController@showContractTerms');
+    Route::get('ContractTemplate/{id}/items/download', 'ContractTemplateController@downloadContractTerms');
     Route::post('ContractTemplate/{id}/storeItem', 'ContractTemplateController@storeContractTerms');
     Route::post('ContractTemplate/{id}/removeItem', 'ContractTemplateController@destroyContractTerms');
     Route::post('ContractTemplate/{id}/editItem', 'ContractTemplateController@editContractTerms');
     Route::get('contract/template/create', 'ContractTemplateController@editContractTerms');
+    Route::get('Contract/{id}/items/download', 'FullcontractsController@downloadContractItems');
     Route::get('template_items/{id}', 'FullcontractsController@template_items');
 });

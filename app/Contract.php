@@ -43,7 +43,8 @@ class Contract extends Model
         'btn_copyrights',
         'entry_by_details',
         'entry_by',
-        'second_party_type_id'
+        'second_party_type_id',
+        'contract_type'
     ];
 
     public function service_type()
@@ -55,9 +56,9 @@ class Contract extends Model
     {
         return $this->hasMany('App\ContractService');
     }
-    public function contractItems()
+    public function items()
     {
-        return $this->hasMany(ContractTemplateItem::class);
+        return $this->hasMany(ContractItem::class);
     }
 
 }
