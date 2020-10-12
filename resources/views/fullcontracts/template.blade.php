@@ -6,6 +6,7 @@
     <div id="{{$item->id}}">
       {!! $item->item !!}
     </div>
+    <input type="hidden" name="items[]" value="{!! $item->item !!}">
   </div>
 </div>
 @empty
