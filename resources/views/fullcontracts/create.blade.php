@@ -277,7 +277,7 @@ Contract
                   </select>
                 </div>
 
-                <div id="ContractTemplateItems" class="container box-content" style="border: 2px dashed black; margin: 20px 0px">
+                <div id="ContractTemplateItems">
 
                 </div>
 

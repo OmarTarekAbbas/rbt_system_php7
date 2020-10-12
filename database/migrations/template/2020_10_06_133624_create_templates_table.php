@@ -12,9 +12,9 @@ class CreateTemplatesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('contract_templates', function(Blueprint $table)
+		Schema::create('templates', function(Blueprint $table)
 		{
-			$table->bigIncrements('id');
+			$table->increments('id');
 			$table->string('title');
 			$table->boolean('content_type')->comment('1:In / 2:Out');
 			$table->timestamps();

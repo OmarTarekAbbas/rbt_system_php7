@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContractTemplate extends Model
 {
+    protected $table = 'templates';
+
     protected $fillable = ['title', 'content_type'];
 
     public function items()
