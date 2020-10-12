@@ -349,13 +349,13 @@
         <li id="country">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-globe"></i>
-            <span>Country</span>
+            <span>Counties</span>
             <b class="arrow fa fa-angle-right"></b>
           </a>
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
-            <li id="country-index"><a href="{{url('country')}}">Country</a></li>
+            <li id="country-index"><a href="{{url('country')}}">Counties</a></li>
             <li id="operator-index"><a href="{{url('operator')}}">Operator</a></li>
 
           </ul>
@@ -375,7 +375,7 @@
           <!-- END Submenu -->
         </li>
 
-        
+
 
         <li id="currency">
           <a href="#" class="dropdown-toggle">
@@ -529,7 +529,7 @@
         <!-- BEGIN Submenu -->
         <ul class="submenu">
           <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
-          <li id="ContractTemplate-index"><a href="{{url('ContractTemplate')}}">Contract Templates</a></li>
+          <li id="ContractTemplate-index"><a href="{{url('ContractTemplate')}}">Templates</a></li>
           <li id="contractservice-index"><a href="{{url('contractservice')}}">Service</a></li>
 
         </ul>
