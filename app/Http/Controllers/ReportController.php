@@ -57,7 +57,7 @@ class ReportController extends Controller
     {
         $title = 'Create - report';
 
-        $operators = Operator::all()->pluck('title', 'id');
+        $operators = Operator::all();
         $providers = Provider::all()->pluck('title', 'id');
         $aggregators = Aggregator::all()->pluck('title', 'id');
 
@@ -69,7 +69,7 @@ class ReportController extends Controller
     {
         $title = 'Create - report';
 
-        $operators = Operator::all()->pluck('title', 'id');
+        $operators = Operator::all();
         $providers = Provider::all()->pluck('title', 'id');
         $aggregators = Aggregator::all()->pluck('title', 'id');
 
@@ -268,7 +268,7 @@ class ReportController extends Controller
     {
         $title = 'Edit - report';
 
-        $operators = Operator::all()->pluck('title', 'id');
+        $operators = Operator::all();
         $providers = Provider::all()->pluck('title', 'id');
         $aggregators = Aggregator::all()->pluck('title', 'id');
 

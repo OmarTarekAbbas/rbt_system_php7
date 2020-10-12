@@ -205,13 +205,6 @@ Contract
                   </div>
                 </div>
 
-                <!-- <div class="form-group">
-                  <label for="attachment_date" class="control-label">Contract Date <span class="asterix"> * </span> </label>
-                  <div class="input-group date date-picker controls" data-date-format="yyyy-mm-dd">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <input type="text" name="attachment_date" id="attachment_date" autocomplete="off" placeholder="first party joining date" data-date-format="yyyy-mm-dd" class="form-control">
-                  </div>
-                </div> -->
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> Contract Duration <span class="asterix"> * </span> </label>

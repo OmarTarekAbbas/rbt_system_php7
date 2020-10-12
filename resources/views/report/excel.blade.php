@@ -17,7 +17,7 @@
                 </div>
                 <div class="box-content">
                     <form method = 'POST' class="form-horizontal" action = '{!!url("report/excel")!!}' enctype="multipart/form-data">
-                        <?php 
+                        <?php
                             $months = months();
                             $years = years();
                         ?>
@@ -28,9 +28,9 @@
                           <div class="col-sm-9 col-lg-10 controls">
                              <select class="form-control chosen" data-placeholder="Choose a Years" name="year" tabindex="1" >
                                 <option value=""></option>
-                                @foreach($years as $year) 
+                                @foreach($years as $year)
                                     <option value="{{$year}}">{{$year}}</option>
-                                @endforeach 
+                                @endforeach
                              </select>
                           </div>
                         </div>
@@ -42,7 +42,7 @@
                                 <option value=""></option>
                                 @foreach($months as $index=>$month)
                                     <option value="{{$index+1}}">{{$month}}</option>
-                                @endforeach 
+                                @endforeach
                              </select>
                           </div>
                         </div>
@@ -53,7 +53,7 @@
                              <div class="fileupload fileupload-new" data-provides="fileupload">
                                 <div class="input-group">
                                    <div class="form-control uneditable-input">
-                                      <i class="fa fa-file fileupload-exists"></i> 
+                                      <i class="fa fa-file fileupload-exists"></i>
                                       <span class="fileupload-preview"></span>
                                    </div>
                                    <div class="input-group-btn">
@@ -68,16 +68,16 @@
                                 <a href="{{url('report/downloadSample')}}">Download Sample</a>
                              </div>
                           </div>
-                        </div> 
-                        
+                        </div>
+
                        <div class="form-group">
                           <label class="col-sm-3 col-lg-2 control-label">Operators Select *</label>
                           <div class="col-sm-9 col-lg-10 controls">
                              <select class="form-control chosen" data-placeholder="Choose a Operators" name="operator_id" tabindex="1" required>
                                 <option value=""></option>
-                               @foreach($operators as $key => $value) 
-                                    <option value="{{$key}}">{{$value}}</option>
-                                @endforeach
+                                @foreach($operators as $operator)
+                                        <option value="{{$operator->id}}">{{$operator->title}}-{{$operator->country->title}}</option>
+                                    @endforeach
                              </select>
                           </div>
                         </div>
@@ -87,7 +87,7 @@
                           <div class="col-sm-9 col-lg-10 controls">
                              <select class="form-control chosen" data-placeholder="Choose a Aggregators" name="aggregator_id" tabindex="1" >
                                 <option value=""></option>
-                                @foreach($aggregators as $key => $value) 
+                                @foreach($aggregators as $key => $value)
                                     <option value="{{$key}}">{{$value}}</option>
                                 @endforeach
                              </select>
