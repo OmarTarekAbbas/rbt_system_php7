@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(OperatorsTableSeeder::class);
         $this->call(OperatorsTableSeeder::class);
         //$this->call(TbModuleTableSeeder::class);
+        $this->call(TemplatesTableSeeder::class);
+        $this->call(TemplateItemsTableSeeder::class);
     }
 }
