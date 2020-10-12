@@ -13,6 +13,7 @@ use App\Firstpartie;
 use App\SecondParty;
 use App\ServiceTypes;
 use App\ContractDuration;
+use App\ContractTemplateItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -157,7 +158,13 @@ class FullcontractsController extends Controller
         }
 
         $contract->save();
-        $request->session()->flash('success', 'Add Contract Successfully');
+        if($request->has('items')){
+          $request = array_merge($request->all(), [
+            'department_ids' => '1,2,3'
+          ]);
+          $this->createContractItems($contract, $request);
+        }
+        session()->flash('success', 'Add Contract Successfully');
         return redirect('fullcontracts');
     }
 
@@ -269,6 +276,24 @@ class FullcontractsController extends Controller
       $view = view('fullcontracts.template', compact('template_items'))->render();
 
       return $view;
+    }
+
+    /**
+     * createContractItems
+     *
+     * @param  Contract $contract
+     * @param  array $data
+     * @return void
+     */
+    public function createContractItems($contract, $data)
+    {
+        foreach($data['items'] as $item){
+          ContractTemplateItem::create([
+              'item' => $item,
+              'contract_id' => $contract->id,
+              'department_ids' => $data['department_ids']
+          ]);
+        }
     }
 
 }

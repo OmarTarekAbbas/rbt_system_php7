@@ -55,5 +55,9 @@ class Contract extends Model
     {
         return $this->hasMany('App\ContractService');
     }
+    public function contractItems()
+    {
+        return $this->hasMany(ContractTemplateItem::class);
+    }
 
 }
