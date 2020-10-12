@@ -196,14 +196,22 @@ Contract
               <h3>Dates/Status/File</h3>
               <section>
 
-                <div class="form-group  ">
-                  <label for="ipt" class=" control-label "> Contract Date <span class="asterix"> * </span> </label>
+                <div class="form-group">
+                  <label for="ipt" class="control-label "> Contract Date <span class="asterix"> * </span> </label>
                   <div class="input-group input-group-sm m-b" style="width:170px !important;">
                     <div class="input-group">
                       <input type="date" class="form-control form-control-sm " name="contract_date" id="start_date" />
                     </div>
                   </div>
                 </div>
+
+                <!-- <div class="form-group">
+                  <label for="attachment_date" class="control-label">Contract Date <span class="asterix"> * </span> </label>
+                  <div class="input-group date date-picker controls" data-date-format="yyyy-mm-dd">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input type="text" name="attachment_date" id="attachment_date" autocomplete="off" placeholder="first party joining date" data-date-format="yyyy-mm-dd" class="form-control">
+                  </div>
+                </div> -->
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> Contract Duration <span class="asterix"> * </span> </label>
@@ -354,7 +362,7 @@ Contract
   var years;
   $("#contract_duration").change(function() {
     number = ($(this).find('option:selected').text()).match(/\d+/)[0];
-    years =  number
+    years = number
     setEndDate($("#start_date").val(), years)
   })
 

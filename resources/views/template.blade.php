@@ -356,7 +356,7 @@
           <!-- BEGIN Submenu -->
           <ul class="submenu">
             <li id="country-index"><a href="{{url('country')}}">Counties</a></li>
-            <li id="operator-index"><a href="{{url('operator')}}">Operator</a></li>
+            <li id="operator-index"><a href="{{url('operator')}}">Operators</a></li>
 
           </ul>
         </li>
