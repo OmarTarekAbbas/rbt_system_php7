@@ -196,13 +196,10 @@ Contract
               <h3>Dates/Status/File</h3>
               <section>
 
-
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> Contract Date <span class="asterix"> * </span> </label>
-
                   <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                    <!-- value="{{date('Y-m-d')}}" -->
-                    <div>
+                    <div class="input-group">
                       <input type="date" class="form-control form-control-sm " name="contract_date" id="start_date" />
                     </div>
                   </div>
@@ -213,10 +210,11 @@ Contract
                   <select name='contract_duration_id' rows='5' id='contract_duration' class="form-control" required>
                     <option value="">-- Please Select --</option>
                     @foreach($contract_durations as $contract_duration)
-                    <option data-type="@if(strpos($contract_duration->contract_duration_title,'Month')) month @else years @endif" value="{{$contract_duration->contract_duration_id}}">{{$contract_duration->contract_duration_title}}</option>
+                    <option data-type="@if(strpos($contract_duration->contract_duration_title,'Month')!==false) @endif" value="{{$contract_duration->contract_duration_id}}">{{$contract_duration->contract_duration_title}}</option>
                     @endforeach
                   </select>
                 </div>
+
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> Renewal Status <span class="asterix"> * </span> </label>
@@ -234,11 +232,10 @@ Contract
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> Expiry Date <span class="asterix"> * </span> </label>
                   <div class="input-group input-group-sm m-b" style="width:170px !important;">
-
-                    <divclass="input-group date ">
+                    <div class="input-group">
                       <input class=" form-control form-control-sm " name=" contract_expiry_date" id="contract_expiry_date" type="date" value="Select Date" />
 
-                    </divclass=>
+                    </div>
                   </div>
                 </div>
 
@@ -313,6 +310,8 @@ Contract
 @stop
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 <script>
   $('#contract').addClass('active');
   $('#contract-index').addClass('active');
@@ -349,36 +348,23 @@ Contract
   });
 </script>
 
+
+
 <script>
-
-
+  var years;
   $("#contract_duration").change(function() {
     number = ($(this).find('option:selected').text()).match(/\d+/)[0];
-    var num = "month";
-    console.log(num.toString() + " / "+ $(this).find('option:selected').data('type'));
-    console.log($(this).find('option:selected').data('type').toString() === num.toString());
-    month = $(this).find('option:selected').data('type') === 'month' ? number : (number * 12);
-    console.log("number" + number + "/" + "month" + month);
-
-    setEndDate($("#start_date").val(), month)
+    years =  number
+    setEndDate($("#start_date").val(), years)
   })
 
   $("#start_date").change(function() {
     var endDate = $(this).val();
-    setEndDate(endDate, month)
+    setEndDate(endDate, years)
   });
 
-  function setEndDate(endDate, month) {
-    // Calculate expiry date
-    var date = new Date(endDate);
-    date.setMonth(date.getMonth() + month);
-
-    // Get date parts
-    var yyyy = date.getFullYear();
-    var m = date.getMonth() + 1;
-    var d = date.getDate() - 1;
-
-    $("#contract_expiry_date").val(yyyy + "-" + m + "-" + d);
+  function setEndDate(endDate, years) {
+    $("#contract_expiry_date").val(moment(endDate, "YYYY-MM-DD").add(years, 'years').subtract(1, 'days').format('YYYY-MM-DD'))
   }
 </script>
 
