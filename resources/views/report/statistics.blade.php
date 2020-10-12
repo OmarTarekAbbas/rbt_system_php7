@@ -70,8 +70,8 @@
                             <select class="form-control chosen" data-placeholder="Choose an operator" name="operator" id="operator" tabindex="1" onchange="fun(this)">
                                 <option value=""></option>
                                 @foreach($operators as $operator)
-                                    <option value="{{$operator->id}}">{{$operator->title}}</option>
-                                @endforeach
+                                        <option value="{{$operator->id}}">{{$operator->title}}-{{$operator->country->title}}</option>
+                                    @endforeach
                             </select>
                         </div>
                     </div><br><br>
