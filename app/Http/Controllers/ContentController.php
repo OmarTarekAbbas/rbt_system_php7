@@ -246,7 +246,12 @@ class ContentController extends Controller
             $provider_id = $create->id;
           }
 
-          $check_contract = Contract::where('contract_code', 'LIKE', '%' . $row->contract_code . '%')->first();
+
+          $check_contract = Contract::where('contract_code', 'LIKE', '%' . trim($row->contract_code) . '%')->first();
+
+
+
+
           if ($check_contract) {
             $contract_id = $check_contract->id;
           } else {
