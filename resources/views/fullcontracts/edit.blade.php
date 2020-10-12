@@ -35,6 +35,40 @@ Contract
   .nav-list>li {
     width: 100%;
   }
+
+  .start_date {
+    text-align: right;
+  }
+
+  input[type="date"]::-webkit-datetime-edit,
+  input[type="date"]::-webkit-inner-spin-button,
+  input[type="date"]::-webkit-clear-button {
+    color: #fff;
+    position: relative;
+  }
+
+  input[type="date"]::-webkit-datetime-edit-year-field {
+    position: absolute !important;
+    padding: 2px;
+    color: #000;
+    left: 0;
+  }
+
+  input[type="date"]::-webkit-datetime-edit-month-field {
+    position: absolute !important;
+    padding: 2px;
+    color: #000;
+    left: 30px;
+  }
+
+
+  input[type="date"]::-webkit-datetime-edit-day-field {
+    position: absolute !important;
+    color: #000;
+    padding: 2px;
+    left: 53px;
+
+  }
 </style>
 
 <div id="preloader"></div>
@@ -165,19 +199,19 @@ Contract
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> Contract Date <span class="asterix"> * </span> </label>
                   <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                    <div id="datepicker" class="input-group date datepicker_ivas">
-                      <input class="form-control form-control-sm " name="contract_date" id="start_date" type="text" value="{{$contract->contract_date}}"/>
-                      <div class="input-group-addon" style="width: 25%;padding: 3px 12px;background: #FFF;"><i class="fa fa-calendar"></i></div>
+                    <div  class="input-group">
+                      <input class="form-control form-control-sm " name="contract_date" id="start_date" type="date" value="{{$contract->contract_date}}"/>
+
                     </div>
                   </div>
                 </div>
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> Contract Duration <span class="asterix"> * </span> </label>
-                  <select name='contract_duration_id' rows='5' id='contract_duration_id' class='select2 ' required>
+                  <select name='contract_duration_id' rows='5' id='contract_duration' class="form-control" required>
                     <option value="">-- Please Select --</option>
                     @foreach($contract_durations as $contract_duration)
-                    <option value="{{$contract_duration->contract_duration_id}}" @if($contract->contract_duration_id==$contract_duration->contract_duration_id) selected="selected" @endif>{{$contract_duration->contract_duration_title}}</option>
+                    <option data-type="@if(strpos($contract_duration->contract_duration_title,'Month')!==false) @endif" value="{{$contract_duration->contract_duration_id}}" @if($contract->contract_duration_id==$contract_duration->contract_duration_id) selected="selected" @endif>{{$contract_duration->contract_duration_title}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -199,9 +233,8 @@ Contract
                   <label for="ipt" class=" control-label "> Expiry Date <span class="asterix"> * </span> </label>
 
                   <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                    <div id="datepicker" class="input-group date ">
-                      <input class="form-control form-control-sm " name="contract_expiry_date" type="text" value="{{$contract->contract_expiry_date}}"/>
-                      <div class="input-group-addon" style="width: 25%;padding: 3px 12px;background: #FFF;"><i class="fa fa-calendar"></i></div>
+                    <div  class="input-group">
+                      <input class="form-control form-control-sm " id="contract_expiry_date" name="contract_expiry_date" type="date" value="{{$contract->contract_expiry_date}}"/>
                     </div>
                   </div>
                 </div>
@@ -259,6 +292,8 @@ Contract
 @stop
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 <script>
   $('#contract').addClass('active');
   $('#contract-index').addClass('active');
@@ -295,7 +330,6 @@ Contract
 
   var token = '{{Session::token()}}';
   $('#second_party_type_cli').on('change', function() {
-    console.log("omar");
     $.ajax({
         method: 'GET',
         url: "{{url('/client_type')}}",
@@ -309,6 +343,25 @@ Contract
         $('#second_party_id').html(client_type);
       });
   });
+</script>
+
+<script>
+  var years;
+  $("#contract_duration").change(function() {
+    number = ($(this).find('option:selected').text()).match(/\d+/)[0];
+    years =  number
+    console.log(years);
+    setEndDate($("#start_date").val(), years)
+  })
+
+  $("#start_date").change(function() {
+    var endDate = $(this).val();
+    setEndDate(endDate, years)
+  });
+
+  function setEndDate(endDate, years) {
+    $("#contract_expiry_date").val(moment(endDate, "YYYY-MM-DD").add(years, 'years').subtract(1, 'days').format('YYYY-MM-DD'))
+  }
 </script>
 
 @stop
