@@ -374,7 +374,7 @@ class ReportController extends Controller
 
     public function search()
     {
-        $operators = Operator::all()->pluck('title', 'id');
+        $operators = Operator::all();
         $aggregators = Aggregator::all()->pluck('title', 'id');
         $providers = Provider::all()->pluck('title', 'id');
         return view('report.search', compact('operators', 'aggregators', 'providers'));

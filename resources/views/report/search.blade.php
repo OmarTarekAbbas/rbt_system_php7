@@ -88,9 +88,9 @@
                         <div class="col-sm-9 col-lg-10 controls">
                             <select id="input10" class="form-control chosen" data-placeholder="Choose a Operators" name="search_field[]" tabindex="1" >
                                 <option value=""></option>
-                                @foreach($operators as $key => $value)
-                                    <option value="{{$key}}">{{$value}}</option>
-                                @endforeach
+                                @foreach($operators as $operator)
+                                        <option value="{{$operator->id}}">{{$operator->title}}-{{$operator->country->title}}</option>
+                                    @endforeach
                             </select>
                         </div>
                     </div>
