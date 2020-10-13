@@ -15,6 +15,7 @@ use App\ServiceTypes;
 use App\ContractDuration;
 use App\ContractTemplateItem;
 use App\ContractItem;
+use App\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -162,9 +163,6 @@ class FullcontractsController extends Controller
 
         $contract->save();
         if($request->has('items')){
-          $request = array_merge($request->all(), [
-            'department_ids' => '1,2,3'
-          ]);
           $this->createContractItems($contract, $request);
         }
         session()->flash('success', 'Add Contract Successfully');
@@ -276,8 +274,9 @@ class FullcontractsController extends Controller
     public function template_items($id)
     {
       $template_items = $this->ContractTemplateRepository->find($id)->items;
+      $departments = Department::all();
 
-      $view = view('fullcontracts.template', compact('template_items'))->render();
+      $view = view('fullcontracts.template', compact('template_items','departments'))->render();
 
       return $view;
     }
@@ -289,14 +288,15 @@ class FullcontractsController extends Controller
      * @param  array $data
      * @return void
      */
-    public function createContractItems($contract, $data)
+    public function createContractItems($contract, $request)
     {
-        foreach($data['items'] as $item){
-          ContractItem::create([
-              'item' => $item,
-              'contract_id' => $contract->id,
-              'department_ids' => $data['department_ids']
-          ]);
+        foreach($request->items as $key=>$item){
+          if(isset($request->department_ids[$key]))
+            ContractItem::create([
+                'item' => $item,
+                'contract_id' => $contract->id,
+                'department_ids' => implode(',',$request->department_ids[$key])
+            ]);
         }
     }
 

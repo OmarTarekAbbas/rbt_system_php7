@@ -412,6 +412,10 @@
             url: `{{url('template_items/${id}')}}`,
             success: function(response) {
                 $('#ContractTemplateItems').html(response);
+                initChosen()
+                $(".chosen").each(function() {
+                  $(this).trigger("chosen:updated");
+                })
             }
         });
     });
@@ -519,5 +523,19 @@ var years;
       item.html(itemValue);
       input.val(itemValue);
     }
+
+    function initChosen() {
+      var el = $('.chosen-rtl');
+      if ("<?php echo App::getLocale(); ?>" == "ar") {
+        el.chosen({
+          rtl: true,
+          width: '100%'
+        });
+      } else {
+        el.addClass("chosen");
+        el.removeClass("chosen-rtl");
+        $(".chosen").chosen();
+      }
+  }
 </script>
 @stop
