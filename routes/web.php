@@ -279,4 +279,6 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::get('contract/template/create', 'ContractTemplateController@editContractTerms');
     Route::get('Contract/{id}/items/download', 'FullcontractsController@downloadContractItems');
     Route::get('template_items/{id}', 'FullcontractsController@template_items');
+    Route::get('sendemail', 'DepartmentController@contract_items_send_email');
+
 });
