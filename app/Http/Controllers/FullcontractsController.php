@@ -120,7 +120,8 @@ class FullcontractsController extends Controller
         $operators = Operator::all();
         $contract_durations = ContractDuration::all();
         $templates = $this->ContractTemplateRepository->all();
-        return view('fullcontracts.create', compact('first_parties', 'percentages', 'service_types', 'second_partys', 'countries', 'operators', 'contract_durations', 'templates'));
+        $departments = Department::all();
+        return view('fullcontracts.create', compact('first_parties', 'percentages', 'service_types', 'second_partys', 'countries', 'operators', 'contract_durations', 'templates','departments'));
     }
 
     public function store(Request $request)
@@ -160,10 +161,14 @@ class FullcontractsController extends Controller
                 }
             }
         }
-
         $contract->save();
-        if($request->has('items')){
-          $this->createContractItems($contract, $request);
+
+        if($request->filled('items')){
+          $this->createContractItems($contract, $request->items, $request->department_ids);
+        }
+
+        if($request->filled('new_items')){
+          $this->createContractItems($contract, $request->new_items, $request->new_department_ids);
         }
         session()->flash('success', 'Add Contract Successfully');
         return redirect('fullcontracts');
@@ -288,51 +293,58 @@ class FullcontractsController extends Controller
      * @param  array $data
      * @return void
      */
-    public function createContractItems($contract, $request)
+    public function createContractItems($contract, $items, $department_ids)
     {
-        foreach($request->items as $key=>$item){
-          if(isset($request->department_ids[$key]))
-            ContractItem::create([
-                'item' => $item,
-                'contract_id' => $contract->id,
-                'department_ids' => implode(',',$request->department_ids[$key])
-            ]);
+        foreach($items as $key=>$item){
+          ContractItem::create([
+              'item' => $item,
+              'contract_id' => $contract->id,
+              'department_ids' => isset($department_ids[$key]) || !empty($department_ids[$key]) ? implode(',',$department_ids[$key]) : ''
+          ]);
         }
+        $this->generatePdf();
+    }
+
+    public function generatePdf($contract)
+    {
+        $template_items = $contract->items;
+        $content = view('fullcontracts.template', compact('template_items'))->render();
+
+        $pdf = new PDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf::SetTitle($contract->title);
+
+        // set some language dependent data:
+        $lg = Array();
+        $lg['a_meta_charset'] = 'UTF-8';
+        $lg['a_meta_dir'] = 'rtl';
+        $lg['a_meta_language'] = 'ar';
+        $lg['w_page'] = 'page';
+        // set some language-dependent strings (optional)
+        $pdf::setLanguageArray($lg);
+        $pdf::setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf::setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf::SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf::SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf::SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf::setFontSubsetting(true);
+        $pdf::SetFont('freeserif', '', 12);
+        $pdf::AddPage();
+        $pdf::writeHTML($content, true, false, true, false, '');
+        $filename = $contract->id . time() . '.pdf';
+        $contract->contract_pdf = $filename;
+        $contract->save();
+        $pdf::Output(base_path('uploads/pdf').'/'.$filename, 'F');
     }
 
     public function downloadContractItems($id) {
       $row = Contract::find($id);
-      $template_items  = Contract::find($id)->items;
-      if(!count($template_items)){
-        return redirect('uploads/pdf/'.$row->contract_pdf);
-      }
-      $content = view('fullcontracts.template', compact('template_items'))->render();
+      return redirect('uploads/pdf/'.$row->contract_pdf);
+   }
 
-      $pdf = new PDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-      $pdf::SetTitle($row->title);
 
-      // set some language dependent data:
-      $lg = Array();
-      $lg['a_meta_charset'] = 'UTF-8';
-      $lg['a_meta_dir'] = 'rtl';
-      $lg['a_meta_language'] = 'ar';
-      $lg['w_page'] = 'page';
-      // set some language-dependent strings (optional)
-      $pdf::setLanguageArray($lg);
-      $pdf::setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-      $pdf::setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-      $pdf::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-      $pdf::SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-      $pdf::SetHeaderMargin(PDF_MARGIN_HEADER);
-      $pdf::SetFooterMargin(PDF_MARGIN_FOOTER);
-      $pdf::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-      $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
-      $pdf::setFontSubsetting(true);
-      $pdf::SetFont('freeserif', '', 12);
-      $pdf::AddPage();
-      $pdf::writeHTML($content, true, false, true, false, '');
-      $filename = 'template ' . $row->id . '-' . date("d/m/Y") . '.pdf';
-      $pdf::Output($filename);
-  }
+
 
 }

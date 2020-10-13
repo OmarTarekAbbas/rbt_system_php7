@@ -5,8 +5,8 @@
 <div class="container p-3 m-3 text-right container box-content">
     @if(isset($departments))
         <div class="form-group text-left">
-          <label for="ipt" class="control-label "> Department <span class="asterix"> * </span> </label>
-          <select name='department_ids[{{ $key }}][]' multiple rows='5'  class='form-control chosen' required>
+          <label for="ipt" class="control-label "> Department </label>
+          <select name='department_ids[{{ $key }}][]' multiple rows='5'  class='form-control chosen'>
             <option value="">-- Please Select --</option>
             @foreach($departments as $department)
             <option value="{{$department->id}}">{{$department->title}}</option>

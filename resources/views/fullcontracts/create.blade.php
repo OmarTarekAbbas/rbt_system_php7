@@ -257,26 +257,26 @@
                                 <div class="form-group">
                                     <label for="ipt" class=" control-label "> Contract Type <span class="asterix"> * </span> </label>
                                     <select name="contract_type" id="contract_type" class="form-control" required>
-                    <option value="1">New</option>
-                    <option value="2">Draft</option>
+                    <option value="1">Draft</option>
+                    <option value="2">New</option>
                   </select>
                                 </div>
 
-                                <div class="form-group select_contract_type_draft" style="display: none">
+                                <div class="form-group select_contract_type_draft">
                                     <label for="ipt" class=" control-label "> Contract File </label>
                                     <div class="fileUpload btn ">
                                         <span> <i class="fa fa-copy"></i> </span>
                                         <div class="title"> Browse File </div>
-                                        <input type="file" name="contract_pdf" class="upload" disabled/>
+                                        <input type="file" name="contract_pdf" class="upload"/>
                                     </div>
                                     <div class="contract_pdf-preview preview-upload">
                                         <img src='http://localhost/contracts/uploads/images/no-image.png' border='0' width='80' class='img-circle' /></a>
                                     </div>
                                 </div>
 
-                                <div class="form-group select_contract_type_new">
+                                <div class="form-group select_contract_type_new" style="display: none">
                                     <label for="ipt" class=" control-label "> Template <span class="asterix"> * </span> </label>
-                                    <select name='template_id' rows='5' id='template_id' class="form-control">
+                                    <select name='template_id' rows='5' id='template_id' class="form-control" disabled>
                     <option value="">-- Please Select --</option>
                     @foreach($templates as $template)
                     <option value="{{$template->id}}">{{$template->title}}</option>
@@ -422,11 +422,10 @@
 
     $('#contract_type').change(function() {
         var value = $(this).val()
-        if (value == 1) {
+        if (value == 2) {
             $('.select_contract_type_new').show()
             $('.select_contract_type_new select').attr('disabled', false)
             $('.select_contract_type_new textarea').attr('disabled', false)
-            $('.select_contract_type_new select').attr('required', false)
             $('.select_contract_type_draft').hide()
             $('.select_contract_type_draft input').attr('disabled', true)
         } else {
@@ -435,7 +434,6 @@
             $('.select_contract_type_new textarea').attr('disabled', true)
             $('.select_contract_type_draft').show()
             $('.select_contract_type_draft input').attr('disabled', false)
-            $('.select_contract_type_draft input').attr('required', false)
         }
     })
 </script>
@@ -480,24 +478,37 @@ var years;
       $('#edit-modal').show();
       CKEDITOR.instances.edit_advanced_text.setData(item);
     }
-
+    var x = 0;
     $(document).on('click', '#add-item', function() {
         var item = CKEDITOR.instances.add_advanced_text.getData();
         $('#add-modal').hide();
         CKEDITOR.instances.add_advanced_text.setData('');
         $('#ContractTemplateItems').append(`<div class="container p-3 m-3 text-right container box-content">
+          <div class="form-group text-left">
+            <label for="ipt" class="control-label "> Department </label>
+            <select name='new_department_ids[${x++}][]' multiple rows='5'  class='form-control chosen'>
+              <option value="">-- Please Select --</option>
+              @foreach($departments as $department)
+              <option value="{{$department->id}}">{{$department->title}}</option>
+              @endforeach
+            </select>
+          </div>
           <div class="container-fluid">
               <a data-id="" onclick="removeItem('',this)" type="button" class="btn btn-danger btn-circle remove-item"><i class="fa fa-times" aria-hidden="true"></i></a>
               <a data-id="" onclick="showEditModal('',this)" type="button" class="btn btn-success btn-circle edit-item"><i class="fa fa-pencil" aria-hidden="true"></i></a>
               <div id="item">
                   ${item}
               </div>
-              <textarea name="items[]" id="input" hidden>
+              <textarea name="new_items[]" id="input" hidden>
               ${item}
               </textarea>
           </div>
 
         </div>`);
+        initChosen()
+        $(".chosen").each(function() {
+          $(this).trigger("chosen:updated");
+        })
     });
 
     function removeItem(id, _this) {
