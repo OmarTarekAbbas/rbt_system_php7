@@ -145,11 +145,8 @@ class RoadMapController extends Controller
         });
 
         $roadMap->providers()->detach();
-        // $request['provider_id'] = array_values($request['provider_id']);
 
         if (isset($request['provider_id'])) {
-          // $request['content_track_ids'] = array_values($request['content_track_ids']);
-          // $request['content_id'] = array_values($request['content_id']);
           foreach ($request['provider_id'] as $key => $value) {
             if(isset($request['content_track_ids'][$key]))
               $roadMap->providers()->attach([$value => ['content_id' => $request['content_id'][$key], 'rbt_track_specs' => implode(',',$request['content_track_ids'][$key]) ] ]);
