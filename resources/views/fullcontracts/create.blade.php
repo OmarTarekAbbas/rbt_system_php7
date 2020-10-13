@@ -225,15 +225,14 @@
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> Expiry Date <span class="asterix"> * </span> </label>
-                                    <div class="input-group input-group-sm m-b" style="width:170px !important;">
+                  <label for="ipt" class=" control-label "> Expiry Date <span class="asterix"> * </span> </label>
 
-                                        <div class="input-group date">
-                                            <input class="form-control form-control-sm " name="contract_expiry_date" id="contract_expiry_date" type="date" value="Select Date" />
-
-                                            </div>
-                                    </div>
-                                </div>
+                  <div class="input-group input-group-sm m-b" style="width:170px !important;">
+                    <div  class="input-group">
+                      <input class="form-control form-control-sm " id="contract_expiry_date" name="contract_expiry_date" type="date" value=""/>
+                    </div>
+                  </div>
+                </div>
 
                                 {{--
                                 <div class="form-group">
