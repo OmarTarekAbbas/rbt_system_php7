@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Contract_Items_Approvids;
 use App\ContractItem;
 use Illuminate\Http\Request;
 use App\Department;
 use App\User;
+use App\Notification;
 use Validator;
 
 class DepartmentController extends Controller
@@ -105,8 +107,20 @@ class DepartmentController extends Controller
         $department->email,
       );
       $this->sendEmail($subject, $message, $resend_email);
+      $contract_items_approvids = new Contract_Items_Approvids();
+      $contract_items_approvids->user_id = $department->id;
+      $contract_items_approvids->contract_item_id = $contract_item_id;
+      if ($contract_items_approvids->save()) {
+      $notification = new Notification();
+      $notification->notifier_id = 1;
+      $notification->notified_id = $department->id;
+      $notification->subject = 'Add New Contract Item Message You Can Follow It From This Link';
+      $notification->link = 'http://localhost/rbt_system_php7/contract_items_send';
+      $notification->seen = 0;
+      $notification->save();
+      }
     }
-    return back();
+    return 'done';
   }
 
   public function sendEmail($subject, $message, $resend_email)

@@ -16,9 +16,10 @@ class CreateContractItemsApprovidsTable extends Migration
         Schema::create('contract__items__approvids', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('departments')->onDelete('cascade');
             $table->integer('contract_item_id')->unsigned()->nullable();
             $table->foreign('contract_item_id')->references('id')->on('contract_items')->onDelete('cascade');
-            $table->integer('status')->comment('1-approvid 0-notapprovid');
+            $table->integer('status')->default("0")->comment('1-approvid 0-notapprovid');
             $table->timestamps();
         });
     }
