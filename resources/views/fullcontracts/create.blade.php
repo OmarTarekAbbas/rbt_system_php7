@@ -465,44 +465,59 @@ var years;
         $('#edit-modal').hide();
     });
 
-    function showEditModal(id) {
-        $('#edit-modal').show();
-        var id = id;
-        $('#edit-item').data('id', id);
+    function showEditModal(id, _this) {
+      if(id === '') {
+        var item = $(_this).next('#item').html();
+        $('#edit-item').data('id', $(_this));
+      } else {
         var item = $(`#${id}`).html();
-        CKEDITOR.instances.edit_advanced_text.setData(item);
+        $('#edit-item').data('id', id);
+      }
+      $('#edit-modal').show();
+      CKEDITOR.instances.edit_advanced_text.setData(item);
     }
 
     $(document).on('click', '#add-item', function() {
         var item = CKEDITOR.instances.add_advanced_text.getData();
         $('#add-modal').hide();
         CKEDITOR.instances.add_advanced_text.setData('');
-        $('#ContractTemplateItems').append(`<div class="form-group">
-            <div class="col-sm-9 col-lg-10 controls">
-              <a data-id="" onclick="removeItem()" type="button" class="btn btn-danger btn-circle remove-item"><i class="fa fa-times" aria-hidden="true"></i></a>
-              <a data-id="" onclick="showEditModal()" type="button" class="btn btn-success btn-circle edit-item"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-              <div id="">
-              ${item}
+        $('#ContractTemplateItems').append(`<div class="container p-3 m-3 text-right container box-content">
+          <div class="container-fluid">
+              <a data-id="" onclick="removeItem('',this)" type="button" class="btn btn-danger btn-circle remove-item"><i class="fa fa-times" aria-hidden="true"></i></a>
+              <a data-id="" onclick="showEditModal('',this)" type="button" class="btn btn-success btn-circle edit-item"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+              <div id="item">
+                  ${item}
               </div>
-            </div>
-            <hr style="width: 100%; color: black; height: 1px; background-color:black;  border-style: dashed none;" />
+              <textarea name="items[]" id="input" hidden>
+              ${item}
+              </textarea>
+          </div>
+
         </div>`);
     });
 
-    function removeItem(id) {
-        var id = id;
+    function removeItem(id, _this) {
+      if(id === '') {
+        var item = $(_this).parent().parent();
+      } else {
         var item = $(`#${id}`).parent().parent();
-        item.remove();
+      }
+      item.remove();
+
     }
 
     function editItem(id) {
-        var id = id;
+      if(typeof id === 'object') {
+        var item = id.next('#item');
+        var input = id.next('#input');
+      } else {
         var item = $(`#${id}`);
         var input = $(`#input${id}`);
-        var itemValue = CKEDITOR.instances.edit_advanced_text.getData();
-        $('#edit-modal').hide();
-        item.html(itemValue);
-        input.val(itemValue);
+      }
+      var itemValue = CKEDITOR.instances.edit_advanced_text.getData();
+      $('#edit-modal').hide();
+      item.html(itemValue);
+      input.val(itemValue);
     }
 </script>
 @stop

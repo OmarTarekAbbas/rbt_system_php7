@@ -1,3 +1,4 @@
+<button id="add" class="btn btn-info">Add item</button>
 @forelse ($template_items as $item)
 <div class="container p-3 m-3 text-right container box-content">
     <div class="container-fluid">
@@ -12,7 +13,6 @@
     </div>
 
   </div>
-</div>
 @empty
 <div class="">
     <div class="">
