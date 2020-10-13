@@ -153,6 +153,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
+        Elibyy\TCPDF\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -218,7 +219,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class
+        'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
+        'PDF' => Elibyy\TCPDF\Facades\TCPDF::class
 
     ],
 
