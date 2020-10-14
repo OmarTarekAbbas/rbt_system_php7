@@ -188,7 +188,7 @@ Departments
                                 <div class="box-content">
                                     <div class="form-group">
                                         <label for="aggregator_support"
-                                            class="col-xs-3 col-lg-2 control-label">Aggregator Suuport</label>
+                                            class="col-xs-3 col-lg-2 control-label">Aggregator Support</label>
                                         <div class="col-sm-9 col-lg-10 controls">
                                             <textarea name="aggregator_support"  id="aggregator_support" rows="3"
                                                 class="form-control">{{$roadmap->aggregator_support}}</textarea>
