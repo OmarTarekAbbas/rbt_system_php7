@@ -113,15 +113,15 @@ class DepartmentController extends Controller
     $contract_items_approvids->user_id = $department->manager->id;
     $contract_items_approvids->contract_item_id = $contract_item_id;
     if ($contract_items_approvids->save()) {
+      $Url = url('contract_items_send/' . $contract_items_approvids->id . '/show');
       $notification = new Notification();
       $notification->notifier_id = 1;
-        $notification->notified_id = $department->manager->id;
+      $notification->notified_id = $department->manager->id;
       $notification->subject = 'Add New Contract Item Message You Can Follow It From This Link';
-      $notification->link = 'http://localhost/rbt_system_php7/contract_items_send';
+      $notification->link = $Url;
       $notification->seen = 0;
       $notification->save();
     }
-
     return 'done';
   }
 
