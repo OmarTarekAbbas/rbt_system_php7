@@ -14,21 +14,28 @@ class ContractItemsApprovidsController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index(Request $request)
+  public function index(Request $request , $id)
   {
 
     $list_contract_items_sends = Contract_Items_Approvids::select('*', 'contract_items_approves.id AS id', 'contract_items.item as item', 'contracts.id as contract_id')
+      ->where('contract_items_approves.contract_item_id', $id)
       ->join('contract_items', 'contract_items.id', '=', 'contract_items_approves.contract_item_id')
       ->join('contracts', 'contract_items.contract_id', '=', 'contracts.id')
       ->join('departments', 'departments.id', '=', 'contract_items_approves.user_id')
       ->join('users', 'departments.manager_id', '=', 'users.id')
       ->get();
-    $contract_items_send_id = Contract_Items_Approvids::select('*', 'contract_items_approves.id AS id', 'contract_items.item as item', 'contracts.id as contract_id')
+      // dd($list_contract_items_sends);
+
+      $contract_items_send_id = Contract_Items_Approvids::select('*', 'contract_items_approves.id AS id', 'contract_items.item as item', 'contracts.id as contract_id')
+      ->where('contract_items_approves.contract_item_id', $id)
       ->join('contract_items', 'contract_items.id', '=', 'contract_items_approves.contract_item_id')
       ->join('contracts', 'contract_items.contract_id', '=', 'contracts.id')
       ->join('departments', 'departments.id', '=', 'contract_items_approves.user_id')
       ->join('users', 'departments.manager_id', '=', 'users.id')
       ->first();
+      // dd($contract_items_send_id);
+
+
     return view('ContractItemsApproved.index', compact('list_contract_items_sends', 'contract_items_send_id'));
   }
 
@@ -110,7 +117,7 @@ class ContractItemsApprovidsController extends Controller
     }
 
     \Session::flash('success', 'Contract Items Approvids updated successfully');
-    return redirect('contract_items_send/');
+    return redirect('contract_items_send/'.$update_contract_items_send->contract_item_id.'/approves');
   }
 
   /**
