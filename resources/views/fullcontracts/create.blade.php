@@ -482,8 +482,6 @@ input[type="date"]::-webkit-datetime-edit-day-field {
 </div>
 @stop
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="{{ url('js/locale.js') }}"></script>
 <script>
   $('#contract').addClass('active');
   $('#contract-index').addClass('active');
