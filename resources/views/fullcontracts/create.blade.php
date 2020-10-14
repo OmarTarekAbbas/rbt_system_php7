@@ -110,13 +110,48 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Company <span class="asterix"> * </span>
                                     </label>
-                                    <select name='first_party_id' rows='5' id='first_party_id' class='select2' required>
+                                    <select name='first_party_id' rows='5' id='first_party_id' class='form-control' required>
                                         <option value="">-- Please Select --</option>
                                         @foreach($first_parties as $first_partie)
                                         <option value="{{$first_partie->id}}">{{$first_partie->first_party_title}}
                                         </option>
                                         @endforeach
                                     </select>
+                                </div>
+
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> first part person name  </label>
+                                    <input type="text" id="first_part_person_input" class="form-control" name='first_part_person' />
+                                </div>
+
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> first part character name  </label>
+                                    <input type="text" id="first_part_character_input" class="form-control" name='first_part_character' />
+                                </div>
+
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> first part address  </label>
+                                    <input type="text" id="first_part_address_input" class="form-control" name='first_part_address' />
+                                </div>
+
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> first commercial register no </label>
+                                    <input type="text" id="first_commercial_register_no_input" class="form-control" name='first_commercial_register_no' />
+                                </div>
+
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> first tax card no </label>
+                                    <input type="text" id="first_tax_card_no_input" class="form-control" name='first_tax_card_no' />
+                                </div>
+
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> first part email </label>
+                                    <input type="text" id="first_part_email_input" class="form-control" name='first_part_email' />
+                                </div>
+
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> first part phone </label>
+                                    <input type="text" id="first_part_phone_input" class="form-control" name='first_part_phone' />
                                 </div>
 
                                 <div class="form-group  ">
@@ -131,7 +166,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                     <label for="ipt" class=" control-label "> First Party (%) <span class="asterix"> *
                                         </span> </label>
                                     <select name='first_party_percentage' rows='5' id='first_party_percentage'
-                                        class='select2 ' required>
+                                        class='form-control ' required>
                                         <option value="">-- Please Select --</option>
                                         @foreach($percentages as $percentage)
                                         <option value="{{$percentage->id}}">{{$percentage->percentage}}</option>
@@ -187,10 +222,44 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Client <span class="asterix"> * </span>
                                     </label>
-                                    <select name='second_party_id' rows='5' id='second_party_id' class='select2 '
+                                    <select name='second_party_id' rows='5' id='second_party_id' class='form-control '
                                         required></select>
                                 </div>
 
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> second part person name  </label>
+                                    <input type="text" id="second_part_person_input" class="form-control" name='second_part_person' />
+                                </div>
+
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> second part character name  </label>
+                                    <input type="text" id="second_part_character_input" class="form-control" name='second_part_character' />
+                                </div>
+
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> second part address  </label>
+                                    <input type="text" id="second_part_address_input" class="form-control" name='second_part_address' />
+                                </div>
+
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> second commercial register no </label>
+                                    <input type="text" id="second_commercial_register_no_input" class="form-control" name='second_commercial_register_no' />
+                                </div>
+
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> second tax card no </label>
+                                    <input type="text" id="second_tax_card_no_input" class="form-control" name='second_tax_card_no' />
+                                </div>
+
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> second part email </label>
+                                    <input type="text" id="second_part_email_input" class="form-control" name='second_part_email' />
+                                </div>
+
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> second part phone </label>
+                                    <input type="text" id="second_part_phone_input" class="form-control" name='second_part_phone' />
+                                </div>
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Countries <span class="asterix"> * </span>
                                     </label>
@@ -231,6 +300,15 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="ipt" class="control-label "> Contract Singed Date </label>
+                                    <div class="input-group input-group-sm m-b" style="width:170px !important;">
+                                        <div class="input-group">
+                                            <input type="date" class="form-control form-control-sm "
+                                                name="signed_date" id="signed_date_input" />
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Contract Duration <span class="asterix"> *
@@ -405,6 +483,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
 @stop
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="{{ url('js/locale.js') }}"></script>
 <script>
   $('#contract').addClass('active');
   $('#contract-index').addClass('active');
@@ -449,6 +528,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
           url: `{{url('template_items/${id}')}}`,
           success: function(response) {
               $('#ContractTemplateItems').html(response);
+              initAutoCompleteTemplete()
               initChosen()
               $(".chosen").each(function() {
                   $(this).trigger("chosen:updated");
@@ -473,6 +553,33 @@ input[type="date"]::-webkit-datetime-edit-day-field {
           $('.select_contract_type_draft input').attr('disabled', false)
       }
   })
+
+  function initAutoCompleteTemplete() {
+    setAutoCompleteValue('signed_date', moment($('#signed_date_input').val(), "YYYY-MM-DD").locale('ar').format('YYYY/MM/DD'))
+    setAutoCompleteValue('day_name', moment($('#signed_date_input').val(), "YYYY-MM-DD").locale('ar').format('dddd') )
+
+    var percent = parseInt($('#first_party_percentage').find('option:selected').text())
+    setAutoCompleteValue('first_part_percent', percent+'%')
+    setAutoCompleteValue('second_part_percent', (100-percent)+'%')
+
+    setAutoCompleteValue('first_part_name', $('#first_party_id').find('option:selected').text())
+    setAutoCompleteValue('first_part_character', $('#first_part_character_input').val())
+    setAutoCompleteValue('first_part_person', $('#first_part_person_input').val())
+    setAutoCompleteValue('first_part_email', $('#first_part_email_input').val())
+    setAutoCompleteValue('first_part_phone', $('#first_part_phone_input').val())
+    setAutoCompleteValue('first_part_address', $('#first_part_address_input').val())
+    setAutoCompleteValue('first_commercial_register_no', $('#first_commercial_register_no_input').val())
+    setAutoCompleteValue('first_tax_card_no', $('#first_tax_card_no_input').val())
+
+    setAutoCompleteValue('second_part_name', $('#second_party_id').find('option:selected').text())
+    setAutoCompleteValue('second_part_character', $('#first_part_character_input').val())
+    setAutoCompleteValue('second_part_person', $('#first_part_person_input').val())
+    setAutoCompleteValue('second_part_email', $('#first_part_email_input').val())
+    setAutoCompleteValue('second_part_phone', $('#first_part_phone_input').val())
+    setAutoCompleteValue('second_part_address', $('#second_part_address_input').val())
+    setAutoCompleteValue('second_commercial_register_no', $('#second_commercial_register_no_input').val())
+    setAutoCompleteValue('second_tax_card_no', $('#second_tax_card_no_input').val())
+  }
 </script>
 
 <script>
@@ -490,7 +597,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
   });
 
   function setEndDate(endDate, years) {
-      $("#contract_expiry_date").val(moment(endDate, "YYYY-MM-DD").add(years, 'years').subtract(1, 'days').format('YYYY-MM-DD'))
+      $("#contract_expiry_date").val(moment(endDate, "YYYY-MM-DD").locale('en').add(years, 'years').subtract(1, 'days').format('YYYY-MM-DD'))
   }
 
   $(document).on('click', '#add', function() {
@@ -586,16 +693,33 @@ input[type="date"]::-webkit-datetime-edit-day-field {
   }
 </script>
 
-<!-- <script>
-$('#signed_date')
-$('#day_name')
-$('#first_part_name')
-$('#first_part_address')
-$('#first_commercial_register_no')
-$('#first_tax_card_no')
-$('#second_part_name')
-$('#second_part_address')
-$('#second_commercial_register_no')
-$('#second_tax_card_no')
-</script> -->
+<script>
+$('#first_party_id,#second_party_id').change(function(){
+      var input = ($(this).attr('id')).slice(0,-4)
+      input +='_name'
+      setAutoCompleteValue(input, $(this).find('option:selected').text())
+})
+
+$('#first_party_percentage').change(function(){
+      var percent = parseInt($(this).find('option:selected').text())
+      setAutoCompleteValue('first_part_percent', percent+'%')
+      setAutoCompleteValue('second_part_percent', (100-percent)+'%')
+})
+
+$('#first_part_address_input,#first_commercial_register_no_input,#first_tax_card_no_input,#first_part_character_input,#first_part_person_input,#first_part_email_input,#first_part_phone_input,#second_part_address_input,#second_commercial_register_no_input,#second_part_character_input,#second_part_person_input,#second_part_email_input,#second_part_phone_input,#second_tax_card_no_input').change(function(){
+  var input = ($(this)[0].id).slice(0,-6)
+  setAutoCompleteValue(input, $(this).val())
+})
+
+$('#signed_date_input').change(function(){
+  setAutoCompleteValue('signed_date', moment($('#signed_date_input').val(), "YYYY-MM-DD").locale('ar').format('YYYY/MM/DD'))
+  setAutoCompleteValue('day_name', moment($('#signed_date_input').val(), "YYYY-MM-DD").locale('ar').format('dddd'))
+})
+
+function setAutoCompleteValue(input, value){
+  if(value && !value.includes('Please Select' ) && !value.includes('NaN') && !value.includes('Invalid'))
+    $("#ContractTemplateItems").find('.container-fluid #'+input).html(value)
+}
+
+</script>
 @stop
