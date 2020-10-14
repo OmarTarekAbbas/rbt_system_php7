@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Contract_Items_Approvids;
+use App\ContractItem;
 use Illuminate\Http\Request;
+use Validator;
 
 class ContractItemsApprovidsController extends Controller
 {
@@ -12,14 +14,29 @@ class ContractItemsApprovidsController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index(Request $request)
+  public function index(Request $request , $id)
   {
-    $list_contract_items_sends = Contract_Items_Approvids::select('*','contract__items__approvids.id AS id','contract_items.item as item')
-    ->join('contract_items','contract_items.id','=','contract__items__approvids.contract_item_id')
-    ->join('departments','departments.id','=','contract__items__approvids.user_id')
-    ->get();
-    //dd($list_contract_items_sends);
-    return view('ContractItemsApproved.index', compact('list_contract_items_sends'));
+
+    $list_contract_items_sends = Contract_Items_Approvids::select('*', 'contract_items_approves.id AS id', 'contract_items.item as item', 'contracts.id as contract_id')
+      ->where('contract_items_approves.contract_item_id', $id)
+      ->join('contract_items', 'contract_items.id', '=', 'contract_items_approves.contract_item_id')
+      ->join('contracts', 'contract_items.contract_id', '=', 'contracts.id')
+      ->join('departments', 'departments.id', '=', 'contract_items_approves.user_id')
+      ->join('users', 'departments.manager_id', '=', 'users.id')
+      ->get();
+      // dd($list_contract_items_sends);
+
+      $contract_items_send_id = Contract_Items_Approvids::select('*', 'contract_items_approves.id AS id', 'contract_items.item as item', 'contracts.id as contract_id')
+      ->where('contract_items_approves.contract_item_id', $id)
+      ->join('contract_items', 'contract_items.id', '=', 'contract_items_approves.contract_item_id')
+      ->join('contracts', 'contract_items.contract_id', '=', 'contracts.id')
+      ->join('departments', 'departments.id', '=', 'contract_items_approves.user_id')
+      ->join('users', 'departments.manager_id', '=', 'users.id')
+      ->first();
+      // dd($contract_items_send_id);
+
+
+    return view('ContractItemsApproved.index', compact('list_contract_items_sends', 'contract_items_send_id'));
   }
 
   /**
@@ -49,9 +66,8 @@ class ContractItemsApprovidsController extends Controller
    * @param  \App\Contract_Items_Approvids  $contract_Items_Approvids
    * @return \Illuminate\Http\Response
    */
-  public function show(Contract_Items_Approvids $contract_Items_Approvids)
+  public function show(Contract_Items_Approvids $id)
   {
-    //
   }
 
   /**
@@ -60,9 +76,16 @@ class ContractItemsApprovidsController extends Controller
    * @param  \App\Contract_Items_Approvids  $contract_Items_Approvids
    * @return \Illuminate\Http\Response
    */
-  public function edit(Contract_Items_Approvids $contract_Items_Approvids)
+  public function edit(Contract_Items_Approvids $id)
   {
-    //
+    $list_contract_items_send = Contract_Items_Approvids::select('*', 'contract_items_approves.id AS id', 'contract_items.item as item', 'contracts.id as contract_id')
+      ->whereIn('contract_items_approves.id', $id)
+      ->join('contract_items', 'contract_items.id', '=', 'contract_items_approves.contract_item_id')
+      ->join('contracts', 'contract_items.contract_id', '=', 'contracts.id')
+      ->join('departments', 'departments.id', '=', 'contract_items_approves.user_id')
+      ->first();
+
+    return view('ContractItemsApproved.edit', compact('list_contract_items_send'));
   }
 
   /**
@@ -72,9 +95,29 @@ class ContractItemsApprovidsController extends Controller
    * @param  \App\Contract_Items_Approvids  $contract_Items_Approvids
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Contract_Items_Approvids $contract_Items_Approvids)
+  public function update(Request $request, $id)
   {
-    //
+    $validator = Validator::make($request->all(), [
+      'status' => 'required',
+    ]);
+    if ($validator->fails()) {
+      return back()->withErrors($validator)->withInput();
+    }
+
+    $update_contract_items_send = Contract_Items_Approvids::findOrFail($id);
+    $update_contract_items_send->status = $request->status;
+    if ($update_contract_items_send->save()) {
+      $all_contract_item = Contract_Items_Approvids::where('contract_item_id', $update_contract_items_send->contract_item_id)->get();
+      $all_without_current = Contract_Items_Approvids::where('contract_item_id', $update_contract_items_send->contract_item_id)->where('status', 2)->get();
+      if ($all_contract_item->count() == $all_without_current->count()) {
+        $list_contract_item_id = ContractItem::where('id', $update_contract_items_send->contract_item_id)->first();
+        $list_contract_item_id->fullcontract = 1;
+        $list_contract_item_id->save();
+      }
+    }
+
+    \Session::flash('success', 'Contract Items Approvids updated successfully');
+    return redirect('contract_items_send/'.$update_contract_items_send->contract_item_id.'/approves');
   }
 
   /**
@@ -86,11 +129,5 @@ class ContractItemsApprovidsController extends Controller
   public function destroy(Contract_Items_Approvids $contract_Items_Approvids)
   {
     //
-  }
-
-  public function approve($id)
-  {
-    Contract_Items_Approvids::find($id)->update(['status' => 1]);
-    return redirect()->back();
   }
 }

@@ -1,70 +1,103 @@
 @extends('template')
 @section('page_title')
-Department
+Contract Items Approved
 @stop
 @section('content')
+<style>
+  .border_css {
+    padding: 12px;
+    border: 1px solid #00000026;
+    width: 81.5%;
+    margin-left: 13px;
+
+  }
+</style>
 <div class="row">
   <div class="col-md-12">
-    <div class="box box-black">
+    <div class="box box-blue">
       <div class="box-title">
-        <h3><i class="fa fa-table"></i> Department Table</h3>
+        <h3><i class="fa fa-table"></i> Contract Items Approved Table</h3>
         <div class="box-tool">
           <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
           <a data-action="close" href="#"><i class="fa fa-times"></i></a>
         </div>
       </div>
       <div class="box-content">
+        <div class="box-content">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-3 col-lg-2 control-label" for="code">Contract Tilte</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <input id="code" name="" type="text" class="form-control input-lg" value="{{$contract_items_send_id->contract_code}} {{$contract_items_send_id->contract_label}}" disabled>
+              </div>
+            </div>
 
-        <div class="table-responsive">
-          <table id="example" class="table table-striped dt-responsive" cellspacing="0" width="100%">
-            <thead>
-              <tr>
-                <th style="width:18px"><input type="checkbox"></th>
-                <th>Departments tilte</th>
-                <th>Html Item</th>
-                <th>Status</th>
-                <th class="visible-md visible-lg" style="width:130px">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($list_contract_items_sends as $list_contract_items_send)
-              <tr class="table-flag-blue">
-                <td><input type="checkbox"></td>
-                <td>{{$list_contract_items_send->title}}</td>
-                <td>{!! $list_contract_items_send->item  !!}</td>
-                <td>
-                  @if ($list_contract_items_send->status == 1)
-                  Approved
-                  @else
-                  Not Approved
-                  @endif
-                </td>
-                @if ($list_contract_items_send->status == 1)
-                <td class="visible-md visible-lg">
-                  
-                </td>
+            <div class="form-group">
+              <label class="col-sm-3 col-lg-2 control-label" for="code">Contract Item</label>
+              <div class="col-sm-9 col-lg-10 controls border_css">
+                <p for="">{!! $contract_items_send_id->item !!}</p>
+              </div>
+            </div>
+            <br>
+            <br>
+            <hr style="border-top: 1px solid #0006;">
+            <br>
+            <br>
+            @foreach($list_contract_items_sends as $list_contract_items_send)
+
+            <div class="form-group">
+              <label class="col-sm-3 col-lg-2 control-label" for="code">Department Title</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <input id="code" name="" type="text" class="form-control input-lg" value="{{$list_contract_items_send->title}}" disabled>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 col-lg-2 control-label" for="code">Manager</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <input id="code" name="" type="text" class="form-control input-lg" value="{{$list_contract_items_send->name}}" disabled>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 col-lg-2 control-label" for="code">Status</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                @if ($list_contract_items_send->status == 2)
+                <button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="Approve">
+                  Approve
+                </button>
+                @elseif($list_contract_items_send->status == 1)
+                <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Not Approve">
+                  Not Approve
+                </button>
                 @else
-                <td class="visible-md visible-lg">
-                  <div class="btn-group">
-                    <a class="btn btn-success btn-sm" title="Approve" href="{{url('contract_items_send/'.$list_contract_items_send->id.'/approve')}}" data-original-title="Edit"><i class="glyphicon glyphicon-check"></i></a>
-                  </div>
-                </td>
+                <button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Not Action">
+                  Not Action
+                </button>
                 @endif
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
+              </div>
+            </div>
+
+            <br>
+            <hr>
+            <br>
+            @endforeach
+          </div>
+
         </div>
+
+
       </div>
     </div>
   </div>
 </div>
 
+
 @stop
 
 @section('script')
 <script>
-  $('#department').addClass('active');
-  $('#department-index').addClass('active');
+  $('#contract').addClass('active');
+  $('#contract-index').addClass('active');
 </script>
 @stop
