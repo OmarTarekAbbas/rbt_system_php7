@@ -302,7 +302,7 @@ class FullcontractsController extends Controller
               'department_ids' => isset($department_ids[$key]) || !empty($department_ids[$key]) ? implode(',',$department_ids[$key]) : ''
           ]);
         }
-        $this->generatePdf();
+        $this->generatePdf($contract);
     }
 
     public function generatePdf($contract)

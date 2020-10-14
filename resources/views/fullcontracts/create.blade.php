@@ -572,10 +572,10 @@ input[type="date"]::-webkit-datetime-edit-day-field {
     setAutoCompleteValue('first_tax_card_no', $('#first_tax_card_no_input').val())
 
     setAutoCompleteValue('second_part_name', $('#second_party_id').find('option:selected').text())
-    setAutoCompleteValue('second_part_character', $('#first_part_character_input').val())
-    setAutoCompleteValue('second_part_person', $('#first_part_person_input').val())
-    setAutoCompleteValue('second_part_email', $('#first_part_email_input').val())
-    setAutoCompleteValue('second_part_phone', $('#first_part_phone_input').val())
+    setAutoCompleteValue('second_part_character', $('#second_part_character_input').val())
+    setAutoCompleteValue('second_part_person', $('#second_part_person_input').val())
+    setAutoCompleteValue('second_part_email', $('#second_part_email_input').val())
+    setAutoCompleteValue('second_part_phone', $('#second_part_phone_input').val())
     setAutoCompleteValue('second_part_address', $('#second_part_address_input').val())
     setAutoCompleteValue('second_commercial_register_no', $('#second_commercial_register_no_input').val())
     setAutoCompleteValue('second_tax_card_no', $('#second_tax_card_no_input').val())
@@ -717,8 +717,12 @@ $('#signed_date_input').change(function(){
 })
 
 function setAutoCompleteValue(input, value){
-  if(value && !value.includes('Please Select' ) && !value.includes('NaN') && !value.includes('Invalid'))
+  if(value && !value.includes('Please Select' ) && !value.includes('NaN') && !value.includes('Invalid')){
     $("#ContractTemplateItems").find('.container-fluid #'+input).html(value)
+    $('.container-fluid div').each(function(){
+      $('#input'+$(this).attr('id')).val($(this).html())
+    })
+  }
 }
 
 </script>
