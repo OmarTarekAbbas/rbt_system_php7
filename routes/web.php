@@ -280,7 +280,7 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::get('Contract/{id}/items/download', 'FullcontractsController@downloadContractItems');
     Route::get('template_items/{id}', 'FullcontractsController@template_items');
 
-    Route::get('contract_items_send', 'ContractItemsApprovidsController@index');
+    Route::get('contract_items_send/{id}/show', 'ContractItemsApprovidsController@show');
     Route::get('contract_items_send/{id}/approve', 'ContractItemsApprovidsController@Approve');
     Route::get('sendemail', 'DepartmentController@contract_items_send_email');
 
