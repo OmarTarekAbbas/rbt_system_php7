@@ -284,6 +284,7 @@ Departments
     // api for get operators
     function getOperators(country_id) {
         var operators = []
+        country_id = country_id == 3 ? '' : country_id
         $.get("{{ url('/api/operators/') }}/"+country_id,function(response) {
             form = createOperaotrForm(response)
             $('#operator_id').html(form)
@@ -296,6 +297,7 @@ Departments
     // api for get occasions
     function getOccasions(country_id) {
         var occasion = []
+        country_id = country_id == 3 ? '' : country_id
         $.get("{{ url('/api/occasions/') }}/"+country_id,function(response) {
             occasionform = createOccasionForm(response)
             $('#occasion_id').html(occasionform)
@@ -309,7 +311,11 @@ Departments
     function createOperaotrForm(operators) {
         var input = ''
         Object.keys(operators).forEach(key => {
-          input += `<option value="${operators[key].id}">${operators[key].country.title} _ ${operators[key].title}</option>`
+          var selected = ''
+          if('{{ $roadmap->operator_id }}' == operators[key].id) {
+              selected = 'selected'
+          }
+          input += `<option ${selected} value="${operators[key].id}">${operators[key].country.title} _ ${operators[key].title}</option>`
         });
         return input
     }
@@ -318,7 +324,11 @@ Departments
     function createOccasionForm(occasions) {
         var input = ''
         Object.keys(occasions).forEach(key => {
-            input+='<option value="'+occasions[key].id+'">'+occasions[key].title+'</option>'
+          var selected = ''
+          if('{{ $roadmap->occasion_id }}' == occasions[key].id) {
+              selected = 'selected'
+          }
+            input+='<option '+selected+' value="'+occasions[key].id+'">'+occasions[key].title+'</option>'
         });
         return input
     }
