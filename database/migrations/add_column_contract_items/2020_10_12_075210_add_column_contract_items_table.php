@@ -14,7 +14,7 @@ class AddColumnContractItemsTable extends Migration
     public function up()
     {
         Schema::table('contract_items', function (Blueprint $table) {
-            $table->integer('fullcontract')->default("0")->comment('1-allApproved 0-notApproved');
+            $table->integer('fullapproves')->default("0")->comment('1-allApproved 0-notApproved');
         });
     }
 
@@ -26,7 +26,7 @@ class AddColumnContractItemsTable extends Migration
     public function down()
     {
         Schema::table('contract_items', function (Blueprint $table) {
-            $table->removeColumn('fullcontract');
+            $table->removeColumn('fullapproves');
         });
     }
 }

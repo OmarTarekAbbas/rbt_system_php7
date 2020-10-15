@@ -24,19 +24,7 @@ class ContractItemsApprovidsController extends Controller
       ->join('departments', 'departments.id', '=', 'contract_items_approves.user_id')
       ->join('users', 'departments.manager_id', '=', 'users.id')
       ->get();
-      // dd($list_contract_items_sends);
-
-      $contract_items_send_id = Contract_Items_Approvids::select('*', 'contract_items_approves.id AS id', 'contract_items.item as item', 'contracts.id as contract_id')
-      ->where('contract_items_approves.contract_item_id', $id)
-      ->join('contract_items', 'contract_items.id', '=', 'contract_items_approves.contract_item_id')
-      ->join('contracts', 'contract_items.contract_id', '=', 'contracts.id')
-      ->join('departments', 'departments.id', '=', 'contract_items_approves.user_id')
-      ->join('users', 'departments.manager_id', '=', 'users.id')
-      ->first();
-      // dd($contract_items_send_id);
-
-
-    return view('ContractItemsApproved.index', compact('list_contract_items_sends', 'contract_items_send_id'));
+    return view('ContractItemsApproved.index', compact('list_contract_items_sends'));
   }
 
   /**
@@ -111,7 +99,7 @@ class ContractItemsApprovidsController extends Controller
       $all_without_current = Contract_Items_Approvids::where('contract_item_id', $update_contract_items_send->contract_item_id)->where('status', 2)->get();
       if ($all_contract_item->count() == $all_without_current->count()) {
         $list_contract_item_id = ContractItem::where('id', $update_contract_items_send->contract_item_id)->first();
-        $list_contract_item_id->fullcontract = 1;
+        $list_contract_item_id->fullapproves = 1;
         $list_contract_item_id->save();
       }
     }

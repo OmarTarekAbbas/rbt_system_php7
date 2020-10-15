@@ -28,14 +28,14 @@ Contract Items Approved
             <div class="form-group">
               <label class="col-sm-3 col-lg-2 control-label" for="code">Contract Tilte</label>
               <div class="col-sm-9 col-lg-10 controls">
-                <input id="code" name="" type="text" class="form-control input-lg" value="{{$contract_items_send_id->contract_code}} {{$contract_items_send_id->contract_label}}" disabled>
+                <input id="code" name="" type="text" class="form-control input-lg" value="{{$list_contract_items_sends[0]->contract_code}} {{$list_contract_items_sends[0]->contract_label}}" disabled>
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-sm-3 col-lg-2 control-label" for="code">Contract Item</label>
               <div class="col-sm-9 col-lg-10 controls border_css">
-                <p for="">{!! $contract_items_send_id->item !!}</p>
+                <p for="">{!! $list_contract_items_sends[0]->item !!}</p>
               </div>
             </div>
             <br>
