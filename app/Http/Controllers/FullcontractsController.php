@@ -47,7 +47,7 @@ class FullcontractsController extends Controller
     {
         $contracts = Contract::select('*', 'contracts.id as id', 'contracts.contract_code as code', 'service_types.service_type_title as service_type')
             ->join('service_types', 'service_types.id', '=', 'contracts.service_type_id')
-            ->get();
+            ->orderBy('contracts.created_at','desc')->get();
         $datatable = \Datatables::of($contracts)
             ->addColumn('index', function (Contract $contract) {
                 return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$contract->id}}" class="roles" onclick="collect_selected(this)">';
@@ -171,7 +171,7 @@ class FullcontractsController extends Controller
           $this->createContractItems($contract, $request->new_items, $request->new_department_ids);
         }
         session()->flash('success', 'Add Contract Successfully');
-        return redirect('fullcontracts');
+        return redirect('fullcontracts/'.$contract->id);
     }
 
     public function edit($id)
@@ -226,7 +226,7 @@ class FullcontractsController extends Controller
         }
         $contract->save();
         $request->session()->flash('success', 'Update Contract Successfully');
-        return redirect('fullcontracts');
+        return redirect('fullcontracts/'.$contract->id);
     }
 
     public function destroy($id, Request $request)
@@ -302,10 +302,13 @@ class FullcontractsController extends Controller
               'department_ids' => isset($department_ids[$key]) || !empty($department_ids[$key]) ? implode(',',$department_ids[$key]) : ''
           ]);
         }
-        $this->generatePdf($contract);
+        $filename = $contract->id . time() . '.pdf';
+        $contract->contract_pdf = $filename;
+        $contract->save();
+        $this->generatePdf($contract, $filename);
     }
 
-    public function generatePdf($contract)
+    public function generatePdf($contract, $file)
     {
         $template_items = $contract->items;
         $content = view('fullcontracts.template', compact('template_items'))->render();
@@ -333,10 +336,8 @@ class FullcontractsController extends Controller
         $pdf::SetFont('freeserif', '', 12);
         $pdf::AddPage();
         $pdf::writeHTML($content, true, false, true, false, '');
-        $filename = $contract->id . time() . '.pdf';
-        $contract->contract_pdf = $filename;
-        $contract->save();
-        $pdf::Output(base_path('uploads/pdf').'/'.$filename, 'F');
+
+        $pdf::Output(base_path('uploads/pdf').'/'.$file, 'F');
     }
 
     public function downloadContractItems($id) {

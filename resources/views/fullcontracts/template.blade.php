@@ -20,9 +20,11 @@
         <div id="{{$item->id}}">
             {!! $item->item !!}
         </div>
+        @if(isset($departments))
         <textarea name="items[]" id="input{{$item->id}}" hidden>
           {!! $item->item !!}
         </textarea>
+        @endif
     </div>
 </div>
 @empty

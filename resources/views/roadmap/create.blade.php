@@ -267,6 +267,7 @@
         }).on('changeDate', function(selected) {
             var minDate = new Date(selected.date.valueOf());
             $('.event_end_date').datepicker('setStartDate', minDate);
+            $('.event_end_date').datepicker('setDate', minDate);
         })
 
         $('.event_end_date').datepicker({
