@@ -23,56 +23,20 @@ Contract Items Approved
         </div>
       </div>
       <div class="box-content">
-
-        <!-- <div class="table-responsive">
-          <table class="table table-striped table-bordered ">
-            <tbody>
-              <tr>
-                <td width='30%' class='label-view text-right'>ID</td>
-                <td>{{$list_contract_items_send->id}} </td>
-              </tr>
-              <tr>
-                <td width='30%' class='label-view text-right'>Contract Tilte</td>
-                <td>{{$list_contract_items_send->contract_label}}</td>
-              </tr>
-              <tr>
-                <td width='30%' class='label-view text-right'>Html Item</td>
-                <td>{!! $list_contract_items_send->item !!}</td>
-              </tr>
-              <tr>
-                <td width='30%' class='label-view text-right'>Status</td>
-                <td>
-                  @if ($list_contract_items_send->status == 1)
-                  <button class="btn btn-success btn-sm" title="Approve">Approved</button>
-                  @else
-                  <button class="btn btn-danger btn-sm" title="Approve">Not Approved</button>
-                  @endif
-                </td>
-              </tr>
-              <tr>
-                <td width='30%' class='label-view text-right'>
-                  <a class="btn btn-danger btn-sm" title="Approve" href="{{url('contract_items_send/'.$list_contract_items_send->id.'/notapprove')}}" data-original-title="Edit"><i class="glyphicon glyphicon-check"></i></a>
-                </td>
-                <td>
-                  <a class="btn btn-success btn-sm" title="Approve" href="{{url('contract_items_send/'.$list_contract_items_send->id.'/approve')}}" data-original-title="Edit"><i class="glyphicon glyphicon-check"></i></a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div> -->
         <div class="box-content">
-          <form method='POST' class="form-horizontal" action='' enctype="multipart/form-data">
+          <form method='POST' class="form-horizontal" action="{{url('fullcontracts/'.$list_contract_items_send->id.'/update')}}" enctype="multipart/form-data">
             <input type='hidden' name='_token' value='{{Session::token()}}'>
             <div class="form-group">
               <label class="col-sm-3 col-lg-2 control-label" for="code">Contract Tilte</label>
               <div class="col-sm-9 col-lg-10 controls">
-                <input id="code" name="" type="text" class="form-control input-lg" value="{{$list_contract_items_send->contract_label}}" disabled>
+                <input id="code" name="" type="text" class="form-control input-lg" value="{{$list_contract_items_send->contract_code}} {{$list_contract_items_send->contract_label}}" disabled>
               </div>
             </div>
 
 
+
             <div class="form-group">
-              <label class="col-sm-3 col-lg-2 control-label" for="code">Html Item</label>
+              <label class="col-sm-3 col-lg-2 control-label" for="code">Contract Item</label>
               <div class="col-sm-9 col-lg-10 controls border_css">
                 <p for="">{!! $list_contract_items_send->item !!}</p>
               </div>
@@ -80,15 +44,13 @@ Contract Items Approved
 
             <div class="form-group">
               <label class="col-sm-3 col-lg-2 control-label" for="code">Status</label>
-              <div class="col-sm-9 col-lg-10 controls">
+              <div class="col-sm-9 col-lg-10 controls" style="text-align: center;">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="1" checked @if($list_contract_items_send->status == 1) checked="checked" @endif >
-                  <label class="form-check-label" for="exampleRadios1">
+                  <input class="form-check-input" type="radio" name="status" id="exampleRadios1" required value="2" @if($list_contract_items_send->status == 2) checked="checked" @endif >
+                  <label class="form-check-label" for="exampleRadios1" style="padding-right: 11px;">
                     Approved
                   </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="0" checked>
+                  <input class="form-check-input" type="radio" name="status" id="exampleRadios2" required value="1" @if($list_contract_items_send->status == 1) checked="checked" @endif>
                   <label class="form-check-label" for="exampleRadios2">
                     Not Approved
                   </label>

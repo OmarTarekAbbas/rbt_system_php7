@@ -102,26 +102,26 @@ class DepartmentController extends Controller
       </html>';
     $department_ids = array(1, 2, 3);
     $departments = Department::whereIn('id', $department_ids)->get();
-    foreach ($departments as $department) {
-      $resend_email = array(
-        $department->email,
-      );
-      $this->sendEmail($subject, $message, $resend_email);
-    }
 
-    $contract_items_approvids = new Contract_Items_Approvids();
-    $contract_items_approvids->user_id = $department->manager->id;
-    $contract_items_approvids->contract_item_id = $contract_item_id;
-    if ($contract_items_approvids->save()) {
-      $Url = url('contract_items_send/' . $contract_items_approvids->id . '/show');
-      $notification = new Notification();
-      $notification->notifier_id = 1;
-      $notification->notified_id = $department->manager->id;
-      $notification->subject = 'Add New Contract Item Message You Can Follow It From This Link';
-      $notification->link = $Url;
-      $notification->seen = 0;
-      $notification->save();
+    foreach ($departments as $department) {
+      $contract_items_approvids = new Contract_Items_Approvids();
+      $contract_items_approvids->user_id = $department->manager->id;
+      $contract_items_approvids->contract_item_id = $contract_item_id;
+      if ($contract_items_approvids->save()) {
+        $Url = url('contract_items_send/' . $contract_items_approvids->id . '/edit');
+        $notification = new Notification();
+        $notification->notifier_id = 1;
+        $notification->notified_id = $department->manager->id;
+        $notification->subject = 'Add New Contract Item Message You Can Follow It From This Link';
+        $notification->link = $Url;
+        $notification->seen = 0;
+        $notification->save();
+      }
     }
+    $resend_email = $departments->pluck('email')->toArray();
+    $this->sendEmail($subject, $message, $resend_email);
+
+
     return 'done';
   }
 
