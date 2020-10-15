@@ -5,11 +5,11 @@
         display: none;
         appearance: none;
     }
-    
+
     .z-checkbox input[type="checkbox"]:checked+label:after {
         transform: scale(1) rotate(0deg);
     }
-    
+
     .z-checkbox label {
         position: relative;
         cursor: pointer;
@@ -18,7 +18,7 @@
         font-size: 13px;
         color: #777;
     }
-    
+
     .z-checkbox label:before {
         content: '';
         width: 20px;
@@ -34,7 +34,7 @@
         -ms-border-radius: 4px;
         -o-border-radius: 4px;
     }
-    
+
     .z-checkbox label:after {
         font-family: 'FontAwesome';
         font-weight: 900;
@@ -58,17 +58,17 @@
         -ms-border-radius: 4px;
         -o-border-radius: 4px;
     }
-    
+
     .z-checkbox label:hover {
         text-decoration: underline !important;
         font-weight: 700;
     }
-    
+
     .row_strip:nth-child(odd) {
         background: #e9f0f9;
         margin-top: 0.5rem !important;
     }
-    
+
     .row_strip:nth-child(even) {
         background: #f7a1a173;
         margin-bottom: 0.99rem !important;
@@ -264,25 +264,15 @@
             format: 'dd-mm-yyyy',
             autoclose: true,
             startDate: moment().format('DD-MM-YYYY'),
-        });
+        }).on('changeDate', function(selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('.event_end_date').datepicker('setStartDate', minDate);
+        })
 
         $('.event_end_date').datepicker({
             format: 'dd-mm-yyyy',
             autoclose: true,
             startDate: moment().format('DD-MM-YYYY'),
-        });
-
-        $('.event_start_date').datepicker().on('changeDate', function() {
-            $('#event_start_date').change()
-        })
-        $('#event_start_date').change(function() {
-            var _this = $(this)
-            $('.event_end_date').datepicker('destroy')
-            $('.event_end_date').datepicker({
-                format: 'dd-mm-yyyy',
-                autoclose: true,
-                startDate: moment(_this.val(), 'DD-MM-YYYY').format('DD-MM-YYYY'),
-            });
         })
     })
 </script>
