@@ -242,14 +242,14 @@
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> Contract File </label>
+                                    <label for="ipt" class=" control-label "> Contract File <a href="{{url('uploads/pdf/'.$contract->contract_pdf)}}" target="_blank"> Click To Preview </a> </label>
                                     <div class="fileUpload btn ">
                                         <span> <i class="fa fa-copy"></i> </span>
                                         <div class="title"> Browse File </div>
                                         <input type="file" name="contract_pdf" class="upload" />
                                     </div>
                                     <div class="contract_pdf-preview preview-upload">
-                                        <a href="{{url('uploads/pdf/'.$contract->contract_pdf)}}" target="_blank"> <img src='http://localhost/contracts/uploads/images/no-image.png' border='0' width='80' class='img-circle' /></a>
+                                        <img src='http://localhost/contracts/uploads/images/no-image.png' border='0' width='80' class='img-circle' />
                                     </div>
                                 </div>
 
