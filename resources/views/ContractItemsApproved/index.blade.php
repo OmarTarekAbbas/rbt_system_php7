@@ -28,14 +28,29 @@ Contract Items Approved
             <div class="form-group">
               <label class="col-sm-3 col-lg-2 control-label" for="code">Contract Tilte</label>
               <div class="col-sm-9 col-lg-10 controls">
-                <input id="code" name="" type="text" class="form-control input-lg" value="{{$contract_items_send_id->contract_code}} {{$contract_items_send_id->contract_label}}" disabled>
+                <input id="code" name="" type="text" class="form-control input-lg" value="{{$list_contract_items_sends[0]->contract_code}} {{$list_contract_items_sends[0]->contract_label}}" disabled>
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-sm-3 col-lg-2 control-label" for="code">Contract Item</label>
               <div class="col-sm-9 col-lg-10 controls border_css">
-                <p for="">{!! $contract_items_send_id->item !!}</p>
+                <p for="">{!! $list_contract_items_sends[0]->item !!}</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 col-lg-2 control-label" for="code">Status</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                @if ($list_contract_items_sends[0]->fullapproves == 1)
+                <button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="Full Approve">
+                Full Approve
+                </button>
+                @else
+                <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="Stay Pending">
+                Stay Pending
+                </button>
+                @endif
               </div>
             </div>
             <br>
@@ -71,7 +86,7 @@ Contract Items Approved
                   Not Approve
                 </button>
                 @else
-                <button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="Not Action">
+                <button class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="bottom" title="No Action">
                   Not Action
                 </button>
                 @endif

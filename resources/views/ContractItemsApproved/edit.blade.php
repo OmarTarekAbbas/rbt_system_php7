@@ -24,7 +24,7 @@ Contract Items Approved
       </div>
       <div class="box-content">
         <div class="box-content">
-          <form method='POST' class="form-horizontal" action="{{url('fullcontracts/'.$list_contract_items_send->id.'/update')}}" enctype="multipart/form-data">
+          <form method='POST' class="form-horizontal" action="{{url('fullcontracts/'.$id.'/update')}}" enctype="multipart/form-data">
             <input type='hidden' name='_token' value='{{Session::token()}}'>
             <div class="form-group">
               <label class="col-sm-3 col-lg-2 control-label" for="code">Contract Tilte</label>

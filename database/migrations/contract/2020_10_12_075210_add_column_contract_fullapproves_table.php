@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnContractItemsTable extends Migration
+class AddColumnContractFullapprovesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnContractItemsTable extends Migration
      */
     public function up()
     {
-        Schema::table('contract_items', function (Blueprint $table) {
-            $table->integer('fullapproves')->default("0")->comment('1-allApproved 0-notApproved');
+        Schema::table('contracts', function (Blueprint $table) {
+            $table->integer('full_approves')->default("0")->comment('1-allApproved 0-notApproved');
         });
     }
 
@@ -25,8 +25,8 @@ class AddColumnContractItemsTable extends Migration
      */
     public function down()
     {
-        Schema::table('contract_items', function (Blueprint $table) {
-            $table->removeColumn('fullapproves');
+        Schema::table('contracts', function (Blueprint $table) {
+            $table->removeColumn('full_approves');
         });
     }
 }
