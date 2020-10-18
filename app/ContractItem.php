@@ -8,5 +8,5 @@ class ContractItem extends Model
 {
   protected $table = 'contract_items';
 
-  protected $fillable = ['item', 'department_ids', 'contract_id'];
+  protected $fillable = ['item', 'department_ids', 'contract_id', 'fullapproves'];
 }

@@ -120,12 +120,12 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> first part person name  </label>
+                                    <label for="ipt" class=" control-label "> first part person name (هذا السيد) </label>
                                     <input type="text" id="first_part_person_input" class="form-control" name='first_part_person' />
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> first part character name  </label>
+                                    <label for="ipt" class=" control-label "> first part character name (بصفته)  </label>
                                     <input type="text" id="first_part_character_input" class="form-control" name='first_part_character' />
                                 </div>
 
@@ -227,12 +227,12 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> second part person name  </label>
+                                    <label for="ipt" class=" control-label "> second part person name (هذا السيد) </label>
                                     <input type="text" id="second_part_person_input" class="form-control" name='second_part_person' />
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> second part character name  </label>
+                                    <label for="ipt" class=" control-label "> second part character name (بصفته) </label>
                                     <input type="text" id="second_part_character_input" class="form-control" name='second_part_character' />
                                 </div>
 
@@ -290,17 +290,6 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                             <section>
 
                                 <div class="form-group">
-                                    <label for="ipt" class="control-label "> Contract Date <span class="asterix"> *
-                                        </span> </label>
-                                    <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                                        <div class="input-group">
-                                            <input type="date" class="form-control form-control-sm "
-                                                name="contract_date" id="start_date" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
                                     <label for="ipt" class="control-label "> Contract Singed Date </label>
                                     <div class="input-group input-group-sm m-b" style="width:170px !important;">
                                         <div class="input-group">
@@ -309,6 +298,18 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="ipt" class="control-label "> Contract Start Date <span class="asterix"> *
+                                        </span> </label>
+                                    <div class="input-group input-group-sm m-b" style="width:170px !important;">
+                                        <div class="input-group">
+                                            <input type="date" class="form-control form-control-sm "
+                                                name="contract_date" id="start_date" />
+                                        </div>
+                                    </div>
+                                  </div>
+
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Contract Duration <span class="asterix"> *
@@ -323,6 +324,18 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                             {{$contract_duration->contract_duration_title}}</option>
                                         @endforeach
                                     </select>
+                                </div>
+
+                                <div class="form-group  ">
+                                    <label for="ipt" class=" control-label "> Expiry Date <span class="asterix"> *
+                                        </span> </label>
+
+                                    <div class="input-group input-group-sm m-b" style="width:170px !important;">
+                                        <div class="input-group">
+                                            <input class="form-control form-control-sm " id="contract_expiry_date"
+                                                name="contract_expiry_date" type="date" value="" />
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group  ">
@@ -341,18 +354,6 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                         name='contract_status' /> Active
                                     <input type="checkbox" class="radio_check" value="0" name='contract_status' />
                                     Terminated
-                                </div>
-
-                                <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> Expiry Date <span class="asterix"> *
-                                        </span> </label>
-
-                                    <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                                        <div class="input-group">
-                                            <input class="form-control form-control-sm " id="contract_expiry_date"
-                                                name="contract_expiry_date" type="date" value="" />
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="form-group  ">
