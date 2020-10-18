@@ -20,8 +20,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('user_profile/updatepassword', 'UserController@UpdatePassword');
     Route::post('user_profile/updateprofilepic', 'UserController@UpdateProfilePicture');
     Route::post('user_profile/updateuserdata', 'UserController@UpdateNameAndEmail');
-    Route::get('read_notify', function () {
-        \App\Notification::where('notified_id', \Auth::id())->update([
+    Route::get('read_notify/{id}', function ($id) {
+        \App\Notification::find($id)->update([
             'seen' => 1
         ]);
     });
