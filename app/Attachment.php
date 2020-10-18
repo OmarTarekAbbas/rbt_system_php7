@@ -32,4 +32,12 @@ class Attachment extends Model
         default: return 'Error';
       }
     }
+
+    public function getAttachmentPdfAttribute($value)
+    {
+      if(strpos($value, 'uploads/attachments') !== false) {
+        return $value;
+      }
+      return 'uploads/attachments/'.$value;
+    }
 }

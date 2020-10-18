@@ -134,7 +134,7 @@
       <template id="app">
         <!-- BEGIN Tasks Dropdown -->
         <li class="hidden-xs">
-          <a data-toggle="dropdown" class="dropdown-toggle" @click="read_notify()" href="#">
+          <a data-toggle="dropdown" class="dropdown-toggle" href="#">
             <i class="fa fa-bell"></i>
             <span class="badge badge-important">@{{notify_count}}</span>
           </a>
@@ -144,8 +144,8 @@
               <i class="fa fa-warning"></i>
               @{{notify_count}} Notifications
             </li>
-            <li v-for="item in all_notifications" class="notify" style="width:100%">
-              <a :href="item.link">
+            <li v-for="item in all_notifications" class="notify" :style="[item.seen ? {'width': '100%' } : {'width': '100%' ,'background': '#b2e8bb'}]">
+              <a href="#" @click="read_notify(item.id,item.link)">
                 <p><strong>@{{item.name}}</strong> @{{item.subject}}</p>
               </a>
             </li>
@@ -676,27 +676,34 @@
         channel: ''
       },
       methods: {
-        read_notify: function() {
+        read_notify: function(id, link) {
           var _this = this
-          $.get("{{url('read_notify')}}", function(data, status) {
-            _this.notify_count = 0
+          $.get("{{url('read_notify')}}/"+id, function(data, status) {
+            _this.notify_count = _this.notify_count - 1
           })
+          window.location.href= link
         }
       },
       computed: {
         all_notifications: function() {
           var _this = this
           var data = "{{json_encode(all_notify())}}";
+          let total = [];
           this.notification_data = JSON.parse(data.replace(/&quot;/g, '"'))
           for (let index = 0; index < this.notification_data.length; index++) {
             let object = {
+              id: this.notification_data[index].id,
               name: this.notification_data[index].send_user.name,
               subject: this.notification_data[index].subject,
-              link: this.notification_data[index].link
+              link: this.notification_data[index].link,
+              seen: this.notification_data[index].seen
             }
             this.notifications.push(object)
+            if(!this.notification_data[index].seen)
+              total.push(this.notification_data[index].seen)
           }
-          _this.notify_count = this.notifications.length
+
+          _this.notify_count = total.length
           return this.notifications
         }
       },

@@ -51,7 +51,7 @@ attachment
 								<td><input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$Attachment->id}}" onclick="collect_selected(this)"></td>
 								<td>{{$Attachment->id}}</td>
 								<td>{{$Attachment->attachment_code}}</td>
-								<td>{{$Attachment->contract->contract_code}} - {{$Attachment->contract->contract_label}}</td>
+								<td>{{optional($Attachment->contract)->contract_code}} - {{optional($Attachment->contract)->contract_label}}</td>
 								<td>{{$Attachment->attachment_type}}</td>
 								<td>{{$Attachment->attachment_title}}</td>
 								<td>{{$Attachment->attachment_date}}</td>

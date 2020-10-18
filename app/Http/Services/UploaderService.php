@@ -21,14 +21,14 @@ class UploaderService
      */
     public function creatOurFolderPath($folder)
     {
-        $date_path = date("Y") . '/' . date("m") . '/' . date("d") . '/';
-        $path =  base_path().'/uploads/'.$folder.'/' . $date_path;
+
+        $path =  base_path().'/uploads/'.$folder.'/';
 
         if (!File::exists($path)) {
             File::makeDirectory($path, 0777, true);
         }
 
-        return ['path' => $path , 'date_path' => $date_path];
+        return ['path' => $path];
     }
     public function upload(UploadedFile $file, $folder)
     {
@@ -37,7 +37,7 @@ class UploaderService
         $file_name = time().'.'.$file->getClientOriginalExtension();
 
         if ($file->move($ourPath['path'], $file_name)) {
-            return 'uploads'.$folder.'/'.$ourPath['date_path'].$file_name;
+            return 'uploads'.$folder.'/'.$file_name;
         }
     }
 }
