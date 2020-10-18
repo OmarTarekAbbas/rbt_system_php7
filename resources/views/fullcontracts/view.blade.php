@@ -154,6 +154,11 @@ Contract
                             </tr>
 
                             <tr>
+                                <td width='30%' class='label-view text-right'>Full Approve </td>
+                                <td>{{ $contract->fullapprove ? "Yes" : "No" }}</td>
+                            </tr>
+
+                            <tr>
                                 <td width='30%' class='label-view text-right'>Created At </td>
                                 <td>{{ date('F j, Y, g:i a',strtotime($contract->updated_at)) }} </td>
                             </tr>
