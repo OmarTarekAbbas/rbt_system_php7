@@ -1,8 +1,4 @@
-@extends('template')
-@section('page_title')
-Contract
-@stop
-@section('content')
+@extends('template') @section('page_title') Contract @stop @section('content')
 <div class="row">
     <div class="col-md-12">
         <div class="box box-blue">
@@ -135,6 +131,34 @@ Contract
                             </tr>
 
                             <tr>
+                                <td width='30%' class='label-view text-right'> Annex </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a class="btn btn-sm btn-info show-tooltip" href="{{ url(" contract/an/ " . $contract->id) }}" title="annex">Annex</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width='30%' class='label-view text-right'> Authorization </td>
+                                <td>
+                                    <div class="btn-group">
+
+                                        <a class="btn btn-sm btn-warning show-tooltip" href="{{ url(" contract/al/ " . $contract->id) }}" title="authorization">Authorization</a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width='30%' class='label-view text-right'> copyright </td>
+                                <td>
+                                    <div class="btn-group">
+
+                                        <a class="btn btn-sm btn-primary show-tooltip" href="{{ url(" contract/cr/ " . $contract->id) }}" title="copyright">copyright</a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td width='30%' class='label-view text-right'>Notes </td>
                                 @if($contract->contract_notes)
                                 <td>{{ $contract->contract_notes }} </td>
@@ -179,9 +203,7 @@ Contract
 </div>
 
 
-@stop
-
-@section('script')
+@stop @section('script')
 <script>
     $('#contract').addClass('active');
     $('#contract-index').addClass('active');
