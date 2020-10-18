@@ -172,6 +172,11 @@ class FullcontractsController extends Controller
         if($request->filled('new_items')){
           $this->createContractItems($contract, $request->new_items, $request->new_department_ids);
         }
+
+        if($request->filled('items') || $request->filled('new_items')) {
+          $this->generatePdf($contract);
+        }
+
         session()->flash('success', 'Add Contract Successfully');
         return redirect('fullcontracts/'.$contract->id);
     }
@@ -308,14 +313,13 @@ class FullcontractsController extends Controller
             $this->contract_items_send_email($contract_item, $department_ids[$key]);
           }
         }
-        $filename = $contract->id . time() . '.pdf';
-        $contract->contract_pdf = $filename;
-        $contract->save();
-        $this->generatePdf($contract, $filename);
     }
 
-    public function generatePdf($contract, $file)
+    public function generatePdf($contract)
     {
+        $file = $contract->id . time() . '.pdf';
+        $contract->contract_pdf = $file;
+        $contract->save();
         $template_items = $contract->items;
         $content = view('fullcontracts.template', compact('template_items'))->render();
 
@@ -360,6 +364,8 @@ class FullcontractsController extends Controller
            <head>
            </head>
            <body>
+           <center> <strong>'. $contract_item->contract->contract_code . ' ' . $contract_item->contract->contract_label. '</strong> </center>
+           </br>
            ' . $contract_item->item . '
        </body>
        </html>';
@@ -374,7 +380,7 @@ class FullcontractsController extends Controller
          $notification = new Notification();
          $notification->notifier_id = 1;
          $notification->notified_id = $department->manager->id;
-         $notification->subject = 'Add New Contract Item Message You Can Follow It From This Link';
+         $notification->subject = 'There is new contract items with label and code '.$contract_item->contract->contract_code . ' ' . $contract_item->contract->contract_label.' needed to approve ';
          $notification->link = $Url;
          $notification->seen = 0;
          $notification->save();
