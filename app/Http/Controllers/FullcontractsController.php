@@ -156,7 +156,7 @@ class FullcontractsController extends Controller
                 try {
                     $pdfName = time() . '.' . $request->contract_pdf->getClientOriginalExtension();
 
-                    $request->contract_pdf->move('uploads/pdf', $pdfName);
+                    $request->contract_pdf->move('uploads/contracts', $pdfName);
 
                     $contract->contract_pdf = $pdfName;
                 } catch (Illuminate\Filesystem\FileNotFoundException $e) {
@@ -224,7 +224,7 @@ class FullcontractsController extends Controller
                 try {
                     $pdfName = time() . '.' . $request->contract_pdf->getClientOriginalExtension();
 
-                    $request->contract_pdf->move('uploads/pdf', $pdfName);
+                    $request->contract_pdf->move('uploads/contracts', $pdfName);
 
                     $contract->contract_pdf = $pdfName;
                 } catch (Illuminate\Filesystem\FileNotFoundException $e) {
@@ -347,12 +347,12 @@ class FullcontractsController extends Controller
         $pdf::AddPage();
         $pdf::writeHTML($content, true, false, true, false, '');
 
-        $pdf::Output(base_path('uploads/pdf').'/'.$file, 'F');
+        $pdf::Output(base_path('uploads/contracts').'/'.$file, 'F');
     }
 
     public function downloadContractItems($id) {
       $row = Contract::find($id);
-      return redirect('uploads/pdf/'.$row->contract_pdf);
+      return redirect('uploads/contracts/'.$row->contract_pdf);
    }
 
 

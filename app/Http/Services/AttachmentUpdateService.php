@@ -41,7 +41,7 @@ class AttachmentUpdateService
     public function handle($request, $Attachment)
     {
         if(array_key_exists('attachment_pdf', $request)){
-          $attachment_pdf = $this->UploaderService->upload($request['attachment_pdf'], '/attachments/pdf');
+          $attachment_pdf = $this->UploaderService->upload($request['attachment_pdf'], '/attachments');
           $request['attachment_pdf'] = $attachment_pdf;
         }
 
