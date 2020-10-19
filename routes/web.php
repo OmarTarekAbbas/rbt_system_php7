@@ -287,3 +287,4 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::get('sendemail', 'DepartmentController@contract_items_send_email');
 
 });
+
