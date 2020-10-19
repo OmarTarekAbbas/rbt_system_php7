@@ -42,6 +42,7 @@ class ContractService
       "contract_code"  =>  'C#' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time(),
       "operator_title" => implode(",", $request['operator_title']),
       "country_title"  => implode(",", $request['country_title']),
+      "second_party_percentage"  => 100 - $request['first_party_percentage'],
       "entry_by_details" => auth()->user()->name
     ]);
 
@@ -103,6 +104,13 @@ class ContractService
     }
   }
 
+  /**
+   * Method generatePdf
+   *
+   * @param Contract $contract
+   *
+   * @return void
+   */
   public function generatePdf($contract)
   {
     $file = $contract->id . time() . '.pdf';
@@ -138,6 +146,14 @@ class ContractService
     $pdf::Output(base_path('uploads/contracts') . '/' . $file, 'F');
   }
 
+  /**
+   * Method contract_items_send_email
+   *
+   * @param ContractItem $contract_item
+   * @param Array $department_ids
+   *
+   * @return void
+   */
   public function contract_items_send_email($contract_item, $department_ids)
   {
     $subject = "new contract is created";
@@ -172,6 +188,15 @@ class ContractService
     $this->sendEmail($subject, $message, $resend_email);
   }
 
+  /**
+   * Method sendEmail
+   *
+   * @param String $subject
+   * @param String $message
+   * @param Array $resend_email
+   *
+   * @return void
+   */
   public function sendEmail($subject, $message, $resend_email)
   {
     $email_department = $resend_email;
