@@ -62,11 +62,11 @@ class Contract extends Model
     }
     public function authorization()
     {
-        return $this->hasOne(Attachment::class)->where('attachment_type', 1);
+        return $this->hasOne(Attachment::class)->where('attachment_type', 2);
     }
     public function annex()
     {
-        return $this->hasOne(Attachment::class)->where('attachment_type', 2);
+        return $this->hasOne(Attachment::class)->where('attachment_type', 1);
     }
     public function copyright()
     {
