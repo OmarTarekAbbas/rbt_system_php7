@@ -134,7 +134,7 @@
                                 <td width='30%' class='label-view text-right'> Annex </td>
                                 <td>
                                     <div class="btn-group">
-                                        <a class="btn btn-sm btn-info show-tooltip" href="{{ url(" contract/an/ " . $contract->id) }}" title="annex">Annex</a>
+                                        <a class="btn btn-sm btn-info show-tooltip" href="{{ url("contract/an/" . $contract->id) }}" title="annex">Annex</a>
                                     </div>
                                 </td>
                             </tr>
@@ -143,7 +143,7 @@
                                 <td>
                                     <div class="btn-group">
 
-                                        <a class="btn btn-sm btn-warning show-tooltip" href="{{ url(" contract/al/ " . $contract->id) }}" title="authorization">Authorization</a>
+                                        <a class="btn btn-sm btn-warning show-tooltip" href="{{ url("contract/al/" . $contract->id) }}" title="authorization">Authorization</a>
 
                                     </div>
                                 </td>
@@ -153,7 +153,7 @@
                                 <td>
                                     <div class="btn-group">
 
-                                        <a class="btn btn-sm btn-primary show-tooltip" href="{{ url(" contract/cr/ " . $contract->id) }}" title="copyright">copyright</a>
+                                        <a class="btn btn-sm btn-primary show-tooltip" href="{{ url("contract/cr/" . $contract->id) }}" title="copyright">copyright</a>
                                     </div>
                                 </td>
                             </tr>
