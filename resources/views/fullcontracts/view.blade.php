@@ -129,7 +129,7 @@
                                 <td width='30%' class='label-view text-right'>Pages </td>
                                 <td>{{ $contract->pages }} </td>
                             </tr>
-
+                            @if($contract->annex)
                             <tr>
                                 <td width='30%' class='label-view text-right'> Annex </td>
                                 <td>
@@ -138,6 +138,8 @@
                                     </div>
                                 </td>
                             </tr>
+                            @endif
+                            @if($contract->authorization)
                             <tr>
                                 <td width='30%' class='label-view text-right'> Authorization </td>
                                 <td>
@@ -148,6 +150,8 @@
                                     </div>
                                 </td>
                             </tr>
+                            @endif
+                            @if($contract->copyright)
                             <tr>
                                 <td width='30%' class='label-view text-right'> copyright </td>
                                 <td>
@@ -157,6 +161,7 @@
                                     </div>
                                 </td>
                             </tr>
+                            @endif
 
                             <tr>
                                 <td width='30%' class='label-view text-right'>Notes </td>

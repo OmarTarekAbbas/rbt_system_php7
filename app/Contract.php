@@ -60,5 +60,17 @@ class Contract extends Model
     {
         return $this->hasMany(ContractItem::class);
     }
+    public function authorization()
+    {
+        return $this->hasOne(Attachment::class)->where('attachment_type', 1);
+    }
+    public function annex()
+    {
+        return $this->hasOne(Attachment::class)->where('attachment_type', 2);
+    }
+    public function copyright()
+    {
+        return $this->hasOne(Attachment::class)->where('attachment_type', 3);
+    }
 
 }

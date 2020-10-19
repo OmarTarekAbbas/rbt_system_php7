@@ -76,12 +76,23 @@ class FullcontractsController extends Controller
                 return  date('F j, Y', strtotime($contract->contract_expiry_date));
             })
             ->addColumn('action1', function (Contract $contract) {
-
+                $authorization = '';
+                $annex = '';
+                $copyright = '';
+                if($contract->authorization) {
+                  $authorization = '<a class="btn btn-sm btn-warning show-tooltip" href="' . url("contract/al/" . $contract->id) . '" title="authorization">AL</a>';
+                }
+                if($contract->annex) {
+                  $annex = '<a class="btn btn-sm btn-info show-tooltip" href="' . url("contract/an/" . $contract->id) . '" title="annex">AN</a>';
+                }
+                if($contract->copyright) {
+                  $copyright = '<a class="btn btn-sm btn-primary show-tooltip" href="' . url("contract/cr/" . $contract->id) . '" title="copyright">CR</a>';
+                }
                 return '<td class="visible-md visible-lg">
                             <div class="btn-group">
-                                <a class="btn btn-sm btn-info show-tooltip" href="' . url("contract/an/" . $contract->id) . '" title="annex">AN</a>
-                                <a class="btn btn-sm btn-warning show-tooltip" href="' . url("contract/al/" . $contract->id) . '" title="authorization">AL</a>
-                                <a class="btn btn-sm btn-primary show-tooltip" href="' . url("contract/cr/" . $contract->id) . '" title="copyright">CR</a>
+                                '.$authorization.'
+                                '.$annex.'
+                                '.$copyright.'
                             </div>
                         </td>';
             })
