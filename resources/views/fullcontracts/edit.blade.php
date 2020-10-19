@@ -121,7 +121,7 @@
                                     <select name='first_party_percentage' rows='5' id='first_party_percentage' class='select2 ' required>
                     <option value="">-- Please Select --</option>
                     @foreach($percentages as $percentage)
-                    <option value="{{$percentage->id}}" @if($contract->first_party_percentage==$percentage->id) selected="selected" @endif>{{$percentage->percentage}}</option>
+                    <option value="{{$percentage->id}}" @if($contract->first_party_percentage==$percentage->percentage) selected="selected" @endif>{{$percentage->percentage}}</option>
                     @endforeach
                   </select>
                                 </div>
@@ -182,7 +182,7 @@
                                     <select name='operator_title[]' multiple rows='5' id='operator_title' class='select2 ' required>
                     <option value="">-- Please Select --</option>
                     @foreach($operators as $operator)
-                    <option value="{{$operator->title}}-{{$operator->country->title}}" @if(in_array($operator->title."-".$operator->country->title,explode(",",$contract->operator_title))) selected="selected" @endif>{{$operator->title}}-{{$operator->country->title}}</option>
+                    <option value="{{$operator->title}}}" @if(in_array($operator->title,explode(",",$contract->operator_title))) selected="selected" @endif>{{$operator->title}}</option>
                     @endforeach
                   </select>
                                 </div>
@@ -242,7 +242,7 @@
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> Contract File <a href="{{url('uploads/pdf/'.$contract->contract_pdf)}}" target="_blank"> Click To Preview </a> </label>
+                                    <label for="ipt" class=" control-label "> Contract File <a href="{{url('uploads/contracts/'.$contract->contract_pdf)}}" target="_blank"> Click To Preview </a> </label>
                                     <div class="fileUpload btn ">
                                         <span> <i class="fa fa-copy"></i> </span>
                                         <div class="title"> Browse File </div>
