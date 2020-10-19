@@ -77,3 +77,15 @@ function send_notification($message,$dep,$data){
     $data = \DB::table('settings')->where('key', 'like', '%' . $key . '%')->first();
     return $data ? $data->value : '';
   }
+
+  function all_country() {
+    if(all_countries_id()) {
+      return [all_countries_id() => 'All Country']+Country::where('title','NOT LIKE','%All countries%')->pluck('title','id')->toArray();
+    }
+    return ['3' => 'All Country']+Country::where('title','NOT LIKE','%All countries%')->pluck('title','id')->toArray();
+  }
+
+  function all_countries_id(){
+    $country = \App\Country::where('title','LIKE','%All countries%')->first();
+    return optional($country)->id;
+  }
