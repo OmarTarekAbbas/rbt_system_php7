@@ -120,7 +120,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> first part person name (هذا السيد) </label>
+                                    <label for="ipt" class=" control-label "> first part person name (ويمثلها الطرف الاول فى هذا العقد السيد) </label>
                                     <input type="text" id="first_part_person_input" class="form-control" name='first_part_person' />
                                 </div>
 
@@ -169,7 +169,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                         class='form-control ' required>
                                         <option value="">-- Please Select --</option>
                                         @foreach($percentages as $percentage)
-                                        <option value="{{$percentage->id}}">{{$percentage->percentage}}</option>
+                                        <option value="{{$percentage->percentage}}">{{$percentage->percentage}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -227,7 +227,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> second part person name (هذا السيد) </label>
+                                    <label for="ipt" class=" control-label "> second part person name (ويمثلها الطرف الثانى فى هذا العقد السيد) </label>
                                     <input type="text" id="second_part_person_input" class="form-control" name='second_part_person' />
                                 </div>
 
@@ -265,7 +265,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                     </label>
                                     <select name='country_title[]' multiple rows='5' id='country_title' class='select2 '
                                         required>
-                                        <option value="">-- Please Select --</option>
+
                                         @foreach($countries as $country)
                                         <option value="{{$country->title}}">{{$country->title}}</option>
                                         @endforeach
@@ -277,10 +277,10 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                     </label>
                                     <select name='operator_title[]' multiple rows='5' id='operator_title'
                                         class='select2 ' required>
-                                        <option value="">-- Please Select --</option>
+
                                         @foreach($operators as $operator)
-                                        <option value="{{$operator->title}}-{{$operator->country->title}}">
-                                            {{$operator->title}}-{{$operator->country->title}}</option>
+                                        <option value="{{$operator->title}}">
+                                            {{$operator->title}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -425,8 +425,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
               $(".steps ul > li > a span").removeClass("number")
 
               $('.removeMultiFiles').on('click', function() {
-                  var removeUrl = 'http://localhost/contracts/fullcontracts/removefiles?file=' + $(this).attr(
-                      'url');
+                  var removeUrl = 'http://localhost/contracts/fullcontracts/removefiles?file=' + $(this).attr('url');
                   $(this).parent().remove();
                   $.get(removeUrl, function(response) {});
                   $(this).parent('div').empty();

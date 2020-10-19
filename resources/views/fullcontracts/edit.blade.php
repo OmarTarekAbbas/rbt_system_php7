@@ -121,7 +121,7 @@
                                     <select name='first_party_percentage' rows='5' id='first_party_percentage' class='select2 ' required>
                     <option value="">-- Please Select --</option>
                     @foreach($percentages as $percentage)
-                    <option value="{{$percentage->id}}" @if($contract->first_party_percentage==$percentage->percentage) selected="selected" @endif>{{$percentage->percentage}}</option>
+                    <option value="{{$percentage->percentage}}" @if($contract->first_party_percentage==$percentage->percentage) selected="selected" @endif>{{$percentage->percentage}}</option>
                     @endforeach
                   </select>
                                 </div>
@@ -170,7 +170,7 @@
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Countries <span class="asterix"> * </span> </label>
                                     <select name='country_title[]' multiple rows='5' id='country_title' class='select2 ' required>
-                    <option value="">-- Please Select --</option>
+
                     @foreach($countries as $country)
                     <option value="{{$country->title}}" @if(in_array($country->title,explode(",",$contract->country_title))) selected="selected" @endif>{{$country->title}}</option>
                     @endforeach
@@ -180,7 +180,7 @@
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Operators <span class="asterix"> * </span> </label>
                                     <select name='operator_title[]' multiple rows='5' id='operator_title' class='select2 ' required>
-                    <option value="">-- Please Select --</option>
+
                     @foreach($operators as $operator)
                     <option value="{{$operator->title}}}" @if(in_array($operator->title,explode(",",$contract->operator_title))) selected="selected" @endif>{{$operator->title}}</option>
                     @endforeach
@@ -292,8 +292,6 @@
     </main>
 </div>
 @stop @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-
 <script>
     $('#contract').addClass('active');
     $('#contract-index').addClass('active');
@@ -344,6 +342,7 @@
             });
     });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 <script>
     var years;
