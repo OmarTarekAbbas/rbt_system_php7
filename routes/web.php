@@ -283,7 +283,7 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::get('template_items/{id}', 'FullcontractsController@template_items');
 
     Route::get('contract_items_send/{id}/edit', 'ContractItemsApprovidsController@edit');
-    Route::post('fullcontracts/{id}/update', 'ContractItemsApprovidsController@update');
+    Route::post('fullcontracts/{id}/updateapprove', 'ContractItemsApprovidsController@update');
     Route::get('contract_items_send/{id}/approves', 'ContractItemsApprovidsController@index');
 
     Route::get('sendemail', 'DepartmentController@contract_items_send_email');

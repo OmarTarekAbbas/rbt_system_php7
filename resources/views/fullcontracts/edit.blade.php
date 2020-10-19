@@ -182,7 +182,7 @@
                                     <select name='operator_title[]' multiple rows='5' id='operator_title' class='select2 ' required>
 
                     @foreach($operators as $operator)
-                    <option value="{{$operator->title}}}" @if(in_array($operator->title,explode(",",$contract->operator_title))) selected="selected" @endif>{{$operator->title}}</option>
+                    <option value="{{$operator->title}}" @if(in_array($operator->title,explode(",",$contract->operator_title))) selected="selected" @endif>{{$operator->title}}</option>
                     @endforeach
                   </select>
                                 </div>
@@ -342,7 +342,6 @@
             });
     });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 <script>
     var years;
