@@ -49,7 +49,7 @@ class FullcontractsController extends Controller
     {
         $contracts = Contract::select('*', 'contracts.id as id', 'contracts.contract_code as code', 'service_types.service_type_title as service_type')
             ->join('service_types', 'service_types.id', '=', 'contracts.service_type_id')
-            ->orderBy('contracts.created_at','desc')->get();
+            ->orderBy('contracts.id','desc')->get();
         $datatable = \Datatables::of($contracts)
             ->addColumn('index', function (Contract $contract) {
                 return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$contract->id}}" class="roles" onclick="collect_selected(this)">';

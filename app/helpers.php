@@ -89,3 +89,11 @@ function send_notification($message,$dep,$data){
     $country = \App\Country::where('title','LIKE','%All countries%')->first();
     return optional($country)->id;
   }
+
+  function ceo_data(){
+    $user = \App\User::where('email',ceo_email)->first();
+    if($user) {
+      return $user;
+    }
+    return null;
+  }

@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
+
+define('ceo_email','mh124404@gmail.com');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index');
     Route::get('user_profile', 'UserController@profile');
