@@ -284,7 +284,7 @@ Departments
     // api for get operators
     function getOperators(country_id) {
         var operators = []
-        country_id = country_id == 3 ? '' : country_id
+        country_id = country_id == "{{ all_countries_id() }}" ? '' : country_id
         $.get("{{ url('/api/operators/') }}/"+country_id,function(response) {
             form = createOperaotrForm(response)
             $('#operator_id').html(form)
@@ -297,7 +297,7 @@ Departments
     // api for get occasions
     function getOccasions(country_id) {
         var occasion = []
-        country_id = country_id == 3 ? '' : country_id
+        country_id = country_id == "{{ all_countries_id() }}" ? '' : country_id
         $.get("{{ url('/api/occasions/') }}/"+country_id,function(response) {
             occasionform = createOccasionForm(response)
             $('#occasion_id').html(occasionform)

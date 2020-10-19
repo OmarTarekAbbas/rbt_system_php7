@@ -15,7 +15,7 @@ class ContractService
   /**
    * @var IMAGE_PATH
    */
-  const IMAGE_PATH = 'contracts/';
+  const IMAGE_PATH = '/contracts';
   /**
    * __construct
    *
@@ -48,7 +48,7 @@ class ContractService
 
     if (isset($request['contract_pdf'])) {
       $request = array_merge($request, [
-        "contract_pdf"  =>  $this->handleFile($request['contract_pdf'])
+        "contract_pdf"  =>  basename($this->handleFile($request['contract_pdf']))
       ]);
     }
 
@@ -78,7 +78,7 @@ class ContractService
    */
   public function handleFile($value)
   {
-    return $this->uploaderService->upload($value, self::IMAGE_PATH);
+    return $this->UploaderService->upload($value, self::IMAGE_PATH);
   }
 
   /**
