@@ -25,7 +25,7 @@ class RoadMapController extends Controller
       $roadmaps = Roadmap::select('*','roadmaps.id AS roadmap_id','occasions.title as occasion','countries.title as country','operators.title as operator','aggregators.title as aggregator')
       ->join('occasions','occasions.id','=','roadmaps.occasion_id')
       ->join('countries','countries.id','=','roadmaps.country_id')
-      ->join('operators','countries.id','=','operators.country_id')
+      ->join('operators','operators.id','=','roadmaps.operator_id')
       ->join('aggregators','aggregators.id','=','roadmaps.aggregator_id')
       ->groupBy('roadmap_id')
       ->get();
