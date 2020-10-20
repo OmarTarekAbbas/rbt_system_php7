@@ -231,5 +231,20 @@ class FullcontractsController extends Controller
       return redirect('uploads/contracts/'.$row->contract_pdf);
    }
 
+   public function getCeoApprovePage($id)
+   {
+     $contract = Contract::findOrfail($id);
+     $template_items = $contract->items;
+     $items = view('fullcontracts.template', compact('template_items'))->render();
+     return view('fullcontracts.ceo_approve',compact('contract','items'));
+   }
 
+   public function saveCeoApprove($id,Request $request)
+   {
+     $contract = Contract::find($id);
+     $contract->ceo_approve = $request->ceo_approve;
+     $contract->save();
+     session()->flash("success",'Your Action For This Contract Saved');
+     return redirect('fullcontracts/'.$id);
+   }
 }

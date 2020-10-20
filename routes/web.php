@@ -285,6 +285,8 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
     Route::get('contract_items_send/{id}/edit', 'ContractItemsApprovidsController@edit');
     Route::post('fullcontracts/{id}/updateapprove', 'ContractItemsApprovidsController@update');
     Route::get('contract_items_send/{id}/approves', 'ContractItemsApprovidsController@index');
+    Route::get('ceo/{id}/approve', 'FullcontractsController@getCeoApprovePage');
+    Route::post('ceo/{id}/approve', 'FullcontractsController@saveCeoApprove');
 
     Route::get('sendemail', 'DepartmentController@contract_items_send_email');
 

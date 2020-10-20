@@ -15,8 +15,10 @@
         </div>
     @endif
     <div class="container-fluid">
+        @if(isset($departments))
         <a data-id="{{$item->id}}" onclick="removeItem({{$item->id}})" type="button" class="btn btn-danger btn-circle remove-item"><i class="fa fa-times" aria-hidden="true"></i></a>
         <a data-id="{{$item->id}}" onclick="showEditModal({{$item->id}})" type="button" class="btn btn-success btn-circle edit-item"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        @endif
         <div id="{{$item->id}}">
             {!! $item->item !!}
         </div>

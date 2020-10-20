@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Contract;
+use App\Department;
 use App\Notification;
 
 class ContractObserver
@@ -14,21 +15,28 @@ class ContractObserver
      */
     public function saved(Contract $contract)
     {
-      if ($contract->full_approves && !$contract->ceo_approve) {
+      if ($contract->isDirty('full_approves') && $contract->full_approves && !$contract->ceo_approve) {
         $url = url('ceo/' . $contract->id . '/approve');
-        $this->sendNotifocation($contract, $url);
-        $this->sendEmail($contract, $url);
+        $this->sendCeoNotifocation($contract, $url);
+        $this->sendCeoEmail($contract, $url);
+      }
+
+      if ($contract->isDirty('ceo_approve') && $contract->ceo_approve) {
+        foreach($contract->items as $item) {
+          $department_mails = Department::whereIn('id',explode(',', $item->department_ids))->pluck('email')->toArray();
+          $this->sendDepartmentEmail($contract,$item->item,$department_mails);
+        }
       }
     }
 
     /**
-     * Method sendNotifocation
+     * Method sendCeoNotifocation
      *
      * @param Contract $contract
      * @param String $url
      * @return void
      */
-    public function sendNotifocation($contract, $url)
+    public function sendCeoNotifocation($contract, $url)
     {
       $notification = new Notification();
       $notification->notifier_id = 1;
@@ -40,14 +48,14 @@ class ContractObserver
     }
 
     /**
-     * Method sendEmail
+     * Method sendCeoEmail
      *
      * @param Contract $contract
      * @param String $url
      *
      * @return void
      */
-    public function sendEmail($contract, $url)
+    public function sendCeoEmail($contract, $url)
     {
       $subject = "CEO Approve";
       $message  = '<!DOCTYPE html>
@@ -65,6 +73,36 @@ class ContractObserver
       {
           $email->from('rbt@gmail.com','ivas_system');
           $email->to(ceo_email)->subject($subject);
+          $email->setBody($message, 'text/html');
+      });
+    }
+    /**
+     * Method sendDepartmentEmail
+     *
+     * @param Contract $contract
+     * @param String $item
+     * @param array $emails
+     *
+     * @return void
+     */
+    public function sendDepartmentEmail($contract, $item, $emails)
+    {
+      $subject = "CEO Approve";
+      $message  = '<!DOCTYPE html>
+      <html lang="en">
+          <head>
+          </head>
+          <body>
+          <center> <strong>'. $contract->contract_code . ' ' . $contract->contract_label. '</strong> </center>
+          </br>
+          <center><strong> Ceo Approve This Contract That Contain Your Item</strong></center>
+          '.$item.'
+      </body>
+      </html>';
+      \Mail::send([], [], function($email) use ($message,$subject,$emails)
+      {
+          $email->from('rbt@gmail.com','ivas_system');
+          $email->to($emails)->subject($subject);
           $email->setBody($message, 'text/html');
       });
     }
