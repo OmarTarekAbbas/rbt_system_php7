@@ -41,6 +41,7 @@ class Contract extends Model
         'btn_annex',
         'btn_auturaisition',
         'btn_copyrights',
+        'contract_signed_date',
         'entry_by_details',
         'entry_by',
         'second_party_type_id',

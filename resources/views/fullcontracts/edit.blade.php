@@ -190,6 +190,16 @@
                             </section>
                             <h3>Dates/Status/File</h3>
                             <section>
+
+                                <div class="form-group">
+                                    <label for="ipt" class="control-label "> Contract Singed Date </label>
+                                    <div class="input-group input-group-sm m-b" style="width:170px !important;">
+                                        <div class="input-group">
+                                            <input type="date" value="{{$contract->contract_signed_date}}" class="form-control form-control-sm " name="contract_signed_date" id="signed_date_input" />
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Contract Date <span class="asterix"> * </span> </label>
                                     <div class="input-group input-group-sm m-b" style="width:170px !important;">
@@ -358,7 +368,7 @@
     });
 
     function setEndDate(endDate, years) {
-        $("#contract_expiry_date").val(moment(endDate, "YYYY-MM-DD").add(years, 'years').subtract(1, 'days').format('YYYY-MM-DD'))
+        $("#contract_expiry_date").val(moment(endDate, "YYYY-MM-DD").locale('en').add(years, 'years').subtract(1, 'days').format('YYYY-MM-DD'))
     }
 </script>
 

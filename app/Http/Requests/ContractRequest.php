@@ -44,6 +44,7 @@ class ContractRequest extends Request
             "contract_type" => "",
             "contract_pdf" => "mimes:pdf,docx,excel",
             "contract_notes" => "",
+            "contract_signed_date" => "",
             "contract_code" => ""
        ];
     }
