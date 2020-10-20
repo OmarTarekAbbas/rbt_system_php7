@@ -81,6 +81,11 @@
                             </tr>
 
                             <tr>
+                                <td width='30%' class='label-view text-right'>Contract Singed Date </td>
+                                <td>{{ date('F j, Y',strtotime($contract->contract_signed_date)) }} </td>
+                            </tr>
+
+                            <tr>
                                 <td width='30%' class='label-view text-right'>Contract Duration </td>
                                 <td>{{$contract->contract_duration_id}} Year </td>
                             </tr>

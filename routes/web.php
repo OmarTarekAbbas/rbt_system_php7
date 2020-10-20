@@ -290,3 +290,11 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
 
 });
 
+Route::get('copy/signed/date',function(){
+  $contracts = \App\Contract::all();
+  foreach ($contracts as  $contract) {
+    $contract->contract_signed_date = $contract->contract_date;
+    $contract->save();
+  }
+  return redirect('fullcontracts');
+});
