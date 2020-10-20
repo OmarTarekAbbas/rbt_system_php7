@@ -27,7 +27,7 @@ class RoadmapStoreRequest extends FormRequest
             'event_title' => 'required' ,
             'event_color' => 'required',
             'event_code' => '',
-            'event_start_date' => 'required|after_or_equal:today',
+            'event_start_date' => 'required',
             'event_end_date' => 'required|after_or_equal:event_start_date',
             'event_status' => '',
             'country_id' => '',
