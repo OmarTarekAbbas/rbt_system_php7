@@ -36,10 +36,10 @@
 @section('script')
 <script>
   $(document).on('ready',function(){
-    $('#first_party_signature').html('<img width="200px" height="200px" src="{{ $contract->first_party_signature }}" class="img-circle">')
-    $('#second_party_signature').html('<img width="200px" height="200px" src="{{ $contract->second_party_signature }}" class="img-circle">')
-    $('#first_party_seal').html('<img width="200px" height="200px" src="{{ $contract->first_party_seal }}" class="img-circle">')
-    $('#second_party_seal').html('<img width="200px" height="200px" src="{{ $contract->second_party_seal }}" class="img-circle">')
+    $('#first_party_signature').html('<img width="200px" height="200px" src="{{ url(optional($contract->first_parties)->first_party_signature) }}" class="img-circle">')
+    $('#second_party_signature').html('<img width="200px" height="200px" src="{{ url(optional($contract->second_parties)->second_party_signature) }}" class="img-circle">')
+    $('#first_party_seal').html('<img width="200px" height="200px" src="{{ url(optional($contract->first_parties)->first_party_seal) }}" class="img-circle">')
+    $('#second_party_seal').html('<img width="200px" height="200px" src="{{ url(optional($contract->second_parties)->second_party_seal) }}" class="img-circle">')
     $('.container-fluid div').each(function() {
       $('#input' + $(this).attr('id')).val($(this).html())
       console.log($('#input' + $(this).attr('id')).val());

@@ -25,7 +25,9 @@ class FirstpartieRequest extends Request
     {
        return [
             "first_party_title" => "required",
-            "first_party_joining_date" => "required"
+            "first_party_joining_date" => "required",
+            'first_party_signature' => '',
+            'first_party_seal' => '',
        ];
     }
 }

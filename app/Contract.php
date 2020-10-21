@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Contract extends Model
 {
-
-
     protected $table = 'contracts';
     protected $fillable = [
         'contract_code',
@@ -46,32 +44,21 @@ class Contract extends Model
         'entry_by',
         'second_party_type_id',
         'contract_type',
-        'first_party_signature',
-        'second_party_signature',
-        'first_party_seal',
-        'second_party_seal'
     ];
-
-    public function getFirstPartySignatureAttribute($value)
-    {
-      return $value ? url('uploads/contract_signatures/'.$value) : '';
-    }
-    public function getSecondPartySignatureAttribute($value)
-    {
-      return $value ? url('uploads/contract_signatures/'.$value) : '';
-    }
-    public function getFirstPartySealAttribute($value)
-    {
-      return $value ? url('uploads/contract_signatures/'.$value) : '';
-    }
-    public function getSecondPartySealAttribute($value)
-    {
-      return $value ? url('uploads/contract_signatures/'.$value) : '';
-    }
 
     public function service_type()
     {
         return $this->belongsTo('App\ServiceTypes');
+    }
+
+    public function first_parties()
+    {
+        return $this->belongsTo(Firstpartie::class, 'first_party_id');
+    }
+
+    public function second_parties()
+    {
+        return $this->belongsTo(Secondparties::class, 'second_party_id');
     }
 
     public function contract_service()

@@ -121,6 +121,20 @@ Second Party
                       </div>
                     </div>
 
+                    <div class="form-group">
+                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> second party signature </label>
+                      <div class="col-sm-9 col-lg-10 controls">
+                        <input type="file" name="second_party_signature" id="second_party_signature" placeholder="Second Party Title" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> second party seal </label>
+                      <div class="col-sm-9 col-lg-10 controls">
+                        <input type="file" name="second_party_seal" id="second_party_seal" placeholder="Second Party Title" class="form-control">
+                      </div>
+                    </div>
+
                   </div>
                 </div>
                 <!-- END Left Side -->

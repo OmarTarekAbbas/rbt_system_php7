@@ -133,12 +133,12 @@
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> first commercial register no </label>
+                                    <label for="ipt" class=" control-label "> first commercial register no (رقم السجل التجارى للطرف الاول)</label>
                                     <input type="text" id="first_commercial_register_no_input" class="form-control" name='first_commercial_register_no' />
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> first tax card no </label>
+                                    <label for="ipt" class=" control-label "> first tax card no (رقم البطاقة الضريبية للطرف الاول) </label>
                                     <input type="text" id="first_tax_card_no_input" class="form-control" name='first_tax_card_no' />
                                 </div>
 
@@ -182,30 +182,6 @@
                                     <label for="ipt" class=" control-label "> Pages <span class="asterix"> * </span>
                                     </label>
                                     <input type='text' name='pages' id='pages' value='' required class='form-control form-control-sm ' />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="ipt" class=" control-label "> first party signature </label>
-                                    <div class="fileUpload btn ">
-                                        <span> <i class="fa fa-copy"></i> </span>
-                                        <div class="title"> Browse File </div>
-                                        <input type="file" name="first_party_signature" class="upload" />
-                                    </div>
-                                    <div class="contract_pdf-preview preview-upload">
-                                        <img src='http://localhost/contracts/uploads/images/no-image.png' border='0' width='80' class='img-circle' /></a>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="ipt" class=" control-label "> first party seal </label>
-                                    <div class="fileUpload btn ">
-                                        <span> <i class="fa fa-copy"></i> </span>
-                                        <div class="title"> Browse File </div>
-                                        <input type="file" name="first_party_seal" class="upload" />
-                                    </div>
-                                    <div class="contract_pdf-preview preview-upload">
-                                        <img src='http://localhost/contracts/uploads/images/no-image.png' border='0' width='80' class='img-circle' /></a>
-                                    </div>
                                 </div>
 
                             </section>
@@ -257,12 +233,12 @@
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> second commercial register no </label>
+                                    <label for="ipt" class=" control-label "> second commercial register no (رقم السجل التجارى للطرف الثانى) </label>
                                     <input type="text" id="second_commercial_register_no_input" class="form-control" name='second_commercial_register_no' />
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> second tax card no </label>
+                                    <label for="ipt" class=" control-label "> second tax card no (رقم البطاقة الضريبية للطرف الثانى) </label>
                                     <input type="text" id="second_tax_card_no_input" class="form-control" name='second_tax_card_no' />
                                 </div>
 
@@ -274,30 +250,6 @@
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> second part phone </label>
                                     <input type="text" id="second_part_phone_input" class="form-control" name='second_part_phone' />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="ipt" class=" control-label "> second party signature </label>
-                                    <div class="fileUpload btn ">
-                                        <span> <i class="fa fa-copy"></i> </span>
-                                        <div class="title"> Browse File </div>
-                                        <input type="file" name="second_party_signature" class="upload" />
-                                    </div>
-                                    <div class="contract_pdf-preview preview-upload">
-                                        <img src='http://localhost/contracts/uploads/images/no-image.png' border='0' width='80' class='img-circle' /></a>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="ipt" class=" control-label "> second party seal </label>
-                                    <div class="fileUpload btn ">
-                                        <span> <i class="fa fa-copy"></i> </span>
-                                        <div class="title"> Browse File </div>
-                                        <input type="file" name="second_party_seal" class="upload" />
-                                    </div>
-                                    <div class="contract_pdf-preview preview-upload">
-                                        <img src='http://localhost/contracts/uploads/images/no-image.png' border='0' width='80' class='img-circle' /></a>
-                                    </div>
                                 </div>
 
                                 <div class="form-group  ">

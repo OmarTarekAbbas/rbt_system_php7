@@ -50,6 +50,15 @@ class SecondPartyUpdateService
             $second_party_tc = $this->UploaderService->upload($request['second_party_tc'], '/secondparty/tc/');
             $request['second_party_tc'] = $second_party_tc;
         }
+        if (isset($request['second_party_signature'])) {
+          $second_party_signature = $this->UploaderService->upload($request['second_party_signature'], '/second_signatures');
+          $request['second_party_signature'] = $second_party_signature;
+        }
+        if (isset($request['second_party_seal'])) {
+          $second_party_signature = $this->UploaderService->upload($request['second_party_seal'], '/second_signatures');
+          $request['second_party_seal'] = $second_party_signature;
+        }
+
         return $SecondParty->update($request);
     }
 }

@@ -15,7 +15,7 @@ FirstParties
                     </div>
                 </div>
                 <div class="box-content">
-                    <form class="form-horizontal" action="{{route('admin.firstparties.update',['firstpartie' => $firstpartie])}}" method="post">
+                    <form class="form-horizontal" action="{{route('admin.firstparties.update',['firstpartie' => $firstpartie])}}" method="post" enctype="multipart/form-data">
                       @method('patch')
                     	{{ csrf_field() }}
                       <div class="form-group">
@@ -32,6 +32,20 @@ FirstParties
                           <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             <input type="text" name="first_party_joining_date" id="first_party_joining_date" autocomplete="off" placeholder="first party joining date" value="{{$firstpartie->first_party_joining_date->format('d-m-Y')}}" data-date-format="dd-mm-yyyy" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> First party signature <a href="{{ url($firstpartie->first_party_signature) }}"> Preview</a> </label>
+                          <div class="col-sm-9 col-lg-10 controls">
+                            <input type="file" name="first_party_signature" id="first_party_signature" placeholder="Second Party Title" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> First party seal  <a href="{{ url($firstpartie->first_party_seal) }}"> Preview</a> </label>
+                          <div class="col-sm-9 col-lg-10 controls">
+                            <input type="file" name="first_party_seal" id="first_party_seal" placeholder="Second Party Title" class="form-control">
                           </div>
                         </div>
 
