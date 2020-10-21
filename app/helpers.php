@@ -6,6 +6,7 @@ use App\Notification;
 use Illuminate\Http\Request;
 use App\Events\Notifications;
 use Illuminate\Support\Facades\DB;
+use PDF as PDF;
 function delete_multiselect(Request $request) // select many contract from index table and delete them
 {
     $selected_list =  explode(",",$request['selected_list']);
@@ -96,4 +97,38 @@ function send_notification($message,$dep,$data){
       return $user;
     }
     return null;
+  }
+
+  function generatePdf($contract)
+  {
+    $file = $contract->id . time() . '.pdf';
+    $contract->contract_pdf = $file;
+    $contract->save();
+    $template_items = $contract->items;
+    $content = view('fullcontracts.template', compact('template_items'))->render();
+    $pdf = new PDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    $pdf::SetTitle($contract->title);
+
+    // set some language dependent data:
+    $lg = array();
+    $lg['a_meta_charset'] = 'UTF-8';
+    $lg['a_meta_dir'] = 'rtl';
+    $lg['a_meta_language'] = 'ar';
+    $lg['w_page'] = 'page';
+    // set some language-dependent strings (optional)
+    $pdf::setLanguageArray($lg);
+    $pdf::setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+    $pdf::setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+    $pdf::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+    $pdf::SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+    $pdf::SetHeaderMargin(PDF_MARGIN_HEADER);
+    $pdf::SetFooterMargin(PDF_MARGIN_FOOTER);
+    $pdf::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+    $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
+    $pdf::setFontSubsetting(true);
+    $pdf::SetFont('freeserif', '', 12);
+    $pdf::AddPage();
+    $pdf::writeHTML($content, true, false, true, false, '');
+
+    $pdf::Output(base_path('uploads/contracts') . '/' . $file, 'F');
   }

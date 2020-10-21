@@ -7,8 +7,8 @@ use App\Contract;
 use App\Contract_Items_Approvids;
 use App\ContractItem;
 use App\Department;
-use PDF;
 use App\Notification;
+use Illuminate\Http\UploadedFile;
 
 class ContractService
 {
@@ -16,6 +16,10 @@ class ContractService
    * @var IMAGE_PATH
    */
   const IMAGE_PATH = '/contracts';
+  /**
+   * @var IMAGE_PATH
+   */
+  const SIGNATURE_IMAGE_PATH = '/contract_signatures';
   /**
    * __construct
    *
@@ -48,24 +52,53 @@ class ContractService
 
     if (isset($request['contract_pdf'])) {
       $request = array_merge($request, [
-        "contract_pdf"  =>  basename($this->handleFile($request['contract_pdf']))
+        "contract_pdf"  =>  basename($this->handleFile($request['contract_pdf'], self::IMAGE_PATH))
       ]);
     }
+
+    if (isset($request['first_party_signature'])) {
+
+      $request = array_merge($request, [
+        "first_party_signature"  =>  basename($this->handleFile($request['first_party_signature'] , self::SIGNATURE_IMAGE_PATH))
+      ]);
+
+    }
+
+    if (isset($request['second_party_signature'])) {
+      $request = array_merge($request, [
+        "second_party_signature"  =>  basename($this->handleFile($request['second_party_signature'] , self::SIGNATURE_IMAGE_PATH))
+      ]);
+
+    }
+
+    if (isset($request['first_party_seal'])) {
+      $request = array_merge($request, [
+        "first_party_seal"  =>  basename($this->handleFile($request['first_party_seal'] , self::SIGNATURE_IMAGE_PATH))
+      ]);
+
+    }
+
+    if (isset($request['second_party_seal'])) {
+      $request = array_merge($request, [
+        "second_party_seal"  =>  basename($this->handleFile($request['second_party_seal'] , self::SIGNATURE_IMAGE_PATH))
+      ]);
+    }
+
 
     $contract->fill($request);
 
     $contract->save();
 
     if(request()->filled('items')){
-      $this->createContractItems($contract, request('items'), request('department_ids'));
+      $this->createContractItems($contract, request()->get('items'), request()->get('department_ids'));
     }
 
     if(request()->filled('new_items')){
-      $this->createContractItems($contract, request('new_items'), request('new_department_ids'));
+      $this->createContractItems($contract, request()->get('new_items'), request()->get('new_department_ids'));
     }
 
     if(request()->filled('items') || request()->filled('new_items')) {
-      $this->generatePdf($contract);
+      generatePdf($contract);
     }
 
     return $contract;
@@ -73,19 +106,21 @@ class ContractService
 
   /**
    * handle function that make update for role
-   * @param UploadedFile|string $request
+   * @param UploadedFile $value
+   * @param string $path
    * @return string
    */
-  public function handleFile($value)
+  public function handleFile($value, $path)
   {
-    return $this->UploaderService->upload($value, self::IMAGE_PATH);
+    return $this->UploaderService->upload($value, $path);
   }
 
   /**
    * createContractItems
    *
    * @param  Contract $contract
-   * @param  array $data
+   * @param  array $items
+   * @param  array $items
    * @return void
    */
   public function createContractItems($contract, $items, $department_ids)
@@ -102,48 +137,6 @@ class ContractService
         $this->contract_items_send_email($contract_item, $department_ids[$key]);
       }
     }
-  }
-
-  /**
-   * Method generatePdf
-   *
-   * @param Contract $contract
-   *
-   * @return void
-   */
-  public function generatePdf($contract)
-  {
-    $file = $contract->id . time() . '.pdf';
-    $contract->contract_pdf = $file;
-    $contract->save();
-    $template_items = $contract->items;
-    $content = view('fullcontracts.template', compact('template_items'))->render();
-
-    $pdf = new PDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-    $pdf::SetTitle($contract->title);
-
-    // set some language dependent data:
-    $lg = array();
-    $lg['a_meta_charset'] = 'UTF-8';
-    $lg['a_meta_dir'] = 'rtl';
-    $lg['a_meta_language'] = 'ar';
-    $lg['w_page'] = 'page';
-    // set some language-dependent strings (optional)
-    $pdf::setLanguageArray($lg);
-    $pdf::setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-    $pdf::setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-    $pdf::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-    $pdf::SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-    $pdf::SetHeaderMargin(PDF_MARGIN_HEADER);
-    $pdf::SetFooterMargin(PDF_MARGIN_FOOTER);
-    $pdf::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-    $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
-    $pdf::setFontSubsetting(true);
-    $pdf::SetFont('freeserif', '', 12);
-    $pdf::AddPage();
-    $pdf::writeHTML($content, true, false, true, false, '');
-
-    $pdf::Output(base_path('uploads/contracts') . '/' . $file, 'F');
   }
 
   /**

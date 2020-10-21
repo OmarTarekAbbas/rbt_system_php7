@@ -45,8 +45,29 @@ class Contract extends Model
         'entry_by_details',
         'entry_by',
         'second_party_type_id',
-        'contract_type'
+        'contract_type',
+        'first_party_signature',
+        'second_party_signature',
+        'first_party_seal',
+        'second_party_seal'
     ];
+
+    public function getFirstPartySignatureAttribute($value)
+    {
+      return $value ? url('uploads/contract_signatures/'.$value) : '';
+    }
+    public function getSecondPartySignatureAttribute($value)
+    {
+      return $value ? url('uploads/contract_signatures/'.$value) : '';
+    }
+    public function getFirstPartySealAttribute($value)
+    {
+      return $value ? url('uploads/contract_signatures/'.$value) : '';
+    }
+    public function getSecondPartySealAttribute($value)
+    {
+      return $value ? url('uploads/contract_signatures/'.$value) : '';
+    }
 
     public function service_type()
     {

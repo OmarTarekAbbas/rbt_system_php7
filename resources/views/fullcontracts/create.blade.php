@@ -10,7 +10,7 @@
             padding-left: unset;
         }
     }
-    
+
     .radio_check {
         display: inline-block;
         *display: inline;
@@ -23,40 +23,40 @@
         border: none;
         cursor: pointer;
     }
-    
+
     .dropdown-toggle::after {
         display: none;
     }
-    
+
     .nav-list>li {
         width: 100%;
     }
-    
+
     .start_date {
         text-align: right;
     }
-    
+
     input[type="date"]::-webkit-datetime-edit,
     input[type="date"]::-webkit-inner-spin-button,
     input[type="date"]::-webkit-clear-button {
         color: #fff;
         position: relative;
     }
-    
+
     input[type="date"]::-webkit-datetime-edit-year-field {
         position: absolute !important;
         padding: 2px;
         color: #000;
         left: 0;
     }
-    
+
     input[type="date"]::-webkit-datetime-edit-month-field {
         position: absolute !important;
         padding: 2px;
         color: #000;
         left: 30px;
     }
-    
+
     input[type="date"]::-webkit-datetime-edit-day-field {
         position: absolute !important;
         color: #000;
@@ -184,6 +184,30 @@
                                     <input type='text' name='pages' id='pages' value='' required class='form-control form-control-sm ' />
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="ipt" class=" control-label "> first party signature </label>
+                                    <div class="fileUpload btn ">
+                                        <span> <i class="fa fa-copy"></i> </span>
+                                        <div class="title"> Browse File </div>
+                                        <input type="file" name="first_party_signature" class="upload" />
+                                    </div>
+                                    <div class="contract_pdf-preview preview-upload">
+                                        <img src='http://localhost/contracts/uploads/images/no-image.png' border='0' width='80' class='img-circle' /></a>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ipt" class=" control-label "> first party seal </label>
+                                    <div class="fileUpload btn ">
+                                        <span> <i class="fa fa-copy"></i> </span>
+                                        <div class="title"> Browse File </div>
+                                        <input type="file" name="first_party_seal" class="upload" />
+                                    </div>
+                                    <div class="contract_pdf-preview preview-upload">
+                                        <img src='http://localhost/contracts/uploads/images/no-image.png' border='0' width='80' class='img-circle' /></a>
+                                    </div>
+                                </div>
+
                             </section>
                             <h3>Services/Client/Network</h3>
                             <section>
@@ -251,6 +275,31 @@
                                     <label for="ipt" class=" control-label "> second part phone </label>
                                     <input type="text" id="second_part_phone_input" class="form-control" name='second_part_phone' />
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="ipt" class=" control-label "> second party signature </label>
+                                    <div class="fileUpload btn ">
+                                        <span> <i class="fa fa-copy"></i> </span>
+                                        <div class="title"> Browse File </div>
+                                        <input type="file" name="second_party_signature" class="upload" />
+                                    </div>
+                                    <div class="contract_pdf-preview preview-upload">
+                                        <img src='http://localhost/contracts/uploads/images/no-image.png' border='0' width='80' class='img-circle' /></a>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ipt" class=" control-label "> second party seal </label>
+                                    <div class="fileUpload btn ">
+                                        <span> <i class="fa fa-copy"></i> </span>
+                                        <div class="title"> Browse File </div>
+                                        <input type="file" name="second_party_seal" class="upload" />
+                                    </div>
+                                    <div class="contract_pdf-preview preview-upload">
+                                        <img src='http://localhost/contracts/uploads/images/no-image.png' border='0' width='80' class='img-circle' /></a>
+                                    </div>
+                                </div>
+
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Countries <span class="asterix"> * </span>
                                     </label>

@@ -22,11 +22,29 @@ class ContractObserver
       }
 
       if ($contract->isDirty('ceo_approve') && $contract->ceo_approve) {
+        $this->updateContractItems($contract);
         foreach($contract->items as $item) {
           $department_mails = Department::whereIn('id',explode(',', $item->department_ids))->pluck('email')->toArray();
           $this->sendDepartmentEmail($contract,$item->item,$department_mails);
         }
       }
+    }
+
+    /**
+     * Method createNewItems
+     *
+     * @param Contract $contract
+     *
+     * @return void
+     */
+    public function updateContractItems($contract)
+    {
+      foreach ($contract->items as $key => $item) {
+        $item->item = request('items')[$key];
+        $item->save();
+      }
+      $contract = Contract::find($contract->id);
+      generatePdf($contract);
     }
 
     /**
