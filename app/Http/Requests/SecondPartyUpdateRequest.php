@@ -32,6 +32,8 @@ class SecondPartyUpdateRequest extends FormRequest
             'second_party_identity' => 'nullable',
             'second_party_cr' => 'nullable',
             'second_party_tc' => 'nullable',
+            'second_party_signature' => '',
+            'second_party_seal' => ''
         ];
     }
 }

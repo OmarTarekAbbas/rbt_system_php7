@@ -56,35 +56,6 @@ class ContractService
       ]);
     }
 
-    if (isset($request['first_party_signature'])) {
-
-      $request = array_merge($request, [
-        "first_party_signature"  =>  basename($this->handleFile($request['first_party_signature'] , self::SIGNATURE_IMAGE_PATH))
-      ]);
-
-    }
-
-    if (isset($request['second_party_signature'])) {
-      $request = array_merge($request, [
-        "second_party_signature"  =>  basename($this->handleFile($request['second_party_signature'] , self::SIGNATURE_IMAGE_PATH))
-      ]);
-
-    }
-
-    if (isset($request['first_party_seal'])) {
-      $request = array_merge($request, [
-        "first_party_seal"  =>  basename($this->handleFile($request['first_party_seal'] , self::SIGNATURE_IMAGE_PATH))
-      ]);
-
-    }
-
-    if (isset($request['second_party_seal'])) {
-      $request = array_merge($request, [
-        "second_party_seal"  =>  basename($this->handleFile($request['second_party_seal'] , self::SIGNATURE_IMAGE_PATH))
-      ]);
-    }
-
-
     $contract->fill($request);
 
     $contract->save();

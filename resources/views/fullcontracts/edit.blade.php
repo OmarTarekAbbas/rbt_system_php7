@@ -138,29 +138,6 @@
                                     <input type='text' name='pages' id='pages' value='{{$contract->pages}}' required class='form-control form-control-sm ' />
                                 </div>
 
-                                 <div class="form-group select_contract_type_draft">
-                                    <label for="ipt" class=" control-label "> first party signature </label>
-                                    <div class="fileUpload btn ">
-                                        <span> <i class="fa fa-copy"></i> </span>
-                                        <div class="title"> Browse File </div>
-                                        <input type="file" name="first_party_signature" class="upload" />
-                                    </div>
-                                    <div class="contract_pdf-preview preview-upload">
-                                        <img src='{{ $contract->first_party_signature }}' border='0' width='80' class='img-circle' /></a>
-                                    </div>
-                                </div>
-
-                                <div class="form-group select_contract_type_draft">
-                                    <label for="ipt" class=" control-label "> first party seal </label>
-                                    <div class="fileUpload btn ">
-                                        <span> <i class="fa fa-copy"></i> </span>
-                                        <div class="title"> Browse File </div>
-                                        <input type="file" name="first_party_seal" class="upload" />
-                                    </div>
-                                    <div class="contract_pdf-preview preview-upload">
-                                        <img src='{{ $contract->first_party_seal }}' border='0' width='80' class='img-circle' /></a>
-                                    </div>
-                                </div>
 
                             </section>
                             <h3>Services/Client/Network</h3>
@@ -209,30 +186,6 @@
                     <option value="{{$operator->title}}" @if(in_array($operator->title,explode(",",$contract->operator_title))) selected="selected" @endif>{{$operator->title}}</option>
                     @endforeach
                   </select>
-                                </div>
-<div class="form-group select_contract_type_draft">
-                                    <label for="ipt" class=" control-label "> second party signature </label>
-                                    <div class="fileUpload btn ">
-                                        <span> <i class="fa fa-copy"></i> </span>
-                                        <div class="title"> Browse File </div>
-                                        <input type="file" name="second_party_signature" class="upload" />
-                                    </div>
-                                    <div class="contract_pdf-preview preview-upload">
-                                        <img src='{{ $contract->second_party_signature }}' border='0' width='80' class='img-circle' /></a>
-                                    </div>
-                                </div>
-
-                                <div class="form-group select_contract_type_draft">
-                                    <label for="ipt" class=" control-label "> second party seal </label>
-                                    <div class="fileUpload btn ">
-                                        <span> <i class="fa fa-copy"></i> </span>
-                                        <div class="title"> Browse File </div>
-                                        <input type="file" name="second_party_seal" class="upload" />
-                                    </div>
-                                    <div class="contract_pdf-preview preview-upload">
-                                        <img src='{{ $contract->second_party_seal }}' border='0' width='80' class='img-circle' /></a>
-                                    </div>
-                                </div>
 
                             </section>
                             <h3>Dates/Status/File</h3>
