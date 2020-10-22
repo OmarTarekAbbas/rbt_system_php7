@@ -9,6 +9,8 @@ class Content extends Model
     protected $fillable = ['content_title','content_type','provider_id','internal_coding','path',
                           'user_id','image_preview','occasion_id','contract_id','start_date','expire_date'];
 
+    protected $dates = ['start_date','expire_date'];
+
     ///////////////////set image///////////////////////////////
     public function setImagePreviewAttribute($value)
     {
