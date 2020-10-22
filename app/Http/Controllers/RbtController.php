@@ -232,7 +232,9 @@ class RbtController extends Controller
         }
 
         $rbt->internal_coding = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time() ."/". $rbt->operator_id;
-        //dd($rbt);
+        $rbt->start_date      = date('Y-m-d', strtotime($request->start_date));
+        $rbt->expire_date     = date('Y-m-d', strtotime($request->expire_date));
+
         $rbt->save();
 
         $request->session()->flash('success', 'Add Rbt Successfully');
@@ -391,6 +393,9 @@ class RbtController extends Controller
                     }
 
                     $rbt['track_file'] = "uploads/rbts/".date('Y-m-d')."/".$rbt['track_title_en'].".wav" ;
+                    $rbt['start_date'] = date('Y-m-d',strtotime($row->start_date)) ;
+                    $rbt['expire_date']= date('Y-m-d',strtotime($row->expire_date)) ;
+
                     $check = Rbt::create($rbt) ;
                     if ($check)
                     {
@@ -517,6 +522,9 @@ class RbtController extends Controller
         if ($request->content_id != "") {
             $rbt->content_id = $request->content_id;
         }
+
+        $rbt->start_date      = date('Y-m-d', strtotime($request->start_date));
+        $rbt->expire_date     = date('Y-m-d', strtotime($request->expire_date));
 
         $rbt->save();
 
