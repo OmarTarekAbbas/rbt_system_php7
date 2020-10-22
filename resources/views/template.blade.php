@@ -554,6 +554,21 @@
 
       </li>
 
+      <li id="employees">
+        <a href="#" class="dropdown-toggle">
+          <i class="fa fa-file-text-o"></i>
+          <span>Employees</span>
+          <b class="arrow fa fa-angle-right"></b>
+        </a>
+
+
+        <ul class="submenu">
+          <li id="employee-create"><a href="{{url('employees/create')}}">Create Employees</a></li>
+          <li id="employees-index"><a href="{{url('employees')}}">Employees</a></li>
+        </ul>
+
+      </li>
+
       </ul>
       <!-- END Navlist -->
 
