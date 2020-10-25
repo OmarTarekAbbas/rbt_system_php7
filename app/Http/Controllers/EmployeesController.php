@@ -51,9 +51,25 @@ class EmployeesController extends Controller
         $employee->phone = $request->phone;
         $employee->status = $request->status;
         $employee->release_date = $request->release_date;
+
+        $employeeMove = 'uploads/employee_papers';
+        $files = ['birth_certificate','graduation_certificate','army_certificate','insurance_certificate','fish_watashbih'];
+        foreach($files as $file){
+          if ($request->hasFile($file)) {
+            if ($request->file($file)->isValid()) {
+                try {
+                    $employee_papers = time() .rand(0,999). '.' . $request->$file->getClientOriginalExtension();
+                    $request->$file->move($employeeMove, $employee_papers);
+                    $employee->$file = $employee_papers;
+                } catch (Illuminate\Filesystem\FileNotFoundException $e) {
+
+                }
+            }
+        }
+        }
         $employee->save();
         \Session::flash('success', 'Employee Create successfully');
-        return redirect('employees');
+        return redirect('employees/'.$employee->id);
     }
 
 
@@ -69,7 +85,7 @@ class EmployeesController extends Controller
     public function show($id)
     {
       $employee = Employees::findOrFail($id);
-      $employee_contracts = Employee_contracts::where('employee_id',$id)->get();
+       $employee_contracts = $employee->employee_contracts;
       return view('employees.show',compact('employee','employee_contracts'));
     }
 
@@ -79,9 +95,10 @@ class EmployeesController extends Controller
      * @param  \App\employees  $employees
      * @return \Illuminate\Http\Response
      */
-    public function edit(employees $employees)
+    public function edit($id)
     {
-        //
+      $employee = Employees::findOrFail($id);
+      return view('employees.create',compact('employee'));
     }
 
     /**
@@ -91,9 +108,31 @@ class EmployeesController extends Controller
      * @param  \App\employees  $employees
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, employees $employees)
+    public function update(Request $request, $id)
     {
-        //
+      $employee = Employees::find($id);
+      $employee->full_name = $request->full_name;
+      $employee->phone = $request->phone;
+      $employee->status = $request->status;
+      $employee->release_date = $request->release_date;
+      $employeeMove = 'uploads/employee_papers';
+        $files = ['birth_certificate','graduation_certificate','army_certificate','insurance_certificate','fish_watashbih'];
+        foreach($files as $file){
+          if ($request->hasFile($file)) {
+            if ($request->file($file)->isValid()) {
+                try {
+                    $employee_papers = time() .rand(0,999). '.' . $request->$file->getClientOriginalExtension();
+                    $request->$file->move($employeeMove, $employee_papers);
+                    $employee->$file = $employee_papers;
+                } catch (Illuminate\Filesystem\FileNotFoundException $e) {
+
+                }
+            }
+        }
+        }
+      $employee->save();
+      \Session::flash('success', 'Employee Update successfully');
+      return redirect('employees/'.$id);
     }
 
     /**

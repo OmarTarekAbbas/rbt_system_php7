@@ -58,7 +58,7 @@ class EmployeeContractsController extends Controller
         }
         $employee_contract->save();
         $request->session()->flash('success', 'Add Employee Contract Successfully');
-        return redirect('employees/'.$request->employee_id.'/show');
+        return redirect('employees/'.$request->employee_id);
 
     }
 

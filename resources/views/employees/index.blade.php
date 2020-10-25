@@ -40,18 +40,19 @@ Employees
                                 <td>{{$employee->release_date}}</td>
                                 <td>
                                     @if ($employee->status == 1)
-                                    In work
+                                    <button class="btn btn-success">In work</button>
                                     @else
-                                    Leave
+                                    <button class="btn btn-danger">Leave</button>
                                     @endif
                                 </td>
                                 <td class="visible-md visible-lg">
                                     <div class="btn-group">
+                                    <a class="btn btn-sm show-tooltip" title="" href="{{url('employees/'.$employee->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
                                         <a class="btn btn-sm btn-success show-tooltip" title="Add Employee Contracts"
                                             href="{{url('employees/'.$employee->id.'/contracts')}}"
                                             data-original-title="Add Employee Contracts"><i class="fa fa-plus"></i></a>
                                             <a class="btn btn-sm btn-primary show-tooltip" title="Show"
-                                            href="{{url('employees/'.$employee->id.'/show')}}"
+                                            href="{{url('employees/'.$employee->id)}}"
                                             data-original-title="Add Employee Contracts">
                                             <i class="fa fa-eye"></i>
                                           </a>

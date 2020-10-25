@@ -218,7 +218,8 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
 
     // Start Routes for employees
     Route::resource('employees', 'EmployeesController');
-    Route::get('employees/{id}/show', 'EmployeesController@show');
+    Route::post('employees/{id}/update', 'EmployeesController@update');
+    Route::get('employees/{id}/delete', 'EmployeesController@destroy');
     Route::get('employees/{id}/contracts', 'EmployeeContractsController@create');
     Route::post('employees/{id}/contracts', 'EmployeeContractsController@store');
 
