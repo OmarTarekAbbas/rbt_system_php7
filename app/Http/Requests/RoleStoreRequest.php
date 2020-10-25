@@ -52,7 +52,7 @@ class RoleStoreRequest extends Request
                     }
                 }
             ],
-            'role_priority' => 'required',
+            'role_priority' => '',
        ];
     }
 }

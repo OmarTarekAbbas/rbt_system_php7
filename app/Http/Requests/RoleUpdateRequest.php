@@ -52,7 +52,7 @@ class RoleUpdateRequest extends Request
                     }
                 }
             ],
-            'role_priority' => 'required',
+            'role_priority' => '',
             'role_id' => 'required'
        ];
     }
