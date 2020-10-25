@@ -41,9 +41,9 @@ class EmployeeContractsController extends Controller
     {
         $employee_contract = new Employee_contracts();
         $employee_contract->employee_id = $request->employee_id;
-        $employee_contract->sign_date = $request->sign_date;
+        $employee_contract->sign_date = date('Y-m-d',strtotime($request->sign_date));
         $employee_contract->contract_period = $request->contract_period;
-        $employee_contract->end_date = $request->end_date;
+        $employee_contract->end_date = date('Y-m-d',strtotime($request->end_date));
         $employee_contract->contract_status = $request->contract_status;
         if ($request->hasFile('contract_attachment')) {
             if ($request->file('contract_attachment')->isValid()) {

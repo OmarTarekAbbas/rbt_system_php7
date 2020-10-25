@@ -48,7 +48,8 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                 </div>
             </div>
             <div class="box-content">
-                <form class="form-horizontal" action="{{url('employees/'.$employee->id.'/contracts')}}" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" action="{{url('employees/'.$employee->id.'/contracts')}}" method="post"
+                    enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Employee Name *</label>
@@ -61,7 +62,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
 
 
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Sign Date</label>
                         <div class="col-sm-9 col-lg-10 controls">
                             <div class="input-group input-group-sm m-b" style="width:170px !important;">
@@ -71,15 +72,25 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                 </div>
                             </div>
                         </div>
+                    </div> -->
+
+                    <div class="form-group">
+                        <label for="event_start_date" class="col-xs-3 col-lg-2 control-label"> Sign Date</label>
+                        <div class="input-group date  event_start_date col-sm-9 col-lg-10 controls">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input type="text" name="sign_date" id="event_start_date" autocomplete="off"
+                                placeholder="Sign Date" data-date-format="dd-mm-yyyy" class="form-control">
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Contract Period</label>
                         <div class="col-sm-9 col-lg-10 controls">
                             <select name='contract_period' class='form-control' id="contract_period" required>
-                              <option>---Please Select---</option>
+                                <option>---Please Select---</option>
                                 @foreach($years as $year)
-                                <option data-type="@if(strpos($year->contract_duration_title,'Month')!==false) @endif" value="{{$year->contract_duration_title}}">{{$year->contract_duration_title}}
+                                <option data-type="@if(strpos($year->contract_duration_title,'Month')!==false) @endif"
+                                    value="{{$year->contract_duration_title}}">{{$year->contract_duration_title}}
                                 </option>
                                 @endforeach
                             </select>
@@ -87,7 +98,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                     </div>
 
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">End Date</label>
                         <div class="col-sm-9 col-lg-10 controls">
                             <div class="input-group input-group-sm m-b" style="width:170px !important;">
@@ -97,9 +108,17 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                                 </div>
                             </div>
                         </div>
+                    </div> -->
+
+                    <div class="form-group">
+                        <label for="event_end_date" class="col-xs-3 col-lg-2 control-label"> Event End Date</label>
+                        <div class="input-group date event_end_date col-sm-9 col-lg-10 controls"
+                            >
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input type="text" name="end_date" id="event_end_date"
+                                placeholder="Event End Date" data-date-format="dd-mm-yyyy" class="form-control">
+                        </div>
                     </div>
-
-
 
                     <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label" for="code">Status</label>
@@ -123,7 +142,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                         <label class="col-sm-3 col-lg-2 control-label" for="code">Contract File</label>
                         <div class="col-sm-9 col-lg-10 controls">
                             <div class="fileUpload">
-                                <input type="file" name="contract_attachment" required/>
+                                <input type="file" name="contract_attachment" required />
                             </div>
                         </div>
                     </div>
@@ -146,24 +165,41 @@ input[type="date"]::-webkit-datetime-edit-day-field {
 
 @section('script')
 <script>
+$(document).on('ready', function() {
+    $('.event_start_date').datepicker({
+        format: 'dd-mm-yyyy',
+        autoclose: true,
+    })
+})
+$(document).on('ready', function() {
+    $('.event_end_date').datepicker({
+        format: 'dd-mm-yyyy',
+        autoclose: true,
+    })
+})
+</script>
+
+<script>
 $('#employees').addClass('active');
 $('#employee-create').addClass('active');
 
 
 $("#contract_period").change(function() {
-    number = ($(this).find('option:selected').text()).match(/\d+/)[0];
-    years = number
-    setEndDate($("#start_date").val(), years)
+    years = ($(this).find('option:selected').text()).match(/\d+/)[0];
+    setEndDate($("#event_start_date").val(), years)
 })
 
-$("#start_date").change(function() {
+$("#event_start_date").change(function() {
     var endDate = $(this).val();
     setEndDate(endDate, years)
 });
 
 function setEndDate(endDate, years) {
-    $("#contract_expiry_date").val(moment(endDate, "YYYY-MM-DD").locale('en').add(years, 'years').subtract(1, 'days')
-        .format('YYYY-MM-DD'))
+    $("#event_end_date").val(moment(endDate, "DD-MM-YYYY").locale('en').add(years, 'years').subtract(1, 'days').format(
+        'DD-MM-YYYY'))
 }
 </script>
+
+
+
 @stop

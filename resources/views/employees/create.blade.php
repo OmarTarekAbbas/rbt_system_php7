@@ -5,37 +5,7 @@ Employees
 @section('content')
 @include('errors')
 <style>
-#start_date {
-    text-align: right;
-}
 
-input[type="date"]::-webkit-datetime-edit,
-input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-clear-button {
-    color: #fff;
-    position: relative;
-}
-
-input[type="date"]::-webkit-datetime-edit-year-field {
-    position: absolute !important;
-    padding: 2px;
-    color: #000;
-    left: 0;
-}
-
-input[type="date"]::-webkit-datetime-edit-month-field {
-    position: absolute !important;
-    padding: 2px;
-    color: #000;
-    left: 35px;
-}
-
-input[type="date"]::-webkit-datetime-edit-day-field {
-    position: absolute !important;
-    color: #000;
-    padding: 2px;
-    left: 63px;
-}
 </style>
 <div class="row">
     <div class="col-md-12">
@@ -70,19 +40,16 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                     </div>
 
 
+
                     <div class="form-group">
-                        <label class="col-sm-3 col-lg-2 control-label">Release Date</label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                                <div class="input-group">
-                                    <input type="date" class="form-control form-control-sm " name="release_date"
-                                        id="start_date"
-                                        value="{{ isset($employee) ? $employee->release_date : old('release_date') }}" />
-                                </div>
-                            </div>
+                        <label for="event_start_date" class="col-xs-3 col-lg-2 control-label"> Release Date</label>
+                        <div class="input-group date  event_start_date col-sm-9 col-lg-10 controls"
+                            >
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input type="text" name="release_date" id="event_start_date" autocomplete="off"
+                                placeholder="Release Date" data-date-format="dd-mm-yyyy" class="form-control">
                         </div>
                     </div>
-
 
 
                     <div class="form-group">
@@ -181,5 +148,24 @@ input[type="date"]::-webkit-datetime-edit-day-field {
 <script>
 $('#employees').addClass('active');
 $('#employee-create').addClass('active');
+</script>
+
+<script>
+    $(document).on('ready', function() {
+        $('.event_start_date').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+        }).on('changeDate', function(selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('.event_end_date').datepicker('setStartDate', minDate);
+            $('.event_end_date').datepicker('setDate', minDate);
+        })
+        $('.event_end_date').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            startDate: moment().format('DD-MM-YYYY'),
+        })
+
+    })
 </script>
 @stop
