@@ -39,11 +39,12 @@ class EmployeeContractsController extends Controller
      */
     public function store(Request $request)
     {
+
         $employee_contract = new Employee_contracts();
         $employee_contract->employee_id = $request->employee_id;
-        $employee_contract->sign_date = date('Y-m-d',strtotime($request->sign_date));
+        $employee_contract->sign_date = date('Y-m-d', strtotime($request->sign_date));
         $employee_contract->contract_period = $request->contract_period;
-        $employee_contract->end_date = date('Y-m-d',strtotime($request->end_date));
+        $employee_contract->end_date = date('Y-m-d', strtotime($request->end_date));
         $employee_contract->contract_status = $request->contract_status;
         if ($request->hasFile('contract_attachment')) {
             if ($request->file('contract_attachment')->isValid()) {
@@ -58,7 +59,7 @@ class EmployeeContractsController extends Controller
         }
         $employee_contract->save();
         $request->session()->flash('success', 'Add Employee Contract Successfully');
-        return redirect('employees/'.$request->employee_id);
+        return redirect('employees/' . $request->employee_id);
 
     }
 
@@ -79,9 +80,13 @@ class EmployeeContractsController extends Controller
      * @param  \App\employee_contracts  $employee_contracts
      * @return \Illuminate\Http\Response
      */
-    public function edit(employee_contracts $employee_contracts)
+    public function edit($id)
     {
-        //
+      $years = ContractDuration::all();
+      $employee_contract = Employee_contracts::findOrFail($id);
+      $employee = $employee_contract->Employees;
+
+      return view('employees_contracts.create', compact('years', 'employee_contract','employee'));
     }
 
     /**
@@ -91,9 +96,28 @@ class EmployeeContractsController extends Controller
      * @param  \App\employee_contracts  $employee_contracts
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, employee_contracts $employee_contracts)
+    public function update(Request $request, $id)
     {
-        //
+      $employee_contract = Employee_contracts::find($id);
+      $employee_contract->employee_id = $request->employee_id;
+      $employee_contract->sign_date = date('Y-m-d', strtotime($request->sign_date));
+      $employee_contract->contract_period = $request->contract_period;
+      $employee_contract->end_date = date('Y-m-d', strtotime($request->end_date));
+      $employee_contract->contract_status = $request->contract_status;
+      if ($request->hasFile('contract_attachment')) {
+          if ($request->file('contract_attachment')->isValid()) {
+              try {
+                  $pdfName = time() . '.' . $request->contract_attachment->getClientOriginalExtension();
+                  $request->contract_attachment->move('uploads/employee_contract', $pdfName);
+                  $employee_contract->contract_attachment = $pdfName;
+              } catch (Illuminate\Filesystem\FileNotFoundException $e) {
+
+              }
+          }
+      }
+      $employee_contract->save();
+      $request->session()->flash('success', 'Add Employee Contract Successfully');
+      return redirect('employees/' . $request->employee_id);
     }
 
     /**
@@ -102,8 +126,12 @@ class EmployeeContractsController extends Controller
      * @param  \App\employee_contracts  $employee_contracts
      * @return \Illuminate\Http\Response
      */
-    public function destroy(employee_contracts $employee_contracts)
+    public function destroy(Request $request, $id)
     {
-        //
+        $employee_contracts = Employee_contracts::findOrfail($id);
+        $employee_contracts->delete();
+        \Session::flash('success', 'Employee Deleted successfully');
+        return redirect('employees/' . session()->get('employee_id'));
     }
 }
+
