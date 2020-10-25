@@ -48,8 +48,10 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                 </div>
             </div>
             <div class="box-content">
-                <form class="form-horizontal" action="{{url('employees/'.$employee->id.'/contracts')}}" method="post"
-                    enctype="multipart/form-data">
+
+                <form class="form-horizontal"
+                    action="{{ isset($employee_contract) ? url('employee_contract/'.$employee_contract->id.'/update') : url('employees/'.$employee->id.'/contracts') }}"
+                    method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Employee Name *</label>
@@ -61,25 +63,15 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                     </div>
 
 
-
-                    <!-- <div class="form-group">
-                        <label class="col-sm-3 col-lg-2 control-label">Sign Date</label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                                <div class="input-group">
-                                    <input type="date" class="form-control form-control-sm " name="sign_date"
-                                        id="start_date"  required/>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
                     <div class="form-group">
                         <label for="event_start_date" class="col-xs-3 col-lg-2 control-label"> Sign Date</label>
                         <div class="input-group date  event_start_date col-sm-9 col-lg-10 controls">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             <input type="text" name="sign_date" id="event_start_date" autocomplete="off"
-                                placeholder="Sign Date" data-date-format="dd-mm-yyyy" class="form-control">
+                                placeholder="Sign Date" data-date-format="dd-mm-yyyy" class="form-control"
+                                value="{{ isset($employee_contract) ? date('d-m-Y',strtotime($employee_contract->sign_date)) : old('sign_date') }}"
+                                required>
+
                         </div>
                     </div>
 
@@ -89,34 +81,33 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                             <select name='contract_period' class='form-control' id="contract_period" required>
                                 <option>---Please Select---</option>
                                 @foreach($years as $year)
+                                @if (isset($employee_contract))
                                 <option data-type="@if(strpos($year->contract_duration_title,'Month')!==false) @endif"
-                                    value="{{$year->contract_duration_title}}">{{$year->contract_duration_title}}
+                                    value="{{$year->contract_duration_title}}" @if($employee_contract->
+                                    contract_period==$year->contract_duration_title) selected="selected" @endif>
+                                    {{$year->contract_duration_title}}
                                 </option>
+                                @else
+                                <option data-type="@if(strpos($year->contract_duration_title,'Month')!==false) @endif"
+                                    value="{{$year->contract_duration_title}}">
+                                    {{$year->contract_duration_title}}
+                                </option>
+                                @endif
                                 @endforeach
                             </select>
                         </div>
                     </div>
 
 
-                    <!-- <div class="form-group">
-                        <label class="col-sm-3 col-lg-2 control-label">End Date</label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                                <div class="input-group">
-                                    <input type="date" class="form-control form-control-sm " name="end_date"
-                                        id="contract_expiry_date" required/>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
                     <div class="form-group">
                         <label for="event_end_date" class="col-xs-3 col-lg-2 control-label"> Event End Date</label>
-                        <div class="input-group date event_end_date col-sm-9 col-lg-10 controls"
-                            >
+                        <div class="input-group date event_end_date col-sm-9 col-lg-10 controls">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            <input type="text" name="end_date" id="event_end_date"
-                                placeholder="Event End Date" data-date-format="dd-mm-yyyy" class="form-control">
+                            <input type="text" name="end_date" id="event_end_date" placeholder="Event End Date"
+                                data-date-format="dd-mm-yyyy" class="form-control"
+                                value="{{ isset($employee_contract) ? date('d-m-Y',strtotime($employee_contract->end_date)) : old('end_date') }}"
+                                required>
+
                         </div>
                     </div>
 
@@ -124,13 +115,25 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                         <label class="col-sm-3 col-lg-2 control-label" for="code">Status</label>
                         <div class="col-sm-9 col-lg-10 controls">
                             <div class="form-check">
+                                @if (isset($employee_contract))
+                                <input class="form-check-input" type="radio" name="contract_status" id="exampleRadios1"
+                                    required value="1" @if( $employee_contract->contract_status == 1) checked="checked"
+                                @endif>
+                                @else
                                 <input class="form-check-input" type="radio" name="contract_status" id="exampleRadios1"
                                     required value="1">
+                                @endif
                                 <label class="form-check-label" for="exampleRadios1" style="padding-right: 11px;">
                                     New
                                 </label>
+                                @if (isset($employee_contract))
+                                <input class="form-check-input" type="radio" name="contract_status" id="exampleRadios2"
+                                    required value="0" @if( $employee_contract->contract_status == 0) checked="checked"
+                                @endif>
+                                @else
                                 <input class="form-check-input" type="radio" name="contract_status" id="exampleRadios2"
                                     required value="0">
+                                @endif
                                 <label class="form-check-label" for="exampleRadios2">
                                     Draft
                                 </label>
@@ -142,11 +145,14 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                         <label class="col-sm-3 col-lg-2 control-label" for="code">Contract File</label>
                         <div class="col-sm-9 col-lg-10 controls">
                             <div class="fileUpload">
-                                <input type="file" name="contract_attachment" required />
+                                <input type="file" name="contract_attachment" />
                             </div>
+                            @if (isset($employee_contract))
+                            <a href="{{url('uploads/employee_contract/'.$employee_contract->contract_attachment)}}"
+                                target="_blank">Review</a>
+                            @endif
                         </div>
                     </div>
-
 
 
                     <div class="form-group">

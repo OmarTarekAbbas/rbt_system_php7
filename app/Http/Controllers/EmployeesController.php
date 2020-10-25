@@ -51,7 +51,7 @@ class EmployeesController extends Controller
         $employee->status = $request->status;
         $employee->release_date =  date('Y-m-d',strtotime($request->release_date));
 
-        
+
         $employeeMove = 'uploads/employee_papers';
         $files = ['birth_certificate', 'graduation_certificate', 'army_certificate', 'insurance_certificate', 'fish_watashbih'];
         foreach ($files as $file) {
@@ -82,6 +82,7 @@ class EmployeesController extends Controller
     {
         $employee = Employees::findOrFail($id);
         $employee_contracts = $employee->employee_contracts;
+        session(['employee_id' => $id]);
         return view('employees.show', compact('employee', 'employee_contracts'));
     }
 
@@ -110,7 +111,7 @@ class EmployeesController extends Controller
         $employee->full_name = $request->full_name;
         $employee->phone = $request->phone;
         $employee->status = $request->status;
-        $employee->release_date = $request->release_date;
+        $employee->release_date = date('Y-m-d',strtotime($request->release_date));
         $employeeMove = 'uploads/employee_papers';
         $files = ['birth_certificate', 'graduation_certificate', 'army_certificate', 'insurance_certificate', 'fish_watashbih'];
         foreach ($files as $file) {

@@ -222,6 +222,9 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::get('employees/{id}/delete', 'EmployeesController@destroy');
     Route::get('employees/{id}/contracts', 'EmployeeContractsController@create');
     Route::post('employees/{id}/contracts', 'EmployeeContractsController@store');
+    Route::get('employee_contract/{id}/delete', 'EmployeeContractsController@destroy');
+    Route::get('employee_contract/{id}/edit', 'EmployeeContractsController@edit');
+    Route::post('employee_contract/{id}/update', 'EmployeeContractsController@update');
 
     // End Routes for employees
 
