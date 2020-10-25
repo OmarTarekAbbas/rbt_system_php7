@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Constants\FullApproveStatus;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Contract;
 use App\Observers\ContractObserver;
+use View;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -26,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+      View::composer("*", function ($view) {
+          $view->with("approveStatus", FullApproveStatus::class);
+      });
+
     }
 }
