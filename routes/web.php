@@ -73,12 +73,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('provider/{id}/delete', '\App\Http\Controllers\ProviderController@destroy');
     Route::resource('provider', '\App\Http\Controllers\ProviderController');
 
-    //occasion admin routes
-    Route::get('occasion', '\App\Http\Controllers\OccasionController@index');
-    Route::post('occasion', '\App\Http\Controllers\OccasionController@store');
-    Route::post('occasion/update', '\App\Http\Controllers\OccasionController@update');
-    Route::get('occasion/{id}/delete', '\App\Http\Controllers\OccasionController@destroy');
-
     // aggregators view routes
     Route::resource('aggregator', '\App\Http\Controllers\AggregatorController');
 
@@ -86,6 +80,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('aggregator', '\App\Http\Controllers\AggregatorController@store');
     Route::post('aggregator/update', '\App\Http\Controllers\AggregatorController@update');
     Route::get('aggregator/{id}/delete', '\App\Http\Controllers\AggregatorController@destroy');
+
+    //occasion admin routes
+    Route::get('occasion', '\App\Http\Controllers\OccasionController@index');
+    Route::post('occasion', '\App\Http\Controllers\OccasionController@store');
+    Route::post('occasion/update', '\App\Http\Controllers\OccasionController@update');
+    Route::get('occasion/{id}/delete', '\App\Http\Controllers\OccasionController@destroy');
 
 });
 
