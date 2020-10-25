@@ -6,6 +6,7 @@ use App\ContractDuration;
 use App\Employees;
 use App\Employee_contracts;
 use Illuminate\Http\Request;
+use Validator;
 
 class EmployeeContractsController extends Controller
 {
@@ -39,7 +40,12 @@ class EmployeeContractsController extends Controller
      */
     public function store(Request $request)
     {
-
+      $validator = Validator::make($request->all(), [
+        'contract_attachment' => 'required',
+        ]);
+        if ($validator->fails()) {
+          return back()->withErrors($validator)->withInput();
+        }
         $employee_contract = new Employee_contracts();
         $employee_contract->employee_id = $request->employee_id;
         $employee_contract->sign_date = date('Y-m-d', strtotime($request->sign_date));

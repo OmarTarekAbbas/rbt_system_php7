@@ -100,10 +100,10 @@ input[type="date"]::-webkit-datetime-edit-day-field {
 
 
                     <div class="form-group">
-                        <label for="event_end_date" class="col-xs-3 col-lg-2 control-label"> Event End Date</label>
+                        <label for="event_end_date" class="col-xs-3 col-lg-2 control-label">End Date</label>
                         <div class="input-group date event_end_date col-sm-9 col-lg-10 controls">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            <input type="text" name="end_date" id="event_end_date" placeholder="Event End Date"
+                            <input type="text" name="end_date" id="event_end_date" placeholder=" End Date"
                                 data-date-format="dd-mm-yyyy" class="form-control"
                                 value="{{ isset($employee_contract) ? date('d-m-Y',strtotime($employee_contract->end_date)) : old('end_date') }}"
                                 required>
@@ -142,14 +142,23 @@ input[type="date"]::-webkit-datetime-edit-day-field {
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 col-lg-2 control-label" for="code">Contract File</label>
+                        <label class="col-sm-3 col-lg-2 control-label" for="code">Contract Attachment</label>
                         <div class="col-sm-9 col-lg-10 controls">
-                            <div class="fileUpload">
+                            <div class="col-md-6 fileUpload">
                                 <input type="file" name="contract_attachment" />
                             </div>
                             @if (isset($employee_contract))
-                            <a href="{{url('uploads/employee_contract/'.$employee_contract->contract_attachment)}}"
+
+
+                                <div class="col-md-6">
+                              @if($employee_contract->contract_attachment)
+                              <a class="btn btn-sm btn-success" href="{{url('uploads/employee_contract/'.$employee_contract->contract_attachment)}}"
                                 target="_blank">Review</a>
+                                  @else
+                                  <a class="btn btn-sm btn-danger" href="#0"
+                                  >Review</a>
+                                  @endif
+                            </div>
                             @endif
                         </div>
                     </div>
