@@ -5,7 +5,10 @@ Employees
 @section('content')
 @include('errors')
 <style>
-
+.input-group[class*=col-]{
+  padding-right: 15px;
+    padding-left: 15px;
+}
 </style>
 <div class="row">
     <div class="col-md-12">

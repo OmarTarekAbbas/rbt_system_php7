@@ -5,36 +5,9 @@ Employees Contracts
 @section('content')
 @include('errors')
 <style>
-#start_date {
-    text-align: right;
-}
-
-input[type="date"]::-webkit-datetime-edit,
-input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-clear-button {
-    color: #fff;
-    position: relative;
-}
-
-input[type="date"]::-webkit-datetime-edit-year-field {
-    position: absolute !important;
-    padding: 2px;
-    color: #000;
-    left: 0;
-}
-
-input[type="date"]::-webkit-datetime-edit-month-field {
-    position: absolute !important;
-    padding: 2px;
-    color: #000;
-    left: 35px;
-}
-
-input[type="date"]::-webkit-datetime-edit-day-field {
-    position: absolute !important;
-    color: #000;
-    padding: 2px;
-    left: 63px;
+.input-group[class*=col-]{
+  padding-right: 15px;
+    padding-left: 15px;
 }
 </style>
 <div class="row">
@@ -152,7 +125,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
 
                                 <div class="col-md-6">
                               @if($employee_contract->contract_attachment)
-                              <a class="btn btn-sm btn-success" href="{{url('uploads/employee_contract/'.$employee_contract->contract_attachment)}}"
+                              <a class="btn btn-sm btn-success " href="{{url('uploads/employee_contract/'.$employee_contract->contract_attachment)}}"
                                 target="_blank">Review</a>
                                   @else
                                   <a class="btn btn-sm btn-danger" href="#0"
