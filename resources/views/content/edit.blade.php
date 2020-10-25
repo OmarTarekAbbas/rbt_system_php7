@@ -121,6 +121,22 @@ Contents
           </div>
 
           <div class="form-group">
+            <label for="start_date" class="col-xs-3 col-lg-2 control-label"> Rbt Start Date</label>
+            <div class="input-group date  start_date col-sm-9 col-lg-10 controls" style="width: 78%; margin: 0 auto;">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" name="start_date" value="{{ $content->start_date->format('d-m-Y') }}" id="start_date" autocomplete="off" placeholder="Rbt Start Date" data-date-format="dd-mm-yyyy" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group">
+              <label for="expire_date" class="col-xs-3 col-lg-2 control-label"> Rbt Expire Date</label>
+              <div class="input-group date expire_date col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy" style="width: 78%; margin: 0 auto;">
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                  <input type="text" name="expire_date" id="expire_date" value="{{ $content->expire_date->format('d-m-Y') }}" autocomplete="off" placeholder="Rbt End Date" data-date-format="dd-mm-yyyy" class="form-control">
+              </div>
+          </div>
+
+          <div class="form-group">
             <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
               <input type="submit" class="btn btn-primary" value="Submit">
             </div>
@@ -135,6 +151,24 @@ Contents
 @stop
 
 @section('script')
+<script>
+  $(document).on('ready', function() {
+      $('.start_date').datepicker({
+          format: 'dd-mm-yyyy',
+          autoclose: true,
+      }).on('changeDate', function(selected) {
+          var minDate = new Date(selected.date.valueOf());
+          $('.expire_date').each(function(){
+            $(this).datepicker('setStartDate', minDate);
+          })
+      })
+
+      $('.expire_date').datepicker({
+          format: 'dd-mm-yyyy',
+          autoclose: true,
+      })
+  })
+</script>
 <script>
   $('#content').addClass('active');
   $('#content-create').addClass('active');
