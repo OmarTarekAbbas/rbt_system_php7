@@ -10,12 +10,12 @@ use Illuminate\Http\Request;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-define('ceo_email','mh124404@gmail.com');
+define('ceo_email', 'mh124404@gmail.com');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index');
     Route::get('user_profile', 'UserController@profile');
@@ -24,12 +24,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('user_profile/updateuserdata', 'UserController@UpdateNameAndEmail');
     Route::get('read_notify/{id}', function ($id) {
         \App\Notification::find($id)->update([
-            'seen' => 1
+            'seen' => 1,
         ]);
     });
 });
 
 Route::group(['middleware' => ['auth', 'role:super_admin']], function () {
+
     Route::get('users', 'UserController@index');
     Route::get('users/{id}/delete', 'UserController@destroy');
     Route::get('users/{id}/edit', 'UserController@edit');
@@ -37,93 +38,65 @@ Route::group(['middleware' => ['auth', 'role:super_admin']], function () {
     Route::get('users/new', 'UserController@create');
     Route::post('users', 'UserController@store');
     Route::get('elFinder/elfinder', 'HomeController@elFinderlEfinder');
-});
 
-Route::group(['middleware' => ['auth', 'role:super_admin']], function () {
     Route::get('roles', 'RoleController@index');
     Route::get('roles/new', 'RoleController@create');
     Route::post('roles', 'RoleController@store');
     Route::get('roles/{id}/delete', 'RoleController@destroy');
     Route::get('roles/{id}/edit', 'RoleController@edit');
     Route::post('roles/{id}/update', 'RoleController@update');
+
 });
 
 // aggregators view routes
 Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::resource('aggregator', '\App\Http\Controllers\AggregatorController');
-});
 
 // aggregators admin routes
-Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::post('aggregator', '\App\Http\Controllers\AggregatorController@store');
     Route::post('aggregator/update', '\App\Http\Controllers\AggregatorController@update');
     Route::get('aggregator/{id}/delete', '\App\Http\Controllers\AggregatorController@destroy');
-});
-
-
-
 
 //country Routes
-
-// creating + editing + delete for superadmin + admin roles
-Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
+    // creating + editing + delete for superadmin + admin roles
     Route::post('country', '\App\Http\Controllers\CountryController@store');
     Route::post('country/update', '\App\Http\Controllers\CountryController@update');
     Route::get('country/{id}/delete', '\App\Http\Controllers\CountryController@destroy');
-});
-
 
 // listing countries for all roles
-// note that Route::resource must be below other routes
-Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
+    // note that Route::resource must be below other routes
     Route::resource('country', '\App\Http\Controllers\CountryController');
-    Route::get('country/{id}/operator','\App\Http\Controllers\CountryController@list_all_operator');
+    Route::get('country/{id}/operator', '\App\Http\Controllers\CountryController@list_all_operator');
     Route::resource('setting', '\App\Http\Controllers\SettingController');
     Route::get('setting/{id}/delete', '\App\Http\Controllers\SettingController@destroy');
-});
 
 //operator  admin Routes
-Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::post('operator', '\App\Http\Controllers\OperatorController@store');
     Route::post('operator/update', '\App\Http\Controllers\OperatorController@update');
     Route::get('operator/{id}/delete', '\App\Http\Controllers\OperatorController@destroy');
     Route::resource('operator', '\App\Http\Controllers\OperatorController');
     //Route::get('operator/create_country','OperatorController@show');
-});
-
 
 //provider admin Routes
-Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::post('provider', '\App\Http\Controllers\ProviderController@store');
     Route::post('provider/update', '\App\Http\Controllers\ProviderController@update');
     Route::get('provider/{id}/delete', '\App\Http\Controllers\ProviderController@destroy');
-});
-
 
 //provider view  Routes
-Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::resource('provider', '\App\Http\Controllers\ProviderController');
-});
-
-
 
 //occasion admin routes
-Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::get('occasion', '\App\Http\Controllers\OccasionController@index');
     Route::post('occasion', '\App\Http\Controllers\OccasionController@store');
     Route::post('occasion/update', '\App\Http\Controllers\OccasionController@update');
     Route::get('occasion/{id}/delete', '\App\Http\Controllers\OccasionController@destroy');
-});
-
 
 //occasion view routes
-// Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
-//     Route::resource('occasion', '\App\Http\Controllers\OccasionController');
-// });
-
+    // Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
+    //     Route::resource('occasion', '\App\Http\Controllers\OccasionController');
+    // });
 
 // RBT admin roles
-Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::post('rbt/get_statistics', 'RbtController@get_statistics');
     Route::get('rbt/statistics', 'RbtController@statitics');
     Route::get('rbt/file_system', 'RbtController@list_file_system');
@@ -140,10 +113,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::post('report/search', 'ReportController@search_result');
     Route::post('report/export_report', 'ReportController@export_report');
     Route::get('rbt/allData', 'RbtController@allData');
-});
 
-
-Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     // new excel
     Route::get('rbt/{id}/editNew', 'RbtController@editNew');
     Route::post('rbt/excelNew', 'RbtController@excelNewStore');
@@ -166,12 +136,8 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
         delete_multiselect($request);
         return back();
     });
-});
-
-
 
 // rbt admin roles
-Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::get('report/statistics', 'ReportController@statitics');
     Route::post('report/{id}/update', '\App\Http\Controllers\ReportController@update');
     Route::get('report/{id}/delete', '\App\Http\Controllers\ReportController@destroy');
@@ -216,37 +182,13 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::get('contractservice/create/{id}', 'ServicecontractsController@create');
     // End Routes for service
 
-    // Start Routes for employees
-    Route::resource('employees', 'EmployeesController');
-    Route::get('employees/{id}/show', 'EmployeesController@show');
-    Route::get('employees/{id}/contracts', 'EmployeeContractsController@create');
-    Route::post('employees/{id}/contracts', 'EmployeeContractsController@store');
 
     // End Routes for employees
 
-});
-
-
-
 //report view route
-Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::resource('report', '\App\Http\Controllers\ReportController');
-});
-
-//role account
-Route::get('search', 'SearchController@index');
-Route::group(['middleware' => ['auth', 'role:super_admin|admin|account']], function () {
-    Route::get('rbt', '\App\Http\Controllers\RbtController@index');
-    Route::get('rbt/search', 'RbtController@search');
-    Route::post('rbt/search', 'RbtController@search_result');
-    Route::get('report', '\App\Http\Controllers\ReportController@index');
-    Route::get('report/search', 'ReportController@search');
-    Route::post('report/search', 'ReportController@search_result');
-});
-
 
 // aggregators view routes
-Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     //currency
     Route::get('currency', 'CurrencyController@index');
     Route::post('currency', 'CurrencyController@store');
@@ -260,22 +202,17 @@ Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::post('comboselect/source_id', 'RevenueController@comboSelectSourceId');
     Route::post('comboselect/contract_services', 'RevenueController@comboSelectContractServices');
     Route::post('comboselect/remove_contract_services', 'RevenueController@comboSelectRemoveContractServices');
-});
 
-Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
-    Route::resource('roadmaps','RoadMapController',['as' => 'admin']);
-    Route::get('roadmaps/{id}/delete','RoadMapController@destroy');
+    Route::resource('roadmaps', 'RoadMapController', ['as' => 'admin']);
+    Route::get('roadmaps/{id}/delete', 'RoadMapController@destroy');
     Route::get('roadmap/allData', 'RoadMapController@allData');
-    Route::get('roadmaps/calendar/index','RoadMapController@calendarIndex')->name('admin.roadmaps.calendar.index');
-});
+    Route::get('roadmaps/calendar/index', 'RoadMapController@calendarIndex')->name('admin.roadmaps.calendar.index');
 
-Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
-    Route::resource('firstparties','FirstpartieController',['as' => 'admin']);
-    Route::get('firstparties/{id}/delete','FirstpartieController@destroy');
-});
-Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
-    Route::resource('percentages','PercentageController',['as' => 'admin']);
-    Route::get('percentages/{id}/delete','PercentageController@destroy');
+    Route::resource('firstparties', 'FirstpartieController', ['as' => 'admin']);
+    Route::get('firstparties/{id}/delete', 'FirstpartieController@destroy');
+
+    Route::resource('percentages', 'PercentageController', ['as' => 'admin']);
+    Route::get('percentages/{id}/delete', 'PercentageController@destroy');
     Route::resource('ServiceTypes', 'ServiceTypesController');
     Route::resource('SecondPartyType', 'SecondPartyTypeController');
     Route::resource('SecondParty', 'SecondPartyController');
@@ -300,11 +237,30 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin']],function(){
 
 });
 
-Route::get('copy/signed/date',function(){
-  $contracts = \App\Contract::all();
-  foreach ($contracts as  $contract) {
-    $contract->contract_signed_date = $contract->contract_date;
-    $contract->save();
-  }
-  return redirect('fullcontracts');
+Route::get('copy/signed/date', function () {
+    $contracts = \App\Contract::all();
+    foreach ($contracts as $contract) {
+        $contract->contract_signed_date = $contract->contract_date;
+        $contract->save();
+    }
+    return redirect('fullcontracts');
+});
+
+//role account
+Route::get('search', 'SearchController@index');
+Route::group(['middleware' => ['auth', 'role:super_admin|admin|account']], function () {
+    Route::get('rbt', '\App\Http\Controllers\RbtController@index');
+    Route::get('rbt/search', 'RbtController@search');
+    Route::post('rbt/search', 'RbtController@search_result');
+    Route::get('report', '\App\Http\Controllers\ReportController@index');
+    Route::get('report/search', 'ReportController@search');
+    Route::post('report/search', 'ReportController@search_result');
+});
+
+Route::group(['middleware' => ['auth', 'role:super_admin|admin|account|legal']], function () {
+    // Start Routes for employees
+    Route::resource('employees', 'EmployeesController');
+    Route::get('employees/{id}/show', 'EmployeesController@show');
+    Route::get('employees/{id}/contracts', 'EmployeeContractsController@create');
+    Route::post('employees/{id}/contracts', 'EmployeeContractsController@store');
 });

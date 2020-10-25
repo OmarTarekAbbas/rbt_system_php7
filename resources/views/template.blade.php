@@ -419,9 +419,6 @@
           <!-- END Submenu -->
         </li>
 
-        @endif
-
-
         <li id="percentage">
           <a href="#" class="dropdown-toggle">
             <i class="fa fa-folder-o"></i>
@@ -554,6 +551,10 @@
 
       </li>
 
+
+
+      @endif
+      @if (Auth::user()->hasRole(['super_admin','legal']))
       <li id="employees">
         <a href="#" class="dropdown-toggle">
           <i class="fa fa-file-text-o"></i>
@@ -568,6 +569,7 @@
         </ul>
 
       </li>
+      @endif
 
       </ul>
       <!-- END Navlist -->
