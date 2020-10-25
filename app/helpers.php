@@ -132,3 +132,11 @@ function send_notification($message,$dep,$data){
 
     $pdf::Output(base_path('uploads/contracts') . '/' . $file, 'F');
   }
+
+  function ceo_email(){
+    $ceo = User::join('user_has_roles', 'users.id', '=', 'user_has_roles.user_id')
+          ->join('roles','user_has_roles.role_id','=','roles.id')
+          ->where('roles.name','like','%ceo%')
+          ->first();
+    $ceo ? $ceo->email : ceo_email;
+  }

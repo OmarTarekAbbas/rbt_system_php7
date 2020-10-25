@@ -3,239 +3,204 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\User;
-use Hash;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
-use Validator;
-use Auth;
+use App\Http\Repository\RoleRepository;
+use App\Http\Repository\UserRepository;
+use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\UpdateUserImageRequest;
+use App\Http\Requests\UserProfileRequest;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
+use App\Http\Services\UserStoreService;
+use App\Http\Services\UserUpdateService;
+
 class UserController extends Controller
 {
+    /**
+     * userRepository
+     *
+     * @var UserRepository
+     */
+    private $userRepository;
+    /**
+     * roleRepository
+     *
+     * @var RoleRepository
+     */
+    private $roleRepository;
+    /**
+     * userStoreService
+     *
+     * @var UserStoreService
+     */
+    private $userStoreService;
+    /**
+     * userUpdateService
+     *
+     * @var UserUpdateService
+     */
+    private $userUpdateService;
 
+    /**
+     * __construct
+     *
+     * inject needed data in constructor
+     *
+     * @param  UserRepository $userRepository
+     * @param  RoleRepository $roleRepository
+     * @param  UserStoreService $userStoreService
+     * @return void
+     */
+    public function __construct(UserStoreService $userStoreService, UserUpdateService $userUpdateService, UserRepository $userRepository, RoleRepository $roleRepository)
+    {
+        $this->userRepository    = $userRepository;
+        $this->roleRepository    = $roleRepository;
+        $this->userStoreService  = $userStoreService;
+        $this->userUpdateService = $userUpdateService;
+    }
+
+    /**
+     * index
+     * Get All Users Data
+     * @return View
+     */
     public function index()
     {
-            $users = \App\User::all();
-            // return $users;
-            return view('users.index', compact('users'));
+        $users = $this->userRepository->with('roles')
+                ->where('email','!=',auth()->user()->email)
+                ->get();
+
+        return view('users.index', compact('users'));
     }
 
-
+    /**
+     * create
+     * get Create User Page
+     * @return View
+     */
     public function create()
     {
-            $roles = Role::all();
-            return view('users.create',compact('roles'));
+        $roles = $this->roleRepository->all();
+        return view('users.create',compact('roles'));
     }
 
-
-    public function store(Request $request)
+    /**
+     * store
+     *
+     * @param  UserStoreRequest $request
+     * @return Redirect
+     */
+    public function store(UserStoreRequest $request)
     {
 
-            # code...
-            // return $request->all();
-            $validator = Validator::make($request->all(),[
-                'name' => 'required',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required',
-                'role' => 'required'
-            ]);
-            if ($validator->fails()) {
-                return back()->withErrors($validator)->withInput();
-            }
+        $user = $this->userStoreService->handle($request->validated());
 
-            $user = new \App\User();
+        $request->session()->flash('success','User Added Successfully');
 
-            $user->email = $request->email;
-            $user->name = $request->name;
-            $user->password = Hash::make($request->password);
-            if(isset($request->aggregator_id)){
-            $user->aggregator_id = $request->aggregator_id;}
-            $user->save();
-
-            $user->assignRole($request->role);
-
-            return redirect('users');
+        return redirect('users');
     }
 
-
+    /**
+     * edit
+     * edit user
+     * @param  Integer $id
+     * @return View
+     */
     public function edit($id)
     {
+        $user = $this->userRepository->findOrfail($id);
 
-            $user = \App\User::findOrfail($id);
-            $roles = Role::all();
+        $roles = $this->roleRepository->all();
 
-            return view('users.edit', compact('user', 'roles'));
+        return view('users.edit', compact('user', 'roles'));
     }
 
-
-    public function update($id,Request $request)
+    /**
+     * update
+     *
+     * @param  Integer $id
+     * @param  UserUpdateRequest $request
+     * @return void
+     */
+    public function update($id, UserUpdateRequest $request)
     {
+        $user = $this->userRepository->findOrfail($id);
 
-            # code...
-            $validator = Validator::make($request->all(),[
-                'name' => 'required',
-                'email' => 'required|email|unique:users,email,'.$id,
-                'role' => 'required'
-            ]);
-            if ($validator->fails()) {
-                return back()->withErrors($validator)->withInput();
-            }
+        $this->userUpdateService->handle($request->validated(), $user);
 
-            $user = \App\User::findOrfail($id);
+        \Session::flash('success','User updated successfully');
 
-            $user->email = $request->email;
-            $user->name = $request->name;
-            if(isset($request->password) && !empty($request->password))
-            {
-                $user->password = Hash::make($request->password);
-            }
-            if(isset($request->aggregator_id)){
-            $user->aggregator_id = $request->aggregator_id;}
-            \Session::flash('success','User updated successfully');
-            $user->save();
-
-            $user->syncRoles([$request->role]);
-
-            // dd($user->hasAnyRole(['admin']));
-
-            return redirect('users');
+        return redirect('users');
     }
 
-
+    /**
+     * destroy
+     *
+     * @param  Integer $id
+     * @return Redirect
+     */
     public function destroy($id)
     {
-        if (Auth::user()->hasRole('super_admin')) {
-            # code...
-            $user = \App\User::findOrfail($id);
-
-            $user->delete();
-
-            return redirect('users');
-        }else{
-            return back();
+        if (!auth()->user()->hasRole('super_admin')) {
+            return back()->with('status',"you didn't have this role");
         }
+
+        $user = $this->userRepository->findOrfail($id);
+
+        $user->delete();
+
+        \Session::flash('success','User has been deleted successfully');
+
+        return redirect('users');
     }
 
-
-    public function addRole(Request $request)
-    {
-
-            # code...
-            $user = \App\User::findOrfail($request->user_id);
-            $user->assignRole($request->role_name);
-
-            return redirect('users/edit/'.$request->user_id);
-    }
-
-
-    public function revokeRole($role, $user_id)
-    {
-
-            # code...
-            $user = \App\User::findorfail($user_id);
-
-            $user->removeRole(str_slug($role, ' '));
-
-            return redirect('users/edit/'.$user_id);
-    }
-
+    /**
+     * profile
+     * return view for user profile
+     * @return View
+     */
     public function profile()
     {
-        $user = \Auth::user();
-        $role = "";
-        if (! file_exists($user->profile_img))
-        {
-            $user->profile_img = 'profile_images/avatar.png' ;
-        }
-        return view('userprofile.profile',compact('user','role'));
+        $user = auth()->user();
+        return view('userprofile.profile',compact('user'));
     }
 
-
-    public function admin_credential_rules(array $data)
+    /**
+     * UpdatePassword
+     *
+     * @param  UpdatePasswordRequest $request
+     * @return Redirect
+     */
+    public function UpdatePassword(UpdatePasswordRequest $request)
     {
-
-        $validator = Validator::make($data, [
-            'current-password' => 'required',
-            'password' => 'required|same:password',
-            'password_confirmation' => 'required|same:password',
-        ]);
-
-        return $validator;
+        $this->userUpdateService->handle($request->validated(), auth()->user());
+        \Session::flash('success','Password updated successfully');
+        return redirect('user_profile');
     }
 
-    public function UpdatePassword(Request $request)
+    /**
+     * UpdateProfilePicture
+     * Update Auth User Image
+     * @param  UpdateUserImageRequest $request
+     * @return Redirect
+     */
+    public function UpdateProfilePicture(UpdateUserImageRequest $request)
     {
-        $request_data = $request->All();
-        $validator = $this->admin_credential_rules($request_data);
-        if($validator->fails())
-        {
-            \Session::flash('failed',"password confirmation must be the same of the new password, and all fields are required") ;
-            return redirect('user_profile');
-        }
-        else
-        {
-            $current_password = Auth::User()->password;
-            if(Hash::check($request_data['current-password'], $current_password))
-            {
-                $user_id = Auth::User()->id;
-                $obj_user = User::find($user_id);
-                $obj_user->password = Hash::make($request_data['password']);;
-                $obj_user->save();
-                \Session::flash('success','Password updated successfully');
-                return redirect('user_profile');
-            }
-            else
-            {
-                \Session::flash('failed','Wrong current password entered!');
-                return redirect('user_profile');
-            }
-        }
-    }
-
-    public function UpdateProfilePicture(Request $request)
-    {
-        if (! $request->hasFile('profile_img'))
-        {
-            \Session::flash('failed','Submitting Image Form without image !!!! please choose image before submitting that form!');
-            return redirect('user_profile');
-        }
-        $imgExtensions = array("png","jpeg","jpg");
-        $user_id = Auth::User()->id;
-        $destinationFolder = "profile_images/" ;
-        $file = $request->file('profile_img');
-        if(! in_array($file->getClientOriginalExtension(),$imgExtensions))
-        {
-            \Session::flash('failed','Image must be jpg, png, or jpeg only !! No updates takes place, try again with that extensions please..');
-            return redirect('user_profile');
-        }
-        $obj_user = User::find($user_id);
-        if (file_exists($obj_user->profile_img))
-            Storage::delete($obj_user->profile_img);
-        $uniqueID = uniqid();
-        $file->move($destinationFolder,$uniqueID.".".$file->getClientOriginalExtension());
-        $obj_user->profile_img = $destinationFolder.$uniqueID.".".$file->getClientOriginalExtension() ;
+        $this->userUpdateService->handle($request->validated(), auth()->user());
         \Session::flash('success','Profile picture updated');
-        $obj_user->save();
         return redirect('user_profile');
     }
 
-
-    public function UpdateNameAndEmail(Request $request)
+    /**
+     * UpdateNameAndEmail
+     * Update User Pofile Name And Email
+     * @param  UserProfileRequest $request
+     * @return Redirect
+     */
+    public function UpdateNameAndEmail(UserProfileRequest $request)
     {
-        $check = User::where('email',$request['email'])->where('id','!=',Auth::User()->id)->get();
-        if (count($check)>0)
-        {
-            \Session::flash('failed',"This mail already taken by another user") ;
-            return redirect('user_profile');
-        }
-        $id = Auth::User()->id ;
-        $user_obj = User::findOrFail($id);
-        $user_obj->name = $request['name'];
-        $user_obj->email = $request['email'];
-        $user_obj->save();
+        $this->userUpdateService->handle($request->validated(), auth()->user());
+        $request->session()->flash('success','Updated Successfully');
         return redirect('user_profile');
     }
-
 
 }

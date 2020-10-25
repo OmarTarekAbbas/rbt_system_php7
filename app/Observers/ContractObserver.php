@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Contract;
 use App\Department;
 use App\Notification;
+use App\User;
 
 class ContractObserver
 {
@@ -87,10 +88,10 @@ class ContractObserver
             ' from this <a href="'.$url.'"> Link </a> </br> To fullapprove from Your Side </strong>
         </body>
         </html>';
-      \Mail::send([], [], function($email) use ($message,$subject)
+      \Mail::send([], [], function($email) use ($message,$subject,$ceo)
       {
           $email->from('rbt@gmail.com','ivas_system');
-          $email->to(ceo_email)->subject($subject);
+          $email->to(ceo_email())->subject($subject);
           $email->setBody($message, 'text/html');
       });
     }

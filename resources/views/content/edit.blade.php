@@ -121,7 +121,7 @@ Contents
           </div>
 
           <div class="form-group">
-            <label for="start_date" class="col-xs-3 col-lg-2 control-label"> Rbt Start Date</label>
+            <label for="start_date" class="col-xs-3 col-lg-2 control-label"> Content Start Date</label>
             <div class="input-group date  start_date col-sm-9 col-lg-10 controls" style="width: 78%; margin: 0 auto;">
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 <input type="text" name="start_date" value="{{ $content->start_date->format('d-m-Y') }}" id="start_date" autocomplete="off" placeholder="Rbt Start Date" data-date-format="dd-mm-yyyy" class="form-control">
@@ -129,7 +129,7 @@ Contents
           </div>
 
           <div class="form-group">
-              <label for="expire_date" class="col-xs-3 col-lg-2 control-label"> Rbt Expire Date</label>
+              <label for="expire_date" class="col-xs-3 col-lg-2 control-label"> Content Expire Date</label>
               <div class="input-group date expire_date col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy" style="width: 78%; margin: 0 auto;">
                   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                   <input type="text" name="expire_date" id="expire_date" value="{{ $content->expire_date->format('d-m-Y') }}" autocomplete="off" placeholder="Rbt End Date" data-date-format="dd-mm-yyyy" class="form-control">
