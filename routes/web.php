@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-define('ceo_email','mh124404@gmail.com');
+define('ceo_email','ahmed333555777@gmail.com');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index');
     Route::get('user_profile', 'UserController@profile');
