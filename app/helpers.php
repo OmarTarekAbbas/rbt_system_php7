@@ -92,9 +92,12 @@ function send_notification($message,$dep,$data){
   }
 
   function ceo_data(){
-    $user = \App\User::where('email',ceo_email)->first();
-    if($user) {
-      return $user;
+    $ceo = User::select('*','users.id as id')->join('user_has_roles', 'users.id', '=', 'user_has_roles.user_id')
+    ->join('roles','user_has_roles.role_id','=','roles.id')
+    ->where('roles.name','like','%ceo%')
+    ->first();
+    if($ceo) {
+      return $ceo;
     }
     return null;
   }
@@ -138,5 +141,19 @@ function send_notification($message,$dep,$data){
           ->join('roles','user_has_roles.role_id','=','roles.id')
           ->where('roles.name','like','%ceo%')
           ->first();
-    $ceo ? $ceo->email : ceo_email;
+    return $ceo ? $ceo->email : ceo_email;
   }
+
+/**
+ * Transform a date value into a Carbon object.
+ *
+ * @return \Carbon\Carbon|null
+ */
+ function transformDate($value, $format = 'Y-m-d')
+{
+    try {
+        return \Carbon\Carbon::instance(PHPExcel_Shared_Date::ExcelToPHPObject($value));
+    } catch (\ErrorException $e) {
+        return \Carbon\Carbon::createFromFormat($format, $value);
+    }
+}

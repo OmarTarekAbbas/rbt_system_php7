@@ -88,7 +88,7 @@ class ContractObserver
             ' from this <a href="'.$url.'"> Link </a> </br> To fullapprove from Your Side </strong>
         </body>
         </html>';
-      \Mail::send([], [], function($email) use ($message,$subject,$ceo)
+      \Mail::send([], [], function($email) use ($message,$subject)
       {
           $email->from('rbt@gmail.com','ivas_system');
           $email->to(ceo_email())->subject($subject);
