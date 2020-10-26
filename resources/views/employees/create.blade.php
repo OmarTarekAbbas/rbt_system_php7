@@ -10,6 +10,13 @@ Employees
     padding-left: 15px;
 }
 </style>
+<?php
+if ($employee->release_date == null) {
+  $release_date = null;
+}else{
+  $release_date = date('d-m-Y',strtotime($employee->release_date));
+}
+?>
 <div class="row">
     <div class="col-md-12">
         <div class="box">
@@ -51,7 +58,7 @@ Employees
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             <input type="text" name="release_date" id="event_start_date" autocomplete="off"
                                 placeholder="Release Date" data-date-format="dd-mm-yyyy" class="form-control"
-                                value="{{ isset($employee) ? date('d-m-Y',strtotime($employee->release_date)) : old('release_date') }}"
+                                value="{{ isset($employee) ? $release_date : old('release_date') }}"
                                 >
 
                         </div>

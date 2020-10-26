@@ -17,6 +17,7 @@ class EmployeesController extends Controller
     public function index()
     {
         $employees = Employees::all();
+
         return view('employees.index', compact('employees'));
 
     }
@@ -95,6 +96,7 @@ class EmployeesController extends Controller
     public function edit($id)
     {
         $employee = Employees::findOrFail($id);
+        
         return view('employees.create', compact('employee'));
     }
 
