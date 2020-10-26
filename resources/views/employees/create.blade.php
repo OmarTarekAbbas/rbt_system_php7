@@ -52,7 +52,7 @@ Employees
                             <input type="text" name="release_date" id="event_start_date" autocomplete="off"
                                 placeholder="Release Date" data-date-format="dd-mm-yyyy" class="form-control"
                                 value="{{ isset($employee) ? date('d-m-Y',strtotime($employee->release_date)) : old('release_date') }}"
-                                required>
+                                >
 
                         </div>
                     </div>
