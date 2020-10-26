@@ -36,8 +36,10 @@ Employees
                                 <td><input type="checkbox"></td>
                                 <td>{{$employee->id}}</td>
                                 <td>{{$employee->full_name}}</td>
-                                <td>{{$employee->phone}}</td>
-                                <td>{{$employee->release_date}}</td>
+
+                                <td>{{$employee->phone ? $employee->phone : '----'}}</td>
+
+                                <td>{{$employee->release_date ? $employee->release_date : '----'}}</td>
                                 <td>
                                     @if ($employee->status == 1)
                                     <button class="btn btn-success">In work</button>

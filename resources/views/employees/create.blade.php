@@ -11,10 +11,12 @@ Employees
 }
 </style>
 <?php
-if ($employee->release_date == null) {
-  $release_date = null;
-}else{
-  $release_date = date('d-m-Y',strtotime($employee->release_date));
+if(isset($employee)){
+  if ($employee->release_date == null) {
+    $release_date = null;
+  }else{
+    $release_date = date('d-m-Y',strtotime($employee->release_date));
+  }
 }
 ?>
 <div class="row">
