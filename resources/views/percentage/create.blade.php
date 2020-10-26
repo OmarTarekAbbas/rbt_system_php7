@@ -41,8 +41,9 @@ Percentages
 @stop
 
 @section('script')
-    <script>
-        $('#percentages').addClass('active');
-        $('#percentages-create').addClass('active');
-    </script>
+  <script>
+		$('#contract .submenu').first().css('display', 'block');
+		$('#percentage .submenu').first().css('display', 'block');
+    $('#percentages-create').addClass('active');
+  </script>
 @stop
