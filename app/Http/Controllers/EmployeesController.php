@@ -49,7 +49,7 @@ class EmployeesController extends Controller
         $employee->full_name = $request->full_name;
         $employee->phone = $request->phone;
         $employee->status = $request->status;
-        $employee->release_date =  date('Y-m-d',strtotime($request->release_date));
+        $employee->release_date =  $request->release_date ? date('Y-m-d',strtotime($request->release_date)) : null;
 
 
         $employeeMove = 'uploads/employee_papers';
@@ -111,7 +111,7 @@ class EmployeesController extends Controller
         $employee->full_name = $request->full_name;
         $employee->phone = $request->phone;
         $employee->status = $request->status;
-        $employee->release_date = date('Y-m-d',strtotime($request->release_date));
+        $employee->release_date = $request->release_date ? date('Y-m-d',strtotime($request->release_date)) : null;
         $employeeMove = 'uploads/employee_papers';
         $files = ['birth_certificate', 'graduation_certificate', 'army_certificate', 'insurance_certificate', 'fish_watashbih'];
         foreach ($files as $file) {

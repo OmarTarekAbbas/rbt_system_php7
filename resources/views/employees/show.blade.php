@@ -70,7 +70,15 @@ Employee
                             <tr>
                                 <td width='30%' class='label-view text-right' style="font-weight: bold">Release Date
                                 </td>
-                                <td>{{$employee->release_date}} </td>
+                                @if($employee->release_date)
+                                <td>
+                                  {{$employee->release_date}}
+                                </td>
+                                @else
+                                <td>
+                                 ----
+                                </td>
+                                @endif
                             </tr>
                             <tr>
                                 <td width='30%' class='label-view text-right' style="font-weight: bold">Employee Papers
