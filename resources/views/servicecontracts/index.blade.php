@@ -72,7 +72,7 @@ Cotract Services
 </script>
 <script>
     // to edit country by modal  = get current values by js
-    $('#contract').addClass('active');
+    $('#contract .submenu').first().css('display', 'block');
     $('#contractservice-index').addClass('active');
 </script>
 @endsection

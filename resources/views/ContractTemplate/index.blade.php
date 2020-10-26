@@ -70,7 +70,7 @@
 <script type="text/javascript">
 </script>
 <script>
-    $('#ContractTemplate').addClass('active');
+    $('#contract .submenu').first().css('display', 'block');
     $('#ContractTemplate-index').addClass('active');
 </script>
 @stop

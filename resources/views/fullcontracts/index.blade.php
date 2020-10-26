@@ -51,7 +51,7 @@ Contract
 
 @section('script')
 <script>
-    $('#contract').addClass('active');
+    $('#contract .submenu').first().css('display', 'block');
     $('#contract-index').addClass('active');
     $.ajaxSetup({
         headers: {

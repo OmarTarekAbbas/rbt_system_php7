@@ -51,7 +51,8 @@
 
 @section('script')
 	<script>
-		$('#firstpartie').addClass('active');
+		$('#contract .submenu').first().css('display', 'block');
+		$('#firstpartie .submenu').first().css('display', 'block');
 		$('#firstpartie-index').addClass('active');
 	</script>
 @stop

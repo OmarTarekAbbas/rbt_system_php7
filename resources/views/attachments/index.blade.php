@@ -91,7 +91,8 @@ attachment
 
     </script>
 	<script>
-		$('#Attachment').addClass('active');
+		$('#contract .submenu').first().css('display', 'block');
+		$('#Attachment .submenu').first().css('display', 'block');
 		$('#Attachment-index').addClass('active');
 	</script>
 @stop
