@@ -65,7 +65,8 @@ FirstParties
 
 @section('script')
     <script>
-        $('#firstparties').addClass('active');
+		$('#contract .submenu').first().css('display', 'block');
+		$('#firstpartie .submenu').first().css('display', 'block');
         $('#firstparties-create').addClass('active');
     </script>
 @stop

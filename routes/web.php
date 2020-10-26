@@ -86,6 +86,69 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('occasion/update', '\App\Http\Controllers\OccasionController@update');
     Route::get('occasion/{id}/delete', '\App\Http\Controllers\OccasionController@destroy');
 
+    //occasion view routes
+    // Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
+    //     Route::resource('occasion', '\App\Http\Controllers\OccasionController');
+    // });
+
+    //currency
+    Route::get('currency', 'CurrencyController@index');
+    Route::post('currency', 'CurrencyController@store');
+    Route::post('currency/update', 'CurrencyController@update');
+    Route::get('currency/{id}/delete', 'CurrencyController@destroy');
+
+
+
+    // Start Routes for fullcontracts
+    Route::resource('fullcontracts', 'FullcontractsController');
+    Route::post('fullcontracts/{id}/update', 'FullcontractsController@update');
+    Route::get('fullcontracts/{id}/delete', 'FullcontractsController@destroy');
+    Route::get('/client_type', 'FullcontractsController@getClient');
+    Route::get('contracts/allData', 'FullcontractsController@allData');
+    Route::get('contract/an/{id}', 'FullcontractsController@annex');
+    Route::get('contract/al/{id}', 'FullcontractsController@authorization');
+    Route::get('contract/cr/{id}', 'FullcontractsController@copyright');
+    // End Routes for fullcontracts
+
+    // Start Routes for service
+    Route::resource('contractservice', 'ServicecontractsController');
+    Route::get('contractservice/{id}/delete', 'ServicecontractsController@destroy');
+    Route::get('contractservice/create/{id}', 'ServicecontractsController@create');
+    // End Routes for service
+
+    //Revenue
+    Route::resource('revenue', 'RevenueController');
+    Route::get('revenue/{id}/delete', 'RevenueController@destroy');
+    Route::post('revenue/{id}/update', 'RevenueController@update');
+    Route::post('comboselect/source_id', 'RevenueController@comboSelectSourceId');
+    Route::post('comboselect/contract_services', 'RevenueController@comboSelectContractServices');
+    Route::post('comboselect/remove_contract_services', 'RevenueController@comboSelectRemoveContractServices');
+
+    Route::resource('firstparties', 'FirstpartieController', ['as' => 'admin']);
+    Route::get('firstparties/{id}/delete', 'FirstpartieController@destroy');
+
+    Route::resource('percentages', 'PercentageController', ['as' => 'admin']);
+    Route::get('percentages/{id}/delete', 'PercentageController@destroy');
+    Route::resource('ServiceTypes', 'ServiceTypesController');
+    Route::resource('SecondPartyType', 'SecondPartyTypeController');
+    Route::resource('SecondParty', 'SecondPartyController');
+    Route::resource('attachment', 'AttachmentController');
+    Route::resource('ContractTemplate', 'ContractTemplateController');
+    Route::get('ContractTemplate/{id}/items', 'ContractTemplateController@showContractTerms');
+    Route::get('ContractTemplate/{id}/items/download', 'ContractTemplateController@downloadContractTerms');
+    Route::post('ContractTemplate/{id}/storeItem', 'ContractTemplateController@storeContractTerms');
+    Route::post('ContractTemplate/{id}/removeItem', 'ContractTemplateController@destroyContractTerms');
+    Route::post('ContractTemplate/{id}/editItem', 'ContractTemplateController@editContractTerms');
+    Route::get('contract/template/create', 'ContractTemplateController@editContractTerms');
+    Route::get('Contract/{id}/items/download', 'FullcontractsController@downloadContractItems');
+    Route::get('template_items/{id}', 'FullcontractsController@template_items');
+
+    Route::get('contract_items_send/{id}/edit', 'ContractItemsApprovidsController@edit');
+    Route::post('fullcontracts/{id}/updateapprove', 'ContractItemsApprovidsController@update');
+    Route::get('contract_items_send/{id}/approves', 'ContractItemsApprovidsController@index');
+    Route::get('ceo/{id}/approve', 'FullcontractsController@getCeoApprovePage');
+    Route::post('ceo/{id}/approve', 'FullcontractsController@saveCeoApprove');
+
 });
 
 Route::group(['middleware' => ['auth', 'role:super_admin']], function () {
@@ -113,146 +176,77 @@ Route::group(['middleware' => ['auth', 'role:super_admin']], function () {
 
 });
 
-//occasion view routes
-// Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
-//     Route::resource('occasion', '\App\Http\Controllers\OccasionController');
-// });
-
-// RBT admin roles
-Route::post('rbt/get_statistics', 'RbtController@get_statistics');
-Route::get('rbt/statistics', 'RbtController@statitics');
-Route::get('rbt/file_system', 'RbtController@list_file_system');
-Route::get('rbt/excel', 'RbtController@excel');
-Route::post('rbt/excel', 'RbtController@excelStore');
-Route::get('rbt/downloadSample', 'RbtController@getDownload');
-Route::get('report/excel', 'ReportController@excel');
-Route::get('report/downloadSample', 'ReportController@getDownload');
-Route::post('report/excel', 'ReportController@excelStore');
-
-Route::get('rbt/search', 'RbtController@search');
-Route::post('rbt/search', 'RbtController@search_result');
-Route::get('report/search', 'ReportController@search');
-Route::post('report/search', 'ReportController@search_result');
-Route::post('report/export_report', 'ReportController@export_report');
-Route::get('rbt/allData', 'RbtController@allData');
-
-// new excel
-Route::get('rbt/{id}/editNew', 'RbtController@editNew');
-Route::post('rbt/excelNew', 'RbtController@excelNewStore');
-Route::get('rbt/downloadSampleNew', 'RbtController@getDownloadNew');
-
-Route::get('rbt/upload_tracks', 'RbtController@multi_upload');
-Route::post('rbt/save_tracks', 'RbtController@save_tracks');
-Route::get('rbt/delete_track/{id}', 'RbtController@delete_track');
-//   Route::resource('rbt','\App\Http\Controllers\RbtController');
-Route::post('rbt/{id}/update', '\App\Http\Controllers\RbtController@update');
-Route::get('rbt/{id}/delete', '\App\Http\Controllers\RbtController@destroy');
-Route::get('rbt/{id}/deleteMsg', '\App\Http\Controllers\RbtController@DeleteMsg');
-Route::resource('rbt', '\App\Http\Controllers\RbtController');
-
-// rbt admin roles
-Route::get('report/statistics', 'ReportController@statitics');
-Route::post('report/{id}/update', '\App\Http\Controllers\ReportController@update');
-Route::get('report/{id}/delete', '\App\Http\Controllers\ReportController@destroy');
-Route::get('report/{id}/deleteMsg', '\App\Http\Controllers\ReportController@DeleteMsg');
-Route::post('report/get_statistics', 'ReportController@get_statistics');
-
-Route::resource('department', 'DepartmentController');
-Route::get('department/{id}/delete', 'DepartmentController@destroy');
-//Route::resource('content','ContentController');
-Route::get('contents/excel', 'ContentController@create_excel');
-Route::post('contents/excel', 'ContentController@excel_store');
-Route::get('content/{id}/delete', 'ContentController@destroy');
-Route::get('contents/downloadSample', 'ContentController@getDownload');
-Route::get('contents/file_system', 'ContentController@list_file_system');
-Route::get('contents/upload_tracks', 'ContentController@multi_upload');
-Route::post('contents/save_tracks', 'ContentController@save_tracks');
-Route::get('content/allData', 'ContentController@allData');
-Route::get('content', 'ContentController@index');
-Route::get('content/{id}/delete', 'ContentController@destroy');
-Route::get('content/{id}/edit', 'ContentController@edit');
-Route::PATCH('content/{id}/update', 'ContentController@update');
-Route::get('content/create', 'ContentController@create');
-Route::post('content', 'ContentController@store');
-Route::get('content/{id}/rbts', 'ContentController@show_rbt');
-Route::get('content/{id}', 'ContentController@show');
-
-// Start Routes for fullcontracts
-Route::resource('fullcontracts', 'FullcontractsController');
-Route::post('fullcontracts/{id}/update', 'FullcontractsController@update');
-Route::get('fullcontracts/{id}/delete', 'FullcontractsController@destroy');
-Route::get('/client_type', 'FullcontractsController@getClient');
-Route::get('contracts/allData', 'FullcontractsController@allData');
-Route::get('contract/an/{id}', 'FullcontractsController@annex');
-Route::get('contract/al/{id}', 'FullcontractsController@authorization');
-Route::get('contract/cr/{id}', 'FullcontractsController@copyright');
-
-// End Routes for fullcontracts
-
-// Start Routes for service
-Route::resource('contractservice', 'ServicecontractsController');
-Route::get('contractservice/{id}/delete', 'ServicecontractsController@destroy');
-Route::get('contractservice/create/{id}', 'ServicecontractsController@create');
-// End Routes for service
-
-// End Routes for employees
-
-//report view route
-Route::resource('report', '\App\Http\Controllers\ReportController');
-
-//currency
-Route::get('currency', 'CurrencyController@index');
-Route::post('currency', 'CurrencyController@store');
-Route::post('currency/update', 'CurrencyController@update');
-Route::get('currency/{id}/delete', 'CurrencyController@destroy');
-
-//Revenue
-Route::resource('revenue', 'RevenueController');
-Route::get('revenue/{id}/delete', 'RevenueController@destroy');
-Route::post('revenue/{id}/update', 'RevenueController@update');
-Route::post('comboselect/source_id', 'RevenueController@comboSelectSourceId');
-Route::post('comboselect/contract_services', 'RevenueController@comboSelectContractServices');
-Route::post('comboselect/remove_contract_services', 'RevenueController@comboSelectRemoveContractServices');
-
-Route::resource('roadmaps', 'RoadMapController', ['as' => 'admin']);
-Route::get('roadmaps/{id}/delete', 'RoadMapController@destroy');
-Route::get('roadmap/allData', 'RoadMapController@allData');
-Route::get('roadmaps/calendar/index', 'RoadMapController@calendarIndex')->name('admin.roadmaps.calendar.index');
-
-Route::resource('firstparties', 'FirstpartieController', ['as' => 'admin']);
-Route::get('firstparties/{id}/delete', 'FirstpartieController@destroy');
-
-Route::resource('percentages', 'PercentageController', ['as' => 'admin']);
-Route::get('percentages/{id}/delete', 'PercentageController@destroy');
-Route::resource('ServiceTypes', 'ServiceTypesController');
-Route::resource('SecondPartyType', 'SecondPartyTypeController');
-Route::resource('SecondParty', 'SecondPartyController');
-Route::resource('attachment', 'AttachmentController');
-Route::resource('ContractTemplate', 'ContractTemplateController');
-Route::get('ContractTemplate/{id}/items', 'ContractTemplateController@showContractTerms');
-Route::get('ContractTemplate/{id}/items/download', 'ContractTemplateController@downloadContractTerms');
-Route::post('ContractTemplate/{id}/storeItem', 'ContractTemplateController@storeContractTerms');
-Route::post('ContractTemplate/{id}/removeItem', 'ContractTemplateController@destroyContractTerms');
-Route::post('ContractTemplate/{id}/editItem', 'ContractTemplateController@editContractTerms');
-Route::get('contract/template/create', 'ContractTemplateController@editContractTerms');
-Route::get('Contract/{id}/items/download', 'FullcontractsController@downloadContractItems');
-Route::get('template_items/{id}', 'FullcontractsController@template_items');
-
-Route::get('contract_items_send/{id}/edit', 'ContractItemsApprovidsController@edit');
-Route::post('fullcontracts/{id}/updateapprove', 'ContractItemsApprovidsController@update');
-Route::get('contract_items_send/{id}/approves', 'ContractItemsApprovidsController@index');
-Route::get('ceo/{id}/approve', 'FullcontractsController@getCeoApprovePage');
-Route::post('ceo/{id}/approve', 'FullcontractsController@saveCeoApprove');
-
-Route::get('sendemail', 'DepartmentController@contract_items_send_email');
-
 Route::group(['middleware' => ['auth', 'role:super_admin|operation']], function () {
+    //rbt
     Route::get('rbt', '\App\Http\Controllers\RbtController@index');
     Route::get('rbt/search', 'RbtController@search');
     Route::post('rbt/search', 'RbtController@search_result');
     Route::get('report', '\App\Http\Controllers\ReportController@index');
     Route::get('report/search', 'ReportController@search');
     Route::post('report/search', 'ReportController@search_result');
+
+    // RBT admin roles
+    Route::post('rbt/get_statistics', 'RbtController@get_statistics');
+    Route::get('rbt/statistics', 'RbtController@statitics');
+    Route::get('rbt/file_system', 'RbtController@list_file_system');
+    Route::get('rbt/excel', 'RbtController@excel');
+    Route::post('rbt/excel', 'RbtController@excelStore');
+    Route::get('rbt/downloadSample', 'RbtController@getDownload');
+    Route::get('report/excel', 'ReportController@excel');
+    Route::get('report/downloadSample', 'ReportController@getDownload');
+    Route::post('report/excel', 'ReportController@excelStore');
+    Route::get('rbt/search', 'RbtController@search');
+    Route::post('rbt/search', 'RbtController@search_result');
+    Route::get('report/search', 'ReportController@search');
+    Route::post('report/search', 'ReportController@search_result');
+    Route::post('report/export_report', 'ReportController@export_report');
+    Route::get('rbt/allData', 'RbtController@allData');
+    // new excel
+    Route::get('rbt/{id}/editNew', 'RbtController@editNew');
+    Route::post('rbt/excelNew', 'RbtController@excelNewStore');
+    Route::get('rbt/downloadSampleNew', 'RbtController@getDownloadNew');
+    Route::get('rbt/upload_tracks', 'RbtController@multi_upload');
+    Route::post('rbt/save_tracks', 'RbtController@save_tracks');
+    Route::get('rbt/delete_track/{id}', 'RbtController@delete_track');
+    // Route::resource('rbt','\App\Http\Controllers\RbtController');
+    Route::post('rbt/{id}/update', '\App\Http\Controllers\RbtController@update');
+    Route::get('rbt/{id}/delete', '\App\Http\Controllers\RbtController@destroy');
+    Route::get('rbt/{id}/deleteMsg', '\App\Http\Controllers\RbtController@DeleteMsg');
+    Route::resource('rbt', '\App\Http\Controllers\RbtController');
+
+    // rbt admin roles
+    Route::get('report/statistics', 'ReportController@statitics');
+    Route::post('report/{id}/update', '\App\Http\Controllers\ReportController@update');
+    Route::get('report/{id}/delete', '\App\Http\Controllers\ReportController@destroy');
+    Route::get('report/{id}/deleteMsg', '\App\Http\Controllers\ReportController@DeleteMsg');
+    Route::post('report/get_statistics', 'ReportController@get_statistics');
+
+    // Route::resource('content','ContentController');
+    Route::get('contents/excel', 'ContentController@create_excel');
+    Route::post('contents/excel', 'ContentController@excel_store');
+    Route::get('content/{id}/delete', 'ContentController@destroy');
+    Route::get('contents/downloadSample', 'ContentController@getDownload');
+    Route::get('contents/file_system', 'ContentController@list_file_system');
+    Route::get('contents/upload_tracks', 'ContentController@multi_upload');
+    Route::post('contents/save_tracks', 'ContentController@save_tracks');
+    Route::get('content/allData', 'ContentController@allData');
+    Route::get('content', 'ContentController@index');
+    Route::get('content/{id}/delete', 'ContentController@destroy');
+    Route::get('content/{id}/edit', 'ContentController@edit');
+    Route::PATCH('content/{id}/update', 'ContentController@update');
+    Route::get('content/create', 'ContentController@create');
+    Route::post('content', 'ContentController@store');
+    Route::get('content/{id}/rbts', 'ContentController@show_rbt');
+    Route::get('content/{id}', 'ContentController@show');
+
+    //road map
+    Route::resource('roadmaps', 'RoadMapController', ['as' => 'admin']);
+    Route::get('roadmaps/{id}/delete', 'RoadMapController@destroy');
+    Route::get('roadmap/allData', 'RoadMapController@allData');
+    Route::get('roadmaps/calendar/index', 'RoadMapController@calendarIndex')->name('admin.roadmaps.calendar.index');
+
+    //report view route
+    Route::resource('report', '\App\Http\Controllers\ReportController');
 });
 
 Route::group(['middleware' => ['auth', 'role:super_admin|legal']], function () {
@@ -261,4 +255,8 @@ Route::group(['middleware' => ['auth', 'role:super_admin|legal']], function () {
     Route::get('employees/{id}/show', 'EmployeesController@show');
     Route::get('employees/{id}/contracts', 'EmployeeContractsController@create');
     Route::post('employees/{id}/contracts', 'EmployeeContractsController@store');
+    // department
+    Route::resource('department', 'DepartmentController');
+    Route::get('department/{id}/delete', 'DepartmentController@destroy');
+    Route::get('sendemail', 'DepartmentController@contract_items_send_email');
 });

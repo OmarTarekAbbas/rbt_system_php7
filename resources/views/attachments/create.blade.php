@@ -111,7 +111,8 @@ attachment
 @stop
 @section('script')
 <script>
-		$('#Attachment').addClass('active');
+		$('#contract .submenu').first().css('display', 'block');
+		$('#Attachment .submenu').first().css('display', 'block');
 		$('#Attachment-create').addClass('active');
 	</script>
 @stop
