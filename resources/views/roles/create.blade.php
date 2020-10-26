@@ -42,7 +42,8 @@
 
 @section('script')
     <script>
-        $('#role').addClass('active');
+        $('#user .submenu').first().css('display', 'block');
+        $('#role .submenu').first().css('display', 'block');
         $('#role-create').addClass('active');
     </script>
 @stop

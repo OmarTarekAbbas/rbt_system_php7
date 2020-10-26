@@ -213,7 +213,8 @@
 
         });
 
-        $('#setting').addClass('active');
+        $('#user .submenu').first().css('display', 'block');
+        $('#setting .submenu').first().css('display', 'block');
         $('#setting-create').addClass('active');
     </script>
 @stop
