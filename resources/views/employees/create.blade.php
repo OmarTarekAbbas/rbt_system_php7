@@ -9,6 +9,9 @@ Employees
   padding-right: 15px;
     padding-left: 15px;
 }
+.fileUpload{
+  width: 23%;
+}
 </style>
 <?php
 if(isset($employee)){
@@ -103,15 +106,12 @@ if(isset($employee)){
                                 <input type="file" name="birth_certificate" />
                             </div>
                             @if (isset($employee))
-                            <div class="col-md-6">
                               @if($employee->birth_certificate)
-                              <a class="btn btn-sm btn-success" href="{{url('uploads/employee_papers/'.$employee->birth_certificate)}}"
+                              <a class="btn btn-sm btn-success"  href="{{url('uploads/employee_papers/'.$employee->birth_certificate)}}"
                               target="_blank">Review</a>
                                   @else
-                                  <a class="btn btn-sm btn-danger" href="#0"
-                                  >Review</a>
+
                                   @endif
-                            </div>
                             @endif
                         </div>
                     </div>
@@ -124,15 +124,14 @@ if(isset($employee)){
                                 <input type="file" name="graduation_certificate" />
                             </div>
                             @if (isset($employee))
-                            <div class="col-md-6">
+
                               @if($employee->graduation_certificate)
-                              <a class="btn btn-sm btn-success" href="{{url('uploads/employee_papers/'.$employee->graduation_certificate)}}"
+                              <a class="btn btn-sm btn-success"  href="{{url('uploads/employee_papers/'.$employee->graduation_certificate)}}"
                               target="_blank">Review</a>
                                   @else
-                                  <a class="btn btn-sm btn-danger" href="#0"
-                                  >Review</a>
+
                                   @endif
-                            </div>
+
                             @endif
                         </div>
                     </div>
@@ -145,15 +144,14 @@ if(isset($employee)){
                                 <input type="file" name="army_certificate" />
                             </div>
                             @if (isset($employee))
-                            <div class="col-md-6">
+
                               @if($employee->army_certificate)
-                              <a class="btn btn-sm btn-success" href="{{url('uploads/employee_papers/'.$employee->army_certificate)}}"
+                              <a class="btn btn-sm btn-success"  href="{{url('uploads/employee_papers/'.$employee->army_certificate)}}"
                               target="_blank" >Review</a>
                                   @else
-                                  <a class="btn btn-sm btn-danger" href="#0"
-                                  >Review</a>
+
                                   @endif
-                            </div>
+
                             @endif
                         </div>
                     </div>
@@ -166,15 +164,14 @@ if(isset($employee)){
                                 <input type="file" name="insurance_certificate" />
                             </div>
                             @if (isset($employee))
-                            <div class="col-md-6">
+
                               @if($employee->insurance_certificate)
-                              <a class="btn btn-sm btn-success" href="{{url('uploads/employee_papers/'.$employee->insurance_certificate)}}"
+                              <a class="btn btn-sm btn-success"  href="{{url('uploads/employee_papers/'.$employee->insurance_certificate)}}"
                               target="_blank" >Review</a>
                                   @else
-                                  <a class="btn btn-sm btn-danger" href="#0"
-                                  >Review</a>
+
                                   @endif
-                            </div>
+
                             @endif
                         </div>
                     </div>
@@ -187,15 +184,13 @@ if(isset($employee)){
                                 <input type="file" name="fish_watashbih" />
                             </div>
                             @if (isset($employee))
-                            <div class="col-md-6">
                               @if($employee->fish_watashbih)
-                              <a class="btn btn-sm btn-success" href="{{url('uploads/employee_papers/'.$employee->fish_watashbih)}}"
+                              <a class="btn btn-sm btn-success"  href="{{url('uploads/employee_papers/'.$employee->fish_watashbih)}}"
                               target="_blank">Review</a>
                                   @else
-                                  <a class="btn btn-sm btn-danger" href="#0"
-                                  >Review</a>
+
                                   @endif
-                            </div>
+
                             @endif
                         </div>
                     </div>
