@@ -14,6 +14,7 @@ class AddLegalRole extends Migration
     public function up()
     {
       \DB::statement("INSERT INTO `roles` (`id`, `name`, `role_priority`, `created_at`, `updated_at`) VALUES (NULL, 'legal', '0', '2020-10-25 11:34:01', '2020-10-25 11:34:01')");
+      \DB::statement("UPDATE `roles` SET `name` = 'operation' WHERE `roles`.`name` = 'admin'");
     }
 
     /**
