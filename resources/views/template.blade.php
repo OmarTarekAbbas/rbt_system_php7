@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>RBT - Admin Panel</title>
+  <title>Ivas System</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -125,7 +125,7 @@
     <a class="navbar-brand" href="{{url('/')}}">
       <small>
         <i class="fa fa-user-secret"></i>
-        Admin Panel
+        Ivas System
       </small>
     </a>
 
