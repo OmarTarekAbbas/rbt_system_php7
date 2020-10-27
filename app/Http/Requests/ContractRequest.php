@@ -45,7 +45,11 @@ class ContractRequest extends Request
             "contract_pdf" => "mimes:pdf,docx,excel",
             "contract_notes" => "",
             "contract_signed_date" => "",
-            "contract_code" => ""
+            "contract_code" => "",
+            'first_party_signature' => '',
+            'second_party_signature' => '',
+            'first_party_seal' => '',
+            'second_party_seal' => ''
        ];
     }
 }

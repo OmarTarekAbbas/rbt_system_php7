@@ -110,7 +110,8 @@
 
 @section('script')
     <script>
-        $('#report').addClass('active');
+        $('#rbt .submenu').first().css('display', 'block');
+        $('#report .submenu').first().css('display', 'block');
         $('#report-excel').addClass('active');
     </script>
 @stop

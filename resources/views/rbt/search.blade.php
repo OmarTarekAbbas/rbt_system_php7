@@ -332,7 +332,7 @@
         }
     </script>
     <script>
-        $('#rbt').addClass('active');
+        $('#rbt .submenu').first().css('display', 'block');
         $('#rbt-search').addClass('active');
     </script>
 @stop

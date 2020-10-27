@@ -15,7 +15,7 @@ FirstParties
                     </div>
                 </div>
                 <div class="box-content">
-                    <form class="form-horizontal" action="{{url('firstparties')}}" method="post">
+                    <form class="form-horizontal" action="{{url('firstparties')}}" method="post" enctype="multipart/form-data">
                     	{{ csrf_field() }}
                       <div class="form-group">
                             <label class="col-sm-3 col-lg-2 control-label">Title *</label>
@@ -35,6 +35,21 @@ FirstParties
                         </div>
 
                         <div class="form-group">
+                          <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> First party signature </label>
+                          <div class="col-sm-9 col-lg-10 controls">
+                            <input type="file" name="first_party_signature" id="first_party_signature" placeholder="Second Party Title" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> First party seal </label>
+                          <div class="col-sm-9 col-lg-10 controls">
+                            <input type="file" name="first_party_seal" id="first_party_seal" placeholder="Second Party Title" class="form-control">
+                          </div>
+                        </div>
+
+
+                        <div class="form-group">
                             <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
                                 <input type="submit" class="btn btn-primary" value="Submit">
                             </div>
@@ -50,7 +65,8 @@ FirstParties
 
 @section('script')
     <script>
-        $('#firstparties').addClass('active');
+		$('#contract .submenu').first().css('display', 'block');
+		$('#firstpartie .submenu').first().css('display', 'block');
         $('#firstparties-create').addClass('active');
     </script>
 @stop

@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="box-content">
-                        <strong class="text-danger font-weight-bold"> <span>*</span> in folder content , create new folder with tody date {{ date('Y-m-d') }} and put track in it .</strong>
+                        <!-- <strong class="text-danger font-weight-bold"> <span>*</span> in folder content , create new folder with tody date {{ date('Y-m-d') }} and put track in it .</strong> -->
                     <div class="embed-responsive embed-responsive-16by9">
                         <iframe class="embed-responsive-item" src="{{url('elFinder/elfinder')}}"></iframe>
                     </div>

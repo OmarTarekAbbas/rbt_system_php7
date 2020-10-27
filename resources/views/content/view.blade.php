@@ -62,6 +62,16 @@ Content
               </tr>
 
               <tr>
+                <td width='30%' class='label-view text-right'>start Date</td>
+                <td>{{ optional($content->start_date)->format('d-m-Y') }}</td>
+              </tr>
+
+              <tr>
+                <td width='30%' class='label-view text-right'>Expire Date</td>
+                <td>{{ optional($content->expire_date)->format('d-m-Y') }}</td>
+              </tr>
+
+              <tr>
                 <td width='30%' class='label-view text-right'>Audio</td>
                 <td>
                   <audio class="content_audios" controls style="width: 75%;">

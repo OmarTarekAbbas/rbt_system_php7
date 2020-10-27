@@ -1,4 +1,6 @@
-@extends('template') @section('page_title') Contract Ceo Approve @stop @section('content')
+@extends('template')
+@section('page_title') Contract Ceo Approve @stop
+@section('content')
 <div class="row">
     <div class="col-md-12">
         <div class="box">
@@ -28,6 +30,20 @@
                 </form>
                 </div>
             </div>
-        </div>
     </div>
-    @stop
+</div>
+@stop
+@section('script')
+<script>
+  $(document).on('ready',function(){
+    $('#first_party_signature').html('<img width="200px" height="200px" src="{{ url(optional($contract->first_parties)->first_party_signature?? "uploads/default.png") }}" class="img-circle">')
+    $('#second_party_signature').html('<img width="200px" height="200px" src="{{ url(optional($contract->second_parties)->second_party_signature?? "uploads/default.png") }}" class="img-circle">')
+    $('#first_party_seal').html('<img width="200px" height="200px" src="{{ url(optional($contract->first_parties)->first_party_seal?? "uploads/default.png") }}" class="img-circle">')
+    $('#second_party_seal').html('<img width="200px" height="200px" src="{{ url(optional($contract->second_parties)->second_party_seal?? "uploads/default.png") }}" class="img-circle">')
+    $('.container-fluid div').each(function() {
+      $('#input' + $(this).attr('id')).val($(this).html())
+      console.log($('#input' + $(this).attr('id')).val());
+    })
+  })
+</script>
+@stop

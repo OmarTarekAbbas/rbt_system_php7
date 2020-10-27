@@ -10,7 +10,7 @@
             padding-left: unset;
         }
     }
-    
+
     .radio_check {
         display: inline-block;
         *display: inline;
@@ -23,40 +23,40 @@
         border: none;
         cursor: pointer;
     }
-    
+
     .dropdown-toggle::after {
         display: none;
     }
-    
+
     .nav-list>li {
         width: 100%;
     }
-    
+
     .start_date {
         text-align: right;
     }
-    
+
     input[type="date"]::-webkit-datetime-edit,
     input[type="date"]::-webkit-inner-spin-button,
     input[type="date"]::-webkit-clear-button {
         color: #fff;
         position: relative;
     }
-    
+
     input[type="date"]::-webkit-datetime-edit-year-field {
         position: absolute !important;
         padding: 2px;
         color: #000;
         left: 0;
     }
-    
+
     input[type="date"]::-webkit-datetime-edit-month-field {
         position: absolute !important;
         padding: 2px;
         color: #000;
         left: 30px;
     }
-    
+
     input[type="date"]::-webkit-datetime-edit-day-field {
         position: absolute !important;
         color: #000;
@@ -133,12 +133,12 @@
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> first commercial register no </label>
+                                    <label for="ipt" class=" control-label "> first commercial register no (رقم السجل التجارى للطرف الاول)</label>
                                     <input type="text" id="first_commercial_register_no_input" class="form-control" name='first_commercial_register_no' />
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> first tax card no </label>
+                                    <label for="ipt" class=" control-label "> first tax card no (رقم البطاقة الضريبية للطرف الاول) </label>
                                     <input type="text" id="first_tax_card_no_input" class="form-control" name='first_tax_card_no' />
                                 </div>
 
@@ -233,12 +233,12 @@
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> second commercial register no </label>
+                                    <label for="ipt" class=" control-label "> second commercial register no (رقم السجل التجارى للطرف الثانى) </label>
                                     <input type="text" id="second_commercial_register_no_input" class="form-control" name='second_commercial_register_no' />
                                 </div>
 
                                 <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> second tax card no </label>
+                                    <label for="ipt" class=" control-label "> second tax card no (رقم البطاقة الضريبية للطرف الثانى) </label>
                                     <input type="text" id="second_tax_card_no_input" class="form-control" name='second_tax_card_no' />
                                 </div>
 
@@ -251,6 +251,7 @@
                                     <label for="ipt" class=" control-label "> second part phone </label>
                                     <input type="text" id="second_part_phone_input" class="form-control" name='second_part_phone' />
                                 </div>
+
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Countries <span class="asterix"> * </span>
                                     </label>

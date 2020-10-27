@@ -53,7 +53,8 @@
 @stop
 @section('script')
 	<script>
-		$('#role').addClass('active');
+		$('#user .submenu').first().css('display', 'block');
+		$('#role .submenu').first().css('display', 'block');
 		$('#role-index').addClass('active');
 	</script>
 @stop

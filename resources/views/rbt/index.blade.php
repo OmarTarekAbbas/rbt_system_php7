@@ -61,7 +61,7 @@ RBTs
 
 @section('script')
 <script>
-    $('#rbt').addClass('active');
+    $('#rbt .submenu').first().css('display', 'block');
     $('#rbt-index').addClass('active');
     $.ajaxSetup({
         headers: {

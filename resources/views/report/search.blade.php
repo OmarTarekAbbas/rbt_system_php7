@@ -326,7 +326,8 @@
 
     </script>
     <script>
-        $('#report').addClass('active');
+        $('#rbt .submenu').first().css('display', 'block');
+        $('#report .submenu').first().css('display', 'block');
         $('#report-search').addClass('active');
     </script>
 @stop

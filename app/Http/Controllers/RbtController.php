@@ -232,7 +232,9 @@ class RbtController extends Controller
         }
 
         $rbt->internal_coding = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time() ."/". $rbt->operator_id;
-        //dd($rbt);
+        $rbt->start_date      = date('Y-m-d', strtotime($request->start_date));
+        $rbt->expire_date     = date('Y-m-d', strtotime($request->expire_date));
+
         $rbt->save();
 
         $request->session()->flash('success', 'Add Rbt Successfully');
@@ -243,7 +245,7 @@ class RbtController extends Controller
 
     public function show($id)
     {
-        $rbt = Rbt::select('*','rbts.id AS rbt_id','providers.title as provider','occasions.title as occasion','operators.title as operator','aggregators.title as aggregator','contents.content_title as content','rbts.internal_coding as rbt_internal_coding')
+        $rbt = Rbt::select('*','rbts.start_date','rbts.expire_date','rbts.id AS rbt_id','providers.title as provider','occasions.title as occasion','operators.title as operator','aggregators.title as aggregator','contents.content_title as content','rbts.internal_coding as rbt_internal_coding')
         ->leftjoin('providers','providers.id','=','rbts.provider_id')
         ->leftjoin('occasions','occasions.id','=','rbts.occasion_id')
         ->leftjoin('operators','operators.id','=','rbts.operator_id')
@@ -391,12 +393,18 @@ class RbtController extends Controller
                     }
 
                     $rbt['track_file'] = "uploads/rbts/".date('Y-m-d')."/".$rbt['track_title_en'].".wav" ;
+                    $rbt['start_date'] = transformDate($row->start_date) ;
+                    $rbt['expire_date']= transformDate($row->expire_date) ;
+
                     $check = Rbt::create($rbt) ;
                     if ($check)
                     {
                         $rbt_edit = Rbt::find($check->id);
                         $rbt_edit->internal_coding = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
                         $rbt_edit->save();
+                        if (!file_exists('uploads/rbts/' .  date('Y-m-d'). '/')) {
+                          mkdir('uploads/rbts/' . date('Y-m-d') . '/', 0777, true);
+                        }
                         $counter++ ;
                     }
                 }
@@ -407,7 +415,7 @@ class RbtController extends Controller
         }
          //    unlink(base_path().'/uploads/rbt/excel/'.$filename);
         $failures = $total_counter - $counter ;
-        $request->session()->flash('success', $counter.' item(s) created successfully, and '.$failures.' item(s) failed');
+        $request->session()->flash('success', $counter.' item(s) created successfully, and '.$failures.' item(s) failed  and Please upload Rbts on this path uploads/rbts/ ' . date('Y-m-d'));
         return redirect('rbt');
 
     }
@@ -517,6 +525,9 @@ class RbtController extends Controller
         if ($request->content_id != "") {
             $rbt->content_id = $request->content_id;
         }
+
+        $rbt->start_date      = date('Y-m-d', strtotime($request->start_date));
+        $rbt->expire_date     = date('Y-m-d', strtotime($request->expire_date));
 
         $rbt->save();
 

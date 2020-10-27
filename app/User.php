@@ -41,4 +41,14 @@ class User extends Authenticatable
         return $this->belongsTo('App\Aggregator');
     }
 
+    public function getImageAttribute($value)
+    {
+        return $value ?? 'profile_images/avatar.jpg';
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = \Hash::make($value);
+    }
+
 }

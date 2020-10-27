@@ -154,6 +154,8 @@ class ContentController extends Controller
     $content->content_type = $request->content_type;
     $content->occasion_id = $request->occasion_id;
     $content->contract_id = $request->contract_id;
+    $content->start_date = date('Y-m-d',strtotime($request->start_date)) ;
+    $content->expire_date= date('Y-m-d',strtotime($request->expire_date)) ;
     send_notification('Add New Content You Can Follow It From This Link', 'Operation', $content);
     //dd($content->save());
     $content->save();
@@ -266,11 +268,17 @@ class ContentController extends Controller
           $content_data['contract_id'] = $contract_id;
           $content_data['user_id'] = \Auth::user()->id;
           $content_data['path'] = "uploads/content/" . date('Y-m-d') . "/" . $row->path;
+          $content_data['start_date'] = transformDate($row->start_date) ;
+          $content_data['expire_date']= transformDate($row->expire_date) ;
           $check = content::create($content_data);
           if ($check) {
             $content = Content::find($check->id);
             //$content->internal_coding = $content->id;
-            $content->save();
+            if ($content->save()) {
+              if (!file_exists('uploads/content/' .  date('Y-m-d'). '/')) {
+                  mkdir('uploads/content/' . date('Y-m-d') . '/', 0777, true);
+              }
+          }
             $counter++;
           }
         }
@@ -283,7 +291,7 @@ class ContentController extends Controller
     $failures = $total_counter - $counter;
     // $user = \App\User::find(5);
     // broadcast(new Notification('add new post',$user))->toOthers();
-    $request->session()->flash('success', $counter . ' item(s) created successfully, and ' . $failures . ' item(s) failed');
+    $request->session()->flash('success', $counter . ' item(s) created successfully, and ' . $failures . ' item(s) failed and Please upload Content on this path uploads/content/ ' . date('Y-m-d'));
     return redirect('content');
   }
 
@@ -339,6 +347,11 @@ class ContentController extends Controller
         }
       }
     }
+    $request->merge([
+      'start_date'  => date('Y-m-d',strtotime($request->start_date)),
+      'expire_date' => date('Y-m-d',strtotime($request->expire_date))
+    ]);
+
     $content = Content::find($id)->update($request->all());
 
     $request->session()->flash('success', 'Updated Successfully');

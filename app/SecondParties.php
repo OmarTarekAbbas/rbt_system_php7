@@ -28,6 +28,8 @@ class SecondParties extends Model
         'second_party_cr',
         'second_party_tc',
         'entry_by',
+        'second_party_signature',
+        'second_party_seal'
     ];
 
     public function type()

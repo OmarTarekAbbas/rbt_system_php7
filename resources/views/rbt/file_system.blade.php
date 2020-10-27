@@ -32,7 +32,7 @@
 
 @section('script')
     <script>
-        $('#rbt').addClass('active');
+        $('#rbt .submenu').first().css('display', 'block');
         $('#rbt-list-tracks').addClass('active');
     </script>
 @stop

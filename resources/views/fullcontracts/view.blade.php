@@ -207,6 +207,26 @@
                         </tbody>
                     </table>
                 </div>
+                @if($contract->items->count())
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered ">
+                        <thead>
+                          <td> Item </td>
+                          <td> Approve Status </td>
+                        </thead>
+                        <tbody>
+                          @foreach($contract->items as $item)
+                            <tr>
+                                <td width='30%' class='label-view text-right'>
+                                {!! $item->item !!}
+                                </td>
+                                <td> {{ $approveStatus::getLabel($item->fullapproves) }} </td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                @endif
             </div>
         </div>
     </div>

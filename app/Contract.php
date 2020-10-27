@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Contract extends Model
 {
-
-
     protected $table = 'contracts';
     protected $fillable = [
         'contract_code',
@@ -45,12 +43,22 @@ class Contract extends Model
         'entry_by_details',
         'entry_by',
         'second_party_type_id',
-        'contract_type'
+        'contract_type',
     ];
 
     public function service_type()
     {
         return $this->belongsTo('App\ServiceTypes');
+    }
+
+    public function first_parties()
+    {
+        return $this->belongsTo(Firstpartie::class, 'first_party_id');
+    }
+
+    public function second_parties()
+    {
+        return $this->belongsTo(Secondparties::class, 'second_party_id');
     }
 
     public function contract_service()

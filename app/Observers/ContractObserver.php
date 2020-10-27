@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Contract;
 use App\Department;
 use App\Notification;
+use App\User;
 
 class ContractObserver
 {
@@ -22,11 +23,29 @@ class ContractObserver
       }
 
       if ($contract->isDirty('ceo_approve') && $contract->ceo_approve) {
+        $this->updateContractItems($contract);
         foreach($contract->items as $item) {
           $department_mails = Department::whereIn('id',explode(',', $item->department_ids))->pluck('email')->toArray();
           $this->sendDepartmentEmail($contract,$item->item,$department_mails);
         }
       }
+    }
+
+    /**
+     * Method createNewItems
+     *
+     * @param Contract $contract
+     *
+     * @return void
+     */
+    public function updateContractItems($contract)
+    {
+      foreach ($contract->items as $key => $item) {
+        $item->item = request('items')[$key];
+        $item->save();
+      }
+      $contract = Contract::find($contract->id);
+      generatePdf($contract);
     }
 
     /**
@@ -72,7 +91,7 @@ class ContractObserver
       \Mail::send([], [], function($email) use ($message,$subject)
       {
           $email->from('rbt@gmail.com','ivas_system');
-          $email->to(ceo_email)->subject($subject);
+          $email->to(ceo_email())->subject($subject);
           $email->setBody($message, 'text/html');
       });
     }

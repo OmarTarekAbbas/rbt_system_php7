@@ -138,6 +138,7 @@
                                     <input type='text' name='pages' id='pages' value='{{$contract->pages}}' required class='form-control form-control-sm ' />
                                 </div>
 
+
                             </section>
                             <h3>Services/Client/Network</h3>
                             <section>
@@ -185,7 +186,6 @@
                     <option value="{{$operator->title}}" @if(in_array($operator->title,explode(",",$contract->operator_title))) selected="selected" @endif>{{$operator->title}}</option>
                     @endforeach
                   </select>
-                                </div>
 
                             </section>
                             <h3>Dates/Status/File</h3>

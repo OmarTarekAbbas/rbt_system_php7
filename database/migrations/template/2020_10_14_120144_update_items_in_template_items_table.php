@@ -363,46 +363,50 @@ mso-no-proof:no"><span dir="RTL"></span><span dir="RTL"></span> ) كوسيلة �
         array (
             'id' => 16,
             'template_id' => 1,
-            'item' => '<table width="100%" dir="rtl">
+            'item' => '<table dir="rtl" width="100%">
             <tbody>
-                <tr>
-                    <td width="50%">
-                        <h3><u>الطرف الاول</u></h3>
-                    </td>
-                    <td width="50%">
-                        <h3><u>الطرف الثاني</u></h3>
-                    </td>
-                </tr>
-                <tr>
-                    <td>شركة/ <span id="first_part_name">....</span> </td>
-                    <td>شركة/ <span id="second_part_name">....</span> </td>
-                </tr>
-                <tr>
-                    <td>الاسم : <span id="first_part_person">....</span></td>
-                    <td>الاسم : <span id="second_part_person">....</span></td>
-                </tr>
-                <tr>
-                    <td>الصفة : <span id="first_part_character">....</span></td>
-                    <td>الصفة : <span id="second_part_character">....</span></td>
-                </tr>
-                <tr>
-                    <td>
-                        <p style="line-height:150%;vertical-align:bottom"><br>التوقيع: <span id="first_part_signature"></span></p>
-                    </td>
-                    <td>
-                        <p style="line-height:150%;vertical-align:bottom"><br>التوقيع:<span id="second_part_signature"></span></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p style="line-height:250%;vertical-align:bottom"><br>خاتم الشركة : <span id="first_part_seal"></span></p>
-                    </td>
-                    <td>
-                        <p style="line-height:250%;vertical-align:bottom"><br>خاتم الشركة : <span id="second_part_seal"></span></p>
-                    </td>
-                </tr>
+              <tr>
+                <td width="50%">
+                <h3><u>الطرف الاول</u></h3>
+                </td>
+                <td width="50%">
+                <h3><u>الطرف الثاني</u></h3>
+                </td>
+              </tr>
+              <tr>
+                <td>شركة/ <span id="first_part_name">....</span></td>
+                <td>شركة/ <span id="second_part_name">....</span></td>
+              </tr>
+              <tr>
+                <td>الاسم : <span id="first_part_person">....</span></td>
+                <td>الاسم : <span id="second_part_person">....</span></td>
+              </tr>
+              <tr>
+                <td>الصفة : <span id="first_part_character">....</span></td>
+                <td>الصفة : <span id="second_part_character">....</span></td>
+              </tr>
+              <tr>
+                <td>
+                <p style="line-height:150%;vertical-align:bottom"><br>
+                التوقيع: <span id="first_party_signature"></span></p>
+                </td>
+                <td>
+                <p style="line-height:150%;vertical-align:bottom"><br>
+                التوقيع: <span id="second_party_signature"></span></p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                <p style="line-height:250%;vertical-align:bottom"><br>
+                خاتم الشركة : <span id="first_party_seal"></span></p>
+                </td>
+                <td>
+                <p style="line-height:250%;vertical-align:bottom"><br>
+                خاتم الشركة : <span id="second_party_seal"></span></p>
+                </td>
+              </tr>
             </tbody>
-        </table>',
+          </table>',
             'created_at' => '2018-11-12 08:19:31',
             'updated_at' => '2018-11-13 09:43:02',
         )

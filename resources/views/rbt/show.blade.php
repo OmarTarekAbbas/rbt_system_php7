@@ -123,6 +123,16 @@ RBT
               </tr>
 
               <tr>
+                <td width='30%' class='label-view text-right'>start Date</td>
+                <td>{{ optional($rbt->start_date)->format('d-m-Y') }}</td>
+              </tr>
+
+              <tr>
+                <td width='30%' class='label-view text-right'>Expire Date</td>
+                <td>{{ optional($rbt->expire_date)->format('d-m-Y') }}</td>
+              </tr>
+
+              <tr>
                 <td width='30%' class='label-view text-right'>Content Code</td>
                 @if($rbt->internal_coding)
                 <td> <a href="{{ url('content/'.$rbt->content_id) }}"> {{$rbt->internal_coding}} </a></td>
