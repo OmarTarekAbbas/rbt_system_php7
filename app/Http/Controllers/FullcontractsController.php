@@ -8,17 +8,18 @@ use App\Contract;
 
 use App\Operator;
 use App\Attachment;
+use App\Department;
 use App\Percentage;
 use App\Firstpartie;
 use App\SecondParty;
 use App\ServiceTypes;
 use App\ContractDuration;
-use App\Department;
+use App\Filters\DateFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Repository\ContractTemplateRepository;
-use App\Http\Services\ContractService;
 use App\Http\Requests\ContractRequest;
+use App\Http\Services\ContractService;
+use App\Http\Repository\ContractTemplateRepository;
 
 class FullcontractsController extends Controller
 {
@@ -45,17 +46,28 @@ class FullcontractsController extends Controller
         $this->ContractService    = $ContractService;
     }
 
+    public function filters()
+    {
+        $filters = [
+          'date' => new DateFilter,
+        ];
+
+        return $filters;
+    }
+
     public function index()
     {
-        $contracts = Contract::all();
-        return view('fullcontracts.index', compact("contracts"));
+        return view('fullcontracts.index');
     }
 
     public function allData(Request $request)
     {
+        $filters = $this->filters();
+
         $contracts = Contract::select('*', 'contracts.id as id', 'contracts.contract_code as code', 'service_types.service_type_title as service_type')
-            ->join('service_types', 'service_types.id', '=', 'contracts.service_type_id')
-            ->orderBy('contracts.id','desc')->get();
+        ->join('service_types', 'service_types.id', '=', 'contracts.service_type_id')
+        ->orderBy('contracts.id','desc')->filter($filters)->get();
+
         $datatable = \Datatables::of($contracts)
             ->addColumn('index', function (Contract $contract) {
                 return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$contract->id}}" class="roles" onclick="collect_selected(this)">';
@@ -65,6 +77,9 @@ class FullcontractsController extends Controller
             })
             ->addColumn('code', function (Contract $contract) {
                 return '<a target="_blank" href="'.url("Contract/".$contract->id."/items/download").'">' .$contract->code. '</a>';
+            })
+            ->addColumn('contract_signed_date', function (Contract $contract) {
+                return $contract->contract_signed_date;
             })
             ->addColumn('service_type', function (Contract $contract) {
                 return $contract->service_type;
