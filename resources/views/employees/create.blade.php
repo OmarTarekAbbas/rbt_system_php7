@@ -54,7 +54,17 @@ if(isset($employee)){
                         </div>
                     </div>
 
-
+                    <div class="form-group">
+                        <label for="event_start_date" class="col-xs-3 col-lg-2 control-label"> Sign Date</label>
+                        <div class="input-group date  event_start_date col-sm-9 col-lg-10 controls"
+                            >
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input type="text" name="sign_date" id="event_start_date" autocomplete="off"
+                                placeholder="Sign Date" data-date-format="dd-mm-yyyy" class="form-control"
+                                value="{{ isset($employee) ? date('d-m-Y',strtotime($employee->sign_date)) : old('sign_date') }}"
+                                required>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="event_start_date" class="col-xs-3 col-lg-2 control-label"> Release Date</label>
@@ -65,7 +75,6 @@ if(isset($employee)){
                                 placeholder="Release Date" data-date-format="dd-mm-yyyy" class="form-control"
                                 value="{{ isset($employee) ? $release_date : old('release_date') }}"
                                 >
-
                         </div>
                     </div>
 
