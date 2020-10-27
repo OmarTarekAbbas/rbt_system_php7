@@ -68,6 +68,20 @@ Employee
                             </tr>
 
                             <tr>
+                                <td width='30%' class='label-view text-right' style="font-weight: bold">Sign Date
+                                </td>
+                                @if($employee->sign_date)
+                                <td>
+                                  {{$employee->sign_date}}
+                                </td>
+                                @else
+                                <td>
+                                 ----
+                                </td>
+                                @endif
+                            </tr>
+
+                            <tr>
                                 <td width='30%' class='label-view text-right' style="font-weight: bold">Release Date
                                 </td>
                                 @if($employee->release_date)

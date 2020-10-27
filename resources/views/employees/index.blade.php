@@ -25,6 +25,7 @@ Employees
                                     <div></div>
                                 </th>
                                 <th>Phone</th>
+                                <th>Sign Date</th>
                                 <th>Release Date</th>
                                 <th>Status</th>
                                 <th class="visible-md visible-lg" style="width:130px">Action</th>
@@ -39,6 +40,7 @@ Employees
 
                                 <td>{{$employee->phone ? $employee->phone : '----'}}</td>
 
+                                <td>{{$employee->sign_date ? $employee->sign_date : '----'}}</td>
                                 <td>{{$employee->release_date ? $employee->release_date : '----'}}</td>
                                 <td>
                                     @if ($employee->status == 1)

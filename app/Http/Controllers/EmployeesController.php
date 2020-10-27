@@ -50,8 +50,8 @@ class EmployeesController extends Controller
         $employee->full_name = $request->full_name;
         $employee->phone = $request->phone;
         $employee->status = $request->status;
+        $employee->sign_date =  $request->sign_date ? date('Y-m-d',strtotime($request->sign_date)) : null;
         $employee->release_date =  $request->release_date ? date('Y-m-d',strtotime($request->release_date)) : null;
-
 
         $employeeMove = 'uploads/employee_papers';
         $files = ['birth_certificate', 'graduation_certificate', 'army_certificate', 'insurance_certificate', 'fish_watashbih'];
@@ -96,7 +96,7 @@ class EmployeesController extends Controller
     public function edit($id)
     {
         $employee = Employees::findOrFail($id);
-        
+
         return view('employees.create', compact('employee'));
     }
 
@@ -113,6 +113,7 @@ class EmployeesController extends Controller
         $employee->full_name = $request->full_name;
         $employee->phone = $request->phone;
         $employee->status = $request->status;
+        $employee->sign_date =  $request->sign_date ? date('Y-m-d',strtotime($request->sign_date)) : null;
         $employee->release_date = $request->release_date ? date('Y-m-d',strtotime($request->release_date)) : null;
         $employeeMove = 'uploads/employee_papers';
         $files = ['birth_certificate', 'graduation_certificate', 'army_certificate', 'insurance_certificate', 'fish_watashbih'];
