@@ -153,9 +153,9 @@
                 <p><strong>@{{item.name}}</strong> @{{item.subject}}</p>
               </a>
             </li>
-            <li class="more">
+            <!-- <li class="more">
               <a href="#">See all notifications</a>
-            </li>
+            </li> -->
           </ul>
           <!-- END Notifications Dropdown -->
         </li>

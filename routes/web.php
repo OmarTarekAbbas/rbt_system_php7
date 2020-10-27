@@ -152,7 +152,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
-Route::group(['middleware' => ['auth', 'role:super_admin']], function () {
+Route::group(['middleware' => ['auth', 'role:super_admin|ceo']], function () {
 
     //users
     Route::get('users', 'UserController@index');
@@ -177,7 +177,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin']], function () {
 
 });
 
-Route::group(['middleware' => ['auth', 'role:super_admin|operation']], function () {
+Route::group(['middleware' => ['auth', 'role:super_admin|operation|ceo']], function () {
     //rbt
     Route::get('rbt', '\App\Http\Controllers\RbtController@index');
     Route::get('rbt/search', 'RbtController@search');
@@ -250,7 +250,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|operation']], function 
     Route::resource('report', '\App\Http\Controllers\ReportController');
 });
 
-Route::group(['middleware' => ['auth', 'role:super_admin|legal']], function () {
+Route::group(['middleware' => ['auth', 'role:super_admin|legal|ceo']], function () {
     // Start Routes for employees
     Route::resource('employees', 'EmployeesController');
     Route::get('employees/{id}/show', 'EmployeesController@show');

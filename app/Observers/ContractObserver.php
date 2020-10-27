@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Contract;
 use App\Department;
 use App\Notification;
+use App\User;
 
 class ContractObserver
 {
@@ -90,7 +91,7 @@ class ContractObserver
       \Mail::send([], [], function($email) use ($message,$subject)
       {
           $email->from('rbt@gmail.com','ivas_system');
-          $email->to(ceo_email)->subject($subject);
+          $email->to(ceo_email())->subject($subject);
           $email->setBody($message, 'text/html');
       });
     }
