@@ -306,7 +306,7 @@
                                         <option value="">-- Please Select --</option>
                                         @foreach($contract_durations as $contract_duration)
                                         <option
-                                            data-type="@if(strpos($contract_duration->contract_duration_title,'Month')!==false) @endif"
+                                            data-type="@if(strpos($contract_duration->contract_duration_title,'onth')!==false) month @else years  @endif"
                                             value="{{$contract_duration->contract_duration_id}}">
                                             {{$contract_duration->contract_duration_title}}</option>
                                         @endforeach
@@ -567,21 +567,21 @@
 </script>
 
 <script>
-    var years;
+    var monthes = 12;
     var x = 0;
     $("#contract_duration").change(function() {
         number = ($(this).find('option:selected').text()).match(/\d+/)[0];
-        years = number
-        setEndDate($("#start_date").val(), years)
+        monthes = ($(this).find('option:selected').data('type')).includes('m') ?  number : number * 12
+        setEndDate($("#start_date").val(), monthes)
     })
 
     $("#start_date").change(function() {
         var endDate = $(this).val();
-        setEndDate(endDate, years)
+        setEndDate(endDate, monthes)
     });
 
-    function setEndDate(endDate, years) {
-        $("#contract_expiry_date").val(moment(endDate, "YYYY-MM-DD").locale('en').add(years, 'years').subtract(1, 'days').format('YYYY-MM-DD'))
+    function setEndDate(endDate, monthes) {
+        $("#contract_expiry_date").val(moment(endDate, "YYYY-MM-DD").locale('en').add(monthes, 'M').subtract(1, 'M').format('YYYY-MM-DD'))
     }
 
     $(document).on('click', '#add', function() {

@@ -149,7 +149,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('contract_items_send/{id}/approves', 'ContractItemsApprovidsController@index');
     Route::get('ceo/{id}/approve', 'FullcontractsController@getCeoApprovePage');
     Route::post('ceo/{id}/approve', 'FullcontractsController@saveCeoApprove');
-
+    Route::get('contracts/{id}/renew', 'FullcontractsController@getContractRenewPage');
+    Route::post('contracts/{id}/renew', 'FullcontractsController@saveContractRenew');
 });
 
 Route::group(['middleware' => ['auth', 'role:super_admin|ceo']], function () {
