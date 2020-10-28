@@ -367,7 +367,7 @@
     });
 
     function setEndDate(endDate, monthes) {
-        $("#contract_expiry_date").val(moment(endDate, "YYYY-MM-DD").locale('en').add(monthes, 'monthes').subtract(1, 'M').format('YYYY-MM-DD'))
+        $("#contract_expiry_date").val(moment(endDate, "YYYY-MM-DD").locale('en').add(monthes, 'M').subtract(1, 'M').format('YYYY-MM-DD'))
     }
 </script>
 
