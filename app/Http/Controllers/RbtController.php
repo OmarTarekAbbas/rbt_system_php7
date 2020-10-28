@@ -63,6 +63,7 @@ class RbtController extends Controller
         ->leftjoin('operators','operators.id','=','rbts.operator_id')
         ->leftjoin('aggregators','aggregators.id','=','rbts.aggregator_id')
         ->leftjoin('contents','contents.id','=','rbts.content_id')
+        ->latest('rbts.id')
         ->get();
 
         $datatable = \Datatables::of($rbts)

@@ -34,7 +34,9 @@ class ContentController extends Controller
       ->join('providers', 'providers.id', '=', 'contents.provider_id')
       ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
       ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
+      ->latest('contents.id')
       ->get();
+
     $datatable = \Datatables::of($contents)
       ->addColumn('index', function (Content $content) {
         return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$content->id}}" class="roles" onclick="collect_selected(this)">';
