@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>RBT - Admin Panel</title>
+  <title>Ivas System</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -128,7 +128,7 @@
     <a class="navbar-brand" href="{{url('/')}}">
       <small>
         <i class="fa fa-user-secret"></i>
-        Admin Panel
+        Ivas System
       </small>
     </a>
 
@@ -411,7 +411,7 @@
           <!-- BEGIN Submenu -->
           <ul class="submenu">
             <li id="content-excel"><a href="{{url('content/create')}}">Singel Create Content</a></li>
-            <li id="content-excel"><a href="{{url('contents/excel')}}">Create Path Content</a></li>
+            <li id="content-excel"><a href="{{url('contents/excel')}}">Create Content Form Excel</a></li>
             <li id="content-index"><a href="{{url('content')}}">Contents</a></li>
             <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">List Master Contents</a></li>
             <li id="content-upload-tracks"><a href="{{url('contents/upload_tracks')}}">Upload multi tracks</a></li>
@@ -433,7 +433,7 @@
           <!-- BEGIN Submenu -->
           <ul class="submenu">
             <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a></li>
-            <li id="rbt-excel"><a href="{{url('rbt/excel')}}">Create RBT</a></li>
+            <li id="rbt-excel"><a href="{{url('rbt/excel')}}">Create RBT Form Excel</a></li>
             <li id="rbt-upload-tracks"><a href="{{url('rbt/upload_tracks')}}">Upload multi tracks</a></li>
             <li id="rbt-list-tracks"><a href="{{url('rbt/file_system')}}">List tracks</a></li>
             <li id="rbt-index"><a href="{{url('rbt')}}">RBTs</a></li>
