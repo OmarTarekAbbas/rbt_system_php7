@@ -796,50 +796,96 @@
         });
       });
     });
+
+  </script>
+  <script>
+    var check = false;
+
+    function select_all(table_name, has_media)
+    {
+        if (!check)
+        {
+            $('.select_all_template').prop("checked", !check);
+            $('.select_all_template').each(function(){
+              if($(this).is(':checked'))
+                collect_selected($(this).val())
+            })
+
+            check = true;
+        }
+        else
+        {
+            $('.select_all_template').prop("checked", !check);
+            check = false;
+            clear_selected();
+        }
+    }
+
     var selected_list = [];
     var checker_list = [];
-
     function collect_selected(element) {
-      if (checker_list[element.value]) {
-        var index = selected_list.indexOf(element.value);
-        selected_list.splice(index, 1);
-        checker_list[element.value] = false;
-      } else {
-        if (!selected_list.includes(element.value)) {
-          selected_list.push(element.value);
-          checker_list[element.value] = true;
+        var id;
+        if (!element.value)
+        {
+            id = element;
         }
-      }
+        else {
+            id = element.value;
+        }
+
+        if (checker_list[id])
+        {
+            var index = selected_list.indexOf(id);
+            selected_list.splice(index, 1);
+            checker_list[id] = false;
+        }
+        else {
+            if (!selected_list.includes(id))
+            {
+                selected_list.push(id);
+                checker_list[id] = true;
+            }
+        }
+    }
+
+    function clear_selected()
+    {
+        selected_list = [];
+        checker_list = [];
     }
 
     function delete_selected(table_name) {
-      var form = document.createElement("form");
-      var element = document.createElement("input");
-      var tb_name = document.createElement("input");
-      var csrf = document.createElement("input");
-      csrf.name = "_token";
-      csrf.value = "{{ csrf_token() }}";
-      csrf.type = "hidden";
+      var confirmation = confirm('Are you sure you want to delete this ?');
+      if (confirmation)
+      {
+          var form = document.createElement("form");
+          var element = document.createElement("input");
+          var tb_name = document.createElement("input");
+          var csrf = document.createElement("input");
+          csrf.name = "_token";
+          csrf.value = "{{ csrf_token() }}";
+          csrf.type = "hidden";
 
-      form.method = "POST";
-      form.action = "{{url('delete_multiselect')}}";
+          form.method = "POST";
+          form.action = "{{url('delete_multiselect')}}";
 
-      element.value = selected_list;
-      element.name = "selected_list";
-      element.type = "hidden";
+          element.value = selected_list;
+          element.name = "selected_list";
+          element.type = "hidden";
 
-      tb_name.value = table_name;
-      tb_name.name = "table_name";
-      tb_name.type = "hidden";
+          tb_name.value = table_name;
+          tb_name.name = "table_name";
+          tb_name.type = "hidden";
 
-      form.appendChild(element);
-      form.appendChild(csrf);
-      form.appendChild(tb_name);
+          form.appendChild(element);
+          form.appendChild(csrf);
+          form.appendChild(tb_name);
 
-      document.body.appendChild(form);
+          document.body.appendChild(form);
 
-      form.submit();
-    }
+          form.submit();
+      }
+  }
   </script>
   <!-- <script>
         $(document).ready(function () {

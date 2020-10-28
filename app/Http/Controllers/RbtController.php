@@ -67,7 +67,7 @@ class RbtController extends Controller
 
         $datatable = \Datatables::of($rbts)
             ->addColumn('index', function (Rbt $rbt) {
-                return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$rbt->id.'" class="roles" onclick="collect_selected(this)">';
+                return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$rbt->rbt_id.'" class="roles" onclick="collect_selected(this)">';
             })
             ->addColumn('id', function (Rbt $rbt) {
                 return $rbt->rbt_id;
