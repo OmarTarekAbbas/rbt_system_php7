@@ -14,10 +14,13 @@ Contract
                 </div>
             </div>
             <div class="box-content">
+              @if (Auth::user()->hasRole(['super_admin', 'legal']))
+
                 <div class="btn-group">
                     <a class="btn btn-circle btn-success show-tooltip" href="{{url('fullcontracts/create')}}" title="Create New Rbt" href="#"><i class="fa fa-plus"></i></a>
                     <a id="delete_button" onclick="delete_selected('contracts')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
                 </div>
+                @endif
                 <br>
                 <br>
                 <label class="text-muted" for="date">Filter By Sign Date</label>
@@ -35,11 +38,11 @@ Contract
                                 <th style="width:18px"><input type="checkbox" /></th>
                                 <th>id</th>
                                 <th>Code</th>
-                                <th>Contract Signed Date</th>
                                 <th>Service Type</th>
                                 <th>Label</th>
-                                <th>Contract Date</th>
                                 <th>Contract Status</th>
+                                <th>Contract Date</th>
+                                <th>Contract Signed Date</th>
                                 <th>Expiry Date</th>
                                 <th class="visible-md visible-lg" style="width:130px">Show Attachments</th>
                                 <th class="visible-md visible-lg" style="width:130px">Action</th>
@@ -89,10 +92,6 @@ Contract
                     name: "code"
                 },
                 {
-                    data: "contract_signed_date",
-                    name: "contract_signed_date"
-                },
-                {
                     data: "service_type",
                     name: "service_type"
                 },
@@ -101,12 +100,16 @@ Contract
                     name: "contract_label"
                 },
                 {
+                    data: "contract_status",
+                    name: "contract_status"
+                },
+                {
                     data: "contract_date",
                     name: "contract_date"
                 },
                 {
-                    data: "contract_status",
-                    name: "contract_status"
+                    data: "contract_signed_date",
+                    name: "contract_signed_date"
                 },
                 {
                     data: "contract_expiry_date",
@@ -121,7 +124,8 @@ Contract
                     searchable: false
                 }
             ],
-            "pageLength": 10
+            "pageLength": 10,
+            stateSave: true
         });
     });
 </script>
@@ -143,16 +147,12 @@ Contract
                     orderable: false
                 },
                 {
-                    data: "id",
+                  data: "id",
                     name: "id"
                 },
                 {
                     data: "code",
                     name: "code"
-                },
-                {
-                    data: "contract_signed_date",
-                    name: "contract_signed_date"
                 },
                 {
                     data: "service_type",
@@ -163,12 +163,16 @@ Contract
                     name: "contract_label"
                 },
                 {
+                    data: "contract_status",
+                    name: "contract_status"
+                },
+                {
                     data: "contract_date",
                     name: "contract_date"
                 },
                 {
-                    data: "contract_status",
-                    name: "contract_status"
+                    data: "contract_signed_date",
+                    name: "contract_signed_date"
                 },
                 {
                     data: "contract_expiry_date",
@@ -183,7 +187,9 @@ Contract
                     searchable: false
                 }
             ],
-            "pageLength": 10
+            "pageLength": 10,
+            stateSave: true
+
         });
   });
 </script>

@@ -112,7 +112,8 @@ Contents
           searchable: false
         }
       ],
-      "pageLength": 10
+      "pageLength": 10,
+      stateSave: true
     });
   });
   $(document).ajaxComplete(function() {

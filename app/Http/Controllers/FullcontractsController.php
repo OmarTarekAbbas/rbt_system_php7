@@ -18,6 +18,7 @@ use App\Filters\DateFilter;
 use App\ContractRenew;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ContractRequest;
 use App\Http\Services\ContractService;
 use App\Http\Repository\ContractTemplateRepository;
@@ -79,20 +80,20 @@ class FullcontractsController extends Controller
             ->addColumn('code', function (Contract $contract) {
                 return '<a target="_blank" href="'.url("Contract/".$contract->id."/items/download").'">' .$contract->code. '</a>';
             })
-            ->addColumn('contract_signed_date', function (Contract $contract) {
-                return $contract->contract_signed_date;
-            })
             ->addColumn('service_type', function (Contract $contract) {
                 return $contract->service_type;
             })
             ->addColumn('contract_label', function (Contract $contract) {
                 return $contract->contract_label;
             })
+            ->addColumn('contract_status', function (Contract $contract) {
+              return $contract->contract_status ? 'Active' : 'Not Active';
+            })
             ->addColumn('contract_date', function (Contract $contract) {
                 return  date('F j, Y', strtotime($contract->contract_date));
             })
-            ->addColumn('contract_status', function (Contract $contract) {
-                return $contract->contract_status ? 'Active' : 'Not Active';
+            ->addColumn('contract_signed_date', function (Contract $contract) {
+              return $contract->contract_signed_date;
             })
             ->addColumn('contract_expiry_date', function (Contract $contract) {
                 return  date('F j, Y', strtotime($contract->contract_expiry_date));
@@ -120,15 +121,24 @@ class FullcontractsController extends Controller
             })
             ->addColumn('action', function (Contract $contract) {
 
-                return '<td class="visible-md visible-lg">
-                            <div class="btn-group">
-                                <a class="btn btn-sm btn-secondary show-tooltip " href="' . url("contractservice/create/" . $contract->id) . '" title="View Services"><i class="fa fa-arrow-right"></i></a>
-                                <a target="_blank" class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="'.url("Contract/".$contract->id."/items/download").'" data-original-title="Show"><i class="fa fa-file"></i></a>
-                                <a class="btn btn-sm btn-primary show-tooltip " href="' . url("fullcontracts/" . $contract->id) . '" title="Show"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-sm show-tooltip" href="' . url("fullcontracts/" . $contract->id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("fullcontracts/" . $contract->id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
-                            </div>
-                        </td>';
+                if(Auth::user()->hasRole(['operation'])){
+                  return '<td class="visible-md visible-lg">
+                  <div class="btn-group">
+                      <a target="_blank" class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="'.url("Contract/".$contract->id."/items/download").'" data-original-title="Show"><i class="fa fa-file"></i></a>
+                      <a class="btn btn-sm btn-primary show-tooltip " href="' . url("fullcontracts/" . $contract->id) . '" title="Show"><i class="fa fa-eye"></i></a>
+                  </div>
+                  </td>';
+                }else{
+                  return '<td class="visible-md visible-lg">
+                  <div class="btn-group">
+                      <a class="btn btn-sm btn-secondary show-tooltip " href="' . url("contractservice/create/" . $contract->id) . '" title="View Services"><i class="fa fa-arrow-right"></i></a>
+                      <a target="_blank" class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="'.url("Contract/".$contract->id."/items/download").'" data-original-title="Show"><i class="fa fa-file"></i></a>
+                      <a class="btn btn-sm btn-primary show-tooltip " href="' . url("fullcontracts/" . $contract->id) . '" title="Show"><i class="fa fa-eye"></i></a>
+                      <a class="btn btn-sm show-tooltip" href="' . url("fullcontracts/" . $contract->id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
+                      <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("fullcontracts/" . $contract->id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
+                  </div>
+                  </td>';
+                }
             })
 
             ->escapeColumns([])
