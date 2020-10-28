@@ -16,7 +16,6 @@ use App\ServiceTypes;
 use App\ContractDuration;
 use App\Filters\DateFilter;
 use App\ContractRenew;
-use App\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ContractRequest;
