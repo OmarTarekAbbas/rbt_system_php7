@@ -4,11 +4,28 @@ namespace App\Observers;
 
 use App\Contract;
 use App\Department;
+use App\Http\Services\ContractRenewService;
 use App\Notification;
 use App\User;
 
 class ContractObserver
 {
+  /**
+    * contractRenewService
+    * @var ContractRenewService $contractRenewService
+    */
+  private $AttachmentRepository;
+  /**
+   * Method __construct
+   *
+   * @param ContractRenewService $contractRenewService
+   *
+   * @return void
+   */
+  public function __construct(ContractRenewService $contractRenewService)
+  {
+    $this->contractRenewService = $contractRenewService;
+  }
     /**
      * Method saved
      * function work after save contract
@@ -35,7 +52,6 @@ class ContractObserver
       //   $data['renew_start_date'] = $contract->contract_date;
       //   $data['renew_expire_date'] = $contract->contract_expiry_date;
       //   $data['duration'] = (int) filter_var($contract->duration->contract_duration_title, FILTER_SANITIZE_NUMBER_INT);
-      //   $data['ceo_renew'] = $contract->ceo_renew;
       //   $this->contractRenewService->handle($data);
       // }
     }
