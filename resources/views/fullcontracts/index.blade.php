@@ -124,7 +124,8 @@ Contract
                     searchable: false
                 }
             ],
-            "pageLength": 10
+            "pageLength": 10,
+            stateSave: true
         });
     });
 </script>
@@ -186,7 +187,9 @@ Contract
                     searchable: false
                 }
             ],
-            "pageLength": 10
+            "pageLength": 10,
+            stateSave: true
+
         });
   });
 </script>
