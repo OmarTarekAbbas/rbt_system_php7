@@ -105,7 +105,7 @@
 
 @section('script')
     <script>
-        $('#rbt').addClass('active');
+        $('#rbt .submenu').first().css('display', 'block');
         $('#rbt-statistics').addClass('active');
     </script>
     <script src="{{url('js/canvasjs.min.js')}}"></script>

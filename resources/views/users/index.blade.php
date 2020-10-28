@@ -57,7 +57,7 @@
 
 @section('script')
 	<script>
-		$('#user').addClass('active');
+		$('#user .submenu').first().css('display', 'block');
 		$('#user-index').addClass('active');
 	</script>
 @stop

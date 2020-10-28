@@ -73,7 +73,8 @@
 
 @section('script')
 	<script>
-		$('#revenue').addClass('active');
+		$('#contract .submenu').first().css('display', 'block');
+		$('#revenue .submenu').first().css('display', 'block');
 		$('#revenue-index').addClass('active');
 	</script>
 @stop

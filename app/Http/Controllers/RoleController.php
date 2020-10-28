@@ -3,100 +3,156 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Validator;
-use Auth;
+use App\Http\Repository\RoleRepository;
+use App\Http\Requests\RoleStoreRequest;
+use App\Http\Requests\RoleUpdateRequest;
+use App\Http\Services\RoleService;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use App\Models\RouteModel ;
 
 class RoleController extends Controller
 {
+    /**
+     * roleRepository
+     *
+     * @var RoleRepository
+     */
+    private $roleRepository;
+    /**
+     * roleService
+     *
+     * @var RoleService
+     */
+    private $roleService;
 
+    /**
+     * __construct
+     * inject needed data in constructor
+     * @param  RoleRepository $roleRepository
+     * @param  RoleService $roleService
+     * @return void
+     */
+    public function __construct(RoleService $roleService, RoleRepository $roleRepository)
+    {
+        $this->roleRepository    = $roleRepository;
+        $this->roleService  = $roleService;
+
+    }
+
+    /**
+     * index
+     * indexes all roles in view
+     * @return View
+     */
     public function index()
     {
-        
-        # code...
-        $roles = Role::all();
+        $roles = $this->roleRepository->all();
 
         return view('roles.index', compact('roles'));
     }
 
 
+    /**
+     * create
+     * return page for create
+     * @return View
+     */
     public function create()
     {
-        
-            # code...
            return view('roles.create');
     }
 
 
-    public function store(Request $request)
+    /**
+     * store
+     *
+     * @param  RoleRequest $request
+     * @return Redirect
+     */
+    public function store(RoleStoreRequest $request)
     {
-        $check = Role::where('name',$request['name'])->get();
-        if (count($check)>0)
-        {
-            \Session::flash('failed','This role already exists');
-            return redirect('roles');
-        }
-        
-            $validator = Validator::make($request->all(),[
-                    'name' => 'required'
-                ]);
-            if ($validator->fails()) {
-                return back()->withError($validator)->withInput();
-            }
-            \Session::flash('success','Role added successfully');
-            Role::create(['name' => $request->name]);
+        $this->roleService->handle($request->validated());
 
-            return redirect('roles');
-        
+        \Session::flash('success','Role added successfully');
+
+        return redirect('roles');
+
     }
 
+    /**
+     * edit
+     *
+     * @param  Integer $id
+     * @return View
+     */
     public function edit($id)
     {
-        
-            $role = Role::findOrFail($id);
+        $role = $this->roleRepository->find($id);
 
-            return view('roles.edit', compact('role'));
-        
+        return view('roles.edit', compact('role'));
     }
 
 
-    public function update(Request $request)
+    /**
+     * update
+     *
+     * @param  RoleUpdateRequest $request
+     * @return Redirect
+     */
+    public function update(RoleUpdateRequest $request)
     {
-        $check = Role::where('name',$request->name)->where('id','!=',$request->role_id)->get();
-        if (count($check)>0)
-        {
-            \Session::flash('failed','Role already exists');
-            return back();
-        }
-        
-            $validator = Validator::make($request->all(),[
-                    'name' => 'required'
-                ]);
-            
-            if ($validator->fails()) {
-                return back()->withErrors($validator)->withInput();
-            }
 
-            $role = Role::findOrFail($request->role_id);
+        $this->roleService->handle($request->validated(), $request->role_id);
 
-            $role->name = $request->name;
-            \Session::flash('success','Role Updated successfully');
-            $role->update();
+        \Session::flash('success','Role Updated successfully');
 
-            return redirect('roles');
-        
+        return redirect('roles');
+
     }
 
- 
+
+    /**
+     * destroy
+     *
+     * @param  Integer $id
+     * @return void
+     */
     public function destroy($id)
     {
-        
-            $role = Role::findOrFail($id);
+        $role = $this->roleRepository->findOrfail($id);
 
-            $role->delete();
+        $role->delete();
 
-            return redirect('roles');
+        \Session::flash('success','Role Deleted successfully');
+
+        return redirect('roles');
     }
+
+    public function view_access($id)
+    {
+        $controllers = $this->get_controllers() ; // in main controller
+        $routes = RouteModel::all() ;
+        $role = Role::findOrFail($id) ;
+        $query = "SELECT * FROM routes JOIN role_route ON routes.id = role_route.route_id JOIN roles ON role_route.role_id = roles.id WHERE roles.id = $id ORDER BY routes.controller_name" ; // order by here to sort them as the file system sorting
+        $methods = \DB::select($query) ;
+        return view('roles.access',compact('role','routes','controllers','methods')) ;
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

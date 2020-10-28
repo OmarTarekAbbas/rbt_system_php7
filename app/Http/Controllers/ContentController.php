@@ -268,8 +268,8 @@ class ContentController extends Controller
           $content_data['contract_id'] = $contract_id;
           $content_data['user_id'] = \Auth::user()->id;
           $content_data['path'] = "uploads/content/" . date('Y-m-d') . "/" . $row->path;
-          $content_data['start_date'] = date('Y-m-d',strtotime($row->start_date)) ;
-          $content_data['expire_date']= date('Y-m-d',strtotime($row->expire_date)) ;
+          $content_data['start_date'] = transformDate($row->start_date) ;
+          $content_data['expire_date']= transformDate($row->expire_date) ;
           $check = content::create($content_data);
           if ($check) {
             $content = Content::find($check->id);

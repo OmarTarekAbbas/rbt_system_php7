@@ -158,7 +158,8 @@ Second Party
 @stop
 @section('script')
 <script>
-  $('#SecondParty').addClass('active');
-        $('#SecondParty-create').addClass('active');
+    $('#contract .submenu').first().css('display', 'block');
+		$('#SecondParty .submenu').first().css('display', 'block');
+    $('#SecondParty-create').addClass('active');
 </script>
 @stop

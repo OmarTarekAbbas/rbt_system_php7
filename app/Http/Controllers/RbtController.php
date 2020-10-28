@@ -245,7 +245,7 @@ class RbtController extends Controller
 
     public function show($id)
     {
-        $rbt = Rbt::select('*','rbts.id AS rbt_id','providers.title as provider','occasions.title as occasion','operators.title as operator','aggregators.title as aggregator','contents.content_title as content','rbts.internal_coding as rbt_internal_coding')
+        $rbt = Rbt::select('*','rbts.start_date','rbts.expire_date','rbts.id AS rbt_id','providers.title as provider','occasions.title as occasion','operators.title as operator','aggregators.title as aggregator','contents.content_title as content','rbts.internal_coding as rbt_internal_coding')
         ->leftjoin('providers','providers.id','=','rbts.provider_id')
         ->leftjoin('occasions','occasions.id','=','rbts.occasion_id')
         ->leftjoin('operators','operators.id','=','rbts.operator_id')
@@ -393,8 +393,8 @@ class RbtController extends Controller
                     }
 
                     $rbt['track_file'] = "uploads/rbts/".date('Y-m-d')."/".$rbt['track_title_en'].".wav" ;
-                    $rbt['start_date'] = date('Y-m-d',strtotime($row->start_date)) ;
-                    $rbt['expire_date']= date('Y-m-d',strtotime($row->expire_date)) ;
+                    $rbt['start_date'] = transformDate($row->start_date) ;
+                    $rbt['expire_date']= transformDate($row->expire_date) ;
 
                     $check = Rbt::create($rbt) ;
                     if ($check)

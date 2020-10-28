@@ -75,7 +75,8 @@ Second Party Types
 
     </script>
 	<script>
-		$('#SecondPartyType').addClass('active');
+		$('#contract .submenu').first().css('display', 'block');
+		$('#SecondPartyType .submenu').first().css('display', 'block');
 		$('#SecondPartyType-index').addClass('active');
 	</script>
 @stop

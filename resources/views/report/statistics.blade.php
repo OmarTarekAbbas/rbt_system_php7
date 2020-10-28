@@ -97,7 +97,8 @@
 
 @section('script')
     <script>
-        $('#report').addClass('active');
+        $('#rbt .submenu').first().css('display', 'block');
+        $('#report .submenu').first().css('display', 'block');
         $('#report-statistics').addClass('active');
     </script>
     <script src="{{url('js/canvasjs.min.js')}}"></script>

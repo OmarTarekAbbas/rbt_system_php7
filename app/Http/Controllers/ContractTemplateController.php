@@ -52,6 +52,7 @@ class ContractTemplateController extends Controller
         ContractTemplateStoreService $ContractTemplateStoreService,
         ContractTemplateUpdateService $ContractTemplateUpdateService
     ) {
+        $this->middleware(['auth', 'role:super_admin|legal'], ['except' => ['index', 'showContractTerms', 'downloadContractTerms']]);
         $this->ContractTemplateRepository = $ContractTemplateRepository;
         $this->ContractTemplateItemRepository = $ContractTemplateItemRepository;
         $this->ContractTemplateStoreService = $ContractTemplateStoreService;

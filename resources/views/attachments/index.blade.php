@@ -49,15 +49,15 @@ attachment
 						@foreach($Attachments as $Attachment)
 							<tr class="table-flag-blue">
 								<td><input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$Attachment->id}}" onclick="collect_selected(this)"></td>
-								<td>{{$Attachment->id}}</td>
-								<td>{{$Attachment->attachment_code}}</td>
+                <td>{{$Attachment->id}}</td>
+								<td><a target="_blank" href="{{url($Attachment->attachment_pdf)}}">{{$Attachment->attachment_code}}</a></td>
 								<td>{{optional($Attachment->contract)->contract_code}} - {{optional($Attachment->contract)->contract_label}}</td>
 								<td>{{$Attachment->attachment_type}}</td>
 								<td>{{$Attachment->attachment_title}}</td>
 								<td>{{$Attachment->attachment_date}}</td>
 								<td>{{$Attachment->attachment_expiry_date}}</td>
 								<td>{{$Attachment->contract_expiry_date}}</td>
-								<td><a href="{{url($Attachment->attachment_pdf)}}">Preview</a></td>
+								<td><a target="_blank" href="{{url($Attachment->attachment_pdf)}}">Preview</a></td>
 								<td>{{$Attachment->attachment_status}}</td>
 								<td>{{$Attachment->notes}}</td>
 								<td class="visible-md visible-lg">
@@ -91,7 +91,8 @@ attachment
 
     </script>
 	<script>
-		$('#Attachment').addClass('active');
+		$('#contract .submenu').first().css('display', 'block');
+		$('#Attachment .submenu').first().css('display', 'block');
 		$('#Attachment-index').addClass('active');
 	</script>
 @stop

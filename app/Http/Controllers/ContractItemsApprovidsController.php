@@ -10,6 +10,12 @@ use Validator;
 
 class ContractItemsApprovidsController extends Controller
 {
+
+  public function __construct()
+  {
+    $this->middleware(['auth', 'role:super_admin|legal'], ['except' => ['index']]);
+  }
+
   /**
    * Display a listing of the resource.
    *

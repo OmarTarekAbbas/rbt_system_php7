@@ -49,7 +49,8 @@
 
 @section('script')
 	<script>
-		$('#percentage').addClass('active');
+		$('#contract .submenu').first().css('display', 'block');
+		$('#percentage .submenu').first().css('display', 'block');
 		$('#percentage-index').addClass('active');
 	</script>
 @stop
