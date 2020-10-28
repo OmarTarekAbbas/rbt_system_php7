@@ -268,3 +268,5 @@ Route::group(['middleware' => ['auth', 'role:super_admin|legal|ceo']], function 
     Route::get('department/{id}/delete', 'DepartmentController@destroy');
     Route::get('sendemail', 'DepartmentController@contract_items_send_email');
 });
+Route::get('get_table_ids','HomeController@get_table_ids_list') ;
+

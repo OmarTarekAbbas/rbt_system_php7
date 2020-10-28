@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Constants\CeoRenewStatus;
 use Illuminate\Console\Command;
 use App\ContractRenew;
 use App\Notification;
@@ -40,7 +41,8 @@ class SendNotifyEmailBeforeContractRenewEnd extends Command
      */
     public function handle()
     {
-      $contractRenews = ContractRenew::where('renew_expire_date','>=',Carbon::now()->format('Y-m-d'))
+      $contractRenews = ContractRenew::where('ceo_renew', '=', CeoRenewStatus::NOTACTION)
+        ->where('renew_expire_date','>=',Carbon::now()->format('Y-m-d'))
         ->where('renew_expire_date','<=',Carbon::now()->addDays(setting('contract_notify_date'))->format('Y-m-d'))
         ->groupBy('contract_id')
         ->get();

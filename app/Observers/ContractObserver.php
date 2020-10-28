@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Constants\CeoRenewStatus;
 use App\Contract;
 use App\Department;
 use App\Http\Services\ContractRenewService;
@@ -10,22 +11,22 @@ use App\User;
 
 class ContractObserver
 {
-  /**
-    * contractRenewService
-    * @var ContractRenewService $contractRenewService
-    */
-  private $AttachmentRepository;
-  /**
-   * Method __construct
-   *
-   * @param ContractRenewService $contractRenewService
-   *
-   * @return void
-   */
-  public function __construct(ContractRenewService $contractRenewService)
-  {
-    $this->contractRenewService = $contractRenewService;
-  }
+    /**
+      * contractRenewService
+      * @var ContractRenewService $contractRenewService
+      */
+    private $contractRenewService;
+    /**
+     * Method __construct
+     *
+     * @param ContractRenewService $contractRenewService
+     *
+     * @return void
+     */
+    public function __construct(ContractRenewService $contractRenewService)
+    {
+      $this->contractRenewService = $contractRenewService;
+    }
     /**
      * Method saved
      * function work after save contract
@@ -47,13 +48,13 @@ class ContractObserver
         }
       }
 
-      // if ($contract->isDirty('ceo_renew') && $contract->ceo_renew == 1) {
-      //   $data['contract_id'] = $contract->id;
-      //   $data['renew_start_date'] = $contract->contract_date;
-      //   $data['renew_expire_date'] = $contract->contract_expiry_date;
-      //   $data['duration'] = (int) filter_var($contract->duration->contract_duration_title, FILTER_SANITIZE_NUMBER_INT);
-      //   $this->contractRenewService->handle($data);
-      // }
+      if ($contract->isDirty('ceo_renew') && $contract->ceo_renew == CeoRenewStatus::RENEW) {
+        $data['contract_id']       = $contract->id;
+        $data['renew_start_date']  = $contract->contract_expiry_date;
+        $data['renew_expire_date'] = $contract->contract_expiry_date;
+        $data['duration']          = $contract->duration->contract_duration_title;
+        $this->contractRenewService->handle($data);
+      }
     }
 
     /**

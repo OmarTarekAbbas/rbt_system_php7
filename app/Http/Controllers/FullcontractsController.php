@@ -42,7 +42,7 @@ class FullcontractsController extends Controller
       ContractTemplateRepository $ContractTemplateRepository,
       ContractService $ContractService
     ) {
-        $this->middleware(['auth', 'role:super_admin|legal'], ['except' => ['index', 'allData', 'annex', 'authorization', 'copyright', 'downloadContractItems', 'show']]);
+        $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index', 'allData', 'annex', 'authorization', 'copyright', 'downloadContractItems', 'show']]);
         $this->ContractTemplateRepository = $ContractTemplateRepository;
         $this->ContractService    = $ContractService;
     }
@@ -326,6 +326,6 @@ class FullcontractsController extends Controller
       $contract->ceo_renew = $request->ceo_renew;
       $contract->save();
     }
-
+    return redirect('fullcontracts/'.$id);
    }
 }

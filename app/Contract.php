@@ -92,7 +92,7 @@ class Contract extends Model
 
     public function duration()
     {
-        return $this->belongsTo(ContractDuration::class,'contract_duration_id');
+        return $this->belongsTo(ContractDuration::class, 'contract_duration_id', 'contract_duration_id');
     }
 
 }
