@@ -15,6 +15,10 @@ use App\Contract;
 
 class ServicecontractsController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware(['auth', 'role:super_admin|legal'], ['except' => ['index']]);
+    }
 
     public function index()
     {

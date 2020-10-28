@@ -109,7 +109,7 @@
         }
     </script>
     <script>
-        $('#rbt').addClass('active');
+        $('#rbt .submenu').first().css('display', 'block');
         $('#rbt-excel').addClass('active');
     </script>
 @stop

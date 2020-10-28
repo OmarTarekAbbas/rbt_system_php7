@@ -8,18 +8,19 @@ use App\Contract;
 
 use App\Operator;
 use App\Attachment;
+use App\Department;
 use App\Percentage;
 use App\Firstpartie;
 use App\SecondParty;
 use App\ServiceTypes;
 use App\ContractDuration;
+use App\Filters\DateFilter;
 use App\ContractRenew;
-use App\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Repository\ContractTemplateRepository;
-use App\Http\Services\ContractService;
 use App\Http\Requests\ContractRequest;
+use App\Http\Services\ContractService;
+use App\Http\Repository\ContractTemplateRepository;
 
 class FullcontractsController extends Controller
 {
@@ -41,21 +42,33 @@ class FullcontractsController extends Controller
       ContractTemplateRepository $ContractTemplateRepository,
       ContractService $ContractService
     ) {
+        $this->middleware(['auth', 'role:super_admin|legal'], ['except' => ['index', 'allData', 'annex', 'authorization', 'copyright', 'downloadContractItems', 'show']]);
         $this->ContractTemplateRepository = $ContractTemplateRepository;
         $this->ContractService    = $ContractService;
     }
 
+    public function filters()
+    {
+        $filters = [
+          'date' => new DateFilter,
+        ];
+
+        return $filters;
+    }
+
     public function index()
     {
-        $contracts = Contract::all();
-        return view('fullcontracts.index', compact("contracts"));
+        return view('fullcontracts.index');
     }
 
     public function allData(Request $request)
     {
+        $filters = $this->filters();
+
         $contracts = Contract::select('*', 'contracts.id as id', 'contracts.contract_code as code', 'service_types.service_type_title as service_type')
-            ->join('service_types', 'service_types.id', '=', 'contracts.service_type_id')
-            ->orderBy('contracts.id','desc')->get();
+        ->join('service_types', 'service_types.id', '=', 'contracts.service_type_id')
+        ->orderBy('contracts.id','desc')->filter($filters)->get();
+
         $datatable = \Datatables::of($contracts)
             ->addColumn('index', function (Contract $contract) {
                 return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$contract->id}}" class="roles" onclick="collect_selected(this)">';
@@ -64,7 +77,10 @@ class FullcontractsController extends Controller
                 return $contract->id;
             })
             ->addColumn('code', function (Contract $contract) {
-                return $contract->code;
+                return '<a target="_blank" href="'.url("Contract/".$contract->id."/items/download").'">' .$contract->code. '</a>';
+            })
+            ->addColumn('contract_signed_date', function (Contract $contract) {
+                return $contract->contract_signed_date;
             })
             ->addColumn('service_type', function (Contract $contract) {
                 return $contract->service_type;
@@ -107,7 +123,7 @@ class FullcontractsController extends Controller
                 return '<td class="visible-md visible-lg">
                             <div class="btn-group">
                                 <a class="btn btn-sm btn-secondary show-tooltip " href="' . url("contractservice/create/" . $contract->id) . '" title="View Services"><i class="fa fa-arrow-right"></i></a>
-                                <a class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="'.url("Contract/".$contract->id."/items/download").'" data-original-title="Show"><i class="fa fa-file"></i></a>
+                                <a target="_blank" class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="'.url("Contract/".$contract->id."/items/download").'" data-original-title="Show"><i class="fa fa-file"></i></a>
                                 <a class="btn btn-sm btn-primary show-tooltip " href="' . url("fullcontracts/" . $contract->id) . '" title="Show"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-sm show-tooltip" href="' . url("fullcontracts/" . $contract->id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
                                 <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("fullcontracts/" . $contract->id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>

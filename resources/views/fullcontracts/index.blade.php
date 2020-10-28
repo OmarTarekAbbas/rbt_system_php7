@@ -20,6 +20,14 @@ Contract
                 </div>
                 <br>
                 <br>
+                <label class="text-muted" for="date">Filter By Sign Date</label>
+                <select id="signed_date" class="form-control chosen" data-placeholder="Filter By Sign Date" name="date" tabindex="1" >
+                  <option value="{{null}}">ALL</option>
+                @foreach( range( date('Y') , date('Y')-10 ) as $year )
+                  <option value="{{$year}}">{{$year}}</option>
+                @endforeach
+                </select>
+                <hr>
                 <div class="table-responsive" style="border:0">
                     <table class="table table-advance data_contract">
                         <thead>
@@ -27,6 +35,7 @@ Contract
                                 <th style="width:18px"><input type="checkbox" /></th>
                                 <th>id</th>
                                 <th>Code</th>
+                                <th>Contract Signed Date</th>
                                 <th>Service Type</th>
                                 <th>Label</th>
                                 <th>Contract Date</th>
@@ -51,7 +60,7 @@ Contract
 
 @section('script')
 <script>
-    $('#contract').addClass('active');
+    $('#contract .submenu').first().css('display', 'block');
     $('#contract-index').addClass('active');
     $.ajaxSetup({
         headers: {
@@ -65,7 +74,7 @@ Contract
             "search": {
                 "regex": true
             },
-            ajax: "{!! url('contracts/allData') !!}",
+            ajax: "{{url('contracts/allData?date='.request()->date)}}",
             columns: [{
                     data: "index",
                     searchable: false,
@@ -78,6 +87,10 @@ Contract
                 {
                     data: "code",
                     name: "code"
+                },
+                {
+                    data: "contract_signed_date",
+                    name: "contract_signed_date"
                 },
                 {
                     data: "service_type",
@@ -111,5 +124,67 @@ Contract
             "pageLength": 10
         });
     });
+</script>
+<script>
+  $('#signed_date').change(function (e) {
+    date = $(this).val();
+    $(".data_contract").dataTable().fnDestroy()
+
+    $('.data_contract').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "search": {
+                "regex": true
+            },
+            ajax: `{{url('contracts/allData?date=${date}')}}`,
+            columns: [{
+                    data: "index",
+                    searchable: false,
+                    orderable: false
+                },
+                {
+                    data: "id",
+                    name: "id"
+                },
+                {
+                    data: "code",
+                    name: "code"
+                },
+                {
+                    data: "contract_signed_date",
+                    name: "contract_signed_date"
+                },
+                {
+                    data: "service_type",
+                    name: "service_type"
+                },
+                {
+                    data: "contract_label",
+                    name: "contract_label"
+                },
+                {
+                    data: "contract_date",
+                    name: "contract_date"
+                },
+                {
+                    data: "contract_status",
+                    name: "contract_status"
+                },
+                {
+                    data: "contract_expiry_date",
+                    name: "contract_expiry_date"
+                },
+                {
+                    data: "action1",
+                    searchable: false
+                },
+                {
+                    data: "action",
+                    searchable: false
+                }
+            ],
+            "pageLength": 10
+        });
+  });
 </script>
 @stop

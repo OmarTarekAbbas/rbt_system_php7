@@ -479,7 +479,7 @@
         }
     });
 
-    var token = '{{Session::token()}}';
+    // var token = '{{Session::token()}}';
     $('#second_party_type_cli').on('change', function() {
         console.log("omar");
         $.ajax({
@@ -487,7 +487,7 @@
                 url: "{{url('/client_type')}}",
                 data: {
                     body: $(this).val(),
-                    _token: token
+                 //   _token: token
                 }
             })
             .done(function(client_type) {

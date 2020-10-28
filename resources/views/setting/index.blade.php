@@ -131,7 +131,8 @@
 
     </script>
 	<script>
-		$('#setting').addClass('active');
+		$('#user .submenu').first().css('display', 'block');
+		$('#setting .submenu').first().css('display', 'block');
 		$('#setting-index').addClass('active');
 	</script>
 @stop

@@ -402,6 +402,9 @@ class RbtController extends Controller
                         $rbt_edit = Rbt::find($check->id);
                         $rbt_edit->internal_coding = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
                         $rbt_edit->save();
+                        if (!file_exists('uploads/rbts/' .  date('Y-m-d'). '/')) {
+                          mkdir('uploads/rbts/' . date('Y-m-d') . '/', 0777, true);
+                        }
                         $counter++ ;
                     }
                 }
@@ -412,7 +415,7 @@ class RbtController extends Controller
         }
          //    unlink(base_path().'/uploads/rbt/excel/'.$filename);
         $failures = $total_counter - $counter ;
-        $request->session()->flash('success', $counter.' item(s) created successfully, and '.$failures.' item(s) failed');
+        $request->session()->flash('success', $counter.' item(s) created successfully, and '.$failures.' item(s) failed  and Please upload Rbts on this path uploads/rbts/ ' . date('Y-m-d'));
         return redirect('rbt');
 
     }

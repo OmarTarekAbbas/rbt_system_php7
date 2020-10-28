@@ -274,7 +274,11 @@ class ContentController extends Controller
           if ($check) {
             $content = Content::find($check->id);
             //$content->internal_coding = $content->id;
-            $content->save();
+            if ($content->save()) {
+              if (!file_exists('uploads/content/' .  date('Y-m-d'). '/')) {
+                  mkdir('uploads/content/' . date('Y-m-d') . '/', 0777, true);
+              }
+          }
             $counter++;
           }
         }
@@ -287,7 +291,7 @@ class ContentController extends Controller
     $failures = $total_counter - $counter;
     // $user = \App\User::find(5);
     // broadcast(new Notification('add new post',$user))->toOthers();
-    $request->session()->flash('success', $counter . ' item(s) created successfully, and ' . $failures . ' item(s) failed');
+    $request->session()->flash('success', $counter . ' item(s) created successfully, and ' . $failures . ' item(s) failed and Please upload Content on this path uploads/content/ ' . date('Y-m-d'));
     return redirect('content');
   }
 

@@ -108,7 +108,7 @@
 
 @section('script')
     <script>
-        $('#user').addClass('active');
+        $('#user .submenu').first().css('display', 'block');
         $('#user-create').addClass('active');
     </script>
 @stop

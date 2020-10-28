@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>RBT - Admin Panel</title>
+  <title>Ivas System</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,20 +14,23 @@
   <link rel="stylesheet" type="text/css" href="{{url('assets/jquery-tags-input/jquery.tagsinput.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{url('assets/jquery-pwstrength/jquery.pwstrength.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-fileupload/bootstrap-fileupload.css')}}" />
-  <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-duallistbox/duallistbox/bootstrap-duallistbox.css')}}" />
+  <link rel="stylesheet" type="text/css"
+    href="{{url('assets/bootstrap-duallistbox/duallistbox/bootstrap-duallistbox.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{url('assets/dropzone/downloads/css/dropzone.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-colorpicker/css/colorpicker.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-timepicker/compiled/timepicker.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{url('assets/clockface/css/clockface.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-datepicker/css/datepicker.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-daterangepicker/daterangepicker.css')}}" />
-  <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-switch/static/stylesheets/bootstrap-switch.css')}}" />
+  <link rel="stylesheet" type="text/css"
+    href="{{url('assets/bootstrap-switch/static/stylesheets/bootstrap-switch.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{url('assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css')}}" />
 
   <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" />
 
   <!--base css styles-->
   <link rel="stylesheet" href="{{url('assets/bootstrap/css/bootstrap.min.css')}}">
@@ -125,7 +128,7 @@
     <a class="navbar-brand" href="{{url('/')}}">
       <small>
         <i class="fa fa-user-secret"></i>
-        Admin Panel
+        Ivas System
       </small>
     </a>
 
@@ -144,7 +147,8 @@
               <i class="fa fa-warning"></i>
               @{{notify_count}} Notifications
             </li>
-            <li v-for="item in all_notifications" class="notify" :style="[item.seen ? {'width': '100%' } : {'width': '100%' ,'background': '#b2e8bb'}]">
+            <li v-for="item in all_notifications" class="notify"
+              :style="[item.seen ? {'width': '100%' } : {'width': '100%' ,'background': '#b2e8bb'}]">
               <a href="#" @click="read_notify(item.id,item.link)">
                 <p><strong>@{{item.name}}</strong> @{{item.subject}}</p>
               </a>
@@ -181,7 +185,8 @@
           <li class="divider"></li>
 
           <li>
-            <a href="{{url('logout')}}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+            <a href="{{url('logout')}}"
+              onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
               <i class="fa fa-off"></i>
               @lang('messages.logout')
             </a>
@@ -204,7 +209,9 @@
     <div id="sidebar" class="navbar-collapse collapse">
       <!-- BEGIN Navlist -->
       <ul class="nav nav-list">
+
         @if(Auth::user()->hasRole('super_admin'))
+
         <li id="user">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-user"></i>
@@ -217,119 +224,282 @@
           <ul class="submenu">
             <li id="user-create"><a href="{{url('users/new')}}">Create User</a></li>
             <li id="user-index"><a href="{{url('users')}}">Users</a></li>
+
+            <li id="role">
+              <a href="#" class="dropdown-toggle">
+                <i class="glyphicon glyphicon-road"></i>
+                <span>Roles</span>
+                <b class="arrow fa fa-angle-right"></b>
+              </a>
+
+              <!-- BEGIN Submenu -->
+              <ul class="submenu">
+                <li id="role-create"><a href="{{url('roles/new')}}">Create Role</a></li>
+                <li id="role-index"><a href="{{url('roles')}}">Roles</a></li>
+              </ul>
+              <!-- END Submenu -->
+            </li>
+
+            <li id="setting">
+              <a href="#" class="dropdown-toggle">
+                <i class="fa fa-gears"></i>
+                <span>Setting</span>
+                <b class="arrow fa fa-angle-right"></b>
+              </a>
+
+              <!-- BEGIN Submenu -->
+              <ul class="submenu">
+                <li id="setting-create"><a href="{{url('setting/create')}}">Add Settings</a></li>
+                <li id="setting-index"><a href="{{url('setting')}}">Settings</a></li>
+              </ul>
+              <!-- END Submenu -->
+            </li>
+
           </ul>
           <!-- END Submenu -->
         </li>
 
-        <li id="role">
+        @endif
+
+        @if(Auth::user()->hasRole(['super_admin', 'operation', 'legal']))
+
+        <li id="contract">
           <a href="#" class="dropdown-toggle">
-            <i class="glyphicon glyphicon-road"></i>
-            <span>Roles</span>
+            <i class="glyphicon glyphicon-copyright-mark"></i>
+            <span>Contracts</span>
             <b class="arrow fa fa-angle-right"></b>
           </a>
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
-            <li id="role-create"><a href="{{url('roles/new')}}">Create Role</a></li>
-            <li id="role-index"><a href="{{url('roles')}}">Roles</a></li>
+            <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
+            <li id="ContractTemplate-index"><a href="{{url('ContractTemplate')}}">Templates</a></li>
+            <li id="contractservice-index"><a href="{{url('contractservice')}}">Service</a></li>
+
+            <li id="Attachment">
+              <a href="#" class="dropdown-toggle">
+                <i class="fa fa-gears"></i>
+                <span>Attachment</span>
+                <b class="arrow fa fa-angle-right"></b>
+              </a>
+
+              <!-- BEGIN Submenu -->
+              <ul class="submenu">
+                @if(Auth::user()->hasRole(['super_admin', 'legal']))
+                <li id="Attachment-create"><a href="{{url('attachment/create')}}">Add Attachment</a></li>
+                @endif
+                <li id="Attachment-index"><a href="{{url('attachment')}}">Attachment</a></li>
+              </ul>
+              <!-- END Submenu -->
+            </li>
+
+            <li id="ServiceTypes">
+              <a href="#" class="dropdown-toggle">
+                <i class="fa fa-gears"></i>
+                <span>Service Types</span>
+                <b class="arrow fa fa-angle-right"></b>
+              </a>
+
+              <!-- BEGIN Submenu -->
+              <ul class="submenu">
+                @if(Auth::user()->hasRole(['super_admin', 'legal']))
+                <li id="ServiceTypes-create"><a href="{{url('ServiceTypes/create')}}">Add Service Types</a></li>
+                @endif
+                <li id="ServiceTypes-index"><a href="{{url('ServiceTypes')}}">Service Types</a></li>
+              </ul>
+              <!-- END Submenu -->
+            </li>
+
+            <li id="firstpartie">
+              <a href="#" class="dropdown-toggle">
+                <i class="fa fa-folder-o"></i>
+                <span>First Party</span>
+                <b class="arrow fa fa-angle-right"></b>
+              </a>
+
+              <!-- BEGIN Submenu -->
+              <ul class="submenu">
+                @if(Auth::user()->hasRole(['super_admin', 'legal']))
+                <li id="firstpartie-create"><a href="{{url('firstparties/create')}}">Create First Party</a></li>
+                @endif
+                <li id="firstpartie-index"><a href="{{url('firstparties')}}">First Party</a></li>
+              </ul>
+              <!-- END Submenu -->
+            </li>
+
+            <li id="SecondParty">
+              <a href="#" class="dropdown-toggle">
+                <i class="fa fa-gears"></i>
+                <span>Second Party</span>
+                <b class="arrow fa fa-angle-right"></b>
+              </a>
+
+              <!-- BEGIN Submenu -->
+              <ul class="submenu">
+                @if(Auth::user()->hasRole(['super_admin', 'legal']))
+                <li id="SecondParty-create"><a href="{{url('SecondParty/create')}}">Add Second Party</a></li>
+                @endif
+                <li id="SecondParty-index"><a href="{{url('SecondParty')}}">Second Party</a></li>
+              </ul>
+              <!-- END Submenu -->
+            </li>
+
+            <li id="SecondPartyType">
+              <a href="#" class="dropdown-toggle">
+                <i class="fa fa-gears"></i>
+                <span>Second Party Type</span>
+                <b class="arrow fa fa-angle-right"></b>
+              </a>
+
+              <!-- BEGIN Submenu -->
+              <ul class="submenu">
+                @if(Auth::user()->hasRole(['super_admin', 'legal']))
+                <li id="SecondPartyType-create"><a href="{{url('SecondPartyType/create')}}">Add Second Party Type</a></li>
+                @endif
+                <li id="SecondPartyType-index"><a href="{{url('SecondPartyType')}}">Second Party Type</a></li>
+              </ul>
+              <!-- END Submenu -->
+            </li>
+
+            <li id="percentage">
+              <a href="#" class="dropdown-toggle">
+                <i class="fa fa-folder-o"></i>
+                <span>Percentage</span>
+                <b class="arrow fa fa-angle-right"></b>
+              </a>
+
+              <!-- BEGIN Submenu -->
+              <ul class="submenu">
+                @if(Auth::user()->hasRole(['super_admin', 'legal']))
+                <li id="percentage-create"><a href="{{url('percentages/create')}}">Create Percentage</a></li>
+                @endif
+                <li id="percentage-index"><a href="{{url('percentages')}}">Percentages</a></li>
+              </ul>
+              <!-- END Submenu -->
+            </li>
+
+            <li id="revenue">
+              <a href="#" class="dropdown-toggle">
+                <i class="glyphicon glyphicon-cog"></i>
+                <span>Revenue</span>
+                <b class="arrow fa fa-angle-right"></b>
+              </a>
+
+              <!-- BEGIN Submenu -->
+              <ul class="submenu">
+                <li id="revenue-index"><a href="{{url('revenue')}}">Revenue</a></li>
+              </ul>
+              <!-- END Submenu -->
+            </li>
+
           </ul>
           <!-- END Submenu -->
+
         </li>
-
-        <li id="setting">
-          <a href="#" class="dropdown-toggle">
-              <i class="fa fa-gears"></i>
-              <span>Setting</span>
-              <b class="arrow fa fa-angle-right"></b>
-          </a>
-
-          <!-- BEGIN Submenu -->
-          <ul class="submenu">
-              <li id="setting-create"><a href="{{url('setting/create')}}">Add Settings</a></li>
-              <li id="setting-index"><a href="{{url('setting')}}">Settings</a></li>
-          </ul>
-          <!-- END Submenu -->
-       </li>
-
-        <li id="ServiceTypes">
-          <a href="#" class="dropdown-toggle">
-              <i class="fa fa-gears"></i>
-              <span>Service Types</span>
-              <b class="arrow fa fa-angle-right"></b>
-          </a>
-
-          <!-- BEGIN Submenu -->
-          <ul class="submenu">
-              <li id="ServiceTypes-create"><a href="{{url('ServiceTypes/create')}}">Add Service Types</a></li>
-              <li id="ServiceTypes-index"><a href="{{url('ServiceTypes')}}">Service Types</a></li>
-          </ul>
-          <!-- END Submenu -->
-       </li>
-
-       <li id="firstpartie">
-            <a href="#" class="dropdown-toggle">
-              <i class="fa fa-folder-o"></i>
-              <span>FirstPartie</span>
-              <b class="arrow fa fa-angle-right"></b>
-            </a>
-
-            <!-- BEGIN Submenu -->
-            <ul class="submenu">
-              {{-- <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a>
-              </li> --}}
-              <li id="firstpartie-create"><a href="{{url('firstparties/create')}}">Create FirstPartie</a></li>
-              <li id="firstpartie-index"><a href="{{url('firstparties')}}">FirstPartie</a></li>
-            </ul>
-        <!-- END Submenu -->
-        </li>
-
-        <li id="SecondPartyType">
-          <a href="#" class="dropdown-toggle">
-              <i class="fa fa-gears"></i>
-              <span>Second Party Type</span>
-              <b class="arrow fa fa-angle-right"></b>
-          </a>
-
-          <!-- BEGIN Submenu -->
-          <ul class="submenu">
-              <li id="SecondPartyType-create"><a href="{{url('SecondPartyType/create')}}">Add Second Party Type</a></li>
-              <li id="SecondPartyType-index"><a href="{{url('SecondPartyType')}}">Second Party Type</a></li>
-          </ul>
-          <!-- END Submenu -->
-       </li>
-
-        <li id="SecondParty">
-          <a href="#" class="dropdown-toggle">
-              <i class="fa fa-gears"></i>
-              <span>Second Party</span>
-              <b class="arrow fa fa-angle-right"></b>
-          </a>
-
-          <!-- BEGIN Submenu -->
-          <ul class="submenu">
-              <li id="SecondParty-create"><a href="{{url('SecondParty/create')}}">Add Second Party</a></li>
-              <li id="SecondParty-index"><a href="{{url('SecondParty')}}">Second Party</a></li>
-          </ul>
-          <!-- END Submenu -->
-       </li>
-
-        <li id="Attachment">
-          <a href="#" class="dropdown-toggle">
-              <i class="fa fa-gears"></i>
-              <span>Attachment</span>
-              <b class="arrow fa fa-angle-right"></b>
-          </a>
-
-          <!-- BEGIN Submenu -->
-          <ul class="submenu">
-              <li id="Attachment-create"><a href="{{url('attachment/create')}}">Add Attachment</a></li>
-              <li id="Attachment-index"><a href="{{url('attachment')}}">Attachment</a></li>
-          </ul>
-          <!-- END Submenu -->
-       </li>
 
         @endif
-        @if(Auth::user()->hasRole(['super_admin','admin']))
+
+        @if(Auth::user()->hasRole(['super_admin', 'operation']))
+
+        <li id="content">
+          <a href="#" class="dropdown-toggle">
+            <i class="fa fa-folder-o"></i>
+            <span>Content</span>
+            <b class="arrow fa fa-angle-right"></b>
+          </a>
+
+          <!-- BEGIN Submenu -->
+          <ul class="submenu">
+            <li id="content-excel"><a href="{{url('content/create')}}">Singel Create Content</a></li>
+            <li id="content-excel"><a href="{{url('contents/excel')}}">Create Content Form Excel</a></li>
+            <li id="content-index"><a href="{{url('content')}}">Contents</a></li>
+            <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">List Master Contents</a></li>
+            <li id="content-upload-tracks"><a href="{{url('contents/upload_tracks')}}">Upload multi tracks</a></li>
+          </ul>
+          <!-- END Submenu -->
+        </li>
+
+        @endif
+
+        @if(Auth::user()->hasRole(['super_admin', 'operation']))
+
+        <li id="rbt">
+          <a href="#" class="dropdown-toggle">
+            <i class="fa fa-play-circle-o"></i>
+            <span>RBT</span>
+            <b class="arrow fa fa-angle-right"></b>
+          </a>
+
+          <!-- BEGIN Submenu -->
+          <ul class="submenu">
+            <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a></li>
+            <li id="rbt-excel"><a href="{{url('rbt/excel')}}">Create RBT Form Excel</a></li>
+            <li id="rbt-upload-tracks"><a href="{{url('rbt/upload_tracks')}}">Upload multi tracks</a></li>
+            <li id="rbt-list-tracks"><a href="{{url('rbt/file_system')}}">List tracks</a></li>
+            <li id="rbt-index"><a href="{{url('rbt')}}">RBTs</a></li>
+            <li id="rbt-search"><a href="{{url('rbt/search')}}">Search in RBTs</a></li>
+
+            <li id="report">
+              <a href="#" class="dropdown-toggle">
+                <i class="fa fa-file-text-o"></i>
+                <span>Report</span>
+                <b class="arrow fa fa-angle-right"></b>
+              </a>
+
+              <!-- BEGIN Submenu -->
+              <ul class="submenu">
+                <li id="report-statistics"><a href="{{url('report/statistics')}}">Statistics</a></li>
+                <li id="report-excel"><a href="{{url('report/excel')}}">Report Excel</a></li>
+                <li id="report-index"><a href="{{url('report')}}">Report</a></li>
+                <li id="report-search"><a href="{{url('report/search')}}">Search in reports</a></li>
+              </ul>
+              <!-- END Submenu -->
+            </li>
+          </ul>
+          <!-- END Submenu -->
+        </li>
+
+        @endif
+
+        @if(Auth::user()->hasRole(['super_admin', 'operation']))
+
+        <li id="roadmap">
+          <a href="#" class="dropdown-toggle">
+            <i class="fa fa-file-text-o"></i>
+            <span>Road Map</span>
+            <b class="arrow fa fa-angle-right"></b>
+          </a>
+
+          <ul class="submenu">
+            <li id="roadmap-create"><a href="{{route('admin.roadmaps.create')}}">Create Road Map</a></li>
+            <li id="roadmap-index"><a href="{{route('admin.roadmaps.index')}}">Road Map</a></li>
+            <li id="roadmap-calendar"><a href="{{route('admin.roadmaps.calendar.index')}}">Road Map Calendar</a></li>
+          </ul>
+        </li>
+
+        @endif
+
+        @if(Auth::user()->hasRole(['super_admin', 'legal']))
+
+        <li id="employees">
+          <a href="#" class="dropdown-toggle">
+            <i class="fa fa-file-text-o"></i>
+            <span>Employees</span>
+            <b class="arrow fa fa-angle-right"></b>
+          </a>
+
+
+          <ul class="submenu">
+            <li id="employee-create"><a href="{{url('employees/create')}}">Create Employees</a></li>
+            <li id="employees-index"><a href="{{url('employees')}}">Employees</a></li>
+          </ul>
+
+        </li>
+
+        @endif
+
+        @if(Auth::user()->hasRole(['super_admin', 'legal']))
+
         <li id="department">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-briefcase"></i>
@@ -345,6 +515,10 @@
           </ul>
           <!-- END Submenu -->
         </li>
+
+        @endif
+
+        @if(Auth::user()->hasRole(['super_admin', 'operation', 'legal']))
 
         <li id="country">
           <a href="#" class="dropdown-toggle">
@@ -374,8 +548,6 @@
           </ul>
           <!-- END Submenu -->
         </li>
-
-
 
         <li id="currency">
           <a href="#" class="dropdown-toggle">
@@ -420,139 +592,6 @@
         </li>
 
         @endif
-
-
-        <li id="percentage">
-          <a href="#" class="dropdown-toggle">
-            <i class="fa fa-folder-o"></i>
-            <span>Percentage</span>
-            <b class="arrow fa fa-angle-right"></b>
-          </a>
-
-          <!-- BEGIN Submenu -->
-          <ul class="submenu">
-            {{-- <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a>
-            </li> --}}
-            <li id="percentage-create"><a href="{{url('percentages/create')}}">Create Percentage</a></li>
-            <li id="percentage-index"><a href="{{url('percentages')}}">Percentages</a></li>
-          </ul>
-      <!-- END Submenu -->
-      </li>
-        <li id="content">
-          <a href="#" class="dropdown-toggle">
-            <i class="fa fa-folder-o"></i>
-            <span>Content</span>
-            <b class="arrow fa fa-angle-right"></b>
-          </a>
-
-          <!-- BEGIN Submenu -->
-          <ul class="submenu">
-            {{-- <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a>
-        </li> --}}
-        <li id="content-excel"><a href="{{url('content/create')}}">Singel Create Content</a></li>
-        <li id="content-excel"><a href="{{url('contents/excel')}}">Create Path Content</a></li>
-        <li id="content-index"><a href="{{url('content')}}">Contents</a></li>
-        <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">List Master Contents</a></li>
-        <li id="content-upload-tracks"><a href="{{url('contents/upload_tracks')}}">Upload multi tracks</a></li>
-        {{-- <li id="rbt-search"><a href="{{url('rbt/search')}}">Search in RBTs</a></li> --}}
-      </ul>
-      <!-- END Submenu -->
-      </li>
-
-
-      <li id="rbt">
-        <a href="#" class="dropdown-toggle">
-          <i class="fa fa-play-circle-o"></i>
-          <span>RBT</span>
-          <b class="arrow fa fa-angle-right"></b>
-        </a>
-
-        <!-- BEGIN Submenu -->
-        <ul class="submenu">
-          @if(Auth::user()->hasRole(['super_admin','admin','account']))
-          @if(Auth::user()->hasRole(['super_admin','admin']))
-          <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a></li>
-          <li id="rbt-excel"><a href="{{url('rbt/excel')}}">Create RBT</a></li>
-          <li id="rbt-upload-tracks"><a href="{{url('rbt/upload_tracks')}}">Upload multi tracks</a></li>
-          <li id="rbt-list-tracks"><a href="{{url('rbt/file_system')}}">List tracks</a></li>
-          @endif
-          <li id="rbt-index"><a href="{{url('rbt')}}">RBTs</a></li>
-          <li id="rbt-search"><a href="{{url('rbt/search')}}">Search in RBTs</a></li>
-          @endif
-
-        </ul>
-        <!-- END Submenu -->
-      </li>
-
-      <li id="report">
-        <a href="#" class="dropdown-toggle">
-          <i class="fa fa-file-text-o"></i>
-          <span>Report</span>
-          <b class="arrow fa fa-angle-right"></b>
-        </a>
-
-        <!-- BEGIN Submenu -->
-        <ul class="submenu">
-          @if(Auth::user()->hasRole(['super_admin','admin','account']))
-          @if(Auth::user()->hasRole(['super_admin','admin']))
-          <li id="report-statistics"><a href="{{url('report/statistics')}}">Statistics</a></li>
-          <li id="report-excel"><a href="{{url('report/excel')}}">Report Excel</a></li>
-          @endif
-          <li id="report-index"><a href="{{url('report')}}">Report</a></li>
-          <li id="report-search"><a href="{{url('report/search')}}">Search in reports</a></li>
-          @endif
-        </ul>
-        <!-- END Submenu -->
-      </li>
-
-      <li id="revenue">
-        <a href="#" class="dropdown-toggle">
-          <i class="glyphicon glyphicon-cog"></i>
-          <span>Revenue</span>
-          <b class="arrow fa fa-angle-right"></b>
-        </a>
-
-        <!-- BEGIN Submenu -->
-        <ul class="submenu">
-          <li id="revenue-index"><a href="{{url('revenue')}}">Revenue</a></li>
-        </ul>
-        <!-- END Submenu -->
-      </li>
-
-      <li id="contract">
-        <a href="#" class="dropdown-toggle">
-          <i class="glyphicon glyphicon-copyright-mark"></i>
-          <span>Contracts</span>
-          <b class="arrow fa fa-angle-right"></b>
-        </a>
-
-        <!-- BEGIN Submenu -->
-        <ul class="submenu">
-          <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
-          <li id="ContractTemplate-index"><a href="{{url('ContractTemplate')}}">Templates</a></li>
-          <li id="contractservice-index"><a href="{{url('contractservice')}}">Service</a></li>
-
-        </ul>
-        <!-- END Submenu -->
-
-      </li>
-
-
-       <li id="roadmap">
-        <a href="#" class="dropdown-toggle">
-          <i class="fa fa-file-text-o"></i>
-          <span>Road Map</span>
-          <b class="arrow fa fa-angle-right"></b>
-        </a>
-
-
-        <ul class="submenu">
-          <li id="roadmap-create"><a href="{{route('admin.roadmaps.create')}}">Create Road Map</a></li>
-          <li id="roadmap-index"><a href="{{route('admin.roadmaps.index')}}">Road Map</a></li>
-          <li id="roadmap-calendar"><a href="{{route('admin.roadmaps.calendar.index')}}">Road Map Calendar</a></li>
-        </ul>
-
-      </li>
 
       </ul>
       <!-- END Navlist -->
@@ -618,7 +657,8 @@
   <script type="text/javascript" src="{{url('assets/jquery-tags-input/jquery.tagsinput.min.js')}}"></script>
   <script type="text/javascript" src="{{url('assets/jquery-pwstrength/jquery.pwstrength.min.js')}}"></script>
   <script type="text/javascript" src="{{url('assets/bootstrap-fileupload/bootstrap-fileupload.min.js')}}"></script>
-  <script type="text/javascript" src="{{url('assets/bootstrap-duallistbox/duallistbox/bootstrap-duallistbox.js')}}"></script>
+  <script type="text/javascript" src="{{url('assets/bootstrap-duallistbox/duallistbox/bootstrap-duallistbox.js')}}">
+  </script>
   <script type="text/javascript" src="{{url('assets/dropzone/downloads/dropzone.min.js')}}"></script>
   <script type="text/javascript" src="{{url('assets/bootstrap-timepicker/js/bootstrap-timepicker.js')}}"></script>
   <script type="text/javascript" src="{{url('assets/clockface/js/clockface.js')}}"></script>
@@ -636,11 +676,12 @@
   <!--flaty scripts-->
   <script src="{{url('js/flaty.js')}}"></script>
   <script src="{{url('js/flaty-demo-codes.js')}}"></script>
-  <script src="{{url('js/pusher.min.js')}}"></script>
-  <script src="{{url('js/pusher_config.js')}}"></script>
+  {{--  <script src="{{url('js/pusher.min.js')}}"></script>
+  <script src="{{url('js/pusher_config.js')}}"></script>  --}}
   <script src="{{url('js/vue.min.js')}}"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="{{ url('js/locale.js') }}"></script>
   <script>

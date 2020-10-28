@@ -45,7 +45,8 @@ ServiceTypes
 @stop
 @section('script')
     <script>
-        $('#ServiceTypes').addClass('active');
+        $('#contract .submenu').first().css('display', 'block');
+        $('#ServiceTypes .submenu').first().css('display', 'block');
         $('#ServiceTypes-create').addClass('active');
     </script>
 @stop

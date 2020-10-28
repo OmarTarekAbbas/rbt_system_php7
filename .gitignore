@@ -4,6 +4,7 @@
 /storage
 /vendor
 /uploads
+/uploads_old
 /profile_images
 /.idea
 /.vscode

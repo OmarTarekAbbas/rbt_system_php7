@@ -96,7 +96,8 @@ Second Party
 
     </script>
 	<script>
-		$('#SecondParty').addClass('active');
+    $('#contract .submenu').first().css('display', 'block');
+		$('#SecondParty .submenu').first().css('display', 'block');
 		$('#SecondParty-index').addClass('active');
 	</script>
 @stop
