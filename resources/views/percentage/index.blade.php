@@ -30,10 +30,13 @@
 										<td><input type="checkbox"></td>
 										<td>{{$percentage->percentage}}</td>
 										<td class="visible-md visible-lg">
+                      @if (Auth::user()->hasRole(['super_admin', 'legal']))
+
 											<div class="btn-group">
 												<a class="btn btn-sm show-tooltip" title="" href="{{url('percentages/'.$percentage->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
 												<a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('percentages/'.$percentage->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-											</div>
+                      </div>
+                      @endif
 										</td>
 									</tr>
 							@endforeach

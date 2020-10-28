@@ -17,6 +17,8 @@ ServiceTypes
 	                </div>
 	            </div>
 	            <div class="box-content">
+                @if (Auth::user()->hasRole(['super_admin', 'legal']))
+
 					<div class="btn-toolbar pull-right">
 						<div class="btn-group">
 							<a class="btn btn-circle show-tooltip" title="" href="{{url('ServiceTypes/create')}}" data-original-title="Add new record"><i class="fa fa-plus"></i></a>
@@ -24,7 +26,8 @@ ServiceTypes
 								$table_name = "service_types" ;
 							?>
 						</div>
-					</div>
+          </div>
+          @endif
 					<br><br>
 					<div class="table-responsive">
 						<table id="example" class="table table-striped dt-responsive" cellspacing="0" width="100%">
@@ -43,6 +46,8 @@ ServiceTypes
 								<td>{{$ServiceType->id}}</td>
 								<td>{{$ServiceType->service_type_title}}</td>
 								<td class="visible-md visible-lg">
+                  @if (Auth::user()->hasRole(['super_admin', 'legal']))
+
 								    <div class="btn-group">
 								    	<a class="btn btn-sm show-tooltip" title="" href="{{url('ServiceTypes/'.$ServiceType->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
 
@@ -51,7 +56,8 @@ ServiceTypes
                         @csrf
                         <button class="btn btn-sm btn-danger show-tooltip" type="submit" onclick = 'return ConfirmDelete()' data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
                       </form>
-								    </div>
+                    </div>
+                    @endif
 								</td>
 							</tr>
 						@endforeach

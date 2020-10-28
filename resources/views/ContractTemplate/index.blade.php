@@ -12,6 +12,8 @@
                     </div>
                 </div>
                 <div class="box-content">
+                  @if (Auth::user()->hasRole(['super_admin', 'legal']))
+
                     <div class="btn-toolbar pull-right">
                         <div class="btn-group">
                             <a class="btn btn-circle show-tooltip" title="" href="{{url('ContractTemplate/create')}}" data-original-title="Add new record"><i class="fa fa-plus"></i></a>
@@ -20,6 +22,7 @@
 							?>
                         </div>
                     </div>
+                    @endif
                     <br><br>
                     <div class="table-responsive">
                         <table id="example" class="table table-striped dt-responsive" cellspacing="0" width="100%">
@@ -41,15 +44,20 @@
                                     <td>{{$ContractTemplate->content_type == 1 ? 'IN' : 'OUT'}}</td>
                                     <td class="visible-md visible-lg">
                                         <div class="btn-group">
-                                            <a class="btn btn-sm show-tooltip btn-primary" title="" href="{{url('ContractTemplate/'.$ContractTemplate->id.'/items')}}" data-original-title="Show"><i class="fa fa-eye"></i></a> @if($ContractTemplate->items->count()
-                                            > 0)
-                                            <a class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="{{url('ContractTemplate/'.$ContractTemplate->id.'/items/download')}}" data-original-title="Show"><i class="fa fa-file"></i></a> @endif
+                                            @if (Auth::user()->hasRole(['super_admin', 'legal']))
+                                            <a class="btn btn-sm show-tooltip btn-primary" title="" href="{{url('ContractTemplate/'.$ContractTemplate->id.'/items')}}" data-original-title="Show"><i class="fa fa-eye"></i></a>
+
                                             <a class="btn btn-sm show-tooltip" title="" href="{{url('ContractTemplate/'.$ContractTemplate->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
 
                                             <form action="{{url('ContractTemplate/'.$ContractTemplate->id)}}" method="POST" style="display: inline">
                                                 @method('DELETE') @csrf
                                                 <button class="btn btn-sm btn-danger show-tooltip" type="submit" onclick='return ConfirmDelete()' data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
                                             </form>
+                                            @endif
+                                            @if($ContractTemplate->items->count() > 0)
+                                            <a class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="{{url('ContractTemplate/'.$ContractTemplate->id.'/items/download')}}" data-original-title="Show"><i class="fa fa-file"></i></a>
+                                            @endif
+
                                         </div>
                                     </td>
                                 </tr>

@@ -14,6 +14,8 @@
 					</div>
 				</div>
 				<div class="box-content">
+          @if (Auth::user()->hasRole(['super_admin', 'legal']))
+
                     <div class="btn-toolbar pull-right clearfix">
                         <div class="btn-group">
                             <a class="btn btn-success show-tooltip" title="Add" href="{{url('revenue/create')}}"><i class="fa fa-plus"></i> Add Revenue</a>
@@ -21,7 +23,7 @@
                     </div>
                     <br/><br/>
                     <div class="clearfix"></div>
-
+@endif
 					<div class="table-responsive">
 						<table id="example" class="table table-striped dt-responsive" cellspacing="0" width="100%">
 							<thead>
@@ -55,9 +57,12 @@
 										<td class="visible-md visible-lg">
 											<div class="btn-group">
 												<a class="btn btn-sm btn-primary show-tooltip" title="" href="{{url('revenue/'.$revenue->id)}}" data-original-title="view"><i class="fa fa-eye"></i></a>
-												<a class="btn btn-sm show-tooltip" title="" href="{{url('revenue/'.$revenue->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+                        @if (Auth::user()->hasRole(['super_admin', 'legal']))
+
+                        <a class="btn btn-sm show-tooltip" title="" href="{{url('revenue/'.$revenue->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
 												<a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('revenue/'.$revenue->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-											</div>
+                        @endif
+                    </div>
 										</td>
 									</tr>
 							@endforeach
