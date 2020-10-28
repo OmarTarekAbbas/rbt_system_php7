@@ -30,12 +30,26 @@ class ContentController extends Controller
 
   public function allData(Request $request)
   {
-    $contents = Content::select('*', 'contents.id AS content_id', 'providers.title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
+    if($request->has('contract_id')){
+
+      $contents = Content::select('*', 'contents.id AS content_id', 'providers.title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
+      ->join('providers', 'providers.id', '=', 'contents.provider_id')
+      ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
+      ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
+      ->where('contents.contract_id', $request->contract_id)
+      ->latest('contents.id')
+      ->get();
+
+    }else{
+
+      $contents = Content::select('*', 'contents.id AS content_id', 'providers.title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
       ->join('providers', 'providers.id', '=', 'contents.provider_id')
       ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
       ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
       ->latest('contents.id')
       ->get();
+
+    }
 
     $datatable = \Datatables::of($contents)
       ->addColumn('index', function (Content $content) {

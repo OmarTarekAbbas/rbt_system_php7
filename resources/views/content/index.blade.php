@@ -69,7 +69,7 @@ Contents
       "search": {
         "regex": true
       },
-      ajax: "{!! url('content/allData') !!}",
+      ajax: "{{ request()->has('contract_id') ? url('content/allData?contract_id='.request()->contract_id) : url('content/allData') }}",
       columns: [{
           data: "index",
           searchable: false,
