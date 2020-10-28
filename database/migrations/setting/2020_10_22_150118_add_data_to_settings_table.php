@@ -17,7 +17,9 @@ class AddDataToSettingsTable extends Migration
       (1, 'rbt_notify_date', '5', '2020-10-22 07:05:47', '2020-10-22 07:05:47', 2, NULL),
       (2, 'content_notify_date', '5', '2020-10-22 07:06:01', '2020-10-22 07:06:01', 2, NULL),
       (3, 'notifiy_rbt_emails', 'mohammed_hs55@yahoo.com,mh124404@gmail.com', '2020-10-22 08:23:53', '2020-10-22 08:32:53', 2, NULL),
-      (4, 'notifiy_content_emails', 'mohammed_hs55@yahoo.com,mh124404@gmail.com', '2020-10-22 08:24:27', '2020-10-22 08:32:57', 2, NULL);");
+      (4, 'notifiy_content_emails', 'mohammed_hs55@yahoo.com,mh124404@gmail.com', '2020-10-22 08:24:27', '2020-10-22 08:32:57', 2, NULL),
+      (5, 'contract_notify_date', '5', '2020-10-22 07:06:01', '2020-10-22 07:06:01', 2, NULL),
+      (6, 'notifiy_contract_emails', 'mohammed_hs55@yahoo.com,mh124404@gmail.com', '2020-10-22 08:23:53', '2020-10-22 08:32:53', 2, NULL);");
     }
 
     /**

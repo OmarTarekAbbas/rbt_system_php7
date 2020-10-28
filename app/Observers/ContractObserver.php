@@ -29,6 +29,15 @@ class ContractObserver
           $this->sendDepartmentEmail($contract,$item->item,$department_mails);
         }
       }
+
+      // if ($contract->isDirty('ceo_renew') && $contract->ceo_renew == 1) {
+      //   $data['contract_id'] = $contract->id;
+      //   $data['renew_start_date'] = $contract->contract_date;
+      //   $data['renew_expire_date'] = $contract->contract_expiry_date;
+      //   $data['duration'] = (int) filter_var($contract->duration->contract_duration_title, FILTER_SANITIZE_NUMBER_INT);
+      //   $data['ceo_renew'] = $contract->ceo_renew;
+      //   $this->contractRenewService->handle($data);
+      // }
     }
 
     /**

@@ -287,16 +287,9 @@ Route::group(['middleware'=> ['auth','role:super_admin|admin|ceo']],function(){
     Route::get('contract_items_send/{id}/approves', 'ContractItemsApprovidsController@index');
     Route::get('ceo/{id}/approve', 'FullcontractsController@getCeoApprovePage');
     Route::post('ceo/{id}/approve', 'FullcontractsController@saveCeoApprove');
+    Route::get('contracts/{id}/renew', 'FullcontractsController@getContractRenewPage');
+    Route::post('contracts/{id}/renew', 'FullcontractsController@saveContractRenew');
 
     Route::get('sendemail', 'DepartmentController@contract_items_send_email');
 
-});
-
-Route::get('copy/signed/date',function(){
-  $contracts = \App\Contract::all();
-  foreach ($contracts as  $contract) {
-    $contract->contract_signed_date = $contract->contract_date;
-    $contract->save();
-  }
-  return redirect('fullcontracts');
 });
