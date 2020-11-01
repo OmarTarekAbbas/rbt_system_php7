@@ -16,6 +16,7 @@ use App\ServiceTypes;
 use App\ContractDuration;
 use App\Filters\DateFilter;
 use App\Filters\pageFilter;
+use App\ContractRenew;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +44,7 @@ class FullcontractsController extends Controller
       ContractTemplateRepository $ContractTemplateRepository,
       ContractService $ContractService
     ) {
-        $this->middleware(['auth', 'role:super_admin|legal'], ['except' => ['index', 'allData', 'annex', 'authorization', 'copyright', 'downloadContractItems', 'show']]);
+        $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index', 'allData', 'annex', 'authorization', 'copyright', 'downloadContractItems', 'show']]);
         $this->ContractTemplateRepository = $ContractTemplateRepository;
         $this->ContractService    = $ContractService;
     }
@@ -249,6 +250,13 @@ class FullcontractsController extends Controller
       }
     }
 
+    /**
+     * Method template_items
+     *
+     * @param int $id
+     *
+     * @return void
+     */
     public function template_items($id)
     {
       $template_items = $this->ContractTemplateRepository->find($id)->items;
@@ -259,11 +267,25 @@ class FullcontractsController extends Controller
       return $view;
     }
 
+    /**
+     * Method downloadContractItems
+     *
+     * @param int $id
+     *
+     * @return void
+     */
     public function downloadContractItems($id) {
       $row = Contract::find($id);
       return redirect('uploads/contracts/'.$row->contract_pdf);
    }
 
+   /**
+    * Method getCeoApprovePage
+    *
+    * @param int $id
+    *
+    * @return void
+    */
    public function getCeoApprovePage($id)
    {
      $contract = Contract::findOrfail($id);
@@ -272,6 +294,14 @@ class FullcontractsController extends Controller
      return view('fullcontracts.ceo_approve',compact('contract','items'));
    }
 
+   /**
+    * Method saveCeoApprove
+    *
+    * @param int $id
+    * @param Request $request
+    *
+    * @return void
+    */
    public function saveCeoApprove($id,Request $request)
    {
      $contract = Contract::find($id);
@@ -279,5 +309,40 @@ class FullcontractsController extends Controller
      $contract->save();
      session()->flash("success",'Your Action For This Contract Saved');
      return redirect('fullcontracts/'.$id);
+   }
+
+   /**
+    * Method getContractRenewPage
+    *
+    * @param int $contractId
+    *
+    * @return void
+    */
+   public function getContractRenewPage($contractId)
+   {
+     $contract = Contract::findOrFail($contractId);
+     return view('fullcontracts.ceo_contract_renew',compact('contract'));
+   }
+
+   /**
+    * Method saveContractRenew
+    * get last contract that wanted to renew from table
+    * @param int $id
+    * @param Request $request
+    *
+    * @return void
+    */
+   public function saveContractRenew($id,Request $request)
+   {
+    if($request->filled('contract_renew_id')) {
+      $contract = ContractRenew::findOrFail($request->contract_renew_id);
+      $contract->ceo_renew = $request->ceo_renew;
+      $contract->save();
+    } else {
+      $contract = Contract::findOrFail($id);
+      $contract->ceo_renew = $request->ceo_renew;
+      $contract->save();
+    }
+    return redirect('fullcontracts/'.$id);
    }
 }

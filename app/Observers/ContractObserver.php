@@ -2,13 +2,31 @@
 
 namespace App\Observers;
 
+use App\Constants\CeoRenewStatus;
 use App\Contract;
 use App\Department;
+use App\Http\Services\ContractRenewService;
 use App\Notification;
 use App\User;
 
 class ContractObserver
 {
+    /**
+      * contractRenewService
+      * @var ContractRenewService $contractRenewService
+      */
+    private $contractRenewService;
+    /**
+     * Method __construct
+     *
+     * @param ContractRenewService $contractRenewService
+     *
+     * @return void
+     */
+    public function __construct(ContractRenewService $contractRenewService)
+    {
+      $this->contractRenewService = $contractRenewService;
+    }
     /**
      * Method saved
      * function work after save contract
@@ -28,6 +46,14 @@ class ContractObserver
           $department_mails = Department::whereIn('id',explode(',', $item->department_ids))->pluck('email')->toArray();
           $this->sendDepartmentEmail($contract,$item->item,$department_mails);
         }
+      }
+
+      if ($contract->isDirty('ceo_renew') && $contract->ceo_renew == CeoRenewStatus::RENEW) {
+        $data['contract_id']       = $contract->id;
+        $data['renew_start_date']  = $contract->contract_expiry_date;
+        $data['renew_expire_date'] = $contract->contract_expiry_date;
+        $data['duration']          = $contract->duration->contract_duration_title;
+        $this->contractRenewService->handle($data);
       }
     }
 

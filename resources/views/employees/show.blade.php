@@ -3,7 +3,28 @@
 Employee
 @stop
 @section('content')
+<div class="row">
+    <div class="col-md-4">
+        <a class="btn btn-circle btn-primary show-tooltip " href="{{url('/employees')}}" title="List Rbt">
+            <i class="fa fa-eye"></i>
+        </a>
+        List Employees
+    </div>
 
+    <div class="col-md-4" style="text-align: center;">
+        <a class="btn btn-circle show-tooltip " href="{{url('employees/'.$employee->id.'/edit')}}" title="Edit Rbt"><i
+                class="fa fa-edit"></i></a>
+        Edit Employee
+    </div>
+
+    <div class="col-md-4" style="text-align: end;">
+        <a class="btn btn-circle btn-success show-tooltip" href="{{url('employees/'.$employee->id.'/contracts')}}"
+            title="" data-original-title="Create New Rbt"><i class="fa fa-plus"></i></a>
+        Create New Contract
+    </div>
+    <br>
+    <br>
+</div>
 <div class="row">
     <div class="col-md-12">
         <div class="box box-blue">
@@ -19,22 +40,22 @@ Employee
                     <table class="table table-striped table-bordered ">
                         <tbody>
                             <tr>
-                                <td width='30%' class='label-view text-right'>ID</td>
+                                <td width='30%' class='label-view text-right' style="font-weight: bold">ID</td>
                                 <td>{{$employee->id}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Full Name</td>
+                                <td width='30%' class='label-view text-right' style="font-weight: bold">Full Name</td>
                                 <td>{{$employee->full_name}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Phone</td>
+                                <td width='30%' class='label-view text-right' style="font-weight: bold">Phone</td>
                                 <td>{{$employee->phone}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Status</td>
+                                <td width='30%' class='label-view text-right' style="font-weight: bold">Status</td>
                                 @if ($employee->status == 1)
                                 <td>
                                     <button class="btn btn-success">In work</button>
@@ -47,9 +68,96 @@ Employee
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Release Date</td>
-                                <td>{{$employee->release_date}} </td>
+                                <td width='30%' class='label-view text-right' style="font-weight: bold">Sign Date
+                                </td>
+                                @if($employee->sign_date)
+                                <td>
+                                  {{$employee->sign_date}}
+                                </td>
+                                @else
+                                <td>
+                                 ----
+                                </td>
+                                @endif
                             </tr>
+
+                            <tr>
+                                <td width='30%' class='label-view text-right' style="font-weight: bold">Release Date
+                                </td>
+                                @if($employee->release_date)
+                                <td>
+                                  {{$employee->release_date}}
+                                </td>
+                                @else
+                                <td>
+                                 ----
+                                </td>
+                                @endif
+                            </tr>
+                            <tr>
+                                <td width='30%' class='label-view text-right' style="font-weight: bold">Employee Papers
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <span style="font-weight: bold;margin-right: 10px;">Birth Certificate:
+                                            </span>
+                                            @if ($employee->birth_certificate)
+                                            <a href="{{url('uploads/employee_papers/'.$employee->birth_certificate)}}"
+                                                target="_blank"><button class="btn btn-success">Review</button></a>
+                                            @else
+                                            <button class="btn btn-danger">Needed</button>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span style="font-weight: bold; margin-right: 10px">Graduation Certificate:
+                                            </span>
+                                            @if ($employee->graduation_certificate)
+                                            <a href="{{url('uploads/employee_papers/'.$employee->graduation_certificate)}}"
+                                                target="_blank"><button class="btn btn-success">Review</button></a>
+                                            @else
+                                            <button class="btn btn-danger">Needed</button>
+                                            @endif
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <span style="font-weight: bold; margin-right: 10px">Army Certificate:
+                                            </span>
+                                            @if ($employee->army_certificate)
+                                            <a href="{{url('uploads/employee_papers/'.$employee->army_certificate)}}"
+                                                target="_blank"><button class="btn btn-success">Review</button></a>
+                                            @else
+                                            <button class="btn btn-danger">Needed</button>
+                                            @endif
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <span style="font-weight: bold; margin-right: 10px">Social insurance:
+                                            </span>
+                                            @if ($employee->insurance_certificate)
+                                            <a href="{{url('uploads/employee_papers/'.$employee->insurance_certificate)}}"
+                                                target="_blank"><button class="btn btn-success">Review</button></a>
+                                            @else
+                                            <button class="btn btn-danger">Needed</button>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span style="font-weight: bold; margin-right: 50px">Certificate of Police
+                                                Record: </span>
+                                            @if ($employee->fish_watashbih)
+                                            <a href="{{url('uploads/employee_papers/'.$employee->fish_watashbih)}}"
+                                                target="_blank"><button class="btn btn-success">Review</button></a>
+                                            @else
+                                            <button class="btn btn-danger">Needed</button>
+                                            @endif
+                                        </div>
+
+
+
+                                    </div>
+                                </td>
+                            </tr>
+
 
 
 
@@ -72,14 +180,15 @@ Employee
                                     <th>End Date</th>
                                     <th>Contract Status</th>
                                     <th>Attachment</th>
+                                    <th class="visible-md visible-lg" style="width:130px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($employee_contracts as $employee_contract)
                                 <tr class="table-flag-blue">
                                     <td>{{$employee_contract->id}}</td>
-                                    <td>{{$employee_contract->sign_date}}</td>
                                     <td>{{$employee_contract->contract_period}}</td>
+                                    <td>{{$employee_contract->sign_date}}</td>
                                     <td>{{$employee_contract->end_date}}</td>
                                     <td>
                                         @if ($employee_contract->contract_status == 1)
@@ -88,8 +197,19 @@ Employee
                                         <button class="btn btn-danger">Draft</button>
                                         @endif
                                     </td>
-                                    <td><a href="{{url('uploads/employee_contract/'.$employee_contract->contract_attachment)}}" target="_blank">Review</a></td>
-
+                                    <td><a href="{{url('uploads/employee_contract/'.$employee_contract->contract_attachment)}}"
+                                            target="_blank">Review</a></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm show-tooltip" title=""
+                                                href="{{url('employee_contract/'.$employee_contract->id.'/edit')}}"
+                                                data-original-title="Edit"><i class="fa fa-edit"></i></a>
+                                            <a class="btn btn-sm btn-danger show-tooltip" title=""
+                                                onclick="return confirm('Are you sure you want to delete this ?');"
+                                                href="{{url('employee_contract/'.$employee_contract->id.'/delete')}}"
+                                                data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                                        </div>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

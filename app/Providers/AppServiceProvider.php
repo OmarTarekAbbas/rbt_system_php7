@@ -6,7 +6,9 @@ use App\Constants\FullApproveStatus;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Contract;
+use App\ContractRenew;
 use App\Observers\ContractObserver;
+use App\Observers\ContractRenewObserver;
 use View;
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         Contract::observe(ContractObserver::class);
+        ContractRenew::observe(ContractRenewObserver::class);
     }
 
     /**

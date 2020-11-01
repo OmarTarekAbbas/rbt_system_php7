@@ -27,7 +27,7 @@ Contents
           <table class="table table-advance data_content">
             <thead>
               <tr>
-                <th style="width:18px"><input type="checkbox" /></th>
+                <th style="width:18px"><input type="checkbox" onclick="select_all('contents')"/></th>
                 <th>id</th>
                 <th>Internal Coding</th>
                 <th>Content Title</th>

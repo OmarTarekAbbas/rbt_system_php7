@@ -28,7 +28,7 @@ RBTs
                     <table class="table table-advance data_rbt">
                         <thead>
                             <tr>
-                                <th style="width:18px"><input type="checkbox" /></th>
+                                <th style="width:18px"><input type="checkbox" onclick="select_all('rbts')"/></th>
                                 <th>id</th>
                                 <th>Internal Coding</th>
                                 <th>Type</th>

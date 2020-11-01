@@ -85,4 +85,14 @@ class Contract extends Model
         return $this->hasOne(Attachment::class)->where('attachment_type', 3);
     }
 
+    public function contractRenew()
+    {
+      return $this->hasMany(ContractRenew::class);
+    }
+
+    public function duration()
+    {
+        return $this->belongsTo(ContractDuration::class, 'contract_duration_id', 'contract_duration_id');
+    }
+
 }

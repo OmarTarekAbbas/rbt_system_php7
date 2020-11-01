@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEmployeesTable extends Migration
+class CreateContractRenewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateEmployeesTable extends Migration
      */
     public function up()
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('contract_renews', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('full_name',255);
-            $table->string('phone', 11)->nullable();
-            $table->integer('status')->default("1")->comment('1-in_work 0-leave');
-            $table->date('release_date')->nullable();
+            $table->unsignedBigInteger('contract_id');
+            $table->date('renew_start_date');
+            $table->date('renew_expire_date');
+            $table->tinyInteger('ceo_renew')->default(0)->comment('0- no action | 1- renew | 2- not renew');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateEmployeesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('contract_renews');
     }
 }

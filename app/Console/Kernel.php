@@ -26,6 +26,10 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('notify:endrbtcontent')
                  ->daily();
+        $schedule->command('notify:endcontract')
+                 ->daily();
+        $schedule->command('notify:endcontractrenew')
+                 ->daily();
     }
 
     /**
