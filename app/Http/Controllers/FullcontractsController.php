@@ -53,7 +53,7 @@ class FullcontractsController extends Controller
     {
         $filters = [
           'date' => new DateFilter,
-          // 'page_input' => new pageFilter,
+          'page_input' => new pageFilter,
         ];
 
         return $filters;
