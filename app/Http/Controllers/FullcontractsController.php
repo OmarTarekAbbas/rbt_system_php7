@@ -15,6 +15,7 @@ use App\SecondParty;
 use App\ServiceTypes;
 use App\ContractDuration;
 use App\Filters\DateFilter;
+use App\Filters\pageFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,7 @@ class FullcontractsController extends Controller
     {
         $filters = [
           'date' => new DateFilter,
+          // 'page_input' => new pageFilter,
         ];
 
         return $filters;
@@ -58,7 +60,11 @@ class FullcontractsController extends Controller
 
     public function index()
     {
-        return view('fullcontracts.index');
+        $contracts = Contract::select('*', 'contracts.id as id', 'contracts.contract_code as code', 'service_types.service_type_title as service_type')
+        ->join('service_types', 'service_types.id', '=', 'contracts.service_type_id')
+        ->orderBy('contracts.id','desc')->paginate(10);
+
+        return view('fullcontracts.index', compact('contracts'));
     }
 
     public function allData(Request $request)

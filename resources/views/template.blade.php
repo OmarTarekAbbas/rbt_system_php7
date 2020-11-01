@@ -672,6 +672,7 @@
   <script type="text/javascript" src="{{url('assets/ckeditor/ckeditor.js')}}"></script>
 
   <script type="text/javascript" src="{{url('assets/data-tables/jquery.dataTables.js')}}"></script>
+  <script type="text/javascript" src="http://cdn.datatables.net/plug-ins/1.10.19/pagination/select.js"></script>
   <script type="text/javascript" src="{{url('assets/data-tables/bootstrap3/dataTables.bootstrap.js')}}"></script>
   <!--flaty scripts-->
   <script src="{{url('js/flaty.js')}}"></script>
