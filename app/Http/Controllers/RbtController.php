@@ -233,8 +233,8 @@ class RbtController extends Controller
         }
 
         $rbt->internal_coding = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time() ."/". $rbt->operator_id;
-        $rbt->start_date      = date('Y-m-d', strtotime($request->start_date));
-        $rbt->expire_date     = date('Y-m-d', strtotime($request->expire_date));
+        $rbt->start_date      = $request->start_date ? date('Y-m-d',strtotime($request->start_date)) : null;
+        $rbt->expire_date     = $request->expire_date ? date('Y-m-d',strtotime($request->expire_date)) : null;
 
         $rbt->save();
 
@@ -394,8 +394,8 @@ class RbtController extends Controller
                     }
 
                     $rbt['track_file'] = "uploads/rbts/".date('Y-m-d')."/".$rbt['track_title_en'].".wav" ;
-                    $rbt['start_date'] = transformDate($row->start_date) ;
-                    $rbt['expire_date']= transformDate($row->expire_date) ;
+                    $rbt['start_date'] = $row->start_date ? transformDate($row->start_date) : null ;
+                    $rbt['expire_date']= $row->expire_date ? transformDate($row->expire_date) : null ;
 
                     $check = Rbt::create($rbt) ;
                     if ($check)
@@ -527,8 +527,8 @@ class RbtController extends Controller
             $rbt->content_id = $request->content_id;
         }
 
-        $rbt->start_date      = date('Y-m-d', strtotime($request->start_date));
-        $rbt->expire_date     = date('Y-m-d', strtotime($request->expire_date));
+        $rbt->start_date      = $request->start_date ? date('Y-m-d',strtotime($request->start_date)) : null;
+        $rbt->expire_date     = $request->expire_date ? date('Y-m-d',strtotime($request->expire_date)) : null;
 
         $rbt->save();
 
