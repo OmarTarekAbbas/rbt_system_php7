@@ -6,12 +6,14 @@
     </a>
     List Contract
   </div>
+  @if (Auth::user()->hasRole(['super_admin', 'legal']))
 
   <div class="col-md-4" style="text-align: center;">
     <a class="btn btn-circle show-tooltip " href="{{url('fullcontracts/'.$contract->id.'/edit')}}" title="Edit Contract"><i class="fa fa-edit"></i></a>
     Edit Contract
   </div>
 
+  @endif
   <div class="col-md-4" style="text-align: end;">
   @if($contract->annex)
   <a class="btn btn-sm btn-info show-tooltip" href="{{ url("contract/an/" . $contract->id) }}" title="annex">Annex</a>
