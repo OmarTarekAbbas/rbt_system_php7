@@ -215,7 +215,7 @@
                                     <select name='contract_duration_id' rows='5' id='contract_duration' class="form-control" required>
                     <option value="">-- Please Select --</option>
                     @foreach($contract_durations as $contract_duration)
-                    <option data-type="@if(strpos($contract_duration->contract_duration_title,'onth')!==false) month @else years @endif" value="{{$contract_duration->contract_duration_id}}" @if($contract->contract_duration_id==$contract_duration->contract_duration_id) selected="selected" @endif>{{$contract_duration->contract_duration_title}}</option>
+                    <option data-type="@if(is_year($contract_duration->contract_duration_title)) years @else month  @endif" value="{{$contract_duration->contract_duration_id}}" @if($contract->contract_duration_id==$contract_duration->contract_duration_id) selected="selected" @endif>{{$contract_duration->contract_duration_title}}</option>
                     @endforeach
                   </select>
                                 </div>

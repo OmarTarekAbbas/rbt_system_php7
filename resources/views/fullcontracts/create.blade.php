@@ -306,7 +306,7 @@
                                         <option value="">-- Please Select --</option>
                                         @foreach($contract_durations as $contract_duration)
                                         <option
-                                            data-type="@if(strpos($contract_duration->contract_duration_title,'onth')!==false) month @else years  @endif"
+                                            data-type="@if(is_year($contract_duration->contract_duration_title)) years @else month  @endif"
                                             value="{{$contract_duration->contract_duration_id}}">
                                             {{$contract_duration->contract_duration_title}}</option>
                                         @endforeach

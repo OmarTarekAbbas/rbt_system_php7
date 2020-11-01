@@ -157,3 +157,18 @@ function send_notification($message,$dep,$data){
         return \Carbon\Carbon::createFromFormat($format, $value);
     }
 }
+
+ /**
+  * Method is_year
+  *
+  * @param String $value
+  *
+  * @return Boolean
+  */
+ function is_year($value) {
+  $value = strtolower($value);
+  if (strpos($value,'year') !== false || strpos($value,'years') !== false) {
+    return  true;
+  }
+  return false;
+ }
