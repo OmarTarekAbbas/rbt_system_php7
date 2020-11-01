@@ -102,13 +102,14 @@ function datatable_draw_func(params) {
   $(".data_contract").dataTable().fnDestroy()
 
   var table = $('.data_contract').DataTable({
+    order: [ [7, 'desc'] ],
     "processing": true,
     "serverSide": true,
     "search": {
       "regex": true
     },
     // ajax: `{{url('contracts/allData')}}`,
-    ajax: `{{url('contracts/allData?page_input=${page}${x}date=${date}')}}`,
+    ajax: `{{url('contracts/allData?page=${page}${x}date=${date}')}}`,
     columns: [{
       data: "index",
       searchable: false,
@@ -159,7 +160,7 @@ function datatable_draw_func(params) {
       stateSave: true
 
   });
-  $( ".paginate_button  [data-dt-idx='"+page+"']" ).trigger("click");
+  // $( ".paginate_button  [data-dt-idx='"+page+"']" ).trigger("click");
 }
 </script>
 @stop

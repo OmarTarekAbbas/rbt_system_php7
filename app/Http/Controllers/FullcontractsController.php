@@ -53,7 +53,7 @@ class FullcontractsController extends Controller
     {
         $filters = [
           'date' => new DateFilter,
-          'page_input' => new pageFilter,
+          'page' => new pageFilter,
         ];
 
         return $filters;
@@ -63,7 +63,7 @@ class FullcontractsController extends Controller
     {
         $contracts = Contract::select('*', 'contracts.id as id', 'contracts.contract_code as code', 'service_types.service_type_title as service_type')
         ->join('service_types', 'service_types.id', '=', 'contracts.service_type_id')
-        ->orderBy('contracts.id','desc')->paginate(10);
+        ->orderBy('contracts.contract_signed_date','desc')->paginate(10);
 
         return view('fullcontracts.index', compact('contracts'));
     }
@@ -72,9 +72,9 @@ class FullcontractsController extends Controller
     {
         $filters = $this->filters();
 
-        $contracts = Contract::select('*', 'contracts.id as id', 'contracts.contract_code as code', 'service_types.service_type_title as service_type')
+        $contracts = Contract::select('*', 'contracts.id as id', 'contracts.contract_code as code', 'contracts.contract_signed_date as sd', 'service_types.service_type_title as service_type')
         ->join('service_types', 'service_types.id', '=', 'contracts.service_type_id')
-        ->orderBy('contracts.id','desc')->filter($filters)->get();
+        ->filter($filters)->orderBy('sd','desc')->get();
 
         $datatable = \Datatables::of($contracts)
             ->addColumn('index', function (Contract $contract) {
@@ -159,7 +159,6 @@ class FullcontractsController extends Controller
                   }
                 }
             })
-
             ->escapeColumns([])
             ->make(true);
         return $datatable;
