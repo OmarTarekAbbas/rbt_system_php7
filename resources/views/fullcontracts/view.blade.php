@@ -126,6 +126,12 @@
                                 <td width='30%' class='label-view text-right'>Contract Duration </td>
                                 <td>{{ $contract->contractRenew->count() ?  $contract->contractRenew[0]->duration->contract_duration_title : $contract->duration->contract_duration_title}} </td>
                             </tr>
+                            @if($contract->contractRenew->count())
+                            <tr>
+                                <td width='30%' class='label-view text-right'>Contract Renews </td>
+                                <td> <a href="{{url('fullcontracts/'.$contract->id.'/renews')}}" target="_blank">Review</a></td>
+                            </tr>
+                            @endif
 
                             <tr>
                                 <td width='30%' class='label-view text-right'>Renewal Status </td>
@@ -217,11 +223,6 @@
                             <tr>
                                 <td width='30%' class='label-view text-right'>Contract File </td>
                                 <td> <a href="{{url('uploads/contracts/'.$contract->contract_pdf)}}" target="_blank">Review</a></td>
-                            </tr>
-
-                            <tr>
-                                <td width='30%' class='label-view text-right'>Contract Renews </td>
-                                <td> <a href="{{url('fullcontracts/'.$contract->id.'/renews')}}" target="_blank">Review</a></td>
                             </tr>
 
                             <tr>
