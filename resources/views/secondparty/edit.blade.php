@@ -105,7 +105,7 @@ Second Party Types
                   <!-- BEGIN Left Side -->
                   <div class="box-content">
                     @isset($SecondParty->second_party_identity)
-                    <td><a target="_blank" href="{{url($SecondParty->second_party_identity)}}">Preview</a></td>
+                    <td><a target="_blank" href="{{url("docs/$SecondParty->second_party_identity")}}">Preview</a></td>
                     @endisset
                     <div class="form-group">
                       <label for="second_party_identity" class="col-xs-3 col-lg-2 control-label"> ID </label>
@@ -114,7 +114,7 @@ Second Party Types
                       </div>
                     </div>
                     @isset($SecondParty->second_party_cr)
-                    <td><a target="_blank" href="{{url($SecondParty->second_party_cr)}}">Preview</a></td>
+                    <td><a target="_blank" href="{{url("docs/$SecondParty->second_party_cr")}}">Preview</a></td>
                     @endisset
                     <div class="form-group">
                       <label for="second_party_cr" class="col-xs-3 col-lg-2 control-label"> CR </label>
@@ -123,7 +123,7 @@ Second Party Types
                       </div>
                     </div>
                     @isset($SecondParty->second_party_tc)
-                    <td><a target="_blank" href="{{url($SecondParty->second_party_tc)}}">Preview</a></td>
+                    <td><a target="_blank" href="{{url("docs/$SecondParty->second_party_tc")}}">Preview</a></td>
                     @endisset
                     <div class="form-group">
                       <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> TC </label>
@@ -132,7 +132,7 @@ Second Party Types
                       </div>
                     </div>
                     @isset($SecondParty->second_party_signature)
-                    <td><a target="_blank" href="{{url($SecondParty->second_party_signature)}}">Preview</a></td>
+                    <td><a target="_blank" href="{{url("docs/$SecondParty->second_party_signature")}}">Preview</a></td>
                     @endisset
                     <div class="form-group">
                       <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> second party signature </label>
@@ -141,7 +141,7 @@ Second Party Types
                       </div>
                     </div>
                     @isset($SecondParty->second_party_seal)
-                    <td><a target="_blank" href="{{url($SecondParty->second_party_seal)}}">Preview</a></td>
+                    <td><a target="_blank" href="{{url("docs/$SecondParty->second_party_seal")}}">Preview</a></td>
                     @endisset
                     <div class="form-group">
                       <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> second party sea; </label>
