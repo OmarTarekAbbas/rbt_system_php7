@@ -270,3 +270,6 @@ Route::group(['middleware' => ['auth', 'role:super_admin|legal|ceo']], function 
 });
 Route::get('get_table_ids','HomeController@get_table_ids_list') ;
 
+Route::get('fix_date_for_content','ContentController@fix_date_for_content') ;
+
+

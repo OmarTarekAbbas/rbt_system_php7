@@ -581,4 +581,17 @@ class ContentController extends Controller
       return view('content.rbtindex', compact('rbts', 'title'));
   }
 
+
+
+  public function fix_date_for_content(Request $request)
+  {
+  $fix_date_for_contents = Content::where('start_date','1970-01-01')->where('expire_date','1970-01-01')->get();
+  foreach ($fix_date_for_contents as $fix_date_for_content) {
+    $fix_date_for_content->start_date = null;
+    $fix_date_for_content->expire_date = null;
+    $fix_date_for_content->save();
+  }
+    return "done";
+  }
+
 }
