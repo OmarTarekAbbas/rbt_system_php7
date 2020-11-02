@@ -103,8 +103,7 @@ jQuery(document).ready(function($) {
 
     $('.editor').summernote({ height: 250 });
     window.prettyPrint && prettyPrint();
-    $('.date').datepicker({ format: 'yyyy-mm-dd', autoClose: true })
-    $('.datetime').datetimepicker({ format: 'yyyy-mm-dd hh:ii:ss', autoClose: true });
+    
     $(".select2").select2({ width: "100%" });
     $('.popup').click(function(e) {
         e.stopPropagation();
