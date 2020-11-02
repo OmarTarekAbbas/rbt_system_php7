@@ -95,7 +95,7 @@
                 <form class="form-horizontal" action="{{url('roadmaps')}}" method="post">
                     {{ csrf_field() }}
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-8" style="float: none; margin: 0 auto;">
                             <div class="box box-red">
                                 <div class="box-title">
                                     <h3><i class="fa fa-bars"></i> Event Details</h3>
@@ -141,7 +141,7 @@
                             <!-- END Left Side -->
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-8" style="float: none; margin: 0 auto;">
                             <div class="box box-red">
                                 <div class="box-title">
                                     <h3><i class="fa fa-bars"></i> Occasion / Aggregator / Operator</h3>
@@ -180,7 +180,7 @@
                             <!-- END Left Side -->
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-8" style="float: none; margin: 0 auto;">
                             <div class="box box-red">
                                 <div class="box-title">
                                     <h3><i class="fa fa-bars"></i> Support </h3>
@@ -212,7 +212,7 @@
                     </div>
 
                     <div class="row append-row">
-                        <div class="col-md-3 init-input">
+                        <div class="col-md-8 init-input" style="float: none; margin: 0 auto;">
                             <div class="box box-red">
                                 <div class="box-title">
                                     <h3><i class="fa fa-bars"></i> Provider / Content &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-trash pull-right"></i> &nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-plus pull-right"></i> </h3>
@@ -427,7 +427,7 @@
     })
 
     function getFormCopy() {
-        var form = '<div class="col-md-3 init-input">\
+        var form = '<div class="col-md-8 init-input" style="float: none; margin: 0 auto;">\
                         <div class="box box-red">\
                             <div class="box-title">\
                                 <h3><i class="fa fa-bars"></i> Provider / Content &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-trash pull-right"></i> &nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-plus pull-right"></i> </h3>\
