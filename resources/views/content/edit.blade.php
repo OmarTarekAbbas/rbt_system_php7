@@ -79,6 +79,7 @@ Contents
                   </div>
                 </div>
               </div>
+                    <a class="btn btn-sm btn" href="{{url($content->path)}}" target="_blank" style="color: royalblue;">Review</a>
             </div>
           </div>
 
