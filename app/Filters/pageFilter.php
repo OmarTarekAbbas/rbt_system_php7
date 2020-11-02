@@ -9,7 +9,7 @@ class PageFilter implements Filter
     public function apply(Builder $builder, $filter)
     {
 
-        return $builder->skip($filter);
+        return $builder->limit(10)->skip($filter*10);
 
     }
 }

@@ -20,11 +20,11 @@ class ContractRenewService
     if ($contractRenewId) {
       $contractRenew = ContractRenew::find($contractRenewId);
     }
-    preg_match_all('!\d+!', $request['duration'], $matches);
+    preg_match_all('/\d+/', $request['duration'], $matches);
 
-    $monthes = (int) $matches[0];
-    
-    if(strpos($request['duration'],'ear') !== false ) {
+    $monthes = (int) $matches[0][0];
+
+    if( is_year($request['duration']) ) {
       $monthes = $monthes * 12;
     }
 

@@ -80,7 +80,7 @@ class ContentController extends Controller
       })
       ->addColumn('contract_code', function (Content $content) {
         if ($content->contract_code)
-          return '<a  href="' . url("fullcontracts/$content->contract_id") . '" >' . $content->contract_code . '/' . $content->contract_label . '</a>';
+          return '<a  href="' . url("fullcontracts/$content->contract_id") . '" >' . $content->contract_code . '</a>';
         else
           return '---';
       })

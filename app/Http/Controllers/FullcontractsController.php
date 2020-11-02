@@ -53,7 +53,7 @@ class FullcontractsController extends Controller
     {
         $filters = [
           'date' => new DateFilter,
-          // 'page_input' => new pageFilter,
+          'page' => new pageFilter,
         ];
 
         return $filters;
@@ -63,7 +63,7 @@ class FullcontractsController extends Controller
     {
         $contracts = Contract::select('*', 'contracts.id as id', 'contracts.contract_code as code', 'service_types.service_type_title as service_type')
         ->join('service_types', 'service_types.id', '=', 'contracts.service_type_id')
-        ->orderBy('contracts.id','desc')->paginate(10);
+        ->orderBy('contracts.contract_signed_date','desc')->paginate(10);
 
         return view('fullcontracts.index', compact('contracts'));
     }
@@ -72,9 +72,9 @@ class FullcontractsController extends Controller
     {
         $filters = $this->filters();
 
-        $contracts = Contract::select('*', 'contracts.id as id', 'contracts.contract_code as code', 'service_types.service_type_title as service_type')
+        $contracts = Contract::select('*', 'contracts.id as id', 'contracts.contract_code as code', 'contracts.contract_signed_date as sd', 'service_types.service_type_title as service_type')
         ->join('service_types', 'service_types.id', '=', 'contracts.service_type_id')
-        ->orderBy('contracts.id','desc')->filter($filters)->get();
+        ->filter($filters)->orderBy('sd','desc')->get();
 
         $datatable = \Datatables::of($contracts)
             ->addColumn('index', function (Contract $contract) {
@@ -135,19 +135,30 @@ class FullcontractsController extends Controller
                   </div>
                   </td>';
                 }else{
-                  return '<td class="visible-md visible-lg">
-                  <div class="btn-group">
-                      <a class="btn btn-sm btn-secondary show-tooltip " href="' . url("contractservice/create/" . $contract->id) . '" title="View Services"><i class="fa fa-arrow-right"></i></a>
-                      <a target="_blank" class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="'.url("Contract/".$contract->id."/items/download").'" data-original-title="Show"><i class="fa fa-file"></i></a>
-                      <a class="btn btn-sm btn-primary show-tooltip " href="' . url("fullcontracts/" . $contract->id) . '" title="Show"><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-info show-tooltip " href="' . url("content?contract_id=".$contract->id) . '" title="list content"><i class="fa fa-music"></i></a>
-                      <a class="btn btn-sm show-tooltip" href="' . url("fullcontracts/" . $contract->id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("fullcontracts/" . $contract->id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
-                  </div>
-                  </td>';
+                  if($contract->content->count() > 0){
+                    return '<td class="visible-md visible-lg">
+                    <div class="btn-group">
+                        <a class="btn btn-sm btn-secondary show-tooltip " href="' . url("contractservice/create/" . $contract->id) . '" title="View Services"><i class="fa fa-arrow-right"></i></a>
+                        <a target="_blank" class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="'.url("Contract/".$contract->id."/items/download").'" data-original-title="Show"><i class="fa fa-file"></i></a>
+                        <a class="btn btn-sm btn-primary show-tooltip " href="' . url("fullcontracts/" . $contract->id) . '" title="Show"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-sm btn-info show-tooltip " href="' . url("content?contract_id=".$contract->id) . '" title="list content"><i class="fa fa-music"></i></a>
+                        <a class="btn btn-sm show-tooltip" href="' . url("fullcontracts/" . $contract->id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("fullcontracts/" . $contract->id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
+                    </div>
+                    </td>';
+                  }else{
+                    return '<td class="visible-md visible-lg">
+                    <div class="btn-group">
+                        <a class="btn btn-sm btn-secondary show-tooltip " href="' . url("contractservice/create/" . $contract->id) . '" title="View Services"><i class="fa fa-arrow-right"></i></a>
+                        <a target="_blank" class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="'.url("Contract/".$contract->id."/items/download").'" data-original-title="Show"><i class="fa fa-file"></i></a>
+                        <a class="btn btn-sm btn-primary show-tooltip " href="' . url("fullcontracts/" . $contract->id) . '" title="Show"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-sm show-tooltip" href="' . url("fullcontracts/" . $contract->id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("fullcontracts/" . $contract->id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
+                    </div>
+                    </td>';
+                  }
                 }
             })
-
             ->escapeColumns([])
             ->make(true);
         return $datatable;
