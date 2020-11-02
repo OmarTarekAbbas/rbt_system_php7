@@ -20,16 +20,11 @@ class ContractRenewService
     if ($contractRenewId) {
       $contractRenew = ContractRenew::find($contractRenewId);
     }
-    preg_match_all('/\d+/', $request['duration'], $matches);
 
-    $monthes = (int) $matches[0][0];
-
-    if( is_year($request['duration']) ) {
-      $monthes = $monthes * 12;
-    }
 
     $request = array_merge($request,[
-      'renew_expire_date' => Carbon::parse($request['renew_expire_date'])->addMonth($monthes)->subDays(1)->format('Y-m-d')
+      'renew_start_date' => Carbon::parse($request['renew_start_date'])->format('Y-m-d'),
+      'renew_expire_date' => Carbon::parse($request['renew_expire_date'])->format('Y-m-d')
     ]);
 
     $contractRenew->fill($request);

@@ -25,18 +25,32 @@ Contracts
                         </div>
 
                         <div class="form-group">
-                          <label for="start_date" class="col-xs-3 col-lg-2 control-label"> Contract Start Date </label>
-                          <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy">
+                          <label for="start_date" class="col-xs-3 col-lg-2 control-label"> Contract Renew Start Date <span class="asterix"> *</span> </label>
+                          <div class="input-group start_date date col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            <input type="text" name="start_date" value="{{ $contract->contract_date }}" id="start_date" autocomplete="off" placeholder="Contract Start Date" data-date-format="dd-mm-yyyy" class="form-control" readonly>
+                            <input type="text" name="renew_start_date" value="{{ $data['start_date']->format('d-m-Y') }}" id="start_date" autocomplete="off" placeholder="Contract Start Date" data-date-format="dd-mm-yyyy" class="form-control">
                           </div>
                         </div>
 
                         <div class="form-group">
-                          <label for="contract_expiry_date" class="col-xs-3 col-lg-2 control-label"> Contract Expire Date </label>
-                          <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy">
+                            <label for="ipt" class="col-xs-3 col-lg-2 control-label"> Contract Renew Duration <span class="asterix"> *</span> </label>
+                            <select name='renew_duration_id' rows='5' id='contract_duration' class="col-sm-9 col-lg-10 controls" required>
+                                <option value="">-- Please Select --</option>
+                                @foreach($contract_durations as $contract_duration)
+                                <option
+                                    data-type="@if(is_year($contract_duration->contract_duration_title)) years @else month  @endif"
+                                    value="{{$contract_duration->contract_duration_id}}"
+                                    @if($contract->duration->contract_duration_id==$contract_duration->contract_duration_id) selected="selected" @endif>
+                                    {{$contract_duration->contract_duration_title}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="contract_expiry_date" class="col-xs-3 col-lg-2 control-label"> Contract Renew Expire Date </label>
+                          <div class="input-group contract_expiry_date date col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            <input type="text" name="contract_expiry_date" value="{{ $contract->contract_expiry_date }}" id="contract_expiry_date" autocomplete="off" placeholder="Contract Start Date" data-date-format="dd-mm-yyyy" class="form-control" readonly>
+                            <input type="text" name="renew_expire_date" value="{{ $data['expire_date']->format('d-m-Y') }}" id="contract_expiry_date" autocomplete="off" placeholder="Contract Start Date" data-date-format="dd-mm-yyyy" class="form-control">
                           </div>
                         </div>
 
@@ -63,7 +77,35 @@ Contracts
 
 @section('script')
     <script>
-        $('#contracts/$contract->id/').addClass('active');
-        $('#contracts/$contract->id/-create').addClass('active');
+        $(document).on('ready', function() {
+            $('.start_date').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                startDate: moment("{{ $data['start_date']->format('d-m-Y') }}", "DD-MM-YYYY").locale('en').format('DD-MM-YYYY'),
+            }).on('changeDate', function(selected) {
+                var minDate = new Date(selected.date.valueOf());
+                setEndDate(minDate,"{{ get_number_of_month($contract->duration->contract_duration_title) }}")
+            })
+
+            $('.contract_expiry_date').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                startDate: moment("{{ $data['expire_date']->format('d-m-Y') }}", "DD-MM-YYYY").locale('en').format('DD-MM-YYYY'),
+            })
+        })
+    </script>
+    <script>
+      var monthes = 12;
+      $("#contract_duration").change(function() {
+          number = ($(this).find('option:selected').text()).match(/\d+/)[0];
+          monthes = ($(this).find('option:selected').data('type')).includes('m') ?  number : number * 12
+          setEndDate($("#start_date").val(), monthes)
+      })
+
+      function setEndDate(endDate, monthes) {
+        console.log(endDate, monthes);
+        $('#contract_expiry_date').datepicker('setStartDate', moment(endDate, "DD-MM-YYYY").locale('en').add(monthes, 'month').subtract(1, 'day').format('DD-MM-YYYY'));
+        $('#contract_expiry_date').datepicker('setDate' , moment(endDate, "DD-MM-YYYY").locale('en').add(monthes, 'month').subtract(1, 'day').format('DD-MM-YYYY'));
+      }
     </script>
 @stop

@@ -104,17 +104,22 @@
 
                             <tr>
                                 <td width='30%' class='label-view text-right'>Contract Date </td>
-                                <td>{{ date('F j, Y',strtotime($contract->contract_date)) }} </td>
+                                <td>{{ $contract->contractRenew->count() ? date('F j, Y',strtotime($contract->contractRenew[0]->renew_start_date))  : date('F j, Y',strtotime($contract->contract_date)) }} </td>
                             </tr>
 
                             <tr>
                                 <td width='30%' class='label-view text-right'>Contract Singed Date </td>
-                                <td>{{ date('F j, Y',strtotime($contract->contract_signed_date)) }} </td>
+                                <td>{{ $contract->contractRenew->count() ? date('F j, Y',strtotime($contract->contractRenew[0]->renew_start_date->addDays(1))) : date('F j, Y',strtotime($contract->contract_signed_date)) }} </td>
+                            </tr>
+
+                            <tr>
+                                <td width='30%' class='label-view text-right'>Expiry Date </td>
+                                <td>{{ $contract->contractRenew->count() ? date('F j, Y',strtotime($contract->contractRenew[0]->renew_expire_date))  : date('F j, Y',strtotime($contract->contract_expiry_date)) }} </td>
                             </tr>
 
                             <tr>
                                 <td width='30%' class='label-view text-right'>Contract Duration </td>
-                                <td>{{$contract->contract_duration_id}} Year </td>
+                                <td>{{ $contract->contractRenew->count() ?  $contract->contractRenew[0]->duration->contract_duration_title : $contract->duration->contract_duration_title}} </td>
                             </tr>
 
                             <tr>
@@ -135,11 +140,6 @@
                                 @else
                                 <td> <button class="btn btn-success">Active</button></td>
                                 @endif
-                            </tr>
-
-                            <tr>
-                                <td width='30%' class='label-view text-right'>Expiry Date </td>
-                                <td>{{ date('F j, Y',strtotime($contract->contract_expiry_date)) }} </td>
                             </tr>
 
                             <tr>

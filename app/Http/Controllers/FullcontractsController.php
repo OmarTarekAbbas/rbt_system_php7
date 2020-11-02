@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ContractRequest;
 use App\Http\Services\ContractService;
 use App\Http\Repository\ContractTemplateRepository;
+use Carbon\Carbon;
 
 class FullcontractsController extends Controller
 {
@@ -315,13 +316,23 @@ class FullcontractsController extends Controller
     * Method getContractRenewPage
     *
     * @param int $contractId
+    * @param Request $request
     *
     * @return void
     */
-   public function getContractRenewPage($contractId)
+   public function getContractRenewPage($contractId, Request $request)
    {
-     $contract = Contract::findOrFail($contractId);
-     return view('fullcontracts.ceo_contract_renew',compact('contract'));
+    if($request->filled('contract_renew_id')) {
+      $contract = ContractRenew::findOrFail($request->contract_renew_id);
+      $data['start_date'] = Carbon::parse($contract->renew_expire_date->addDays(1)->format('d-m-Y'));
+      $data['expire_date'] = Carbon::parse($contract->renew_expire_date->addMonth(get_number_of_month($contract->duration->contract_duration_title))->format('d-m-Y'));
+    } else {
+      $contract = Contract::findOrFail($contractId);
+      $data['start_date'] = Carbon::parse($contract->contract_expiry_date->addDays(1)->format('d-m-Y'));
+      $data['expire_date'] = Carbon::parse($contract->contract_expiry_date->addMonth(get_number_of_month($contract->duration->contract_duration_title))->format('d-m-Y'));
+    }
+     $contract_durations = ContractDuration::all();
+     return view('fullcontracts.ceo_contract_renew',compact('contract','contract_durations','data'));
    }
 
    /**

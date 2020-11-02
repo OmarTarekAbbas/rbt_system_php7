@@ -49,6 +49,8 @@ class Contract extends Model
         'contract_type',
     ];
 
+    protected $dates = ['contract_date', 'contract_expiry_date', 'contract_signed_date'];
+
     public function service_type()
     {
         return $this->belongsTo('App\ServiceTypes');
@@ -87,7 +89,7 @@ class Contract extends Model
 
     public function contractRenew()
     {
-      return $this->hasMany(ContractRenew::class);
+      return $this->hasMany(ContractRenew::class)->latest();
     }
 
     public function duration()

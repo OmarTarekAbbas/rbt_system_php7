@@ -172,3 +172,33 @@ function send_notification($message,$dep,$data){
   }
   return false;
  }
+
+ /**
+  * Method get_number_from_string
+  *
+  * @param String $string
+  *
+  * @return Integer
+  */
+ function get_number_from_string($string) {
+  preg_match_all('/\d+/', $string, $matches);
+  if(count($matches[0])) {
+    return (int) $matches[0][0];
+  }
+  return 1;
+ }
+
+ /**
+  * Method get_number_of_month
+  *
+  * @param String $value [1 monthes , 1 years ,as example]
+  *
+  * @return Integer
+  */
+ function get_number_of_month($value) {
+    $monthes = get_number_from_string($value);
+    if( is_year($value) ) {
+      $monthes = $monthes * 12;
+    }
+    return $monthes;
+ }

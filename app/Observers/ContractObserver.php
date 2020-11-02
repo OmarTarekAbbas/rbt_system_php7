@@ -50,9 +50,9 @@ class ContractObserver
 
       if ($contract->isDirty('ceo_renew') && $contract->ceo_renew == CeoRenewStatus::RENEW) {
         $data['contract_id']       = $contract->id;
-        $data['renew_start_date']  = $contract->contract_expiry_date;
-        $data['renew_expire_date'] = $contract->contract_expiry_date;
-        $data['duration']          = $contract->duration->contract_duration_title;
+        $data['renew_start_date']  = request()->get('renew_start_date');
+        $data['renew_expire_date'] = request()->get('renew_expire_date');
+        $data['renew_duration_id'] = request()->get('renew_duration_id');
         $this->contractRenewService->handle($data);
       }
     }
