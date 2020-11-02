@@ -4,14 +4,19 @@
     <a class="btn btn-circle btn-primary show-tooltip " href="{{url('/fullcontracts')}}" title="List Contract">
       <i class="fa fa-eye"></i>
     </a>
+    <a href="{{url('/fullcontracts')}}" title="List Contract">
     List Contract
-  </div>
+    </a>
 
+  </div>
+  @if (Auth::user()->hasRole(['super_admin', 'legal']))
   <div class="col-md-4" style="text-align: center;">
     <a class="btn btn-circle show-tooltip " href="{{url('fullcontracts/'.$contract->id.'/edit')}}" title="Edit Contract"><i class="fa fa-edit"></i></a>
-    Edit Contract
+    <a href="{{url('fullcontracts/'.$contract->id.'/edit')}}" title="Edit Contract">Edit Contract</a>
+
   </div>
 
+  @endif
   <div class="col-md-4" style="text-align: end;">
   @if($contract->annex)
   <a class="btn btn-sm btn-info show-tooltip" href="{{ url("contract/an/" . $contract->id) }}" title="annex">Annex</a>

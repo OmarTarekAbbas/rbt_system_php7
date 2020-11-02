@@ -8,17 +8,19 @@ Content
     <a class="btn btn-circle btn-primary show-tooltip " href="{{url('/content')}}" title="List Content">
       <i class="fa fa-eye"></i>
     </a>
-    List Content
+    <a href="{{url('/content')}}" title="List Content">List Content</a>
   </div>
 
   <div class="col-md-4" style="text-align: center;">
     <a class="btn btn-circle show-tooltip " href="{{url('content/'.$content->id.'/edit')}}" title="Edit Content"><i class="fa fa-edit"></i></a>
-    Edit Content
+    <a  href="{{url('content/'.$content->id.'/edit')}}" title="Edit Content">Edit Content</a>
+
   </div>
 
   <div class="col-md-4" style="text-align: end;">
     <a class="btn btn-circle btn-success show-tooltip" href="{{url('content/create')}}" title="" data-original-title="Create New Content"><i class="fa fa-plus"></i></a>
-    Create New Content
+    <a href="{{url('content/create')}}" title="" data-original-title="Create New Content">Create New Content</a>
+
   </div>
   <br>
   <br>

@@ -5,22 +5,28 @@ Employee
 @section('content')
 <div class="row">
     <div class="col-md-4">
-        <a class="btn btn-circle btn-primary show-tooltip " href="{{url('/employees')}}" title="List Rbt">
+        <a class="btn btn-circle btn-primary show-tooltip " href="{{url('/employees')}}" title="List Employees">
             <i class="fa fa-eye"></i>
         </a>
+        <a href="{{url('/employees')}}" title="List Employees">
         List Employees
+        </a>
+
     </div>
 
     <div class="col-md-4" style="text-align: center;">
-        <a class="btn btn-circle show-tooltip " href="{{url('employees/'.$employee->id.'/edit')}}" title="Edit Rbt"><i
+        <a class="btn btn-circle show-tooltip " href="{{url('employees/'.$employee->id.'/edit')}}" title="Edit Employee"><i
                 class="fa fa-edit"></i></a>
-        Edit Employee
+        <a href="{{url('employees/'.$employee->id.'/edit')}}" title="Edit Employee">Edit Employee</a>
+
     </div>
 
     <div class="col-md-4" style="text-align: end;">
         <a class="btn btn-circle btn-success show-tooltip" href="{{url('employees/'.$employee->id.'/contracts')}}"
-            title="" data-original-title="Create New Rbt"><i class="fa fa-plus"></i></a>
-        Create New Contract
+            title="" data-original-title="Create New Contract"><i class="fa fa-plus"></i></a>
+        <a href="{{url('employees/'.$employee->id.'/contracts')}}"
+            title="" data-original-title="Create New Contract">Create New Contract</a>
+
     </div>
     <br>
     <br>

@@ -74,6 +74,10 @@ class Contract extends Model
     {
         return $this->hasMany(ContractItem::class);
     }
+    public function content()
+    {
+        return $this->hasMany(Content::class);
+    }
     public function authorization()
     {
         return $this->hasOne(Attachment::class)->where('attachment_type', 2);

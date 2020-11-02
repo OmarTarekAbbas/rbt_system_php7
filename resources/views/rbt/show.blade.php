@@ -8,17 +8,21 @@ RBT
     <a class="btn btn-circle btn-primary show-tooltip " href="{{url('/rbt')}}" title="List Rbt">
       <i class="fa fa-eye"></i>
     </a>
+    <a href="{{url('/rbt')}}" title="List Rbt">
     List Rbt
+    </a>
   </div>
 
   <div class="col-md-4" style="text-align: center;">
     <a class="btn btn-circle show-tooltip " href="{{url('rbt/'.$rbt->rbt_id.'/edit')}}" title="Edit Rbt"><i class="fa fa-edit"></i></a>
-    Edit Rbt
+    <a href="{{url('rbt/'.$rbt->rbt_id.'/edit')}}" title="Edit Rbt">Edit Rbt</a>
+
   </div>
 
   <div class="col-md-4" style="text-align: end;">
     <a class="btn btn-circle btn-success show-tooltip" href="{{url('rbt/create')}}" title="" data-original-title="Create New Rbt"><i class="fa fa-plus"></i></a>
-    Create New Rbt
+    <a href="{{url('rbt/create')}}" title="" data-original-title="Create New Rbt">Create New Rbt</a>
+
   </div>
   <br>
   <br>

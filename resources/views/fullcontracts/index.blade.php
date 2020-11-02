@@ -37,8 +37,9 @@ Contract
         <label class="text-muted" for="page_input">Filter By Page</label>
         <select id="page_input" class="form-control chosen" data-placeholder="Filter By page" name="page"
           tabindex="1">
-          @foreach( range( 1 , $contracts->lastPage() ) as $page )
-          <option value="{{$page}}">{{$page}}</option>
+          <option value="{{null}}">ALL</option>
+          @foreach( range( 0 , $contracts->lastPage() ) as $page )
+          <option value="{{$page}}">{{$page+1}}</option>
           @endforeach
         </select>
         <hr>
@@ -100,14 +101,15 @@ function datatable_draw_func(params) {
   var x = '&';
   $(".data_contract").dataTable().fnDestroy()
 
-  $('.data_contract').DataTable({
+  var table = $('.data_contract').DataTable({
+    order: [ [7, 'desc'] ],
     "processing": true,
     "serverSide": true,
     "search": {
       "regex": true
     },
     // ajax: `{{url('contracts/allData')}}`,
-    ajax: `{{url('contracts/allData?start=${page}${x}date=${date}')}}`,
+    ajax: `{{url('contracts/allData?page=${page}${x}date=${date}')}}`,
     columns: [{
       data: "index",
       searchable: false,
@@ -158,7 +160,7 @@ function datatable_draw_func(params) {
       stateSave: true
 
   });
-
+  // $( ".paginate_button  [data-dt-idx='"+page+"']" ).trigger("click");
 }
 </script>
 @stop
