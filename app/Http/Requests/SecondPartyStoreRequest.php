@@ -26,8 +26,8 @@ class SecondPartyStoreRequest extends FormRequest
         return [
             'second_party_type_id' => 'required',
             'second_party_title' => 'required',
-            'second_party_joining_date' => 'required',
-            'second_party_terminate_date' => 'required',
+            'second_party_joining_date' => 'nullable',
+            'second_party_terminate_date' => 'nullable',
             'second_party_status' => 'required',
             'second_party_identity' => 'nullable',
             'second_party_cr' => 'nullable',
