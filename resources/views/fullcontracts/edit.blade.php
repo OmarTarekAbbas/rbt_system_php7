@@ -32,37 +32,7 @@
         width: 100%;
     }
 
-    .start_date {
-        text-align: right;
-    }
 
-    input[type="date"]::-webkit-datetime-edit,
-    input[type="date"]::-webkit-inner-spin-button,
-    input[type="date"]::-webkit-clear-button {
-        color: #fff;
-        position: relative;
-    }
-
-    input[type="date"]::-webkit-datetime-edit-year-field {
-        position: absolute !important;
-        padding: 2px;
-        color: #000;
-        left: 0;
-    }
-
-    input[type="date"]::-webkit-datetime-edit-month-field {
-        position: absolute !important;
-        padding: 2px;
-        color: #000;
-        left: 30px;
-    }
-
-    input[type="date"]::-webkit-datetime-edit-day-field {
-        position: absolute !important;
-        color: #000;
-        padding: 2px;
-        left: 53px;
-    }
 </style>
 
 <div id="preloader"></div>
@@ -191,24 +161,31 @@
                             <h3>Dates/Status/File</h3>
                             <section>
 
+
+
                                 <div class="form-group">
-                                    <label for="ipt" class="control-label "> Contract Singed Date </label>
-                                    <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                                        <div class="input-group">
-                                            <input type="date" value="{{$contract->contract_signed_date}}" class="form-control form-control-sm " name="contract_signed_date" id="signed_date_input" />
-                                        </div>
-                                    </div>
-                                </div>
+                                  <label for="signed_date_input" class=" control-label"> Contract Singed Date</label>
+                                  <div class="input-group date  signed_date_input controls">
+                                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                      <input type="text" name="contract_signed_date" id="signed_date_input" autocomplete="off"
+                                          placeholder="Contract Singed Date" data-date-format="dd-mm-yyyy" class="form-control"
+                                          value="{{date('d-m-Y',strtotime($contract->contract_signed_date))}}" style="height: 33px;"
+                                          required>
+                                  </div>
+                              </div>
 
-                                <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> Contract Date <span class="asterix"> * </span> </label>
-                                    <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                                        <div class="input-group">
-                                            <input class="form-control form-control-sm " name="contract_date" id="start_date" type="date" value="{{$contract->contract_date}}" />
 
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="form-group">
+                                  <label for="start_date" class=" control-label"> Contract Start Date</label>
+                                  <div class="input-group date  start_date controls">
+                                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                      <input type="text" name="contract_date" id="start_date" autocomplete="off"
+                                          placeholder="Contract Start Date" data-date-format="dd-mm-yyyy" class="form-control"
+                                          value="{{date('d-m-Y',strtotime($contract->contract_date))}}" style="height: 33px;"
+                                          required>
+                                  </div>
+                              </div>
+
 
                                 <div class="form-group  ">
                                     <label for="ipt" class=" control-label "> Contract Duration <span class="asterix"> * </span> </label>
@@ -233,15 +210,17 @@
                                     <input type="checkbox" class="radio_check" value="0" name='contract_status' @if($contract->contract_status == 0) checked="checked" @endif /> Terminated
                                 </div>
 
-                                <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> Expiry Date <span class="asterix"> * </span> </label>
-
-                                    <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                                        <div class="input-group">
-                                            <input class="form-control form-control-sm " id="contract_expiry_date" name="contract_expiry_date" type="date" value="{{$contract->contract_expiry_date}}" />
-                                        </div>
+                                <div class="form-group">
+                                <label for="contract_expiry_date" class=" control-label">Expiry Date</label>
+                                <div class="input-group date contract_expiry_date controls">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" name="contract_expiry_date"  placeholder=" End Date"
+                                    data-date-format="dd-mm-yyyy" class="form-control"
+                                        value="{{date('d-m-Y',strtotime($contract->contract_expiry_date))}}" style="height: 33px;" id="contract_expiry_date"
+                                        required>
                                     </div>
                                 </div>
+
 
                                 <div class="form-group">
                                     <label for="ipt" class=" control-label "> Contract Type  </label>
@@ -367,8 +346,28 @@
     });
 
     function setEndDate(endDate, monthes) {
-        $("#contract_expiry_date").val(moment(endDate, "YYYY-MM-DD").locale('en').add(monthes, 'month').subtract(1, 'day').format('YYYY-MM-DD'))
+        $("#contract_expiry_date").val(moment(endDate, "DD-MM-YYYY").locale('en').add(monthes, 'month').subtract(1, 'day').format('DD-MM-YYYY'))
     }
+
+
+    $(document).on('ready', function() {
+      $('.signed_date_input').datepicker({
+          format: 'dd-mm-yyyy',
+          autoclose: true,
+      })
+    })
+    $(document).on('ready', function() {
+      $('.start_date').datepicker({
+          format: 'dd-mm-yyyy',
+          autoclose: true,
+      })
+    })
+    $(document).on('ready', function() {
+      $('.contract_expiry_date').datepicker({
+          format: 'dd-mm-yyyy',
+          autoclose: true,
+      })
+    })
 </script>
 
 @stop

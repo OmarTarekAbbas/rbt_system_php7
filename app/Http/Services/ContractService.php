@@ -47,7 +47,10 @@ class ContractService
       "operator_title" => implode(",", $request['operator_title']),
       "country_title"  => implode(",", $request['country_title']),
       "second_party_percentage"  => 100 - $request['first_party_percentage'],
-      "entry_by_details" => auth()->user()->name
+      "entry_by_details" => auth()->user()->name,
+      "contract_date" => date('Y-m-d',strtotime($request['contract_date'])),
+      "contract_expiry_date" => date('Y-m-d',strtotime($request['contract_expiry_date'])),
+      "contract_signed_date" => date('Y-m-d',strtotime($request['contract_signed_date'])),
     ]);
 
     if (isset($request['contract_pdf'])) {

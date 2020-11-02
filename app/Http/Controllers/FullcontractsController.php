@@ -367,4 +367,10 @@ class FullcontractsController extends Controller
     }
     return redirect('fullcontracts/'.$id);
    }
+
+    public function contract_list_renews($id,Request $request)
+    {
+      $contract = Contract::find($id);
+      return view('contract_renew.index',compact('contract'));
+    }
 }

@@ -32,37 +32,7 @@
         width: 100%;
     }
 
-    .start_date {
-        text-align: right;
-    }
 
-    input[type="date"]::-webkit-datetime-edit,
-    input[type="date"]::-webkit-inner-spin-button,
-    input[type="date"]::-webkit-clear-button {
-        color: #fff;
-        position: relative;
-    }
-
-    input[type="date"]::-webkit-datetime-edit-year-field {
-        position: absolute !important;
-        padding: 2px;
-        color: #000;
-        left: 0;
-    }
-
-    input[type="date"]::-webkit-datetime-edit-month-field {
-        position: absolute !important;
-        padding: 2px;
-        color: #000;
-        left: 30px;
-    }
-
-    input[type="date"]::-webkit-datetime-edit-day-field {
-        position: absolute !important;
-        color: #000;
-        padding: 2px;
-        left: 53px;
-    }
 </style>
 
 <div id="preloader"></div>
@@ -280,23 +250,26 @@
                             <section>
 
                                 <div class="form-group">
-                                    <label for="ipt" class="control-label "> Contract Singed Date </label>
-                                    <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                                        <div class="input-group">
-                                            <input type="date" class="form-control form-control-sm " name="contract_signed_date" id="signed_date_input" />
-                                        </div>
-                                    </div>
-                                </div>
+                                  <label for="signed_date_input" class=" control-label"> Contract Singed Date</label>
+                                  <div class="input-group date  signed_date_input controls">
+                                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                      <input type="text" name="contract_signed_date" id="signed_date_input" autocomplete="off"
+                                          placeholder="Contract Singed Date" data-date-format="dd-mm-yyyy" class="form-control"
+                                          value="" style="height: 33px;"
+                                          required>
+                                  </div>
+                              </div>
 
                                 <div class="form-group">
-                                    <label for="ipt" class="control-label "> Contract Start Date <span class="asterix"> *
-                                        </span> </label>
-                                    <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                                        <div class="input-group">
-                                            <input type="date" class="form-control form-control-sm " name="contract_date" id="start_date" />
-                                        </div>
-                                    </div>
-                                </div>
+                                  <label for="start_date" class=" control-label"> Contract Start Date</label>
+                                  <div class="input-group date  start_date controls">
+                                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                      <input type="text" name="contract_date" id="start_date" autocomplete="off"
+                                          placeholder="Contract Start Date" data-date-format="dd-mm-yyyy" class="form-control"
+                                          value="" style="height: 33px;"
+                                          required>
+                                  </div>
+                              </div>
 
 
                                 <div class="form-group  ">
@@ -313,14 +286,15 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group  ">
-                                    <label for="ipt" class=" control-label "> Expiry Date <span class="asterix"> *
-                                        </span> </label>
 
-                                    <div class="input-group input-group-sm m-b" style="width:170px !important;">
-                                        <div class="input-group">
-                                            <input class="form-control form-control-sm " id="contract_expiry_date" name="contract_expiry_date" type="date" value="" />
-                                        </div>
+                                <div class="form-group">
+                                <label for="contract_expiry_date" class=" control-label">Expiry Date</label>
+                                <div class="input-group date contract_expiry_date controls">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" name="contract_expiry_date"  placeholder=" End Date"
+                                    data-date-format="dd-mm-yyyy" class="form-control"
+                                        value="" style="height: 33px;" id="contract_expiry_date"
+                                        required>
                                     </div>
                                 </div>
 
@@ -481,7 +455,6 @@
 
     // var token = '{{Session::token()}}';
     $('#second_party_type_cli').on('change', function() {
-        console.log("omar");
         $.ajax({
                 method: 'GET',
                 url: "{{url('/client_type')}}",
@@ -495,7 +468,7 @@
             });
     });
 
-    $('#start_date').val(moment().locale('en').format('YYYY-MM-DD'))
+    $('#start_date').val(moment().locale('en').format('DD-MM-YYYY'))
 
     $('#signed_date_input').change(function() {
         $('#start_date').val($('#signed_date_input').val())
@@ -570,18 +543,20 @@
     var monthes = 12;
     var x = 0;
     $("#contract_duration").change(function() {
+      console.log("select");
         number = ($(this).find('option:selected').text()).match(/\d+/)[0];
         monthes = ($(this).find('option:selected').data('type')).includes('m') ?  number : number * 12
         setEndDate($("#start_date").val(), monthes)
     })
 
     $("#start_date").change(function() {
+      console.log("start_date");
         var endDate = $(this).val();
         setEndDate(endDate, monthes)
     });
 
     function setEndDate(endDate, monthes) {
-        $("#contract_expiry_date").val(moment(endDate, "YYYY-MM-DD").locale('en').add(monthes, 'month').subtract(1, 'day').format('YYYY-MM-DD'))
+        $("#contract_expiry_date").val(moment(endDate, "DD-MM-YYYY").locale('en').add(monthes, 'month').subtract(1, 'day').format('DD-MM-YYYY'))
     }
 
     $(document).on('click', '#add', function() {
@@ -708,5 +683,24 @@
             })
         }
     }
+
+    $(document).on('ready', function() {
+      $('.signed_date_input').datepicker({
+          format: 'dd-mm-yyyy',
+          autoclose: true,
+      })
+    })
+    $(document).on('ready', function() {
+      $('.start_date').datepicker({
+          format: 'dd-mm-yyyy',
+          autoclose: true,
+      })
+    })
+    $(document).on('ready', function() {
+      $('.contract_expiry_date').datepicker({
+          format: 'dd-mm-yyyy',
+          autoclose: true,
+      })
+    })
 </script>
 @stop

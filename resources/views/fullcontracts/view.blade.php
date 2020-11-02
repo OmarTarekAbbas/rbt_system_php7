@@ -220,6 +220,11 @@
                             </tr>
 
                             <tr>
+                                <td width='30%' class='label-view text-right'>Contract Renews </td>
+                                <td> <a href="{{url('fullcontracts/'.$contract->id.'/renews')}}" target="_blank">Review</a></td>
+                            </tr>
+
+                            <tr>
                                 <td width='30%' class='label-view text-right'>Full Approve </td>
                                 <td>{{ $contract->fullapprove ? "Yes" : "No" }}</td>
                             </tr>
@@ -241,18 +246,25 @@
                 </div>
                 @if($contract->items->count())
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered ">
-                        <thead>
-                          <td> Item </td>
-                          <td> Approve Status </td>
+                    <table class="table table-striped table-bordered " >
+                        <thead style="background: #0000001c;">
+                          <td width='30%' class='label-view text-right' style="font-weight: bold;"> Approve Status </td>
+                          <td style="font-weight: bold;"> Item </td>
                         </thead>
                         <tbody>
                           @foreach($contract->items as $item)
                             <tr>
                                 <td width='30%' class='label-view text-right'>
+                                  @if($item->fullapproves == 0)
+                                  <button class="btn btn-danger" style="margin-top: 3%;">{{ $approveStatus::getLabel($item->fullapproves) }}</button>
+                                  @else
+                                  <button class="btn btn-success" style="margin-top: 3%;">{{ $approveStatus::getLabel($item->fullapproves) }}</button>
+                                  @endif
+                                </td>
+
+                                <td >
                                 {!! $item->item !!}
                                 </td>
-                                <td> {{ $approveStatus::getLabel($item->fullapproves) }} </td>
                             </tr>
                           @endforeach
                         </tbody>
