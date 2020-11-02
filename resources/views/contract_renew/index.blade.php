@@ -60,7 +60,7 @@ ContractRenew
 
 @section('script')
 <script>
-$('#employees').addClass('active');
-$('#employees-index').addClass('active');
+$('#contract').addClass('active');
+    $('#contract-index').addClass('active');
 </script>
 @stop
