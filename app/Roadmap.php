@@ -15,4 +15,21 @@ class Roadmap extends Model
     {
         return $this->belongsToMany('App\Provider','provider_contents','roadmap_id','provider_id')->withPivot(['content_id','rbt_track_specs','id']);
     }
+
+    public function occasion()
+    {
+        return $this->belongsTo('App\Occasion');
+    }
+    public function country()
+    {
+        return $this->belongsTo('App\Country');
+    }
+    public function operator()
+    {
+        return $this->belongsTo('App\Operator');
+    }
+    public function aggregator()
+    {
+        return $this->belongsTo('App\Aggregator');
+    }
 }

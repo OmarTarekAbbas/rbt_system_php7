@@ -88,6 +88,15 @@ class RoadMapController extends Controller
       return $datatable;
   }
 
+  public function show($id)
+  {
+    $emails = explode(',', setting('action_roadmap_emails'));
+
+    $roadmap = Roadmap::find($id);
+
+    return view('roadmap.show', compact('roadmap', 'emails'));
+  }
+
     public function create()
     {
         $countries = all_country();
