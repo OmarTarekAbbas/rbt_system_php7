@@ -18,7 +18,7 @@ Contents
       </div>
       <div class="box-content">
         <div class="btn-group">
-          @if(Auth::user()->hasRole(['super_admin','admin']))
+          @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
           <a class="btn btn-circle btn-success show-tooltip" href="{{url('content/create')}}" title="Create New content" href="#"><i class="fa fa-plus"></i></a>
           <a id="delete_button" onclick="delete_selected('contents')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
           @endif

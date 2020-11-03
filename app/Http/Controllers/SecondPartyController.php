@@ -48,7 +48,7 @@ class SecondPartyController extends Controller
         SecondPartyStoreService $SecondPartyStoreService,
         SecondPartyUpdateService $SecondPartyUpdateService
     ) {
-        $this->middleware(['auth', 'role:super_admin|legal'], ['except' => ['index', 'providers_to_secondparty']]);
+        $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index', 'providers_to_secondparty']]);
         $this->SecondPartyRepository = $SecondPartyRepository;
         $this->SecondPartyTypeRepository = $SecondPartyTypeRepository;
         $this->SecondPartyStoreService = $SecondPartyStoreService;

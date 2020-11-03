@@ -85,7 +85,7 @@
             <div class="box-content">
 
 
-                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                 <div class="btn-toolbar pull-right clearfix">
                     <div class="btn-group">
                         <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
@@ -101,7 +101,7 @@
                             <tr>
                                 <th style="width:18px"><input type="checkbox" /></th>
                                 <th>Title</th>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                                 <th>Delete</th>
                                 @endif
                             </tr>
@@ -111,7 +111,7 @@
                             <tr class="table-flag-blue">
                                 <td><input type="checkbox" /></td>
                                 <td>{!!$country->title!!}</td>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                                <td>
                                <a class="btn btn-sm btn-success show-tooltip" title="Add Operator" href="{{url("operator/create_country?country_id=".$country->id."&title=".$country->title)}}" data-original-title="Add Operator"><i class="fa fa-plus"></i></a>
                                 <a class="btn btn-sm show-tooltip" href=" {{url('country/'.$country->id.'/operator')}}" title="Operator"><i class="fa fa-table"></i></a>

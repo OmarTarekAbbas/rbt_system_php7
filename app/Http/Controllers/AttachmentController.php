@@ -40,7 +40,7 @@ class AttachmentController extends Controller
         AttachmentStoreService $AttachmentStoreService,
         AttachmentUpdateService $AttachmentUpdateService
         ) {
-        $this->middleware(['auth', 'role:super_admin|legal'], ['except' => ['index']]);
+        $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index']]);
         $this->AttachmentRepository = $AttachmentRepository;
         $this->AttachmentStoreService = $AttachmentStoreService;
         $this->AttachmentUpdateService = $AttachmentUpdateService;

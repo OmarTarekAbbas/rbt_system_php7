@@ -17,7 +17,7 @@ Second Party
 	                </div>
 	            </div>
 	            <div class="box-content">
-                @if (Auth::user()->hasRole(['super_admin', 'legal']))
+                @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
 					<div class="btn-toolbar pull-right">
 						<div class="btn-group">
@@ -69,7 +69,7 @@ Second Party
                   <td><a class="btn disabled">No File</a></td>
                 @endif
 								<td class="visible-md visible-lg">
-                  @if (Auth::user()->hasRole(['super_admin', 'legal']))
+                  @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
 								    <div class="btn-group">
 								    	<a class="btn btn-sm show-tooltip" title="" href="{{url('SecondParty/'.$SecondParty->second_party_id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>

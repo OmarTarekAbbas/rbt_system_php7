@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div class="box-content">
-                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                 <div class="btn-toolbar pull-right clearfix">
                     <div class="btn-group">
                         <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
@@ -97,7 +97,7 @@
                             <tr>
                                 <th style="width:18px"><input type="checkbox" /></th>
                                 <th>Title</th>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                                 <th>Delete</th>
                                 @endif
                             </tr>
@@ -107,7 +107,7 @@
                             <tr class="table-flag-blue">
                                 <td><input type="checkbox" /></td>
                                 <td>{!!$aggregator->title!!}</td>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                                <td>
                                 @if(!$aggregator->user)
                                 <a class="btn btn-sm btn-success show-tooltip" title="Add Aggregator" href="{{url("users/new?aggregator_id=".$aggregator->id."&title=".$aggregator->title)}}" data-original-title="Add Operator"><i class="fa fa-plus"></i></a>

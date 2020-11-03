@@ -100,7 +100,7 @@ Operators
         </div>
       </div>
       <div class="box-content">
-        @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+        @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
         <div class="btn-toolbar pull-right clearfix">
           <div class="btn-group">
             <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
@@ -117,7 +117,7 @@ Operators
                 <th style="width:18px"><input type="checkbox" /></th>
                 <th>title</th>
                 <th>country</th>
-                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                 <th>actions</th>
                 @endif
               </tr>
@@ -128,7 +128,7 @@ Operators
                 <td><input type="checkbox" /></td>
                 <td>{!!$operator->title!!}</td>
                 <td>{!!$operator->country->title!!}</td>
-                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                 <td>
                   <a class="btn btn-sm show-tooltip teet" href="#"><i id="{{$operator->id}}_{{$operator->country->id}}" class="fa fa-edit"></i></a>
                   <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete {{ $operator->title }} ?')" href="{{url('/operator/'.$operator->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>

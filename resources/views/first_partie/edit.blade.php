@@ -35,15 +35,23 @@ FirstParties
                           </div>
                         </div>
 
+                        @if ($firstpartie->first_party_signature)
+                        <a href="{{ url($firstpartie->first_party_signature) }}"> Preview</a>
+                        @endif
+
                         <div class="form-group">
-                          <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> First party signature <a href="{{ url($firstpartie->first_party_signature) }}"> Preview</a> </label>
+                          <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> First party signature </label>
                           <div class="col-sm-9 col-lg-10 controls">
                             <input type="file" name="first_party_signature" id="first_party_signature" placeholder="Second Party Title" class="form-control">
                           </div>
                         </div>
 
+                        @if ($firstpartie->first_party_seal)
+                        <a href="{{ url($firstpartie->first_party_seal) }}"> Preview</a>
+                        @endif
+
                         <div class="form-group">
-                          <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> First party seal  <a href="{{ url($firstpartie->first_party_seal) }}"> Preview</a> </label>
+                          <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> First party seal   </label>
                           <div class="col-sm-9 col-lg-10 controls">
                             <input type="file" name="first_party_seal" id="first_party_seal" placeholder="Second Party Title" class="form-control">
                           </div>

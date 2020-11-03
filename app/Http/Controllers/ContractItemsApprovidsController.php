@@ -13,7 +13,7 @@ class ContractItemsApprovidsController extends Controller
 
   public function __construct()
   {
-    $this->middleware(['auth', 'role:super_admin|legal'], ['except' => ['index']]);
+    $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index']]);
   }
 
   /**

@@ -116,7 +116,7 @@
                         </div>
                     </div>
 
-                      @if(Auth::user()->hasRole(["super_admin","admin"]))
+                      @if(Auth::user()->hasRole(["super_admin","admin", 'ceo']))
                     <div class="form-group col-md-6">
                         <label class="col-sm-3 col-lg-2 control-label">Aggregator</label>
                         <div class="col-sm-9 col-lg-10 controls">
@@ -174,7 +174,7 @@
                 data: {"search_field":search_field},
                 success: function(result){
                     $('#search_result').html('') ;
-                    @if(Auth::user()->hasRole(["super_admin","admin"]))
+                    @if(Auth::user()->hasRole(["super_admin","admin", 'ceo']))
                     var table = '<div class="row">\
                                     <div class="col-md-12">\
                                     <div class="box">\
@@ -286,7 +286,7 @@
                         '<td>'+record.revenue_share+'</td>'+
                         '<td>'+record.provider_title+'</td>'+
                         '<td>'+record.operator_title+'</td>'+
-                        @if(Auth::user()->hasRole(["super_admin","admin"]))
+                        @if(Auth::user()->hasRole(["super_admin","admin", 'ceo']))
                         '<td>'+record.aggregator_title+'</td>'+
                         @endif
                       '</tr>';

@@ -17,7 +17,7 @@
         </a>
 
     </div>
-    @if (Auth::user()->hasRole(['super_admin', 'legal']))
+    @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
     <div class="col-md-4" style="text-align: center;">
         <a class="btn btn-circle show-tooltip " href="{{url('fullcontracts/'.$contract->id.'/edit')}}"
             title="Edit Contract"><i class="fa fa-edit"></i></a>
