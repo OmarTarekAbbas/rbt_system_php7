@@ -34,7 +34,7 @@ class UploaderService
     {
         $ourPath = $this->creatOurFolderPath($folder);
 
-        $file_name = time().rand().'.'.$file->getClientOriginalExtension();
+        $file_name = time().rand(0, 999).'.'.$file->getClientOriginalExtension();
 
         if ($file->move($ourPath['path'], $file_name)) {
             return 'uploads'.$folder.'/'.$file_name;
