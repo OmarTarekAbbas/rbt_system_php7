@@ -14,7 +14,6 @@ ContractRenew
                 </div>
             </div>
             <div class="box-content">
-
                 <div class="table-responsive">
                     <table id="example" class="table table-striped dt-responsive" cellspacing="0" width="100%">
                         <thead>

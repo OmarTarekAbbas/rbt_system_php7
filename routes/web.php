@@ -110,7 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('contract/an/{id}', 'FullcontractsController@annex');
     Route::get('contract/al/{id}', 'FullcontractsController@authorization');
     Route::get('contract/cr/{id}', 'FullcontractsController@copyright');
-    Route::get('fullcontracts/{id}/renews', 'FullcontractsController@contract_list_renews');
+    // Route::get('fullcontracts/{id}/renews', 'FullcontractsController@contract_list_renews');
 
     // End Routes for fullcontracts
 
