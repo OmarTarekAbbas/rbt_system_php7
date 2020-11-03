@@ -143,7 +143,7 @@ class SecondPartyController extends Controller
         }else{
 
           $secondparty['second_party_title'] = $provider->title;
-          $secondparty['second_party_type_id'] = 2;
+          $secondparty['second_party_type_id'] = PROVIDER_ID;
 
           $create_secondparty = SecondParties::create( $secondparty );
 

@@ -351,7 +351,7 @@ class RbtController extends Controller
                     } else {
                       $prov = array();
                       $prov['second_party_title'] = $row->content_owner;
-                      $prov['second_party_type_id'] = 2;
+                      $prov['second_party_type_id'] = PROVIDER_ID;
                       $create = SecondParties::create($prov);
                       $provider_id = $create->second_party_id;
                     }

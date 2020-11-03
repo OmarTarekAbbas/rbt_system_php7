@@ -1,12 +1,13 @@
 <?php
 use App\User;
+use PDF as PDF;
 use App\Country;
 use App\Department;
+use App\SecondParty;
 use App\Notification;
 use Illuminate\Http\Request;
 use App\Events\Notifications;
 use Illuminate\Support\Facades\DB;
-use PDF as PDF;
 function delete_multiselect(Request $request) // select many contract from index table and delete them
 {
     $selected_list =  explode(",",$request['selected_list']);
@@ -201,4 +202,19 @@ function send_notification($message,$dep,$data){
       $monthes = $monthes * 12;
     }
     return $monthes;
+ }
+
+ /**
+  * Method get provider from second party type
+  */
+ function provider() {
+
+    $provider = SecondParty::where('second_party_type_title', 'Provider')->first();
+
+    if( $provider ) {
+      return $provider->id;
+    }
+
+    return 2;
+
  }
