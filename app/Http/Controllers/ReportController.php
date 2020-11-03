@@ -18,6 +18,13 @@ use App\Type;
 use App\Operator;
 use App\Provider;
 use App\Aggregator;
+use App\Filters\Report\AggregatorFilter;
+use App\Filters\Report\ContractFilter;
+use App\Filters\Report\OperatorFilter;
+use App\Filters\Report\RbtCodeFilter;
+use App\Filters\Report\RbtTitleFilter;
+use App\Filters\Report\SecondPartyFilter;
+use App\Filters\Report\YearFilter;
 use Validator;
 use Excel;
 use App\Rbt;
@@ -159,8 +166,9 @@ class ReportController extends Controller
                     $report['contract_id']   = $rbt->content->contract->id;
                     $report['download_no']   = $row->download_number;
                     $report['total_revenue'] = $row->total_revenue;
-                    $report['your_revenu']   = $row->revenue_share;
-                    $report['client_revenu'] = $row->revenue_share;
+                    $report['your_revenu']   = $rbt->content->contract->first_party_select  ?  ($row->revenue_share * ($rbt->content->contract->first_party_percentage/100)) :  ($row->revenue_share * ($rbt->content->contract->second_party_percentage/100));
+
+                    $report['client_revenu'] = !$rbt->content->contract->first_party_select ?  ($row->revenue_share * ($rbt->content->contract->first_party_percentage/100)) :  ($row->revenue_share * ($rbt->content->contract->second_party_percentage/100));
                     $check = Report::create($report);
                     if ($check)
                         $successful_creations++;
@@ -379,81 +387,27 @@ class ReportController extends Controller
     {
         $operators = Operator::all();
         $aggregators = Aggregator::all()->pluck('title', 'id');
-        $second_partys = Provider::all()->pluck('title', 'id');
+        $second_partys = SecondParties::all();
         return view('report.search', compact('operators', 'aggregators', 'second_partys'));
     }
 
     public function search_result(Request $request)
     {
-        $report_columns = Schema::getColumnListing('reports');
-        $columns = array(
-            1 => "year", 2 => "month", 3 => "classification", 4 => "code",
-            5 => "rbt_name", 6 => "rbt_id", 7 => "download_no", 8 => "total_revenue", 9 => "revenue_share", 10 => "operator_id", 11 => "second_party_id", 13 => "aggregator_id", 12 => "from", 14 => "to"
-        );
-
-        $search_key_value = array();
-        foreach ($request['search_field'] as $index => $item) {
-            if (strlen($item) == 0)
-                continue;
-            else {
-                if ($index == 13) {
-                    $item = date("Y-m-d", strtotime($item));
-                    $search_key_value['from'] = $item;
-                } elseif ($index == 14) {
-                    $item = date("Y-m-d", strtotime($item));
-                    $search_key_value['to'] = $item;
-                } elseif (array_search($columns[$index], $report_columns)) {
-                    $search_key_value[$columns[$index]] = $item;
-                }
-            }
-        }
-        $string_query = "";
-        $counter = 0;
-        $size = count($search_key_value);
-        foreach ($search_key_value as $index => $value) {
-            $sign = "=";
-            if ($index == "to") {
-                $sign = "<=";
-                $index = "created_at";
-            } elseif ($index == "from") {
-                $sign = ">=";
-                $index = "created_at";
-            } elseif ($index == "rbt_name") {
-                $sign = "like";
-            }
-
-            $counter++;
-            if ($counter == $size) {
-                if ($index == "rbt_name") {
-                    $string_query .= "`reports`.`$index`" . " $sign '%$value%'";
-                } else {
-                    $string_query .= "`reports`.`$index`" . " $sign '$value'";
-                }
-            } else {
-                $string_query .= "`reports`.`$index`" . " $sign '$value' AND ";
-            }
-        }
-        $select = "SELECT reports.* , operators.title AS operator_title, second_partys.title AS second_party_title, aggregators.title AS aggregator_title
-                   FROM reports
-                   JOIN second_partys ON reports.second_party_id = second_partys.id
-                   JOIN aggregators ON reports.aggregator_id = aggregators.id
-                   JOIN operators ON reports.operator_id = operators.id ";
-        if (empty($string_query))
-            $where = "";
-        else
-            $where = " WHERE " . $string_query . " ORDER BY reports.total_revenue DESC";
-
-        if (Auth::user()->hasRole(['account'])) {
-            if ($where) {
-                $select  .= " And aggregators.id=" . Auth::user()->aggregator_id;
-            } else {
-                $select  .= " where aggregators.id=" . Auth::user()->aggregator_id;
-            }
-        }
-
-        $query = $select . $where;
-        $search_result = \DB::select($query);
+        $search_result = Report::with(['operator','provider','contract','aggregator'])->filter($this->search_filters())->get();
         return $search_result;
+    }
+
+    public function search_filters()
+    {
+      return [
+        'second_party_id' => new SecondPartyFilter(),
+        'operator_id' => new OperatorFilter(),
+        'aggregator_id' => new AggregatorFilter(),
+        'contract_id' => new ContractFilter(),
+        'year' => new YearFilter(),
+        'code' => new RbtCodeFilter(),
+        'title' => new RbtTitleFilter(),
+      ];
     }
 
 
