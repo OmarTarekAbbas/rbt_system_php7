@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ContractRenew extends Model
 {
     protected $fillable = ['contract_id', 'renew_start_date', 'renew_expire_date', 'ceo_renew', 'renew_duration_id'];
-    protected $dates    = ['renew_start_date', 'renew_expire_date'];
+    // protected $dates    = ['renew_start_date', 'renew_expire_date'];
 
     public function contract()
     {
