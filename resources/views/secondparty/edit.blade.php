@@ -72,7 +72,7 @@ Second Party Types
                     </div>
 
                     <div class="form-group">
-                      <label for="second_party_terminate_date" class="col-xs-3 col-lg-2 control-label"> first party joining date</label>
+                      <label for="second_party_terminate_date" class="col-xs-3 col-lg-2 control-label"> first party terminate date</label>
                       <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="yyyy-mm-dd">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         <input type="text" name="second_party_terminate_date" id="second_party_terminate_date" autocomplete="off" placeholder="first party joining date" data-date-format="yyyy-mm-dd" class="form-control" value="{{$SecondParty->second_party_terminate_date}}">
@@ -105,7 +105,7 @@ Second Party Types
                   <!-- BEGIN Left Side -->
                   <div class="box-content">
                     @isset($SecondParty->second_party_identity)
-                    <td><a target="_blank" href="{{url($SecondParty->second_party_identity)}}">Preview</a></td>
+                    <td><a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_identity")}}">Preview</a></td>
                     @endisset
                     <div class="form-group">
                       <label for="second_party_identity" class="col-xs-3 col-lg-2 control-label"> ID </label>
@@ -114,7 +114,7 @@ Second Party Types
                       </div>
                     </div>
                     @isset($SecondParty->second_party_cr)
-                    <td><a target="_blank" href="{{url($SecondParty->second_party_cr)}}">Preview</a></td>
+                    <td><a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_cr")}}">Preview</a></td>
                     @endisset
                     <div class="form-group">
                       <label for="second_party_cr" class="col-xs-3 col-lg-2 control-label"> CR </label>
@@ -123,7 +123,7 @@ Second Party Types
                       </div>
                     </div>
                     @isset($SecondParty->second_party_tc)
-                    <td><a target="_blank" href="{{url($SecondParty->second_party_tc)}}">Preview</a></td>
+                    <td><a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_tc")}}">Preview</a></td>
                     @endisset
                     <div class="form-group">
                       <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> TC </label>
@@ -132,7 +132,7 @@ Second Party Types
                       </div>
                     </div>
                     @isset($SecondParty->second_party_signature)
-                    <td><a target="_blank" href="{{url($SecondParty->second_party_signature)}}">Preview</a></td>
+                    <td><a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_signature")}}">Preview</a></td>
                     @endisset
                     <div class="form-group">
                       <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> second party signature </label>
@@ -141,7 +141,7 @@ Second Party Types
                       </div>
                     </div>
                     @isset($SecondParty->second_party_seal)
-                    <td><a target="_blank" href="{{url($SecondParty->second_party_seal)}}">Preview</a></td>
+                    <td><a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_seal")}}">Preview</a></td>
                     @endisset
                     <div class="form-group">
                       <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> second party sea; </label>

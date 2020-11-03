@@ -15,6 +15,7 @@ use App\Operator;
 use App\Provider;
 use App\Aggregator;
 
+use App\SecondParties;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
@@ -148,7 +149,7 @@ class RbtController extends Controller
         $operators = Operator::all();
         $occasions = Occasion::all()->pluck('title','id');
         $aggregators = Aggregator::all()->pluck('title','id');
-        $providers = Provider::all()->pluck('title','id') ;
+        $providers = SecondParties::all()->pluck('second_party_title', 'second_party_id');
         $contents = Content::all()->pluck('content_title','id') ;
         return view('rbt.create',compact('operators', 'occasions', 'aggregators','providers','contents' ));
     }
@@ -344,19 +345,17 @@ class RbtController extends Controller
                     }
 
 
-
-
-                    $check_provider = Provider::where('title','LIKE','%'.$row->content_owner.'%')->first() ;
-                    if ($check_provider)
-                    {
-                        $provider_id = $check_provider->id ;
+                    $check_provider = SecondParties::where('second_party_title', 'LIKE', '%' . $row->content_owner . '%')->first();
+                    if ($check_provider) {
+                      $provider_id = $check_provider->second_party_id;
+                    } else {
+                      $prov = array();
+                      $prov['second_party_title'] = $row->content_owner;
+                      $prov['second_party_type_id'] = 2;
+                      $create = SecondParties::create($prov);
+                      $provider_id = $create->second_party_id;
                     }
-                    else{
-                        $prov = array() ;
-                        $prov['title'] = $row->content_owner ;
-                        $create = Provider::create($prov) ;
-                        $provider_id = $create->id ;
-                    }
+
 
                     $check_content = Content::where('internal_coding', 'LIKE', '%' . $row->master_content_code . '%')->first();
                     if ($check_content) {

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Rbt;
+use App\Content;
+use App\Provider;
+use App\SecondParties;
 use Illuminate\Http\Request;
 use App\Http\Repository\SecondPartyRepository;
 use App\Http\Requests\SecondPartyStoreRequest;
@@ -44,7 +48,7 @@ class SecondPartyController extends Controller
         SecondPartyStoreService $SecondPartyStoreService,
         SecondPartyUpdateService $SecondPartyUpdateService
     ) {
-        $this->middleware(['auth', 'role:super_admin|legal'], ['except' => ['index']]);
+        $this->middleware(['auth', 'role:super_admin|legal'], ['except' => ['index', 'providers_to_secondparty']]);
         $this->SecondPartyRepository = $SecondPartyRepository;
         $this->SecondPartyTypeRepository = $SecondPartyTypeRepository;
         $this->SecondPartyStoreService = $SecondPartyStoreService;
@@ -123,4 +127,50 @@ class SecondPartyController extends Controller
         $SecondParty = $this->SecondPartyRepository->where('second_party_id', $id)->delete();
         return back()->with(['success' => 'Deleted Successfully']);
     }
+
+    public function providers_to_secondparty() {
+
+      $providers = Provider::all();
+
+      foreach( $providers as $provider ){
+
+        $exist_secondparty = SecondParties::where('second_party_title', $provider->title)->first();
+
+        if( $exist_secondparty ){
+
+          $create_secondparty = $exist_secondparty;
+
+        }else{
+
+          $secondparty['second_party_title'] = $provider->title;
+          $secondparty['second_party_type_id'] = 2;
+
+          $create_secondparty = SecondParties::create( $secondparty );
+
+        }
+
+        $contents = Content::where( 'provider_id' , $provider->id )->get();
+
+        foreach( $contents as $content ){
+
+          $content->provider_id = $create_secondparty->second_party_id;
+
+          $content->save();
+
+        }
+
+        $rbts = Rbt::where( 'provider_id' , $provider->id )->get();
+
+        foreach( $rbts as $rbt ){
+
+          $rbt->provider_id = $create_secondparty->second_party_id;
+
+          $rbt->save();
+
+        }
+
+      }
+
+  }
+
 }

@@ -33,7 +33,7 @@ Contract
           <option value="{{$year}}">{{$year}}</option>
           @endforeach
         </select>
-        <hr>
+        {{-- <hr>
         <label class="text-muted" for="page_input">Filter By Page</label>
         <select id="page_input" class="form-control chosen" data-placeholder="Filter By page" name="page"
           tabindex="1">
@@ -42,7 +42,7 @@ Contract
           <option value="{{$page}}">{{$page+1}}</option>
           @endforeach
         </select>
-        <hr>
+        <hr> --}}
         <div class="table-responsive" style="border:0">
           <table class="table table-advance data_contract">
             <thead>
@@ -90,15 +90,15 @@ $('#signed_date').change(function (e) {
   datatable_draw_func();
 });
 
-$('#page_input').change(function (e) {
-  datatable_draw_func();
-});
+// $('#page_input').change(function (e) {
+//   datatable_draw_func();
+// });
 
 function datatable_draw_func(params) {
 
   var date = $('#signed_date').val();
-  var page = $('#page_input').val();
-  var x = '&';
+  // var page = $('#page_input').val();
+  // var x = '&';
   $(".data_contract").dataTable().fnDestroy()
 
   var table = $('.data_contract').DataTable({
@@ -109,7 +109,8 @@ function datatable_draw_func(params) {
       "regex": true
     },
     // ajax: `{{url('contracts/allData')}}`,
-    ajax: `{{url('contracts/allData?page=${page}${x}date=${date}')}}`,
+    // ajax: `{{url('contracts/allData?page=${page}${x}date=${date}')}}`,
+    ajax: `{{url('contracts/allData?date=${date}')}}`,
     columns: [{
       data: "index",
       searchable: false,

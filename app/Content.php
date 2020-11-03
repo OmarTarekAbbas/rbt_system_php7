@@ -51,8 +51,9 @@ class Content extends Model
 
     public function provider()
     {
-        return $this->belongsTo('App\Provider','provider_id');
+        return $this->belongsTo('App\SecondParties', 'provider_id', 'second_party_type_id');
     }
+
     public function occasion()
     {
         return $this->belongsTo('App\Occasion','occasion_id');

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
+use App\Rbt;
 
 use App\Content;
+use App\Country;
+use App\Contract;
 use App\Occasion;
 use App\Provider;
-use App\Rbt;
-use App\Contract;
-use App\Country;
+use App\SecondParties;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ContentController extends Controller
 {
@@ -32,8 +33,8 @@ class ContentController extends Controller
   {
     if($request->has('contract_id')){
 
-      $contents = Content::select('*', 'contents.id AS content_id', 'providers.title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
-      ->join('providers', 'providers.id', '=', 'contents.provider_id')
+      $contents = Content::select('*', 'contents.id AS content_id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
+      ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
       ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
       ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
       ->where('contents.contract_id', $request->contract_id)
@@ -42,8 +43,8 @@ class ContentController extends Controller
 
     }else{
 
-      $contents = Content::select('*', 'contents.id AS content_id', 'providers.title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
-      ->join('providers', 'providers.id', '=', 'contents.provider_id')
+      $contents = Content::select('*', 'contents.id AS content_id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
+      ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
       ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
       ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
       ->latest('contents.id')
@@ -118,7 +119,7 @@ class ContentController extends Controller
   {
     $title = 'Create - Content';
     $occasions = Occasion::all()->pluck('title', 'id');
-    $providers = Provider::all()->pluck('title', 'id');
+    $providers = SecondParties::all()->pluck('second_party_title', 'second_party_id');
     $contracts = Contract::all();
     return view('content.create', compact('title', 'providers', 'occasions', 'contracts'));
   }
@@ -254,14 +255,16 @@ class ContentController extends Controller
           } else {
             $occasion_id = NULL;
           }
-          $check_provider = Provider::where('title', 'LIKE', '%' . $row->content_owner . '%')->first();
+
+          $check_provider = SecondParties::where('second_party_title', 'LIKE', '%' . $row->content_owner . '%')->first();
           if ($check_provider) {
-            $provider_id = $check_provider->id;
+            $provider_id = $check_provider->second_party_id;
           } else {
             $prov = array();
-            $prov['title'] = $row->content_owner;
-            $create = Provider::create($prov);
-            $provider_id = $create->id;
+            $prov['second_party_title'] = $row->content_owner;
+            $prov['second_party_type_id'] = 2; //helper for provider
+            $create = SecondParties::create($prov);
+            $provider_id = $create->second_party_id;
           }
 
 
@@ -286,7 +289,6 @@ class ContentController extends Controller
           $content_data['path'] = "uploads/content/" . date('Y-m-d') . "/" . $row->path;
           $content_data['start_date'] =  $row->start_date ? transformDate($row->start_date) : null ;
           $content_data['expire_date']=  $row->expire_date ? transformDate($row->expire_date) : null ;
-
           $check = content::create($content_data);
           if ($check) {
             $content = Content::find($check->id);
