@@ -4,6 +4,13 @@ FirstParties
 @stop
 @section('content')
     @include('errors')
+    <style>
+      .input-group[class*=col-] {
+    float: none;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+    </style>
     <div class="row">
         <div class="col-md-12">
             <div class="box">
@@ -36,18 +43,30 @@ FirstParties
                         </div>
 
                         <div class="form-group">
-                          <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> First party signature <a href="{{ url($firstpartie->first_party_signature) }}"> Preview</a> </label>
-                          <div class="col-sm-9 col-lg-10 controls">
+                        <label class="col-sm-3 col-lg-2 control-label" for="code">First party signature </label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <div class=" col-md-6 fileUpload">
                             <input type="file" name="first_party_signature" id="first_party_signature" placeholder="Second Party Title" class="form-control">
-                          </div>
+                            </div>
+                            @if($firstpartie->first_party_signature)
+                              <a class="btn btn-sm btn-success"  href="{{ url($firstpartie->first_party_signature) }}"
+                              target="_blank">Review</a>
+                                  @endif
                         </div>
+                      </div>
 
-                        <div class="form-group">
-                          <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> First party seal  <a href="{{ url($firstpartie->first_party_seal) }}"> Preview</a> </label>
-                          <div class="col-sm-9 col-lg-10 controls">
+                      <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label" for="code">First party seal </label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <div class=" col-md-6 fileUpload">
                             <input type="file" name="first_party_seal" id="first_party_seal" placeholder="Second Party Title" class="form-control">
-                          </div>
+                            </div>
+                            @if($firstpartie->first_party_seal)
+                              <a class="btn btn-sm btn-success"  href="{{ url($firstpartie->first_party_seal) }}"
+                              target="_blank">Review</a>
+                                  @endif
                         </div>
+                      </div>
 
                         <div class="form-group">
                             <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
