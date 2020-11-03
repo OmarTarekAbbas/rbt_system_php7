@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Aggregator;
 use App\Country;
-use App\Provider;
 use App\Roadmap;
-use App\Http\Requests\RoadmapStoreRequest;
+use App\Provider;
+use App\Aggregator;
+use App\SecondParties;
 use Illuminate\Http\Request;
+use App\Http\Requests\RoadmapStoreRequest;
 
 class RoadMapController extends Controller
 {
@@ -91,7 +92,7 @@ class RoadMapController extends Controller
     {
         $countries = all_country();
         $aggregators = Aggregator::all()->pluck('title','id');
-        $providers = Provider::all()->pluck('title','id');
+        $providers = SecondParties::all()->pluck('second_party_title','second_party_id');
 
         return view('roadmap.create',compact('countries','aggregators','providers'));
     }
