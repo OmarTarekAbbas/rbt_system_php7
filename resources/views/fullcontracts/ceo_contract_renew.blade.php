@@ -7,11 +7,11 @@ Contracts
     <style>
       .input-group[class*=col-] {
         float: none;
-        padding-right: 67%;
+        padding-right: 50%;
         padding-left: 15px;
       }
       #contract_duration{
-        width: 82%;
+        width: 33%;
       }
     </style>
     <div class="row">
@@ -30,7 +30,7 @@ Contracts
                       <div class="form-group">
                             <label class="col-sm-3 col-lg-2 control-label">Contract Code </label>
                             <div class="col-sm-9 col-lg-10 controls">
-                                <input type="text" name="contract" value="{{ $contract->contract_code }}" placeholder="Contract" class="form-control input-lg" readonly>
+                                <input type="text" name="contract" value="{{ $contract->contract_code }} {{$contract->contract_label}}" placeholder="Contract" class="form-control input-lg" readonly style="width:40%">
                             </div>
                       </div>
 
