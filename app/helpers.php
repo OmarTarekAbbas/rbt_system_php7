@@ -47,7 +47,7 @@ function years()
 
 function all_notify()
 {
-    $Notification = Notification::with('send_user')->where('notified_id',\Auth::id())->latest()->take(5)->get();
+    $Notification = Notification::with('send_user')->where('seen',0)->where('notified_id',\Auth::id())->latest()->get();
     return $Notification;
 }
 

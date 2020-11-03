@@ -21,6 +21,7 @@ use App\Aggregator;
 use Validator;
 use Excel;
 use App\Rbt;
+use App\SecondParties;
 use Auth;
 
 /**
@@ -58,11 +59,11 @@ class ReportController extends Controller
         $title = 'Create - report';
 
         $operators = Operator::all();
-        $providers = Provider::all()->pluck('title', 'id');
+        $second_partys = Provider::all()->pluck('title', 'id');
         $aggregators = Aggregator::all()->pluck('title', 'id');
 
 
-        return view('report.create', compact('operators', 'providers', 'aggregators'));
+        return view('report.create', compact('operators', 'second_partys', 'aggregators'));
     }
 
     public function excel()
@@ -70,10 +71,10 @@ class ReportController extends Controller
         $title = 'Create - report';
 
         $operators = Operator::all();
-        $providers = Provider::all()->pluck('title', 'id');
+        $second_partys = Provider::all()->pluck('title', 'id');
         $aggregators = Aggregator::all()->pluck('title', 'id');
 
-        return view('report.excel', compact('operators', 'providers', 'aggregators'));
+        return view('report.excel', compact('operators', 'second_partys', 'aggregators'));
     }
 
     public function excelStore(Request $request)
@@ -131,33 +132,35 @@ class ReportController extends Controller
                         }
 
                         // old report for the rbt code in the same operator
-                        $old_report =   Report::where([['operator_id', $rbt->operator_id], ['provider_id', $rbt->provider_id], ['code', $rbt->code]])->where('year', $request->year)->where('month', $request->month)->first();
+                        $old_report =   Report::where([['operator_id', $rbt->operator_id], ['second_party_id', $rbt->second_party_id], ['code', $rbt->code]])->where('year', $request->year)->where('month', $request->month)->first();
                         if ($old_report) {
                             continue;
                         }
 
                         $report['rbt_name'] = $rbt->track_title_en;
                         $report['rbt_id'] = $rbt->id;
-                        $report['provider_id'] = $rbt->provider_id;
-                    } elseif ($row->code == "" && $row->track_name != "" && $row->artist_name != "") { // if you write rbt name + provider name
-                        $provider = Provider::where('title', $row->artist_name)->first();
-                        if (!$provider) {
+                        $report['second_party_id'] = $rbt->second_party_id;
+                    } elseif ($row->code == "" && $row->track_name != "" && $row->artist_name != "") { // if you write rbt name + second_party name
+                        $second_party = SecondParties::where('second_party_title', $row->artist_name)->first();
+                        if (!$second_party) {
                             continue;
                         }
-                        $rbt = Rbt::where([['operator_id', $request->operator_id], ['provider_id', $provider->id], ['track_title_en', $row->track_name]])->first();
+                        $rbt = Rbt::where([['operator_id', $request->operator_id], ['second_party_id', $second_party->id], ['track_title_en', $row->track_name]])->first();
                         if ($rbt == null) {
                             continue;
                         }
                         $report['code'] = $rbt->code;
                         $report['rbt_name'] = $rbt->track_title_en;
                         $report['rbt_id'] = $rbt->id;
-                        $report['provider_id'] = $rbt->provider_id;
+                        $report['second_party_id'] = $rbt->second_party_id;
                     } else {
                         continue;
                     }
-                    $report['download_no'] = $row->download_number;
+                    $report['contract_id']   = $rbt->content->contract->id;
+                    $report['download_no']   = $row->download_number;
                     $report['total_revenue'] = $row->total_revenue;
-                    $report['revenue_share'] = $row->revenue_share;
+                    $report['your_revenu']   = $row->revenue_share;
+                    $report['client_revenu'] = $row->revenue_share;
                     $check = Report::create($report);
                     if ($check)
                         $successful_creations++;
@@ -182,7 +185,7 @@ class ReportController extends Controller
         $validator = Validator::make($request->all(), [
             'year' => 'required',
             'month' => 'required',
-            'provider_id' => 'required',
+            'second_party_id' => 'required',
             'operator_id' => 'required',
             'classification' => 'required',
             'code' => 'required',
@@ -204,7 +207,7 @@ class ReportController extends Controller
         $report->month = $request->month;
 
 
-        $report->provider_id = $request->provider_id;
+        $report->second_party_id = $request->second_party_id;
 
 
         $report->operator_id = $request->operator_id;
@@ -269,12 +272,12 @@ class ReportController extends Controller
         $title = 'Edit - report';
 
         $operators = Operator::all();
-        $providers = Provider::all()->pluck('title', 'id');
+        $second_partys = Provider::all()->pluck('title', 'id');
         $aggregators = Aggregator::all()->pluck('title', 'id');
 
 
         $report = Report::findOrfail($id);
-        return view('report.edit', compact('title', 'operators', 'providers', 'aggregators', 'report'));
+        return view('report.edit', compact('title', 'operators', 'second_partys', 'aggregators', 'report'));
     }
 
     /**
@@ -289,7 +292,7 @@ class ReportController extends Controller
         $validator = Validator::make($request->all(), [
             'year' => 'required',
             'month' => 'required',
-            'provider_id' => 'required',
+            'second_party_id' => 'required',
             'operator_id' => 'required',
             'classification' => 'required',
             'code' => 'required',
@@ -310,7 +313,7 @@ class ReportController extends Controller
         $report->month = $request->month;
 
 
-        $report->provider_id = $request->provider_id;
+        $report->second_party_id = $request->second_party_id;
 
 
         $report->operator_id = $request->operator_id;
@@ -376,8 +379,8 @@ class ReportController extends Controller
     {
         $operators = Operator::all();
         $aggregators = Aggregator::all()->pluck('title', 'id');
-        $providers = Provider::all()->pluck('title', 'id');
-        return view('report.search', compact('operators', 'aggregators', 'providers'));
+        $second_partys = Provider::all()->pluck('title', 'id');
+        return view('report.search', compact('operators', 'aggregators', 'second_partys'));
     }
 
     public function search_result(Request $request)
@@ -385,7 +388,7 @@ class ReportController extends Controller
         $report_columns = Schema::getColumnListing('reports');
         $columns = array(
             1 => "year", 2 => "month", 3 => "classification", 4 => "code",
-            5 => "rbt_name", 6 => "rbt_id", 7 => "download_no", 8 => "total_revenue", 9 => "revenue_share", 10 => "operator_id", 11 => "provider_id", 13 => "aggregator_id", 12 => "from", 14 => "to"
+            5 => "rbt_name", 6 => "rbt_id", 7 => "download_no", 8 => "total_revenue", 9 => "revenue_share", 10 => "operator_id", 11 => "second_party_id", 13 => "aggregator_id", 12 => "from", 14 => "to"
         );
 
         $search_key_value = array();
@@ -430,9 +433,9 @@ class ReportController extends Controller
                 $string_query .= "`reports`.`$index`" . " $sign '$value' AND ";
             }
         }
-        $select = "SELECT reports.* , operators.title AS operator_title, providers.title AS provider_title, aggregators.title AS aggregator_title
+        $select = "SELECT reports.* , operators.title AS operator_title, second_partys.title AS second_party_title, aggregators.title AS aggregator_title
                    FROM reports
-                   JOIN providers ON reports.provider_id = providers.id
+                   JOIN second_partys ON reports.second_party_id = second_partys.id
                    JOIN aggregators ON reports.aggregator_id = aggregators.id
                    JOIN operators ON reports.operator_id = operators.id ";
         if (empty($string_query))
