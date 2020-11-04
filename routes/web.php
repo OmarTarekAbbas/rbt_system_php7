@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 define('ceo_email', 'mh124404@gmail.com');
+define('PROVIDER_ID', provider());
 Route::get('providers_to_secondparty', 'SecondPartyController@providers_to_secondparty');
 
 Auth::routes();
@@ -136,7 +137,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('ServiceTypes', 'ServiceTypesController');
     Route::resource('SecondPartyType', 'SecondPartyTypeController');
     Route::resource('SecondParty', 'SecondPartyController');
-    Route::get('SecondParty/allData', 'SecondPartyController@allData');
+    Route::get('SecondParty/{id}/delete', 'SecondPartyController@destroy');
+    Route::get('secondparty/allData', 'SecondPartyController@allData');
     Route::resource('attachment', 'AttachmentController');
     Route::resource('ContractTemplate', 'ContractTemplateController');
     Route::get('ContractTemplate/{id}/items', 'ContractTemplateController@showContractTerms');

@@ -17,7 +17,7 @@ Second Party
 	                </div>
 	            </div>
 	            <div class="box-content">
-                @if (Auth::user()->hasRole(['super_admin', 'legal']))
+                @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
 					<div class="btn-toolbar pull-right">
 						<div class="btn-group">
@@ -27,7 +27,7 @@ Second Party
           @endif
 					<br><br>
 					<div class="table-responsive">
-						<table id="example" class="table table-striped dt-responsive" cellspacing="0" width="100%">
+						<table id="secondParty" class="table table-striped dt-responsive " cellspacing="0" width="100%">
 						<thead>
 							<tr>
 								<th style="width:18px"><input type="checkbox" onclick="select_all('SecondParty')"></th>
@@ -44,46 +44,7 @@ Second Party
 							</tr>
 						</thead>
 						<tbody id="tablecontents">
-						@foreach($SecondPartys as $SecondParty)
-							<tr class="table-flag-blue">
-								<td><input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$SecondParty->second_party_id}}" onclick="collect_selected(this)"></td>
-								<td>{{$SecondParty->second_party_id}}</td>
-								<td>{{$SecondParty->type->second_party_type_title}}</td>
-								<td>{{$SecondParty->second_party_title}}</td>
-								<td>{{$SecondParty->second_party_joining_date}}</td>
-								<td>{{$SecondParty->second_party_terminate_date}}</td>
-								<td>{{$SecondParty->second_party_status}}</td>
-                @if($SecondParty->second_party_identity && file_exists(base_path($SecondParty->second_party_identity)))
-                  <td><a class="btn btn-primary" target="_blank" href="{{url($SecondParty->second_party_identity)}}">Preview</a></td>
-                @else
-                  <td><a class="btn disabled">No File</a></td>
-                @endif
-                @if($SecondParty->second_party_cr && file_exists(base_path($SecondParty->second_party_cr)))
-                  <td><a class="btn btn-primary" target="_blank" href="{{url($SecondParty->second_party_cr)}}">Preview</a></td>
-                  @else
-                  <td><a class="btn disabled">No File</a></td>
-                @endif
-                @if($SecondParty->second_party_tc && file_exists(base_path($SecondParty->second_party_tc)))
-                  <td><a class="btn btn-primary" target="_blank" href="{{url($SecondParty->second_party_tc)}}">Preview</a></td>
-                  @else
-                  <td><a class="btn disabled">No File</a></td>
-                @endif
-								<td class="visible-md visible-lg">
-                  @if (Auth::user()->hasRole(['super_admin', 'legal']))
 
-								    <div class="btn-group">
-								    	<a class="btn btn-sm show-tooltip" title="" href="{{url('SecondParty/'.$SecondParty->second_party_id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
-
-                      <form action="{{url('SecondParty/'.$SecondParty->second_party_id)}}" method="POST" style="display: inline">
-                        @method('DELETE')
-                        @csrf
-                        <button class="btn btn-sm btn-danger show-tooltip" type="submit" onclick = 'return ConfirmDelete()' data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
-                      </form>
-                    </div>
-                    @endif
-								</td>
-							</tr>
-						@endforeach
 						</tbody>
 						</table>
 					</div>
@@ -105,5 +66,65 @@ Second Party
     $('#contract .submenu').first().css('display', 'block');
 		$('#SecondParty .submenu').first().css('display', 'block');
 		$('#SecondParty-index').addClass('active');
+
+    $(document).ready(function() {
+        $('#secondParty').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "search": {
+                "regex": true
+            },
+            ajax: "{!! url('secondparty/allData') !!}",
+            columns: [{
+                    data: "index",
+                    searchable: false,
+                    orderable: false
+                },
+                {
+                    data: "id",
+                    name: "id"
+                },
+                {
+                    data: "secondparty_type",
+                    name: "secondparty_type"
+                },
+                {
+                    data: "second_party_title",
+                    name: "second_party_title"
+                },
+                {
+                    data: "second_party_joining_date",
+                    name: "second_party_joining_date"
+                },
+                {
+                    data: "second_party_terminate_date",
+                    name: "second_party_terminate_date"
+                },
+                {
+                    data: "second_party_status",
+                    name: "second_party_status"
+                },
+                {
+                    data: "second_party_identity",
+                    name: "second_party_identity"
+                },
+                {
+                    data: "second_party_cr",
+                    name: "second_party_cr"
+                },
+                {
+                    data: "second_party_tc",
+                    name: "second_party_tc"
+                },
+                {
+                    data: "action",
+                    searchable: false
+                }
+            ],
+            "pageLength": 10,
+            stateSave: true
+
+        });
+    });
 	</script>
 @stop

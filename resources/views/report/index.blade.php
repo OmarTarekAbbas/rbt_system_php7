@@ -31,7 +31,7 @@
                                 <th>Revenue Share</th>
                                 <th>Provider Title</th>
                                 <th>Operator Title</th>
-                                @if(Auth::user()->hasRole(['super_admin','admin']))
+                                @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
                                 <th>Aggregator Title</th>
                                 <th class="visible-md visible-lg" style="width:130px">Action</th>
                                 @endif
@@ -50,9 +50,9 @@
                                     <td>{!!($report->download_no) ? $report->download_no : '--'!!}</td>
                                     <td>{!!($report->total_revenue)!!}</td>
                                     <td>{!!$report->revenue_share!!}</td>
-                                    <td>{!!($report->provider_id) ? $report->provider->title : '--'!!}</td>
+                                    <td>{!!($report->second_party_id) ? $report->provider->second_party_title : '--'!!}</td>
                                     <td>{!!($report->operator_id) ? $report->operator->title : '--'!!}</td>
-                                    @if(Auth::user()->hasRole(['super_admin','admin']))
+                                    @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
                                     <td>{!!($report->aggregator_id) ? $report->aggregator->title : '--'!!}</td>
                                     <td class="visible-md visible-lg">
                                         <div class="btn-group">

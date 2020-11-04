@@ -27,7 +27,7 @@ Second Party
 
             <div class="row">
 
-              <div class="col-md-4">
+              <div class="col-md-8" style="float: none; margin: 0 auto;">
                 <div class="box box-red">
                   <div class="box-title">
                     <h3><i class="fa fa-bars"></i> GENERAL </h3>
@@ -55,7 +55,7 @@ Second Party
                 <!-- END Left Side -->
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-8" style="float: none; margin: 0 auto;">
                 <div class="box box-red">
                   <div class="box-title">
                     <h3><i class="fa fa-bars"></i> DATES </h3>
@@ -64,7 +64,7 @@ Second Party
                   <div class="box-content">
 
                     <div class="form-group">
-                      <label for="second_party_joining_date" class="col-xs-3 col-lg-2 control-label"> first party joining date</label>
+                      <label for="second_party_joining_date" class="col-xs-3 col-lg-2 control-label"> Joining date</label>
                       <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="yyyy-mm-dd">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         <input type="text" name="second_party_joining_date" id="second_party_joining_date" autocomplete="off" placeholder="first party joining date" data-date-format="yyyy-mm-dd" class="form-control">
@@ -72,7 +72,7 @@ Second Party
                     </div>
 
                     <div class="form-group">
-                      <label for="second_party_terminate_date" class="col-xs-3 col-lg-2 control-label"> first party terminate date</label>
+                      <label for="second_party_terminate_date" class="col-xs-3 col-lg-2 control-label"> Terminate date</label>
                       <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="yyyy-mm-dd">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         <input type="text" name="second_party_terminate_date" id="second_party_terminate_date" autocomplete="off" placeholder="first party joining date" data-date-format="yyyy-mm-dd" class="form-control">
@@ -92,7 +92,7 @@ Second Party
                 <!-- END Left Side -->
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-8" style="float: none; margin: 0 auto;">
                 <div class="box box-red">
                   <div class="box-title">
                     <h3><i class="fa fa-bars"></i> LEGAL </h3>
@@ -122,14 +122,14 @@ Second Party
                     </div>
 
                     <div class="form-group">
-                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> second party signature </label>
+                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label">  Signature </label>
                       <div class="col-sm-9 col-lg-10 controls">
                         <input type="file" name="second_party_signature" id="second_party_signature" placeholder="Second Party Title" class="form-control">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> second party seal </label>
+                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> Seal </label>
                       <div class="col-sm-9 col-lg-10 controls">
                         <input type="file" name="second_party_seal" id="second_party_seal" placeholder="Second Party Title" class="form-control">
                       </div>

@@ -5,7 +5,7 @@
     <div class="col-md-5">
         <div class="row">
             <div class="col-md-12">
-                <a href="{{url('employees')}}" target="_blank">
+                <a href="{{url('employees')}}" >
                     <div class="tile tile-green">
                         <div class="img">
                             <i class="fa fa-copy"></i>
@@ -22,7 +22,7 @@
     <div class="col-md-5">
         <div class="row">
             <div class="col-md-12">
-                <a href="{{url('department')}}" target="_blank">
+                <a href="{{url('department')}}" >
                     <div class="tile tile-green">
                         <div class="img">
                             <i class="fa fa-copy"></i>
@@ -39,7 +39,7 @@
     <div class="col-md-5">
         <div class="row">
             <div class="col-md-12">
-                <a href="{{url('fullcontracts')}}" target="_blank">
+                <a href="{{url('fullcontracts')}}" >
                     <div class="tile tile-green">
                         <div class="img">
                             <i class="fa fa-copy"></i>
@@ -56,7 +56,7 @@
     <div class="col-md-5">
         <div class="row">
             <div class="col-md-12">
-                <a href="{{url('content')}}" target="_blank">
+                <a href="{{url('content')}}" >
                     <div class="tile tile-green">
                         <div class="img">
                             <i class="fa fa-copy"></i>
@@ -73,7 +73,7 @@
     <div class="col-md-5">
         <div class="row">
             <div class="col-md-12">
-                <a href="{{url('rbt')}}" target="_blank">
+                <a href="{{url('rbt')}}" >
 
                     <div class="tile tile-green">
                         <div class="img">
@@ -92,7 +92,7 @@
     <div class="col-md-5">
         <div class="row">
             <div class="col-md-12">
-                <a href="{{url('report')}}" target="_blank">
+                <a href="{{url('report')}}" >
 
                     <div class="tile tile-green">
                         <div class="img">
@@ -110,7 +110,7 @@
     <div class="col-md-5">
         <div class="row">
             <div class="col-md-12">
-                <a href="{{url('roadmaps')}}" target="_blank">
+                <a href="{{url('roadmaps')}}" >
 
                     <div class="tile tile-green">
                         <div class="img">
@@ -129,7 +129,7 @@
     <div class="col-md-5">
         <div class="row">
             <div class="col-md-12">
-                <a href="{{url('SecondParty')}}" target="_blank">
+                <a href="{{url('SecondParty')}}" >
 
                     <div class="tile tile-green">
                         <div class="img">

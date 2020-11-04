@@ -4,6 +4,13 @@ FirstParties
 @stop
 @section('content')
     @include('errors')
+    <style>
+.input-group[class*=col-] {
+    float: none;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+</style>
     <div class="row">
         <div class="col-md-12">
             <div class="box">
@@ -15,6 +22,9 @@ FirstParties
                     </div>
                 </div>
                 <div class="box-content">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
                     <form class="form-horizontal" action="{{url('firstparties')}}" method="post" enctype="multipart/form-data">
                     	{{ csrf_field() }}
                       <div class="form-group">
@@ -55,6 +65,9 @@ FirstParties
                             </div>
                         </div>
                     </form>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
                 </div>
             </div>
         </div>

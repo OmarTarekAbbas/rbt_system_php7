@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div class="box-content">
-                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                 <div class="btn-toolbar pull-right clearfix">
                     <div class="btn-group">
                         <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
@@ -103,7 +103,7 @@
                             <tr>
                                 <th style="width:18px"><input type="checkbox" /></th>
                                 <th class="search">Title</th>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                                 <th>Delete</th>
                                 @endif
                             </tr>
@@ -113,7 +113,7 @@
                             <tr class="table-flag-blue">
                                 <td><input type="checkbox" /></td>
                                 <td>{!!$provider->title!!}</td>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                                <td>
                                 <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" ><i id="{{$provider->id}}" class="fa fa-edit"></i></a>
                                 <a class="btn btn-sm btn-danger show-tooltip" title=""   onclick="return confirm('Are you sure you want to delete {{ $provider->title }} ?')"     href="{{url('/provider/'.$provider->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>

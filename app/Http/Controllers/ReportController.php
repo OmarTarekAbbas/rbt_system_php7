@@ -47,7 +47,7 @@ class ReportController extends Controller
     public function index()
     {
         $title = 'Index - report';
-        if (Auth::user()->hasRole(['super_admin', 'admin'])) {
+        if (Auth::user()->hasRole(['super_admin', 'admin', 'ceo'])) {
             $reports = Report::all();
         } else {
             $reports = Report::where('aggregator_id', Auth::user()->aggregator_id)->get();
@@ -152,7 +152,8 @@ class ReportController extends Controller
                         if (!$second_party) {
                             continue;
                         }
-                        $rbt = Rbt::where([['operator_id', $request->operator_id], ['provider_id', $second_party->id], ['track_title_en', $row->track_name]])->first();
+                        $rbt = Rbt::where([['operator_id', $request->operator_id], ['provider_id', $second_party->second_party_id], ['track_title_en', $row->track_name]])->first();
+
                         if ($rbt == null) {
                             continue;
                         }
@@ -166,6 +167,7 @@ class ReportController extends Controller
                     $report['contract_id']   = $rbt->content->contract->id;
                     $report['download_no']   = $row->download_number;
                     $report['total_revenue'] = $row->total_revenue;
+                    $report['revenue_share'] = $row->revenue_share;
                     $report['your_revenu']   = $rbt->content->contract->first_party_select  ?  ($row->revenue_share * ($rbt->content->contract->first_party_percentage/100)) :  ($row->revenue_share * ($rbt->content->contract->second_party_percentage/100));
 
                     $report['client_revenu'] = !$rbt->content->contract->first_party_select ?  ($row->revenue_share * ($rbt->content->contract->first_party_percentage/100)) :  ($row->revenue_share * ($rbt->content->contract->second_party_percentage/100));

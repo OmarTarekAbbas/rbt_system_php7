@@ -27,7 +27,7 @@ Second Party Types
 
             <div class="row">
 
-              <div class="col-md-4">
+              <div class="col-md-8" style="float: none; margin: 0 auto;">
                 <div class="box box-red">
                   <div class="box-title">
                     <h3><i class="fa fa-bars"></i> GENERAL </h3>
@@ -55,7 +55,7 @@ Second Party Types
                 <!-- END Left Side -->
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-8" style="float: none; margin: 0 auto;">
                 <div class="box box-red">
                   <div class="box-title">
                     <h3><i class="fa fa-bars"></i> DATES </h3>
@@ -64,7 +64,7 @@ Second Party Types
                   <div class="box-content">
 
                     <div class="form-group">
-                      <label for="second_party_joining_date" class="col-xs-3 col-lg-2 control-label"> first party joining date</label>
+                      <label for="second_party_joining_date" class="col-xs-3 col-lg-2 control-label"> Joining date</label>
                       <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="yyyy-mm-dd">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         <input type="text" name="second_party_joining_date" id="second_party_joining_date" autocomplete="off" placeholder="first party joining date" data-date-format="yyyy-mm-dd" class="form-control" value="{{$SecondParty->second_party_joining_date}}">
@@ -72,7 +72,7 @@ Second Party Types
                     </div>
 
                     <div class="form-group">
-                      <label for="second_party_terminate_date" class="col-xs-3 col-lg-2 control-label"> first party terminate date</label>
+                      <label for="second_party_terminate_date" class="col-xs-3 col-lg-2 control-label"> Terminate date</label>
                       <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="yyyy-mm-dd">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         <input type="text" name="second_party_terminate_date" id="second_party_terminate_date" autocomplete="off" placeholder="first party joining date" data-date-format="yyyy-mm-dd" class="form-control" value="{{$SecondParty->second_party_terminate_date}}">
@@ -97,7 +97,7 @@ Second Party Types
                 <!-- END Left Side -->
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-8" style="float: none; margin: 0 auto;">
                 <div class="box box-red">
                   <div class="box-title">
                     <h3><i class="fa fa-bars"></i> LEGAL </h3>
@@ -112,7 +112,7 @@ Second Party Types
                       </div>
                       @isset($SecondParty->second_party_identity)
                       <div class="col-sm-3 col-lg-3 controls">
-                      <a target="_blank" href="{{url("$SecondParty->second_party_identity")}}">Preview</a>
+                      <a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_identity")}}">Preview</a>
                       </div>
                       @endisset
                     </div>
@@ -123,7 +123,7 @@ Second Party Types
                       </div>
                       @isset($SecondParty->second_party_cr)
                       <div class="col-sm-3 col-lg-3 controls">
-                      <a target="_blank" href="{{url("$SecondParty->second_party_cr")}}">Preview</a>
+                      <a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_cr")}}">Preview</a>
                       </div>
                       @endisset
                     </div>
@@ -135,31 +135,31 @@ Second Party Types
                       </div>
                       @isset($SecondParty->second_party_tc)
                       <div class="col-sm-3 col-lg-3 controls">
-                      <a target="_blank" href="{{url("$SecondParty->second_party_tc")}}">Preview</a>
+                      <a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_tc")}}">Preview</a>
                       </div>
                     @endisset
                     </div>
 
                     <div class="form-group">
-                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> second party signature </label>
+                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> Signature </label>
                       <div class="col-sm-6 col-lg-6 controls">
                         <input type="file" name="second_party_signature" id="second_party_signature" placeholder="Second Party Title" class="form-control">
                       </div>
                       @isset($SecondParty->second_party_signature)
                       <div class="col-sm-3 col-lg-3 controls">
-                      <a target="_blank" href="{{url("$SecondParty->second_party_signature")}}">Preview</a>
+                      <a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_signature")}}">Preview</a>
                       </div>
                       @endisset
                     </div>
 
                     <div class="form-group">
-                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> second party sea; </label>
+                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> Seal </label>
                       <div class="col-sm-6 col-lg-6 controls">
                         <input type="file" name="second_party_seal" id="second_party_seal" placeholder="Second Party Title" class="form-control">
                       </div>
                       @isset($SecondParty->second_party_seal)
                       <div class="col-sm-3 col-lg-3 controls">
-                      <a target="_blank" href="{{url("$SecondParty->second_party_seal")}}">Preview</a>
+                      <a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_seal")}}">Preview</a>
                       </div>
                       @endisset
                     </div>
