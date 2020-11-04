@@ -54,8 +54,8 @@ class SendNotifyEmailBeforeRoadmapStartdate extends Command
             $subject = "Roadmap Start Date Notifiy";
 
             $data['title'] = $roadmap->event_title;
-            $data['url'] = url('roadmap/' . $roadmap->id);
-            $data['start_date'] = $roadmap->event_start_date;
+            $data['url'] = APP_URL."/roadmap/$roadmap->id";
+            $data['start_date'] = $roadmap->event_start_date->format('Y-m-d');
 
             $emails = explode(',', setting('notify_roadmap_emails'));
 
@@ -83,11 +83,11 @@ class SendNotifyEmailBeforeRoadmapStartdate extends Command
             <body>
             <center> <strong>' . $data['title'] . '</strong> </center>
             </br>
-            <strong> Kindly check this ' . $data['title'] . ' from this <a href="' . $data['url'] . '"> Link </a> </br> Before Start Date ' . $data['start_date'] . ' </strong>
+            <strong> Kindly check this ' . $data['title'] . ' from this <a href="' . $data['url'] . '"> Link </a> </br> This Event Start Date is ' . $data['start_date'] . ' </strong>
         </body>
         </html>';
         Mail::send([], [], function ($email) use ($message, $subject, $emails) {
-            $email->from('contract@gmail.com', 'ivas_system');
+            $email->from('contract@gmail.com', 'Ivas System');
             $email->to($emails)->subject($subject);
             $email->setBody($message, 'text/html');
         });
