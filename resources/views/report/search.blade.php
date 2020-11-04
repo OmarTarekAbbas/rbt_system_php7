@@ -1,129 +1,128 @@
 @extends('template')
 @section('page_title')
-    Reports
+Reports
 @stop
 @section('content')
-    @include('errors')
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box">
-                <div class="box-title">
-                    <h3><i class="fa fa-bars"></i>Search in reports</h3>
-                    <div class="box-tool">
-                        <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-                        <a data-action="close" href="#"><i class="fa fa-times"></i></a>
-                    </div>
-                </div>
-                <div class="box-content col-md-12">
-                  <form action="" id="search_form" method="post">
-                      @csrf
-                      <div class="form-group col-md-6">
-                          <label class="col-sm-3 col-lg-2 control-label">Provider</label>
-                          <div class="col-sm-9 col-lg-10 controls">
-                              <select id="input8" class="form-control second_party_id chosen" data-placeholder="Choose a provider" name="second_party_id">
-                                  <option value=""></option>
-                                  @foreach($second_partys as $key => $value)
-                                      <option value="{{$value->second_party_id}}">{{$value->second_party_title}}</option>
-                                  @endforeach
-                              </select>
-                          </div>
-                      </div>
-
-                      <div class="form-group col-md-6">
-                          <label class="col-sm-3 col-lg-2 control-label">Operator</label>
-                          <div class="col-sm-9 col-lg-10 controls">
-                              <select id="input6" class="form-control chosen" data-placeholder="Choose a Operators" name="operator_id" tabindex="1" >
-                                  <option value=""></option>
-                                  @foreach($operators as $operator)
-                                          <option value="{{$operator->id}}">{{$operator->title}}-{{$operator->country->title}}</option>
-                                      @endforeach
-                              </select>
-                          </div>
-                      </div>
-
-                      <div class="form-group col-md-6">
-                          <label class="col-sm-3 col-lg-2 control-label">Contract</label>
-                          <div class="col-sm-9 col-lg-10 controls">
-                              <select id="contract_id" class="form-control chosen" data-placeholder="Choose a Contract" name="contract_id">
-                                  <option value=""></option>
-                              </select>
-                          </div>
-                      </div>
-
-                      @if(Auth::user()->hasRole(["super_admin","admin", 'ceo']))
-                      <div class="form-group col-md-6">
-                          <label class="col-sm-3 col-lg-2 control-label">Aggregator</label>
-                          <div class="col-sm-9 col-lg-10 controls">
-                              <select id="input9" class="form-control chosen" data-placeholder="Choose an aggregator" name="aggregator_id" tabindex="1" >
-                                  <option value=""></option>
-                                  @foreach($aggregators as $key => $value)
-                                      <option value="{{$key}}">{{$value}}</option>
-                                  @endforeach
-                              </select>
-                          </div>
-                      </div>
-                      @endif
-
-
-                      <div class="form-group col-md-6">
-                          <label class="col-sm-3 col-lg-2 control-label">Year</label>
-                          <div class="col-sm-9 col-lg-10 controls">
-                            <select id="signed_date" class="form-control chosen" data-placeholder="Filter By Year" name="year"
-                              tabindex="1">
-                              @foreach( range( date('Y')-10 , date('Y')+10 ) as $year )
-                              <option @if($year == date('Y')) selected="selected" @endif value="{{$year}}">{{$year}}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                      </div>
-
-                      <div class="form-group col-md-6">
-                          <label class="col-sm-3 col-lg-2 control-label">Month</label>
-                          <div class="col-sm-9 col-lg-10 controls">
-                            <select class="form-control chosen" data-placeholder="Choose a month" name="month" tabindex="1" multiple required>
-                              @for($month = 1 ; $month <= 12 ; $month++) <option value="{{$month}}">{{date("F", strtotime("$month/1/1"))}}</option>
-                                @endfor
-                            </select>
-                          </div>
-                      </div>
-
-
-                      <div class="form-group col-md-6">
-                          <label class="col-sm-3 col-lg-2 control-label">Code</label>
-                          <div class="col-sm-9 col-lg-10 controls">
-                              <input id="input4" name = "code" type="number" class="form-control" >
-                          </div>
-                      </div>
-
-                      <div class="form-group col-md-6">
-                          <label class="col-sm-3 col-lg-2 control-label">Rbt title</label>
-                          <div class="col-sm-9 col-lg-10 controls">
-                              <input id="input5"  name = "title"  type="text" class="form-control" >
-                          </div>
-                      </div>
-
-                      <div class="form-group col-md-12">
-                          <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
-                              <button type="button" class="btn btn-primary" onclick="send_request()">Search</button>
-                          </div>
-                      </div>
-                    </form>
-
-
-                    <div class="box-content col-md-12" id="search_result">
-
-                    </div>
-
-                </div>
-
+@include('errors')
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-title">
+        <h3><i class="fa fa-bars"></i>Search in reports</h3>
+        <div class="box-tool">
+          <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+          <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+        </div>
+      </div>
+      <div class="box-content col-md-12">
+        <form action="" id="search_form" method="post">
+          @csrf
+          <div class="form-group col-md-6">
+            <label class="col-sm-3 col-lg-2 control-label">Provider</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <select id="input8" class="form-control second_party_id chosen" data-placeholder="Choose a provider" name="second_party_id">
+                <option value=""></option>
+                @foreach($second_partys as $key => $value)
+                <option value="{{$value->second_party_id}}">{{$value->second_party_title}}</option>
+                @endforeach
+              </select>
             </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label class="col-sm-3 col-lg-2 control-label">Operator</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <select id="input6" class="form-control chosen" data-placeholder="Choose a Operators" name="operator_id" tabindex="1">
+                <option value=""></option>
+                @foreach($operators as $operator)
+                <option value="{{$operator->id}}">{{$operator->title}}-{{$operator->country->title}}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label class="col-sm-3 col-lg-2 control-label">Contract</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <select id="contract_id" class="form-control chosen" data-placeholder="Choose a Contract" name="contract_id">
+                <option value=""></option>
+              </select>
+            </div>
+          </div>
+
+          @if(Auth::user()->hasRole(["super_admin","admin", 'ceo']))
+          <div class="form-group col-md-6">
+            <label class="col-sm-3 col-lg-2 control-label">Aggregator</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <select id="input9" class="form-control chosen" data-placeholder="Choose an aggregator" name="aggregator_id" tabindex="1">
+                <option value=""></option>
+                @foreach($aggregators as $key => $value)
+                <option value="{{$key}}">{{$value}}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          @endif
+
+
+          <div class="form-group col-md-6">
+            <label class="col-sm-3 col-lg-2 control-label">Year</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <select id="signed_date" class="form-control chosen" data-placeholder="Filter By Year" name="year" tabindex="1">
+                @foreach( range( date('Y')-10 , date('Y')+10 ) as $year )
+                <option @if($year==date('Y')) selected="selected" @endif value="{{$year}}">{{$year}}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label class="col-sm-3 col-lg-2 control-label">Month</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <select class="form-control chosen" data-placeholder="Choose a month" name="month" tabindex="1" multiple required>
+                @for($month = 1 ; $month <= 12 ; $month++) <option value="{{$month}}">{{date("F", strtotime("$month/1/1"))}}</option>
+                  @endfor
+              </select>
+            </div>
+          </div>
+
+
+          <div class="form-group col-md-6">
+            <label class="col-sm-3 col-lg-2 control-label">Code</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <input id="input4" name="code" type="number" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label class="col-sm-3 col-lg-2 control-label">Rbt title</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <input id="input5" name="title" type="text" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-9 col-lg-12">
+              <button type="button" class="btn btn-primary mAuto_dBlock" onclick="send_request()">Search</button>
+            </div>
+          </div>
+        </form>
+
+
+        <div class="box-content col-md-12" id="search_result">
+
         </div>
 
+      </div>
+
     </div>
+  </div>
+
+</div>
 @stop
 
 @section('script')
-    <script>
+<script>
       $('.second_party_id').change(function(){
         getContracts($(this).val())
       })

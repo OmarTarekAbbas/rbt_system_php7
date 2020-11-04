@@ -12,7 +12,15 @@
 }
 
 
-.width_m_auto .form-group .mAuto_dBlock {
+.mAuto_dBlock {
   margin: 0 auto;
   display: block;
+}
+
+.box-title-icon {
+  line-height: 20px;
+  margin: 0;
+  color: #fff;
+  font-size: 22px;
+  float: right;
 }
