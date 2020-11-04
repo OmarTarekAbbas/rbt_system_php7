@@ -3,18 +3,17 @@
   margin: 0 auto;
 }
 
+.mAuto_dBlock {
+  margin: 0 auto;
+  display: block;
+}
+
 .input_group_new {
   width: 5%;
 }
 
 .form-horizontal .control-label {
   text-align: left;
-}
-
-
-.mAuto_dBlock {
-  margin: 0 auto;
-  display: block;
 }
 
 .box-title-icon {
