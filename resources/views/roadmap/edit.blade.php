@@ -92,7 +92,7 @@ Departments
                     @method('patch')
                     {{ csrf_field() }}
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-8" style="float: none; margin: 0 auto;">
                             <div class="box box-red">
                                 <div class="box-title">
                                     <h3><i class="fa fa-bars"></i> Event Details</h3>
@@ -140,7 +140,7 @@ Departments
                             <!-- END Left Side -->
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-8" style="float: none; margin: 0 auto;">
                             <div class="box box-red">
                                 <div class="box-title">
                                     <h3><i class="fa fa-bars"></i> Occasion / Aggregator / Operator</h3>
@@ -179,7 +179,7 @@ Departments
                             <!-- END Left Side -->
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-8" style="float: none; margin: 0 auto;">
                             <div class="box box-red">
                                 <div class="box-title">
                                     <h3><i class="fa fa-bars"></i> Support </h3>
@@ -217,7 +217,7 @@ Departments
 
                     <div class="row append-row">
                     @foreach($roadmap->providers as $key => $content)
-                        <div class="col-md-3 init-input">
+                        <div class="col-md-8" style="float: none; margin: 0 auto;">
                             <div class="box box-red">
                                 <div class="box-title">
                                     <h3><i class="fa fa-bars"></i> Provider / Content &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-trash pull-right"></i> &nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-plus pull-right"></i> </h3>

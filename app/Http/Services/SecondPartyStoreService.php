@@ -50,11 +50,11 @@ class SecondPartyStoreService
         $request['second_party_tc'] = basename($second_party_tc);
     }
     if (isset($request['second_party_signature'])) {
-      $second_party_signature = $this->UploaderService->upload($request['second_party_signature'], '/docs/');
+      $second_party_signature = $this->UploaderService->upload($request['second_party_signature'], '/docs/signature');
       $request['second_party_signature'] = basename($second_party_signature);
     }
     if (isset($request['second_party_seal'])) {
-      $second_party_seal = $this->UploaderService->upload($request['second_party_seal'], '/docs/');
+      $second_party_seal = $this->UploaderService->upload($request['second_party_seal'], '/docs/signature');
       $request['second_party_seal'] = basename($second_party_seal);
     }
 
