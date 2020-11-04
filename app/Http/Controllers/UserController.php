@@ -140,7 +140,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if (!auth()->user()->hasRole('super_admin')) {
+        if (!auth()->user()->hasRole('super_admin', 'ceo')) {
             return back()->with('status',"you didn't have this role");
         }
 

@@ -42,6 +42,10 @@ FirstParties
                           </div>
                         </div>
 
+                        @if ($firstpartie->first_party_signature)
+                        <a href="{{ url($firstpartie->first_party_signature) }}"> Preview</a>
+                        @endif
+
                         <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label" for="code">First party signature </label>
                         <div class="col-sm-9 col-lg-10 controls">

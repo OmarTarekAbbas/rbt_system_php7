@@ -14,7 +14,7 @@
 					</div>
 				</div>
 				<div class="box-content">
-          @if (Auth::user()->hasRole(['super_admin', 'legal']))
+          @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
                     <div class="btn-toolbar pull-right clearfix">
                         <div class="btn-group">
@@ -57,7 +57,7 @@
 										<td class="visible-md visible-lg">
 											<div class="btn-group">
 												<a class="btn btn-sm btn-primary show-tooltip" title="" href="{{url('revenue/'.$revenue->id)}}" data-original-title="view"><i class="fa fa-eye"></i></a>
-                        @if (Auth::user()->hasRole(['super_admin', 'legal']))
+                        @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
                         <a class="btn btn-sm show-tooltip" title="" href="{{url('revenue/'.$revenue->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
 												<a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('revenue/'.$revenue->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>

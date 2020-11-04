@@ -33,7 +33,7 @@ class FirstpartieController extends Controller
         FirstpartieService $firstpartieService
     )
     {
-        $this->middleware(['auth', 'role:super_admin|legal'], ['except' => ['index']]);
+        $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index']]);
         $this->firstpartieRepository = $firstpartieRepository;
         $this->firstpartieService = $firstpartieService;
     }

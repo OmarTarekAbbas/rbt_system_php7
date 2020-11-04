@@ -50,7 +50,7 @@
                           </div>
                       </div>
 
-                      @if(Auth::user()->hasRole(["super_admin","admin"]))
+                      @if(Auth::user()->hasRole(["super_admin","admin", 'ceo']))
                       <div class="form-group col-md-6">
                           <label class="col-sm-3 col-lg-2 control-label">Aggregator</label>
                           <div class="col-sm-9 col-lg-10 controls">
@@ -156,7 +156,7 @@
                 data: $('#search_form').serialize(),
                 success: function(result){
                     $('#search_result').html('') ;
-                    @if(Auth::user()->hasRole(["super_admin","admin"]))
+                    @if(Auth::user()->hasRole(["super_admin","admin", 'ceo']))
                     var table = '<div class="row">\
                                     <div class="col-md-12">\
                                     <div class="box">\
@@ -266,7 +266,7 @@
                         '<td>'+record.revenue_share+'</td>'+
                         '<td>'+record.provider.second_party_title+'</td>'+
                         '<td>'+record.operator.title+'</td>'+
-                        @if(Auth::user()->hasRole(["super_admin","admin"]))
+                        @if(Auth::user()->hasRole(["super_admin","admin", 'ceo']))
                         '<td>'+record.aggregator.title+'</td>'+
                         @endif
                       '</tr>';

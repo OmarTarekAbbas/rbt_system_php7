@@ -25,9 +25,9 @@
                       <th>Event Color</th>
                       <th>Occasion</th>
                       <th>Country</th>
-                      <th>Operaotr</th>
+                      <th>Operator</th>
                       <th>aggregator</th>
-                      <th>event end date</th>
+                      <th>event start date</th>
                       <th>event end date</th>
                       <th class="visible-md visible-lg" style="width:130px">Action</th>
                   </tr>

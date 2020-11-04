@@ -53,7 +53,7 @@ class SearchController extends Controller
                         '<td><input type="checkbox" /></td>' .
 
                         '<td>' . $value->title . '</td>' ;
-                    if (Auth::user()->hasAnyRole(['super_admin', 'admin'])){
+                    if (Auth::user()->hasAnyRole(['super_admin', 'admin', 'ceo'])){
                         $output .= '<td><a class="btn btn-sm show-tooltip modalToaggal teet" href="#" ><i id="'.$value->id.'" class="fa fa-edit"></i></a>' .
                         '<a class="btn btn-sm btn-danger show-tooltip" title=""   onclick="return confirm(\'Are you sure you want to delete '. $value->title.' ?\')" href="'.$view_name.'/'. $value->id.'/delete" data-original-title="Delete"><i class="fa fa-trash-o"></i></a> ' .
                         '</td>';

@@ -27,7 +27,7 @@ RBTs
                 <th>Occasion Title</th>
                 <th>Master Content Title</th>
                 <th>owner</th>
-                @if(Auth::user()->hasRole(['super_admin','admin']))
+                @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
                 <th>Aggregator Title</th>
                 <th class="visible-md visible-lg" style="width:130px">Action</th>
                 @endif
@@ -50,7 +50,7 @@ RBTs
                 <td>{{$rbt->occasion->title}}</td>
                 <td>{{$rbt->content->content_title}}</td>
                 <td>{{$rbt->owner}}</td>
-                @if(Auth::user()->hasRole(['super_admin','admin']))
+                @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
                 <td>{{$rbt->aggregator->title}}</td>
                 <td class="visible-md visible-lg" style="width:130px">
                                 <a class="btn btn-sm show-tooltip modalToaggal teet" href="{{url('/rbt/'.$rbt->id.'/edit')}}"><i id="{{$rbt->id}}" class="fa fa-edit"></i></a>

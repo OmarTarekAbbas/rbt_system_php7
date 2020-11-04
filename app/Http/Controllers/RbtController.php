@@ -41,7 +41,7 @@ class RbtController extends Controller
     public function index()
     {
         $title = 'Index - rbt';
-        if(Auth::user()->hasRole(['super_admin','admin']))
+        if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
         {
         $rbts = Rbt::all();
         }
@@ -126,7 +126,7 @@ class RbtController extends Controller
                     return '--';
             })
             ->addColumn('action', function (Rbt $rbt) {
-                if (Auth::user()->hasRole(['super_admin', 'admin']))
+                if (Auth::user()->hasRole(['super_admin', 'admin', 'ceo']))
                     return '<td class="visible-md visible-lg">
                             <div class="btn-group">
                             <a class="btn btn-sm btn-primary show-tooltip " href="' . url("rbt/" . $rbt->rbt_id) . '" title="Show"><i class="fa fa-eye"></i></a>
@@ -351,7 +351,7 @@ class RbtController extends Controller
                     } else {
                       $prov = array();
                       $prov['second_party_title'] = $row->content_owner;
-                      $prov['second_party_type_id'] = 2;
+                      $prov['second_party_type_id'] = PROVIDER_ID;
                       $create = SecondParties::create($prov);
                       $provider_id = $create->second_party_id;
                     }

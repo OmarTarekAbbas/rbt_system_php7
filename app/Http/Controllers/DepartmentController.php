@@ -72,7 +72,7 @@ class DepartmentController extends Controller
 
   public function destroy($id)
   {
-    if (\Auth::user()->hasRole('super_admin')) {
+    if (\Auth::user()->hasRole('super_admin', 'ceo')) {
       # code...
       $department = Department::findOrfail($id);
 

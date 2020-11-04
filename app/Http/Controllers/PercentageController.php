@@ -33,7 +33,7 @@ class PercentageController extends Controller
         PercentageService $percentageService
     )
     {
-        $this->middleware(['auth', 'role:super_admin|legal'], ['except' => ['index']]);
+        $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index']]);
         $this->percentageRepository = $percentageRepository;
         $this->percentageService = $percentageService;
     }

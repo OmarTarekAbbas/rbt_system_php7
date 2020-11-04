@@ -17,7 +17,7 @@ RBTs
             </div>
             <div class="box-content">
                 <div class="btn-group">
-                    @if(Auth::user()->hasRole(['super_admin','admin']))
+                    @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
                     <a class="btn btn-circle btn-success show-tooltip" href="{{url('rbt/create')}}" title="Create New Rbt" href="#"><i class="fa fa-plus"></i></a>
                     <a id="delete_button" onclick="delete_selected('rbts')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
                     @endif
@@ -40,7 +40,7 @@ RBTs
                                 <th>Occasion Title</th>
                                 <th>Master Content Title</th>
                                 <th>owner</th>
-                                @if(Auth::user()->hasRole(['super_admin','admin']))
+                                @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
                                 <th>Aggregator Title</th>
                                 <th class="visible-md visible-lg" style="width:130px">Action</th>
                                 @endif

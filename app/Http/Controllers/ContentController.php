@@ -262,7 +262,7 @@ class ContentController extends Controller
           } else {
             $prov = array();
             $prov['second_party_title'] = $row->content_owner;
-            $prov['second_party_type_id'] = 2; //helper for provider
+            $prov['second_party_type_id'] = PROVIDER_ID; //helper for provider
             $create = SecondParties::create($prov);
             $provider_id = $create->second_party_id;
           }

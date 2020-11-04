@@ -76,6 +76,7 @@ class RoadMapController extends Controller
           ->addColumn('action', function (Roadmap $roadmap) {
               return '<td class="visible-md visible-lg">
                           <div class="btn-group">
+                              <a class="btn btn-sm show-tooltip btn-primary" href="' . url("roadmaps/" . $roadmap->roadmap_id) . '" title="view"><i class="fa fa-eye"></i></a>
                               <a class="btn btn-sm show-tooltip" href="' . url("roadmaps/" . $roadmap->roadmap_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
                               <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("roadmaps/" . $roadmap->roadmap_id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
                           </div>
@@ -86,6 +87,15 @@ class RoadMapController extends Controller
           ->make(true);
 
       return $datatable;
+  }
+
+  public function show($id)
+  {
+    $emails = explode(',', setting('action_roadmap_emails'));
+
+    $roadmap = Roadmap::find($id);
+
+    return view('roadmap.show', compact('roadmap', 'emails'));
   }
 
     public function create()

@@ -14,7 +14,7 @@ Contract
         </div>
       </div>
       <div class="box-content">
-        @if (Auth::user()->hasRole(['super_admin', 'legal']))
+        @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
         <div class="btn-group">
           <a class="btn btn-circle btn-success show-tooltip" href="{{url('fullcontracts/create')}}"

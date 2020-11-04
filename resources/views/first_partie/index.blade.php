@@ -32,7 +32,7 @@
 										<td>{{$firstpartie->first_party_title}}</td>
 										<td>{{$firstpartie->first_party_joining_date->format('d-m-Y')}}</td>
 										<td class="visible-md visible-lg">
-                      @if (Auth::user()->hasRole(['super_admin', 'legal']))
+                      @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
 											<div class="btn-group">
 												<a class="btn btn-sm show-tooltip" title="" href="{{url('firstparties/'.$firstpartie->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>

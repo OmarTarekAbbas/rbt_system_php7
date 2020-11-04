@@ -49,7 +49,7 @@ class SecondPartyController extends Controller
         SecondPartyStoreService $SecondPartyStoreService,
         SecondPartyUpdateService $SecondPartyUpdateService
     ) {
-        $this->middleware(['auth', 'role:super_admin|legal'], ['except' => ['index', 'providers_to_secondparty']]);
+        $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index', 'providers_to_secondparty']]);
         $this->SecondPartyRepository = $SecondPartyRepository;
         $this->SecondPartyTypeRepository = $SecondPartyTypeRepository;
         $this->SecondPartyStoreService = $SecondPartyStoreService;
@@ -223,7 +223,7 @@ class SecondPartyController extends Controller
         }else{
 
           $secondparty['second_party_title'] = $provider->title;
-          $secondparty['second_party_type_id'] = 2;
+          $secondparty['second_party_type_id'] = PROVIDER_ID;
 
           $create_secondparty = SecondParties::create( $secondparty );
 

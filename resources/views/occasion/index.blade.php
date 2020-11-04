@@ -92,7 +92,7 @@
                 </div>
             </div>
             <div class="box-content">
-                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                 <div class="btn-toolbar pull-right clearfix">
                     <div class="btn-group">
                         <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
@@ -115,7 +115,7 @@
                                 <th style="width:18px"><input type="checkbox" /></th>
                                 <th class="search">Title</th>
                                 <th class="search">Country</th>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                                 <th>Delete</th>
                                 @endif
                             </tr>
@@ -126,7 +126,7 @@
                                 <td><input type="checkbox" /></td>
                                 <td >{!!$occasion->title!!}</td>
                                 <td >{!!$occasion->country->title!!}</td>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin']))
+                                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                                <td>
                                 <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" data-occasion_id="{{$occasion->id}}"  data-country_id="{{$occasion->country->id}}" data-occasion_title="{{$occasion->title}}"><i id="{{$occasion->id}}" class="fa fa-edit"></i></a>
                                 <a class="btn btn-sm btn-danger show-tooltip" title=""   onclick="return confirm('Are you sure you want to delete {{ $occasion->title }} ?')"     href="{{url('/occasion/'.$occasion->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>

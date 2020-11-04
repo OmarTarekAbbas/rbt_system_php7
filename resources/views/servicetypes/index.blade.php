@@ -17,7 +17,7 @@ ServiceTypes
 	                </div>
 	            </div>
 	            <div class="box-content">
-                @if (Auth::user()->hasRole(['super_admin', 'legal']))
+                @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
 					<div class="btn-toolbar pull-right">
 						<div class="btn-group">
@@ -46,7 +46,7 @@ ServiceTypes
 								<td>{{$ServiceType->id}}</td>
 								<td>{{$ServiceType->service_type_title}}</td>
 								<td class="visible-md visible-lg">
-                  @if (Auth::user()->hasRole(['super_admin', 'legal']))
+                  @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
 								    <div class="btn-group">
 								    	<a class="btn btn-sm show-tooltip" title="" href="{{url('ServiceTypes/'.$ServiceType->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
