@@ -9,7 +9,7 @@ class MonthFilter implements Filter
     public function apply(Builder $builder, $filter)
     {
 
-        return $builder->where('month',  $filter);
+        return $builder->whereIn('month',  $filter);
 
     }
 }
