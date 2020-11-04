@@ -50,18 +50,7 @@
                           </div>
                       </div>
 
-<<<<<<< HEAD
                       @if(Auth::user()->hasRole(["super_admin","admin", 'ceo']))
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label">Aggregator</label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <select id="input12" class="form-control chosen" data-placeholder="Choose an aggregator" name="search_field[]" tabindex="1" >
-                                <option value=""></option>
-                                @foreach($aggregators as $key => $value)
-                                    <option value="{{$key}}">{{$value}}</option>
-                                @endforeach
-=======
-                      @if(Auth::user()->hasRole(["super_admin","admin"]))
                       <div class="form-group col-md-6">
                           <label class="col-sm-3 col-lg-2 control-label">Aggregator</label>
                           <div class="col-sm-9 col-lg-10 controls">
@@ -84,7 +73,6 @@
                               @foreach( range( date('Y')-10 , date('Y')+10 ) as $year )
                               <option @if($year == date('Y')) selected="selected" @endif value="{{$year}}">{{$year}}</option>
                               @endforeach
->>>>>>> 5af12550c068e3ced5559a1ec3ecdf2d31bf9f73
                             </select>
                           </div>
                       </div>
