@@ -44,7 +44,7 @@
 
   <!--flaty css styles-->
   <link rel="stylesheet" href="{{url('css/flaty.css')}}">
-  <link rel="stylesheet" href="{{url('css/flaty-responsive.css')}}">
+  <link rel="stylesheet" href="{{url('css/flaty-new.css')}}">
   <link rel="stylesheet" href="{{url('css/flaty-responsive.css')}}">
 
   <!-- <link rel="shortcut icon" href="{{url('img/favicon.png')}}"> -->

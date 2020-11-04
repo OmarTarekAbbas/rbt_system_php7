@@ -1,0 +1,26 @@
+.box .box-title .box-title-icon {
+  line-height: 20px;
+  margin: 0;
+  color: #fff;
+  float: right;
+  font-size: 22px;
+}
+
+.box .box-title .box-title-icon i {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.box .box-content .form-group .control-label {
+  text-align: left;
+}
+
+.box .box-content .form-group .controls textarea {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.chosen-container-single .chosen-single {
+  width: 90%;
+  margin: 0 auto !important;
+}
