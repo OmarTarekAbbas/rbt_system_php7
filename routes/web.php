@@ -253,6 +253,8 @@ Route::group(['middleware' => ['auth', 'role:super_admin|operation|ceo']], funct
     Route::get('roadmaps/{id}/delete', 'RoadMapController@destroy');
     Route::get('roadmap/allData', 'RoadMapController@allData');
     Route::get('roadmaps/calendar/index', 'RoadMapController@calendarIndex')->name('admin.roadmaps.calendar.index');
+    Route::get('roadmaps/stop/{id}', 'RoadMapController@stop_roadmap');
+
 
     //report view route
     Route::resource('report', '\App\Http\Controllers\ReportController');

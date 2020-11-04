@@ -76,9 +76,9 @@ RBT
   </div>
 </div>
 
-@if (in_array(Auth::user()->email, $emails))
+@if (in_array(Auth::user()->email, $emails) && $roadmap->notify)
 <div class="alert alert-warning">
-  Please Click <a class="text-danger" style="font-weight: bold" href="{{url('roadmap/stop/' . $roadmap->id)}}" title="Stop"> Here</a> To Stop Send Notify E-Mail
+  Please Click <a class="text-danger" style="font-weight: bold" href="{{url('roadmaps/stop/' . $roadmap->id)}}" title="Stop"> Here</a> To Stop Send Notify E-Mail
 </div>
 @endif
 @stop
