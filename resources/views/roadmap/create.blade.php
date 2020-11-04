@@ -1,4 +1,4 @@
-@extends('template') @section('page_title') Departments @stop @section('content') @include('errors')
+@extends('template') @section('page_title') Road Maps @stop @section('content') @include('errors')
 
 <style>
     .z-checkbox input[type="checkbox"] {

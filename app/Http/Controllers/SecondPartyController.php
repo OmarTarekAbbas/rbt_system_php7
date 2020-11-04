@@ -69,80 +69,61 @@ class SecondPartyController extends Controller
 
     public function allData(Request $request)
     {
-
       $SecondPartys = $this->SecondPartyRepository->get();
         $datatable = \Datatables::of($SecondPartys)
-            ->addColumn('index', function (Rbt $SecondPartys) {
-                return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$rbt->rbt_id.'" class="roles" onclick="collect_selected(this)">';
+            ->addColumn('index', function (SecondParties $SecondParty) {
+                return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$SecondParty->second_party_id.'" class="roles" onclick="collect_selected(this)">';
             })
-            ->addColumn('id', function (Rbt $rbt) {
-                return $rbt->rbt_id;
+            ->addColumn('id', function (SecondParties $SecondParty) {
+                return $SecondParty->second_party_id;
             })
-            ->addColumn('rbt_internal_coding', function (Rbt $rbt) {
-              return ($rbt->rbt_internal_coding) ? $rbt->rbt_internal_coding : "--";
+            ->addColumn('secondparty_type', function (SecondParties $SecondParty) {
+              return $SecondParty->type->second_party_type_title;
           })
-            ->addColumn('type', function (Rbt $rbt) {
-                return $rbt->type ? 'NEW' : 'OLD';
+            ->addColumn('second_party_title', function (SecondParties $SecondParty) {
+                return $SecondParty->second_party_title;
             })
-            ->addColumn('track_title_en', function (Rbt $rbt) {
-                return $rbt->track_title_en;
-            })
-            ->addColumn('code', function (Rbt $rbt) {
-                return $rbt->code;
-            })
-            ->addColumn('provider', function (Rbt $rbt) {
-                return ($rbt->provider) ? $rbt->provider : "--";
-            })
-            ->addColumn('track_file', function (Rbt $rbt) {
-                if ($rbt->track_file)
-                    return '<audio class="content_audios" controls>
-                                <source src="'.url($rbt->track_file).'">
-                            </audio>
-                            ';
-                else
-                    return '--';
-            })
-            ->addColumn('operator', function (Rbt $rbt) {
-                return $rbt->operator;
-            })
-            ->addColumn('occasion', function (Rbt $rbt) {
-                if ($rbt->occasion_id)
-                    return $rbt->occasion;
-                else
-                    return '--';
-            })
-            ->addColumn('content', function (Rbt $rbt) {
-                if ($rbt->content_id)
-                    return $rbt->content;
-                else
-                    return '--';
-            })
-            ->addColumn('owner', function (Rbt $rbt) {
-                if ($rbt->owner)
-                    return $rbt->owner;
-                else
-                    return '--';
-            })
-            ->addColumn('aggregator', function (Rbt $rbt) {
-                if ($rbt->aggregator_id)
-                    return $rbt->aggregator;
-                else
-                    return '--';
-            })
-            ->addColumn('action', function (Rbt $rbt) {
+            ->addColumn('second_party_joining_date', function (SecondParties $SecondParty) {
+              return $SecondParty->second_party_joining_date;
+          })
+          ->addColumn('second_party_terminate_date', function (SecondParties $SecondParty) {
+            return $SecondParty->second_party_terminate_date;
+          })
+            ->addColumn('second_party_status', function (SecondParties $SecondParty) {
+              return $SecondParty->second_party_status;
+          })
+          ->addColumn('second_party_identity', function (SecondParties $SecondParty) {
+            if($SecondParty->second_party_identity && file_exists(base_path("uploads/docs/".$SecondParty->second_party_identity)))
+              return '<td><a class="btn btn-primary" target="_blank" href="'.url("uploads/docs/".$SecondParty->second_party_identity).'">Preview</a></td>';
+            else
+              return '<td><a class="btn disabled">No File</a></td>';
+          })
 
+          ->addColumn('second_party_cr', function (SecondParties $SecondParty) {
+            if($SecondParty->second_party_cr && file_exists(base_path("uploads/docs/".$SecondParty->second_party_cr)))
+              return '<td><a class="btn btn-primary" target="_blank" href="'.url("uploads/docs/".$SecondParty->second_party_cr).'">Preview</a></td>';
+            else
+              return '<td><a class="btn disabled">No File</a></td>';
+          })
+
+          ->addColumn('second_party_tc', function (SecondParties $SecondParty) {
+            if($SecondParty->second_party_tc && file_exists(base_path("uploads/docs/".$SecondParty->second_party_tc)))
+              return '<td><a class="btn btn-primary" target="_blank" href="'.url("uploads/docs/".$SecondParty->second_party_tc).'">Preview</a></td>';
+            else
+              return '<td><a class="btn disabled">No File</a></td>';
+          })
+            ->addColumn('action', function (SecondParties $SecondParty) {
+              if (\Auth::user()->hasRole(['super_admin', 'legal']))
                     return '<td class="visible-md visible-lg">
                             <div class="btn-group">
-                            <a class="btn btn-sm btn-primary show-tooltip " href="' . url("rbt/" . $rbt->rbt_id) . '" title="Show"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-sm show-tooltip" href="' . url("rbt/" . $rbt->rbt_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("rbt/" . $rbt->rbt_id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
+                                <a class="btn btn-sm show-tooltip" href="' . url("SecondParty/" . $SecondParty->second_party_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("SecondParty/" . $SecondParty->second_party_id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
                             </div>
                         </td>';
             })
 
             ->escapeColumns([])
             ->make(true);
-
         return $datatable;
     }
 
@@ -194,6 +175,11 @@ class SecondPartyController extends Controller
         $SecondParty = $this->SecondPartyRepository->where('second_party_id', $id)->firstOrFail();
         $this->SecondPartyUpdateService->handle($request->validated(), $SecondParty);
         return redirect('SecondParty')->with(['success' => 'Updated Successfully!']);
+    }
+
+    public function show()
+    {
+
     }
 
     /**
