@@ -18,6 +18,7 @@ define('ceo_email', 'mh124404@gmail.com');
 define('PROVIDER_ID', provider());
 
 Route::get('providers_to_secondparty', 'SecondPartyController@providers_to_secondparty');
+Route::get('store_routes_in_database', 'HomeController@store_routes_in_database');
 
 Auth::routes();
 

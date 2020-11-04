@@ -33,8 +33,8 @@ Contract
           <option value="{{$year}}">{{$year}}</option>
           @endforeach
         </select>
-        {{-- <hr>
-        <label class="text-muted" for="page_input">Filter By Page</label>
+        <hr>
+        {{--<label class="text-muted" for="page_input">Filter By Page</label>
         <select id="page_input" class="form-control chosen" data-placeholder="Filter By page" name="page"
           tabindex="1">
           <option value="{{null}}">ALL</option>
