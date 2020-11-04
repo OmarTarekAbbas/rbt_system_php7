@@ -78,5 +78,12 @@ Contract Items Approved
 <script>
   $('#contract').addClass('active');
   $('#contract-index').addClass('active');
+//   function preventBack() {
+//     window.history.forward();
+//   }
+//   window.onunload = function() {
+//     null;
+//   };
+// setTimeout("preventBack()", 0);
 </script>
 @stop
