@@ -201,4 +201,13 @@ class RoadMapController extends Controller
 
         return view('roadmap.calendar',compact('calendar'));
     }
+
+    public function stop_roadmap($id)
+    {
+      $roadmap = Roadmap::find($id);
+      $roadmap->notify = 0;
+      $roadmap->save();
+      return redirect("roadmaps/$id")->with(['success' => 'Notify Email Stoped Successfully!']);
+    }
+
 }

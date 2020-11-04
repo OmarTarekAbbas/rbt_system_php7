@@ -33,7 +33,7 @@ class ContentController extends Controller
   {
     if($request->has('contract_id')){
 
-      $contents = Content::select('*', 'contents.id AS content_id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
+      $contents = Content::select('*', 'contents.id AS id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
       ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
       ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
       ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
@@ -43,7 +43,7 @@ class ContentController extends Controller
 
     }else{
 
-      $contents = Content::select('*', 'contents.id AS content_id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
+      $contents = Content::select('*', 'contents.id AS id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
       ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
       ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
       ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
@@ -54,10 +54,10 @@ class ContentController extends Controller
 
     $datatable = \Datatables::of($contents)
       ->addColumn('index', function (Content $content) {
-        return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$content->content_id.'" class="roles" onclick="collect_selected(this)">';
+        return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$content->id.'" class="roles" onclick="collect_selected(this)">';
       })
       ->addColumn('id', function (Content $content) {
-        return $content->content_id;
+        return $content->id;
       })
       ->addColumn('content_title', function (Content $content) {
         return $content->content_title;
@@ -98,15 +98,27 @@ class ContentController extends Controller
           return '---';
       })
       ->addColumn('action', function (Content $content) {
-        return '<td class="visible-md visible-lg">
-                            <div class="btn-group">
-                                <a class="btn btn-sm btn-info show-tooltip" title="list traks" href="' . url("content/$content->content_id/rbts") . '" ><i class="fa fa-music"></i></a>
-                                <a class="btn btn-sm btn-primary show-tooltip " href="' . url("content/" . $content->content_id) . '" title="Show"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-sm btn-success show-tooltip" title="" href="' . url("rbt/excel?content_id=" . $content->content_id) . '" ><i class="fa fa-plus"></i></a>
-                                <a class="btn btn-sm show-tooltip" href="' . url("content/" . $content->content_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("content/" . $content->content_id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
-                            </div>
-                        </td>';
+        if(count($content->rbts)){
+          return '<td class="visible-md visible-lg">
+                      <div class="btn-group">
+                          <a class="btn btn-sm btn-info show-tooltip" title="list traks" href="' . url("content/$content->id/rbts") . '" ><i class="fa fa-music"></i></a>
+                          <a class="btn btn-sm btn-primary show-tooltip " href="' . url("content/" . $content->id) . '" title="Show"><i class="fa fa-eye"></i></a>
+                          <a class="btn btn-sm btn-success show-tooltip" title="" href="' . url("rbt/excel?content_id=" . $content->id) . '" ><i class="fa fa-plus"></i></a>
+                          <a class="btn btn-sm show-tooltip" href="' . url("content/" . $content->id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
+                          <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("content/" . $content->id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
+                      </div>
+                  </td>';
+        }else{
+          return '<td class="visible-md visible-lg">
+                      <div class="btn-group">
+                          <a class="btn btn-sm btn-primary show-tooltip " href="' . url("content/" . $content->id) . '" title="Show"><i class="fa fa-eye"></i></a>
+                          <a class="btn btn-sm btn-success show-tooltip" title="" href="' . url("rbt/excel?content_id=" . $content->id) . '" ><i class="fa fa-plus"></i></a>
+                          <a class="btn btn-sm show-tooltip" href="' . url("content/" . $content->id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
+                          <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("content/" . $content->id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
+                      </div>
+                  </td>';
+        }
+
       })
 
       ->escapeColumns([])

@@ -66,4 +66,8 @@ class Content extends Model
     {
         return $this->belongsTo('App\Contract','contract_id');
     }
+    public function rbts()
+    {
+        return $this->hasMany('App\Rbt');
+    }
 }
