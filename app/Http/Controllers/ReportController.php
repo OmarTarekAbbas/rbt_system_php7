@@ -386,18 +386,25 @@ class ReportController extends Controller
     }
 
 
-    public function search()
+    public function search(Request $request)
     {
         $operators = Operator::all();
         $aggregators = Aggregator::all()->pluck('title', 'id');
         $second_partys = SecondParties::all();
-        return view('report.search', compact('operators', 'aggregators', 'second_partys'));
+        $search_result = Report::with(['operator','provider','contract','aggregator'])->filter($this->search_filters())->get();
+        if($request->filled('export_excel')) {
+          $this->exportExcel($search_result);
+        }
+        return view('report.search', compact('operators', 'aggregators', 'second_partys','search_result'));
     }
 
-    public function search_result(Request $request)
+    public function exportExcel($search_result)
     {
-        $search_result = Report::with(['operator','provider','contract','aggregator'])->filter($this->search_filters())->get();
-        return $search_result;
+      return \Excel::create('report_export', function($excel) use ($search_result) {
+        $excel->sheet('New sheet', function($sheet) use ($search_result){
+            $sheet->loadView('report.report_export',compact('search_result'));
+        });
+      })->download('xls');
     }
 
     public function search_filters()
