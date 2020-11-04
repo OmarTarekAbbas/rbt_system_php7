@@ -218,3 +218,18 @@ function send_notification($message,$dep,$data){
     return 2;
 
  }
+
+function list_routes_from_database()
+{
+    $routes = App\Route::all();
+
+    foreach( $routes as $route ){
+      $method = $route->method;
+      $name = (string)$route->route;
+      $action = (string)"$route->controller_name@$route->function_name";
+      $route_name = (string)$route->route_name;
+
+      Route::$method($name, $action)->name($route_name);
+
+    }
+}
