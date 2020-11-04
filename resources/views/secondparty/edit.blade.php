@@ -104,50 +104,64 @@ Second Party Types
                   </div>
                   <!-- BEGIN Left Side -->
                   <div class="box-content">
-                    @isset($SecondParty->second_party_identity)
-                    <td><a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_identity")}}">Preview</a></td>
-                    @endisset
+
                     <div class="form-group">
                       <label for="second_party_identity" class="col-xs-3 col-lg-2 control-label"> ID </label>
-                      <div class="col-sm-9 col-lg-10 controls">
+                      <div class="col-sm-6 col-lg-6 controls">
                         <input type="file" name="second_party_identity" id="second_party_identity" placeholder="Second Party Title" class="form-control">
                       </div>
+                      @isset($SecondParty->second_party_identity)
+                      <div class="col-sm-3 col-lg-3 controls">
+                      <a target="_blank" href="{{url("$SecondParty->second_party_identity")}}">Preview</a>
+                      </div>
+                      @endisset
                     </div>
-                    @isset($SecondParty->second_party_cr)
-                    <td><a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_cr")}}">Preview</a></td>
-                    @endisset
                     <div class="form-group">
                       <label for="second_party_cr" class="col-xs-3 col-lg-2 control-label"> CR </label>
-                      <div class="col-sm-9 col-lg-10 controls">
+                      <div class="col-sm-6 col-lg-6 controls">
                         <input type="file" name="second_party_cr" id="second_party_cr" placeholder="Second Party Title" class="form-control">
                       </div>
+                      @isset($SecondParty->second_party_cr)
+                      <div class="col-sm-3 col-lg-3 controls">
+                      <a target="_blank" href="{{url("$SecondParty->second_party_cr")}}">Preview</a>
+                      </div>
+                      @endisset
                     </div>
-                    @isset($SecondParty->second_party_tc)
-                    <td><a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_tc")}}">Preview</a></td>
-                    @endisset
+
                     <div class="form-group">
                       <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> TC </label>
-                      <div class="col-sm-9 col-lg-10 controls">
+                      <div class="col-sm-6 col-lg-6 controls">
                         <input type="file" name="second_party_tc" id="second_party_tc" placeholder="Second Party Title" class="form-control">
                       </div>
-                    </div>
-                    @isset($SecondParty->second_party_signature)
-                    <td><a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_signature")}}">Preview</a></td>
+                      @isset($SecondParty->second_party_tc)
+                      <div class="col-sm-3 col-lg-3 controls">
+                      <a target="_blank" href="{{url("$SecondParty->second_party_tc")}}">Preview</a>
+                      </div>
                     @endisset
+                    </div>
+
                     <div class="form-group">
                       <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> second party signature </label>
-                      <div class="col-sm-9 col-lg-10 controls">
+                      <div class="col-sm-6 col-lg-6 controls">
                         <input type="file" name="second_party_signature" id="second_party_signature" placeholder="Second Party Title" class="form-control">
                       </div>
+                      @isset($SecondParty->second_party_signature)
+                      <div class="col-sm-3 col-lg-3 controls">
+                      <a target="_blank" href="{{url("$SecondParty->second_party_signature")}}">Preview</a>
+                      </div>
+                      @endisset
                     </div>
-                    @isset($SecondParty->second_party_seal)
-                    <td><a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_seal")}}">Preview</a></td>
-                    @endisset
+
                     <div class="form-group">
                       <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> second party sea; </label>
-                      <div class="col-sm-9 col-lg-10 controls">
+                      <div class="col-sm-6 col-lg-6 controls">
                         <input type="file" name="second_party_seal" id="second_party_seal" placeholder="Second Party Title" class="form-control">
                       </div>
+                      @isset($SecondParty->second_party_seal)
+                      <div class="col-sm-3 col-lg-3 controls">
+                      <a target="_blank" href="{{url("$SecondParty->second_party_seal")}}">Preview</a>
+                      </div>
+                      @endisset
                     </div>
 
                   </div>

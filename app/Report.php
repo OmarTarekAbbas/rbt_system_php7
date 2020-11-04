@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -13,17 +14,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Report extends Model
 {
-	
-	
-    protected $table = 'reports';
-	protected $fillable = ['year','month','classification','code','rbt_name','rbt_id','download_no','total_revenue','revenue_share','operator_id','provider_id','aggregator_id'];
-	
+
+  use Filterable;
+  protected $table = 'reports';
+	protected $fillable = ['year','month','classification','code','rbt_name','rbt_id','download_no','total_revenue','revenue_share','operator_id','second_party_id','aggregator_id','contract_id','your_revenu','client_revenu'];
+
 	public function currency()
 	{
 		return $this->belongsTo('App\Currency','currency_id');
 	}
 
-	
+
 	public function type()
 	{
 		return $this->belongsTo('App\Type','type_id');
@@ -33,9 +34,13 @@ class Report extends Model
 	{
 		return $this->belongsTo('App\Operator');
 	}
-	public function provider()
+  public function provider()
 	{
-		return $this->belongsTo('App\Provider');
+		return $this->belongsTo(SecondParties::class, 'second_party_id', 'second_party_id');
+	}
+  public function contract()
+	{
+		return $this->belongsTo(Contract::class);
 	}
 	public function aggregator()
 	{

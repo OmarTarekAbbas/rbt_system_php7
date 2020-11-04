@@ -137,6 +137,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('ServiceTypes', 'ServiceTypesController');
     Route::resource('SecondPartyType', 'SecondPartyTypeController');
     Route::resource('SecondParty', 'SecondPartyController');
+    Route::get('SecondParty/allData', 'SecondPartyController@allData');
     Route::resource('attachment', 'AttachmentController');
     Route::resource('ContractTemplate', 'ContractTemplateController');
     Route::get('ContractTemplate/{id}/items', 'ContractTemplateController@showContractTerms');

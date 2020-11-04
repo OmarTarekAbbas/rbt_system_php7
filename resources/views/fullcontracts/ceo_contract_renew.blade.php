@@ -4,6 +4,16 @@ Contracts
 @stop
 @section('content')
     @include('errors')
+    <style>
+      .input-group[class*=col-] {
+        float: none;
+        padding-right: 50%;
+        padding-left: 15px;
+      }
+      #contract_duration{
+        width: 33%;
+      }
+    </style>
     <div class="row">
         <div class="col-md-12">
             <div class="box">
@@ -20,9 +30,9 @@ Contracts
                       <div class="form-group">
                             <label class="col-sm-3 col-lg-2 control-label">Contract Code </label>
                             <div class="col-sm-9 col-lg-10 controls">
-                                <input type="text" name="contract" value="{{ $contract->contract_code }}" placeholder="Contract" class="form-control input-lg" readonly>
+                                <input type="text" name="contract" value="{{ $contract->contract_code }} {{$contract->contract_label}}" placeholder="Contract" class="form-control input-lg" readonly style="width:40%">
                             </div>
-                        </div>
+                      </div>
 
                         <div class="form-group">
                           <label for="start_date" class="col-xs-3 col-lg-2 control-label"> Contract Renew Start Date <span class="asterix"> *</span> </label>
@@ -32,9 +42,9 @@ Contracts
                           </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" style="padding-left: 17px;">
                             <label for="ipt" class="col-xs-3 col-lg-2 control-label"> Contract Renew Duration <span class="asterix"> *</span> </label>
-                            <select name='renew_duration_id' rows='5' id='contract_duration' class="col-sm-9 col-lg-10 controls" required>
+                            <select name='renew_duration_id' rows='5' id='contract_duration' class="col-sm-9 col-lg-10 controls form-control" required>
                                 <option value="">-- Please Select --</option>
                                 @foreach($contract_durations as $contract_duration)
                                 <option

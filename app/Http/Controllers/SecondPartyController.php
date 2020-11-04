@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Rbt;
 use App\Content;
+use App\Contract;
 use App\Provider;
 use App\SecondParties;
 use Illuminate\Http\Request;
@@ -64,6 +65,85 @@ class SecondPartyController extends Controller
     {
         $SecondPartys = $this->SecondPartyRepository->get();
         return view('secondparty.index', compact('SecondPartys'));
+    }
+
+    public function allData(Request $request)
+    {
+
+      $SecondPartys = $this->SecondPartyRepository->get();
+        $datatable = \Datatables::of($SecondPartys)
+            ->addColumn('index', function (Rbt $SecondPartys) {
+                return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$rbt->rbt_id.'" class="roles" onclick="collect_selected(this)">';
+            })
+            ->addColumn('id', function (Rbt $rbt) {
+                return $rbt->rbt_id;
+            })
+            ->addColumn('rbt_internal_coding', function (Rbt $rbt) {
+              return ($rbt->rbt_internal_coding) ? $rbt->rbt_internal_coding : "--";
+          })
+            ->addColumn('type', function (Rbt $rbt) {
+                return $rbt->type ? 'NEW' : 'OLD';
+            })
+            ->addColumn('track_title_en', function (Rbt $rbt) {
+                return $rbt->track_title_en;
+            })
+            ->addColumn('code', function (Rbt $rbt) {
+                return $rbt->code;
+            })
+            ->addColumn('provider', function (Rbt $rbt) {
+                return ($rbt->provider) ? $rbt->provider : "--";
+            })
+            ->addColumn('track_file', function (Rbt $rbt) {
+                if ($rbt->track_file)
+                    return '<audio class="content_audios" controls>
+                                <source src="'.url($rbt->track_file).'">
+                            </audio>
+                            ';
+                else
+                    return '--';
+            })
+            ->addColumn('operator', function (Rbt $rbt) {
+                return $rbt->operator;
+            })
+            ->addColumn('occasion', function (Rbt $rbt) {
+                if ($rbt->occasion_id)
+                    return $rbt->occasion;
+                else
+                    return '--';
+            })
+            ->addColumn('content', function (Rbt $rbt) {
+                if ($rbt->content_id)
+                    return $rbt->content;
+                else
+                    return '--';
+            })
+            ->addColumn('owner', function (Rbt $rbt) {
+                if ($rbt->owner)
+                    return $rbt->owner;
+                else
+                    return '--';
+            })
+            ->addColumn('aggregator', function (Rbt $rbt) {
+                if ($rbt->aggregator_id)
+                    return $rbt->aggregator;
+                else
+                    return '--';
+            })
+            ->addColumn('action', function (Rbt $rbt) {
+
+                    return '<td class="visible-md visible-lg">
+                            <div class="btn-group">
+                            <a class="btn btn-sm btn-primary show-tooltip " href="' . url("rbt/" . $rbt->rbt_id) . '" title="Show"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-sm show-tooltip" href="' . url("rbt/" . $rbt->rbt_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("rbt/" . $rbt->rbt_id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </td>';
+            })
+
+            ->escapeColumns([])
+            ->make(true);
+
+        return $datatable;
     }
 
     /**

@@ -596,4 +596,18 @@ class ContentController extends Controller
     return "done";
   }
 
+
+  /**
+   * Method getContracts
+   *
+   * @param Integer $second_party_id
+   *
+   * @return Contract
+   */
+  public function getContracts($second_party_id)
+  {
+    $contracts = Contract::where('second_party_id', $second_party_id)->get();
+    return $contracts;
+  }
+
 }

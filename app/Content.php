@@ -51,7 +51,7 @@ class Content extends Model
 
     public function provider()
     {
-        return $this->belongsTo('App\SecondParties', 'provider_id', 'second_party_type_id');
+        return $this->belongsTo('App\SecondParties', 'provider_id', 'second_party_id');
     }
 
     public function occasion()
@@ -61,5 +61,9 @@ class Content extends Model
     public function user()
     {
         return $this->belongsTo('App\User','user_id');
+    }
+    public function contract()
+    {
+        return $this->belongsTo('App\Contract','contract_id');
     }
 }
