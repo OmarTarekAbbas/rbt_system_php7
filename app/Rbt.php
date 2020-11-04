@@ -24,7 +24,7 @@ class Rbt extends Model
 
 	public function provider()
 	{
-		return $this->belongsTo('App\Provider','provider_id');
+		return $this->belongsTo(SecondParties::class, 'provider_id', 'second_party_id');
 	}
 
 

@@ -19,10 +19,10 @@
                             <input type="hidden" name="ceo_approve" id="ceo_approve">
                             <div class="col-md-6 col-md-offset-4">
                                 <div class="col-md-6">
-                                    <button onclick="document.getElementById('ceo_approve').value = 1" type="submit" class="btn btn-success">Approve</button><button onclick="document.getElementById('ceo_approve').value = 1" type="submit" class="btn btn-success">Approve</button>
+                                    <button onclick="document.getElementById('ceo_approve').value = 1" type="submit" class="btn btn-success">Approve</button>
                                 </div>
                                 <div class="col-md-6">
-                                    <button onclick="document.getElementById('ceo_approve').value = 0" type="submit" class="btn btn-danger">Not Approve</button><button onclick="document.getElementById('ceo_approve').value = 0" type="submit" class="btn btn-danger">Not Approve</button>
+                                    <button onclick="document.getElementById('ceo_approve').value = 0" type="submit" class="btn btn-danger">Not Approve</button>
                                 </div>
                             </div>
                         </div>

@@ -20,3 +20,4 @@ Route::get('operators/{id?}','CountryController@getOperators');
 Route::get('occasions/{id?}','CountryController@getOccasions');
 Route::get('contents/{id}','ContentController@getContents');
 Route::get('tracks/{id}','ContentController@getTracks');
+Route::get('contracts/{seconde_party_id}','ContentController@getContracts');

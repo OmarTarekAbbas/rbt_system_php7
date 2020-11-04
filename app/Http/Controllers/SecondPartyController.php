@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Rbt;
 use App\Content;
+use App\Contract;
 use App\Provider;
 use App\SecondParties;
 use Illuminate\Http\Request;
