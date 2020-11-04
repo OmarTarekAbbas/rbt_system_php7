@@ -68,19 +68,6 @@ RBT
                 <td width='30%' class='label-view text-right'>event end date</td>
                 <td>{{$roadmap->event_end_date->format('Y-m-d')}} </td>
               </tr>
-              @if (in_array(Auth::user()->email, $emails))
-
-              <tr>
-                <td width='30%' class='label-view text-right'>Action</td>
-                <td class="visible-md visible-lg">
-                  <div class="btn-group">
-                    <a class="btn btn-sm show-tooltip btn-danger" onclick="" href="{{url('roadmap/stop/' . $roadmap->id)}}" title="Stop"><i class="fa fa-stop"> Stop Notify</i></a>
-                  </div>
-                </td>
-              </tr>
-
-              @endif
-
             </tbody>
           </table>
         </div>
@@ -89,7 +76,11 @@ RBT
   </div>
 </div>
 
-
+@if (in_array(Auth::user()->email, $emails))
+<div class="alert alert-warning">
+  Please Click <a class="text-danger" style="font-weight: bold" href="{{url('roadmap/stop/' . $roadmap->id)}}" title="Stop"> Here</a> To Stop Send Notify E-Mail
+</div>
+@endif
 @stop
 
 @section('script')
