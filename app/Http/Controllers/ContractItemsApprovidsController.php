@@ -79,9 +79,9 @@ class ContractItemsApprovidsController extends Controller
     ->join('contracts', 'contract_items.contract_id', '=', 'contracts.id')
     ->join('departments', 'departments.manager_id', '=', 'contract_items_approves.user_id')
     ->first();
-
+    
     if($list_contract_items_send->status === 2 || $list_contract_items_send->status === 1){ //1-notapprove 2-appaove 0-notaction
-      return redirect('/');
+      return redirect('fullcontracts/'.$list_contract_items_send->contract_id);
     }else{
       return view('ContractItemsApproved.edit', compact('list_contract_items_send','id'));
     }
