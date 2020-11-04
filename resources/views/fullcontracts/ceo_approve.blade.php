@@ -37,9 +37,9 @@
 <script>
   $(document).on('ready',function(){
     $('#first_party_signature').html('<img width="200px" height="200px" src="{{ url(optional($contract->first_parties)->first_party_signature?? "uploads/default.png") }}" class="img-circle">')
-    $('#second_party_signature').html('<img width="200px" height="200px" src="{{ url(optional($contract->second_parties)->second_party_signature?? "uploads/default.png") }}" class="img-circle">')
+    $('#second_party_signature').html('<img width="200px" height="200px" src="{{ url('uploads/docs/signature/'.optional($contract->second_parties)->second_party_signature?? "uploads/default.png") }}" class="img-circle">')
     $('#first_party_seal').html('<img width="200px" height="200px" src="{{ url(optional($contract->first_parties)->first_party_seal?? "uploads/default.png") }}" class="img-circle">')
-    $('#second_party_seal').html('<img width="200px" height="200px" src="{{ url(optional($contract->second_parties)->second_party_seal?? "uploads/default.png") }}" class="img-circle">')
+    $('#second_party_seal').html('<img width="200px" height="200px" src="{{ url('uploads/docs/signature/'.optional($contract->second_parties)->second_party_seal?? "uploads/default.png") }}" class="img-circle">')
     $('.container-fluid div').each(function() {
       $('#input' + $(this).attr('id')).val($(this).html())
       console.log($('#input' + $(this).attr('id')).val());
