@@ -20,6 +20,7 @@ use App\Provider;
 use App\Aggregator;
 use App\Filters\Report\AggregatorFilter;
 use App\Filters\Report\ContractFilter;
+use App\Filters\Report\MonthFilter;
 use App\Filters\Report\OperatorFilter;
 use App\Filters\Report\RbtCodeFilter;
 use App\Filters\Report\RbtTitleFilter;
@@ -407,6 +408,7 @@ class ReportController extends Controller
         'aggregator_id' => new AggregatorFilter(),
         'contract_id' => new ContractFilter(),
         'year' => new YearFilter(),
+        'month' => new MonthFilter(),
         'code' => new RbtCodeFilter(),
         'title' => new RbtTitleFilter()
       ];

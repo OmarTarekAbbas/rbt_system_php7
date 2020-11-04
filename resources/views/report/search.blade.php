@@ -80,7 +80,7 @@
                       <div class="form-group col-md-6">
                           <label class="col-sm-3 col-lg-2 control-label">Month</label>
                           <div class="col-sm-9 col-lg-10 controls">
-                            <select class="form-control chosen" data-placeholder="Choose a month" name="month" tabindex="1" multiple required>
+                            <select class="form-control chosen" data-placeholder="Choose a month" name="month[]" tabindex="1" multiple required>
                               @for($month = 1 ; $month <= 12 ; $month++) <option value="{{$month}}">{{date("F", strtotime("$month/1/1"))}}</option>
                                 @endfor
                             </select>
@@ -111,6 +111,10 @@
 
 
                     <div class="box-content col-md-12" id="search_result">
+
+                    </div>
+
+                    <div class="box-content col-md-12" id="sum_revenue">
 
                     </div>
 
@@ -156,6 +160,7 @@
                 data: $('#search_form').serialize(),
                 success: function(result){
                     $('#search_result').html('') ;
+                    $('#sum_revenue').html('') ;
                     @if(Auth::user()->hasRole(["super_admin","admin", 'ceo']))
                     var table = '<div class="row">\
                                     <div class="col-md-12">\
@@ -181,8 +186,8 @@
                                                         <th>Code</th>\
                                                         <th>Classification</th>\
                                                         <th>Download #</th>\
-                                                        <th>Total Revenue</th>\
-                                                        <th>Revenue share</th>\
+                                                        <th>Your Revenue</th>\
+                                                        <th>Client share</th>\
                                                         <th>Provider</th>\
                                                         <th>Operator</th>\
                                                         <th>Aggregator</th>\
@@ -221,8 +226,8 @@
                                                         <th>Code</th>\
                                                         <th>Classification</th>\
                                                         <th>Download #</th>\
-                                                        <th>Total Revenue</th>\
-                                                        <th>Revenue share</th>\
+                                                        <th>Your Revenue</th>\
+                                                        <th>Client share</th>\
                                                         <th>Provider</th>\
                                                         <th>Operator</th>\
                                                     </tr>\
@@ -238,6 +243,11 @@
                     @endif
                     $('#search_result').append(table).hide().fadeIn(600) ;
                     result.forEach(append_result);
+                    $('#sum_revenue').html(
+                      `<h5 style="color:green; font-weight:bolder; ">Your   Revenue: <span>${result.reduce(function(prev, cur) {return parseFloat(prev) + parseFloat(cur.your_revenu);}, 0)}
+                      </span> </h5>
+                      <h5 style="color:green; font-weight:bolder; ">Client   Revenue: <span>${result.reduce(function(prev, cur) {return parseFloat(prev) + parseFloat(cur.client_revenu);}, 0)}</span></h5>`
+                    ) ;
                 }
             });
         }
@@ -262,8 +272,8 @@
                         '<td>'+record.code+'</td>'+
                         '<td>'+record.classification+'</td>'+
                         '<td>'+record.download_no+'</td>'+
-                        '<td>'+record.total_revenue+'</td>'+
-                        '<td>'+record.revenue_share+'</td>'+
+                        '<td>'+record.your_revenu+'</td>'+
+                        '<td>'+record.client_revenu+'</td>'+
                         '<td>'+record.provider.second_party_title+'</td>'+
                         '<td>'+record.operator.title+'</td>'+
                         @if(Auth::user()->hasRole(["super_admin","admin", 'ceo']))
