@@ -62,4 +62,8 @@ class Content extends Model
     {
         return $this->belongsTo('App\User','user_id');
     }
+    public function contract()
+    {
+        return $this->belongsTo('App\Contract','contract_id');
+    }
 }

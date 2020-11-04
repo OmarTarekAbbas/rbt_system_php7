@@ -63,7 +63,7 @@ class Contract extends Model
 
     public function second_parties()
     {
-        return $this->belongsTo(Secondparties::class, 'second_party_id');
+        return $this->belongsTo(SecondParties::class, 'second_party_id');
     }
 
     public function contract_service()
