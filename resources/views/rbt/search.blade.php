@@ -157,9 +157,9 @@
 
 
 
-                    <div class="form-group col-md-6">
-                        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
-                            <button class="btn btn-primary" onclick="send_request()">Search</button>
+                    <div class="form-group">
+                        <div class="col-sm-9 col-lg-12">
+                            <button class="btn btn-primary mAuto_dBlock" onclick="send_request()">Search</button>
                         </div>
                     </div>
 

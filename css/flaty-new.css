@@ -1,0 +1,25 @@
+.width_m_auto {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.mAuto_dBlock {
+  margin: 0 auto;
+  display: block;
+}
+
+.input_group_new {
+  width: 5%;
+}
+
+.form-horizontal .control-label {
+  text-align: left;
+}
+
+.box-title-icon {
+  line-height: 20px;
+  margin: 0;
+  color: #fff;
+  font-size: 22px;
+  float: right;
+}

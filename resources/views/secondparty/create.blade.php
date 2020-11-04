@@ -21,13 +21,12 @@ Second Party
 
 
           <form action="{{url('SecondParty')}}" method="post"
-            class="form-horizontal form-bordered form-row-stripped" enctype="multipart/form-data" novalidate>
+            class="width_m_auto form-horizontal form-bordered form-row-stripped" enctype="multipart/form-data" novalidate>
             {!! csrf_field() !!}
             <input id="hidden_key" name="key" type="hidden" />
 
             <div class="row">
-
-              <div class="col-md-8" style="float: none; margin: 0 auto;">
+              <div class="col-md-12" style="float: none; margin: 0 auto;">
                 <div class="box box-red">
                   <div class="box-title">
                     <h3><i class="fa fa-bars"></i> GENERAL </h3>
@@ -55,7 +54,7 @@ Second Party
                 <!-- END Left Side -->
               </div>
 
-              <div class="col-md-8" style="float: none; margin: 0 auto;">
+              <div class="col-md-12" style="float: none; margin: 0 auto;">
                 <div class="box box-red">
                   <div class="box-title">
                     <h3><i class="fa fa-bars"></i> DATES </h3>
@@ -92,7 +91,7 @@ Second Party
                 <!-- END Left Side -->
               </div>
 
-              <div class="col-md-8" style="float: none; margin: 0 auto;">
+              <div class="col-md-12" style="float: none; margin: 0 auto;">
                 <div class="box box-red">
                   <div class="box-title">
                     <h3><i class="fa fa-bars"></i> LEGAL </h3>
