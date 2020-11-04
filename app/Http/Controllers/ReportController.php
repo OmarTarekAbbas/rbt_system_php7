@@ -146,20 +146,20 @@ class ReportController extends Controller
 
                         $report['rbt_name'] = $rbt->track_title_en;
                         $report['rbt_id'] = $rbt->id;
-                        $report['second_party_id'] = $rbt->second_party_id;
+                        $report['second_party_id'] = $rbt->provider_id;
                     } elseif ($row->code == "" && $row->track_name != "" && $row->artist_name != "") { // if you write rbt name + second_party name
                         $second_party = SecondParties::where('second_party_title', $row->artist_name)->first();
                         if (!$second_party) {
                             continue;
                         }
-                        $rbt = Rbt::where([['operator_id', $request->operator_id], ['second_party_id', $second_party->id], ['track_title_en', $row->track_name]])->first();
+                        $rbt = Rbt::where([['operator_id', $request->operator_id], ['provider_id', $second_party->id], ['track_title_en', $row->track_name]])->first();
                         if ($rbt == null) {
                             continue;
                         }
                         $report['code'] = $rbt->code;
                         $report['rbt_name'] = $rbt->track_title_en;
                         $report['rbt_id'] = $rbt->id;
-                        $report['second_party_id'] = $rbt->second_party_id;
+                        $report['second_party_id'] = $rbt->provider_id;
                     } else {
                         continue;
                     }
@@ -406,7 +406,7 @@ class ReportController extends Controller
         'contract_id' => new ContractFilter(),
         'year' => new YearFilter(),
         'code' => new RbtCodeFilter(),
-        'title' => new RbtTitleFilter(),
+        'title' => new RbtTitleFilter()
       ];
     }
 
