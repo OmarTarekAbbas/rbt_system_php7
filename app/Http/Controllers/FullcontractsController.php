@@ -100,7 +100,7 @@ class FullcontractsController extends Controller
                 return  date('F j, Y', strtotime($contract->contract_date));
             })
             ->addColumn('contract_signed_date', function (Contract $contract) {
-              return $contract->contract_signed_date;
+              return date('F j, Y', strtotime($contract->contract_signed_date));
             })
             ->addColumn('contract_expiry_date', function (Contract $contract) {
                 return  date('F j, Y', strtotime($contract->contract_expiry_date));
