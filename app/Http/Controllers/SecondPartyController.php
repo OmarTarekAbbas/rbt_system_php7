@@ -43,13 +43,14 @@ class SecondPartyController extends Controller
      *
      * @param SecondPartyRepository $SecondPartyRepository
      */
+
     public function __construct(
         SecondPartyRepository $SecondPartyRepository,
         SecondPartyTypeRepository $SecondPartyTypeRepository,
         SecondPartyStoreService $SecondPartyStoreService,
         SecondPartyUpdateService $SecondPartyUpdateService
     ) {
-        $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index', 'providers_to_secondparty']]);
+      $this->get_privilege();
         $this->SecondPartyRepository = $SecondPartyRepository;
         $this->SecondPartyTypeRepository = $SecondPartyTypeRepository;
         $this->SecondPartyStoreService = $SecondPartyStoreService;

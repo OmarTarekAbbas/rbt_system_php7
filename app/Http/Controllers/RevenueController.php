@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Storage;
 
 class RevenueController extends Controller
 {
+
     public function __construct()
     {
-      $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index', 'show']]);
+      $this->get_privilege();
     }
     /**
      * Display a listing of the resource.

@@ -12,6 +12,12 @@ use Validator;
 
 class DepartmentController extends Controller
 {
+
+  public function __construct()
+  {
+    $this->get_privilege();
+  }
+
   public function index()
   {
     $departments = Department::all();

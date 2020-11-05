@@ -17,6 +17,12 @@ use Illuminate\Support\Facades\Input;
  */
 class SearchController extends Controller
 {
+
+  public function __construct()
+  {
+    $this->get_privilege();
+  }
+
     /**
      * Display a listing of the resource.
      *

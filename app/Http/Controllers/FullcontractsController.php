@@ -45,7 +45,7 @@ class FullcontractsController extends Controller
       ContractTemplateRepository $ContractTemplateRepository,
       ContractService $ContractService
     ) {
-        $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index', 'allData', 'annex', 'authorization', 'copyright', 'downloadContractItems', 'show']]);
+      $this->get_privilege();
         $this->ContractTemplateRepository = $ContractTemplateRepository;
         $this->ContractService    = $ContractService;
     }

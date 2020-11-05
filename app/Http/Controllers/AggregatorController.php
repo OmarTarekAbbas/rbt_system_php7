@@ -17,6 +17,12 @@ use Validator;
  */
 class AggregatorController extends Controller
 {
+
+    public function __construct()
+    {
+      $this->get_privilege();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +43,7 @@ class AggregatorController extends Controller
     public function create()
     {
         $title = 'Create - aggregator';
-        
+
         return view('aggregator.create');
     }
 
@@ -52,18 +58,18 @@ class AggregatorController extends Controller
         $validator = Validator::make($request->all(),[
                 'title' => 'required|unique:aggregators,title'
             ]);
-        
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
         $aggregator = new Aggregator();
 
-        
+
         $aggregator->title = $request->title;
 
-        
-        
+
+
         $aggregator->save();
 
         $request->session()->flash('success', 'Created successfuly');
@@ -82,16 +88,16 @@ class AggregatorController extends Controller
         $validator = Validator::make($request->all(),[
                 'title' => 'required|unique:aggregators,title,'.$request->aggregator_id
             ]);
-        
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
         $aggregator = Aggregator::findOrfail($request->aggregator_id);
-    	
+
         $aggregator->title = $request->title;
-        
-        
+
+
         $aggregator->save();
 
         $request->session()->flash('success', 'Updated successfuly');
@@ -111,7 +117,7 @@ class AggregatorController extends Controller
      	$aggregator->delete();
 
         $request->session()->flash('success', 'Deleted successfuly');
-        
+
         return back();
     }
 }

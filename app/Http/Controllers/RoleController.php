@@ -34,7 +34,8 @@ class RoleController extends Controller
      */
     public function __construct(RoleService $roleService, RoleRepository $roleRepository)
     {
-        $this->roleRepository    = $roleRepository;
+      $this->get_privilege();
+      $this->roleRepository    = $roleRepository;
         $this->roleService  = $roleService;
 
     }

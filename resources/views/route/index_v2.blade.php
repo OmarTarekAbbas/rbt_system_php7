@@ -1,13 +1,13 @@
 @extends('template')
 
 @section('page_title')
-    <?php 
-        $controller_setter = "Select Controller" ; // default value 
+    <?php
+        $controller_setter = "Select Controller" ; // default value
         echo $controller_setter ;
-        
+
         if(isset($controller_name))
-            $controller_setter = $controller_name ; 
-    ?> 
+            $controller_setter = $controller_name ;
+    ?>
 @stop
 
 @section('content')
@@ -33,29 +33,29 @@
                                                 @foreach($controllers as $controller_name=>$item)
                                                     <option value="{{$controller_name}}" @if(isset($_GET['controller_name'])&&!empty($_GET['controller_name']) && $_GET['controller_name']== $controller_name) selected @endif>{{$controller_name}}</option>
                                                 @endforeach
-                                            </select> 
+                                            </select>
                                         <br/>
                                         </div>
-                                    </div> 
-                
+                                    </div>
+
                                     <div class="form-group">
                                         <label class="col-sm-3 col-lg-2 control-label" id="methods_word"></label>
                                         <div class="col-sm-9 col-md-10 controls">
                                             <ul id="methods">
-                                            
+
                                             </ul>
                                         </div>
                                     </div>
-                                {!! Form::close() !!} 
-                            </div> 
-                            @if(isset($methods)) 
+                                {!! Form::close() !!}
+                            </div>
+                            @if(isset($methods))
                                 <div class="box-content">
                                     <div class="table-responsive">
                                         <table class="table table-striped table-hover fill-head">
                                             <thead>
                                                 <tr>
                                                     <th>method name</th>
-                                                    
+
                                                     @foreach($roles as $role)
                                                         <th>
                                                         <label class="checkbox-inline">
@@ -63,28 +63,28 @@
                                                             {{$role->name}}
                                                         </label>
                                                         </th>
-                                                    @endforeach 
+                                                    @endforeach
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             {!! Form::open(["url"=>"routes/store_v2","class"=>"form-horizontal"]) !!}
                                                 @foreach($methods as $i=>$function_name)
                                                 {!! Form::hidden("controller_name",$_GET['controller_name']) !!}
-                                                <?php 
+                                                <?php
                                                     $function_name = str_replace(' ', '', $function_name); // to remove spaces from function name
-                                                    $j = 0 ; 
-                                                ?> 
+                                                    $j = 0 ;
+                                                ?>
                                                     @if($function_name!="")
                                                     <tr>
-                                                    
-                                                        <td> 
-                                                        <p>{{$function_name}}</p> 
+
+                                                        <td>
+                                                        <p>{{$function_name}}</p>
                                                         {!! Form::hidden("route[$i][$j]",$function_name) !!}
                                                         <?php $j++ ; ?>
                                                         <div class="col-sm-4 col-lg-4 controls">
                                                             <input type="text" name="route[{{$i}}][{{$j++}}]" @foreach($selected_routes as $route) @if($route->function_name == $function_name) style="border: 1px solid #248dc1" value="{{$route->route}}" @endif @endforeach placeholder="..." class="form-control input-lg">
-                                                        </div>  
-                                                        <div class="form-group"> 
+                                                        </div>
+                                                        <div class="form-group">
                                                             <div class="col-sm-3 col-lg-2 controls">
                                                                 <select class="form-control chosen-rtl" name="route[{{$i}}][{{$j++}}]">
                                                                     <option></option>
@@ -93,20 +93,20 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                        </div>                                                  
+                                                        </div>
                                                         </td>
-                                                        @foreach($roles as $index=>$role) 
+                                                        @foreach($roles as $index=>$role)
                                                             <td>
                                                                 <label class="checkbox-inline">
-                                                                    <input type="checkbox" 
-                                                                            name="route[{{$i}}][{{$j++}}]" 
+                                                                    <input type="checkbox"
+                                                                            name="route[{{$i}}][{{$j++}}]"
                                                                             value="{{$role->id}}"
-                                                                            class = "check_role_{{$role->id}}" 
+                                                                            class = "check_role_{{$role->id}}"
                                                                             @foreach($selected_routes as $route) @if($route->function_name == $function_name) @foreach($route->roles_routes as $role_route) @if($role_route->role_id == $role->id) checked @endif @endforeach @endif @endforeach
                                                                             />
                                                                 </label>
                                                             </td>
-                                                        @endforeach 
+                                                        @endforeach
                                                     </tr>
                                                     @endif
                                                 @endforeach
@@ -129,19 +129,19 @@
 @section('script')
 
     <script>
-        var checked_roles = [] ; 
+        var checked_roles = [] ;
         function check_all(role_id)
         {
             var index = checked_roles.indexOf(role_id) ;
             if(index!=-1)
-            { 
-                checked_roles.splice(index,1) ; 
+            {
+                checked_roles.splice(index,1) ;
                 $('.check_role_'+role_id).prop('checked', false);
             }
-            else{ 
-                checked_roles.push(role_id) ; 
+            else{
+                checked_roles.push(role_id) ;
                 $('.check_role_'+role_id).prop('checked', true);
-            } 
+            }
         }
 
         function get_controller_methods(element)

@@ -15,6 +15,12 @@ use Validator;
 
 class RouteController extends Controller
 {
+
+  public function __construct()
+  {
+    $this->get_privilege();
+  }
+
     /**
      * Display a listing of the resource.
      *
@@ -101,6 +107,7 @@ class RouteController extends Controller
         }
         $roles = Role::all() ;
         $method_types = $this->form_methods ;
+        // dd($method_types);
         return view('route.index_v2',compact('controllers','selected_routes','method_types','methods','controller_name','roles')) ;
     }
 

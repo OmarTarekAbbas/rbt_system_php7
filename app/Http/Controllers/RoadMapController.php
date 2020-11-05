@@ -12,6 +12,12 @@ use App\Http\Requests\RoadmapStoreRequest;
 
 class RoadMapController extends Controller
 {
+
+  public function __construct()
+  {
+    $this->get_privilege();
+  }
+
   public function index()
   {
       $title = 'Index - Roadmap';

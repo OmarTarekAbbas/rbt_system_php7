@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Repository\RoleRepository;
 use App\Http\Repository\UserRepository;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Services\UserStoreService;
+use App\Http\Requests\UserUpdateRequest;
+use App\Http\Services\UserUpdateService;
+use App\Http\Requests\UserProfileRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateUserImageRequest;
-use App\Http\Requests\UserProfileRequest;
-use App\Http\Requests\UserStoreRequest;
-use App\Http\Requests\UserUpdateRequest;
-use App\Http\Services\UserStoreService;
-use App\Http\Services\UserUpdateService;
 
 class UserController extends Controller
 {
@@ -52,6 +54,7 @@ class UserController extends Controller
      */
     public function __construct(UserStoreService $userStoreService, UserUpdateService $userUpdateService, UserRepository $userRepository, RoleRepository $roleRepository)
     {
+        $this->get_privilege();
         $this->userRepository    = $userRepository;
         $this->roleRepository    = $roleRepository;
         $this->userStoreService  = $userStoreService;

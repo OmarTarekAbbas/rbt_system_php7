@@ -18,6 +18,12 @@ use App\Http\Controllers\Controller;
  */
 class TypeController extends Controller
 {
+
+  public function __construct()
+  {
+    $this->get_privilege();
+  }
+
     /**
      * Display a listing of the resource.
      *

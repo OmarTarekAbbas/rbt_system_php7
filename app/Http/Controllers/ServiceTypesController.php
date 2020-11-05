@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 
 class ServiceTypesController extends Controller
 {
-    public function __construct()
-    {
-      $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index']]);
-    }
+  public function __construct()
+  {
+    $this->get_privilege();
+  }
     /**
      * Display a listing of the resource.
      *

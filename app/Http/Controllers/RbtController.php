@@ -38,6 +38,11 @@ class RbtController extends Controller
      */
     public $current_path = "" ;
 
+    public function __construct()
+    {
+      $this->get_privilege();
+    }
+
     public function index()
     {
         $title = 'Index - rbt';

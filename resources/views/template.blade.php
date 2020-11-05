@@ -210,8 +210,6 @@
       <!-- BEGIN Navlist -->
       <ul class="nav nav-list">
 
-        @if(Auth::user()->hasRole('super_admin', 'ceo'))
-
         <li id="user">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-user"></i>
@@ -236,6 +234,8 @@
               <ul class="submenu">
                 <li id="role-create"><a href="{{url('roles/new')}}">Create Role</a></li>
                 <li id="role-index"><a href="{{url('roles')}}">Roles</a></li>
+                <li id="route-index"><a href="{{url('all_routes')}}">Routes</a></li>
+                <li id="route-v2-index"><a href="{{url('routes/index_v2')}}">Routes V2</a></li>
               </ul>
               <!-- END Submenu -->
             </li>
@@ -258,8 +258,6 @@
           </ul>
           <!-- END Submenu -->
         </li>
-
-        @endif
 
         @if(Auth::user()->hasRole(['super_admin', 'operation', 'legal', 'ceo']))
 
