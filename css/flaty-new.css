@@ -32,6 +32,16 @@
   float: right;
 }
 
+.displayGrid {
+  display: grid;
+  grid-template-columns: 75% 25%;
+}
+
+.displayGrid .displayGridHref {
+  width: 35%;
+  margin-left: 63%;
+}
+
 #btn-scrollup {
   right: 3px;
 }

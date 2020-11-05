@@ -93,7 +93,7 @@ RBT Statistics
 
         <div class="form-group">
           <div class="col-sm-9 col-lg-12">
-            <button class="btn btn-primary mAuto_dBlock" onclick="get_statistics()">Statistics</button>
+            <button class="btn btn-primary mAuto_dBlock borderRadius" onclick="get_statistics()">Statistics</button>
           </div>
         </div>
       </div>
