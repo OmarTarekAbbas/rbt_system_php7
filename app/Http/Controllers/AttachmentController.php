@@ -115,6 +115,11 @@ class AttachmentController extends Controller
         return redirect('attachment')->with(['success' => 'Updated Successfully!']);
     }
 
+
+    public function show()
+    {
+
+    }
     /**
      * Remove the specified resource from storage.
      *
