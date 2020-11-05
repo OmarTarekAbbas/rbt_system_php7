@@ -23,3 +23,7 @@
   font-size: 22px;
   float: right;
 }
+
+#btn-scrollup {
+  right: 3px;
+}
