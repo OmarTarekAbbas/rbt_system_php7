@@ -44,20 +44,21 @@
                                     <td>{{$ContractTemplate->content_type == 1 ? 'IN' : 'OUT'}}</td>
                                     <td class="visible-md visible-lg">
                                         <div class="btn-group">
-                                            @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
+                                            @if ($ContractTemplate->items->count() > 0 && get_action_icons('ContractTemplate/{id}/items', 'get'))
                                             <a class="btn btn-sm show-tooltip btn-primary" title="" href="{{url('ContractTemplate/'.$ContractTemplate->id.'/items')}}" data-original-title="Show"><i class="fa fa-eye"></i></a>
-
+                                            @endif
+                                            @if (get_action_icons('ContractTemplate/{ContractTemplate}/edit', 'get'))
                                             <a class="btn btn-sm show-tooltip" title="" href="{{url('ContractTemplate/'.$ContractTemplate->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
-
+                                            @endif
+                                            @if (get_action_icons('ContractTemplate/{ContractTemplate}', 'get'))
                                             <form action="{{url('ContractTemplate/'.$ContractTemplate->id)}}" method="POST" style="display: inline">
                                                 @method('DELETE') @csrf
                                                 <button class="btn btn-sm btn-danger show-tooltip" type="submit" onclick='return ConfirmDelete()' data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
                                             </form>
                                             @endif
-                                            @if($ContractTemplate->items->count() > 0)
+                                            @if (get_action_icons('ContractTemplate/{id}/items/download', 'get'))
                                             <a class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="{{url('ContractTemplate/'.$ContractTemplate->id.'/items/download')}}" data-original-title="Show"><i class="fa fa-file"></i></a>
                                             @endif
-
                                         </div>
                                     </td>
                                 </tr>

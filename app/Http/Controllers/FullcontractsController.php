@@ -128,37 +128,8 @@ class FullcontractsController extends Controller
             })
             ->addColumn('action', function (Contract $contract) {
 
-                if(Auth::user()->hasRole(['operation'])){
-                  return '<td class="visible-md visible-lg">
-                  <div class="btn-group">
-                      <a target="_blank" class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="'.url("Contract/".$contract->id."/items/download").'" data-original-title="Show"><i class="fa fa-file"></i></a>
-                      <a class="btn btn-sm btn-primary show-tooltip " href="' . url("fullcontracts/" . $contract->id) . '" title="Show"><i class="fa fa-eye"></i></a>
-                  </div>
-                  </td>';
-                }else{
-                  if($contract->content->count() > 0){
-                    return '<td class="visible-md visible-lg">
-                    <div class="btn-group">
-                        <a class="btn btn-sm btn-secondary show-tooltip " href="' . url("contractservice/create/" . $contract->id) . '" title="View Services"><i class="fa fa-arrow-right"></i></a>
-                        <a target="_blank" class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="'.url("Contract/".$contract->id."/items/download").'" data-original-title="Show"><i class="fa fa-file"></i></a>
-                        <a class="btn btn-sm btn-primary show-tooltip " href="' . url("fullcontracts/" . $contract->id) . '" title="Show"><i class="fa fa-eye"></i></a>
-                        <a class="btn btn-sm btn-info show-tooltip " href="' . url("content?contract_id=".$contract->id) . '" title="list content"><i class="fa fa-music"></i></a>
-                        <a class="btn btn-sm show-tooltip" href="' . url("fullcontracts/" . $contract->id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
-                        <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("fullcontracts/" . $contract->id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
-                    </div>
-                    </td>';
-                  }else{
-                    return '<td class="visible-md visible-lg">
-                    <div class="btn-group">
-                        <a class="btn btn-sm btn-secondary show-tooltip " href="' . url("contractservice/create/" . $contract->id) . '" title="View Services"><i class="fa fa-arrow-right"></i></a>
-                        <a target="_blank" class="btn btn-sm show-tooltip btn-success" title="Show PDF" href="'.url("Contract/".$contract->id."/items/download").'" data-original-title="Show"><i class="fa fa-file"></i></a>
-                        <a class="btn btn-sm btn-primary show-tooltip " href="' . url("fullcontracts/" . $contract->id) . '" title="Show"><i class="fa fa-eye"></i></a>
-                        <a class="btn btn-sm show-tooltip" href="' . url("fullcontracts/" . $contract->id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
-                        <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("fullcontracts/" . $contract->id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
-                    </div>
-                    </td>';
-                  }
-                }
+              return view('fullcontracts.actions', compact('contract'))->render();
+
             })
             ->escapeColumns([])
             ->make(true);
