@@ -34,7 +34,7 @@ Operator
         @endif
         <div class="form-group">
           <div class="col-sm-9 col-lg-12">
-            <button type="submit" class="btn btn-primary mAuto_dBlock">Save</button>
+            <button type="submit" class="btn btn-primary mAuto_dBlock borderRadius">Save</button>
           </div>
         </div>
         {!! Form::close() !!}

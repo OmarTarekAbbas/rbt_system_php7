@@ -99,20 +99,19 @@ Employees Contracts
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group ">
             <label class="col-sm-3 col-lg-2 control-label" for="code">Contract Attachment</label>
             <div class="col-sm-9 col-lg-10 controls">
-              <div class="col-md-6 fileUpload">
-                <input type="file" name="contract_attachment" />
+              <div class="col-md-10 fileUpload">
+                <input type="file" name="contract_attachment" style="width: 100%;" />
               </div>
               @if (isset($employee_contract))
 
-
-              <div class="col-md-6">
+              <div class="col-md-2">
                 @if($employee_contract->contract_attachment)
-                <a class="btn btn-sm btn-success " href="{{url('uploads/employee_contract/'.$employee_contract->contract_attachment)}}" target="_blank">Review</a>
+                <a class="btn btn-success borderRadius displayGridHref pull-right" href="{{url('uploads/employee_contract/'.$employee_contract->contract_attachment)}}" target="_blank">Review</a>
                 @else
-                <a class="btn btn-sm btn-danger" href="#0">Review</a>
+                <a class="btn btn-danger borderRadius displayGridHref pull-right" href="#0">Review</a>
                 @endif
               </div>
               @endif
@@ -122,7 +121,7 @@ Employees Contracts
 
           <div class="form-group">
             <div class="col-sm-9 col-lg-12">
-              <input type="submit" class="btn btn-primary mAuto_dBlock" value="Submit">
+              <input type="submit" class="btn btn-primary mAuto_dBlock borderRadius" value="Submit">
             </div>
           </div>
         </form>
@@ -170,7 +169,4 @@ Employees Contracts
       'DD-MM-YYYY'))
   }
 </script>
-
-
-
 @stop

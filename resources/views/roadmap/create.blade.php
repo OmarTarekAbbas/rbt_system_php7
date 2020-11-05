@@ -121,7 +121,7 @@
                     <label for="event_color" class="col-xs-3 col-lg-2 control-label"> Event Color</label>
                     <div class="col-sm-9 col-lg-10 control">
                       <div class="input-group color colorpicker-default" data-color="#3865a8" data-color-format="rgba">
-                        <span class="input-group-addon"><i style="background-color: rgb(21, 96, 209);width:21px"></i></span>
+                        <span class="input-group-addon"><i style="background-color: rgb(21, 96, 209);width:16px;"></i></span>
                         <input type="text" name="event_color" id="event_color" placeholder="Event Color" class="form-control colorpicker-default" value="#3865a8">
                       </div>
                     </div>

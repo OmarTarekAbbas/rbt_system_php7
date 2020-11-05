@@ -181,7 +181,7 @@ if (isset($employee)) {
 
           <div class="form-group">
             <div class="col-sm-9 col-lg-12">
-              <input type="submit" class="btn btn-primary mAuto_dBlock" value="Submit">
+              <input type="submit" class="btn btn-primary mAuto_dBlock borderRadius" value="Submit">
             </div>
           </div>
         </form>
