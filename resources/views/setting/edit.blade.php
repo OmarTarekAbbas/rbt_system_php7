@@ -19,7 +19,7 @@
                 <div class="box-content">
 
                     <form action="{{url('setting/'.$setting->id)}}" method="post" class="form-horizontal form-bordered form-row-stripped" enctype="multipart/form-data">
-                      @method('patch')
+                      @method('put')
               			{!! csrf_field() !!}
                         <div class="form-group">
                             <label for="textfield5" class="col-sm-3 col-lg-2 control-label">Key</label>

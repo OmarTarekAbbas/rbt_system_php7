@@ -25,7 +25,7 @@ FirstParties
         <div class="row">
           <div class="col-md-12">
             <form class="width_m_auto form-horizontal" action="{{route('admin.firstparties.update',['firstpartie' => $firstpartie])}}" method="post" enctype="multipart/form-data">
-              @method('patch')
+              @method('put')
               {{ csrf_field() }}
               <div class="form-group">
                 <label class="col-sm-3 col-lg-2 control-label">Title *</label>
