@@ -20,69 +20,69 @@ Revenue
                         <tbody>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>ID</td>
+                                <td width='30%' class='label-view text-left'>ID</td>
                                 <td>{{$revenue->id}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Contract</td>
+                                <td width='30%' class='label-view text-left'>Contract</td>
                                 <td>{{optional($revenue->contract)->contract_code ." ". optional($revenue->contract)->contract_label}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Year</td>
+                                <td width='30%' class='label-view text-left'>Year</td>
                                 <td>{{$revenue->year}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Month</td>
+                                <td width='30%' class='label-view text-left'>Month</td>
                                 <td>{{$revenue->month}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Source Type</td>
+                                <td width='30%' class='label-view text-left'>Source Type</td>
                                 <td>{{$revenue->source_type}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Source</td>
+                                <td width='30%' class='label-view text-left'>Source</td>
                                 <td>{{optional($revenue->source)->title ?? optional($revenue->source)->second_party_title}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Amount</td>
+                                <td width='30%' class='label-view text-left'>Amount</td>
                                 <td>{{$revenue->amount}} </td>
                             </tr>
 
                             @foreach ($revenue->amount_services as $service)
                             <tr>
-                                <td width='30%' class='label-view text-right'>{{$service->title}}</td>
+                                <td width='30%' class='label-view text-left'>{{$service->title}}</td>
                                 <td>{{$service->pivot->amount}} </td>
                             </tr>
                             @endforeach
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Currency</td>
+                                <td width='30%' class='label-view text-left'>Currency</td>
                                 <td>{{optional($revenue->currency)->title}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Service Type</td>
+                                <td width='30%' class='label-view text-left'>Service Type</td>
                                 <td>{{$revenue->serivce_type->service_type_title}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Is Collected</td>
+                                <td width='30%' class='label-view text-left'>Is Collected</td>
                                 <td>{{$revenue->is_collected}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Notes</td>
+                                <td width='30%' class='label-view text-left'>Notes</td>
                                 <td>{{$revenue->notes}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Report Attachment *</td>
+                                <td width='30%' class='label-view text-left'>Report Attachment *</td>
                                 <td>
                                     <a href="{{url('uploads/revenue/'.$revenue->reports)}}">{{$revenue->reports}}</a>
                                 </td>
