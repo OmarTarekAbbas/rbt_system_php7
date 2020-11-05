@@ -159,7 +159,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-9 col-lg-12">
-                            <button class="btn btn-primary mAuto_dBlock" onclick="send_request()">Search</button>
+                            <button class="btn btn-primary mAuto_dBlock borderRadius" onclick="send_request()">Search</button>
                         </div>
                     </div>
 
