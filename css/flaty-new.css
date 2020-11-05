@@ -1,5 +1,5 @@
 .width_m_auto {
-  width: 90%;
+  width: 90% !important;
   margin: 0 auto;
 }
 
