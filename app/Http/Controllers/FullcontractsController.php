@@ -302,8 +302,12 @@ class FullcontractsController extends Controller
    {
      $contract = Contract::findOrfail($id);
      $template_items = $contract->items;
-     $items = view('fullcontracts.ceo_template', compact('contract','template_items'))->render();
-     return view('fullcontracts.ceo_approve',compact('contract','items'));
+      if($contract->ceo_approve === 2 || $contract->ceo_approve === 1){
+        return redirect('fullcontracts/'.$id);
+      }else{
+        $items = view('fullcontracts.ceo_template', compact('contract','template_items'))->render();
+        return view('fullcontracts.ceo_approve',compact('contract','items'));
+      }
    }
 
    /**

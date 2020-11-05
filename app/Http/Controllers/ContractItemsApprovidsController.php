@@ -74,13 +74,17 @@ class ContractItemsApprovidsController extends Controller
   public function edit($id)
   {
     $list_contract_items_send = Contract_Items_Approvids::select('*', 'contract_items_approves.id AS id', 'contract_items.item as item', 'contracts.id as contract_id')
-      ->where('contract_items_approves.id', $id)
-      ->join('contract_items', 'contract_items.id', '=', 'contract_items_approves.contract_item_id')
-      ->join('contracts', 'contract_items.contract_id', '=', 'contracts.id')
-      ->join('departments', 'departments.manager_id', '=', 'contract_items_approves.user_id')
-      ->first();
-
-    return view('ContractItemsApproved.edit', compact('list_contract_items_send','id'));
+    ->where('contract_items_approves.id', $id)
+    ->join('contract_items', 'contract_items.id', '=', 'contract_items_approves.contract_item_id')
+    ->join('contracts', 'contract_items.contract_id', '=', 'contracts.id')
+    ->join('departments', 'departments.manager_id', '=', 'contract_items_approves.user_id')
+    ->first();
+    
+    if($list_contract_items_send->status === 2 || $list_contract_items_send->status === 1){ //1-notapprove 2-appaove 0-notaction
+      return redirect('fullcontracts/'.$list_contract_items_send->contract_id);
+    }else{
+      return view('ContractItemsApproved.edit', compact('list_contract_items_send','id'));
+    }
   }
 
   /**

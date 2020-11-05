@@ -1,9 +1,10 @@
 @extends('template') @section('page_title') Contract @stop @section('content')
 <style>
-  .panel-title>a{
+  .h_font_w{
     font-weight: bold;
+    color: black;
   }
-  .panel-default>.panel-heading{
+  .panel-group .panel-heading{
     background-color: #0000001f;
   }
 </style>
@@ -56,14 +57,14 @@
             <div class="box-content">
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
                         <div class="panel-heading" role="tab" id="headingOne">
-                            <h4 class="panel-title">
-                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-                                    aria-expanded="true" aria-controls="collapseOne">
-                                    Contract Basic Information
-                                </a>
+                            <h4 class="panel-title h_font_w">
+                            Contract Basic Information
                             </h4>
                         </div>
+                      </a>
                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
                             aria-labelledby="headingOne">
                             <div class="panel-body">
@@ -279,16 +280,17 @@
                             </div>
                         </div>
                     </div>
+
                     @if($contract->contractRenew->count())
                     <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingTwo">
-                            <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
                                     href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title h_font_w">
                                     Contract Renews
-                                </a>
                             </h4>
                         </div>
+                        </a>
                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
                             aria-labelledby="headingTwo">
                             <div class="panel-body">
@@ -338,18 +340,17 @@
                     @endif
                     @if($contract->items->count())
                     <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingThree">
-                            <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
                                     href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title h_font_w">
                                     Contract PDF Items
-                                </a>
                             </h4>
                         </div>
+                        </a>
                         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
                             aria-labelledby="headingThree">
                             <div class="panel-body">
-
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered ">
                                         <thead>
