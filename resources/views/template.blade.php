@@ -413,7 +413,9 @@
 
               <!-- BEGIN Submenu -->
               <ul class="submenu">
-                <li id="revenue-index"><a href="{{url('revenue')}}">Revenue</a></li>
+                @if(get_action_icons('revenue','get'))
+                  <li id="revenue-index"><a href="{{url('revenue')}}">Revenue</a></li>
+                @endif
               </ul>
               <!-- END Submenu -->
             </li>
@@ -432,11 +434,21 @@
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
-            <li id="content-excel"><a href="{{url('content/create')}}">Singel Create Content</a></li>
+            @if(get_action_icons('content/create','get'))
+              <li id="content-excel"><a href="{{url('content/create')}}">Singel Create Content</a></li>
+            @endif
+            @if(get_action_icons('contents/excel','get'))
             <li id="content-excel"><a href="{{url('contents/excel')}}">Create Content Form Excel</a></li>
+            @endif
+            @if(get_action_icons('content','get'))
             <li id="content-index"><a href="{{url('content')}}">Contents</a></li>
+            @endif
+            @if(get_action_icons('contents/file_system','get'))
             <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">List Master Contents</a></li>
+            @endif
+            @if(get_action_icons('contents/upload_tracks','get'))
             <li id="content-upload-tracks"><a href="{{url('contents/upload_tracks')}}">Upload multi tracks</a></li>
+            @endif
           </ul>
           <!-- END Submenu -->
         </li>
@@ -450,13 +462,24 @@
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
-            <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a></li>
-            <li id="rbt-excel"><a href="{{url('rbt/excel')}}">Create RBT Form Excel</a></li>
-            <li id="rbt-upload-tracks"><a href="{{url('rbt/upload_tracks')}}">Upload multi tracks</a></li>
-            <li id="rbt-list-tracks"><a href="{{url('rbt/file_system')}}">List tracks</a></li>
-            <li id="rbt-index"><a href="{{url('rbt')}}">RBTs</a></li>
-            <li id="rbt-search"><a href="{{url('rbt/search')}}">Search in RBTs</a></li>
-
+            @if(get_action_icons('rbt/statistics','get'))
+              <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a></li>
+            @endif
+            @if(get_action_icons('rbt/excel','get'))
+              <li id="rbt-excel"><a href="{{url('rbt/excel')}}">Create RBT Form Excel</a></li>
+            @endif
+            @if(get_action_icons('rbt/upload_tracks','get'))
+              <li id="rbt-upload-tracks"><a href="{{url('rbt/upload_tracks')}}">Upload multi tracks</a></li>
+            @endif
+            @if(get_action_icons('rbt/file_system','get'))
+              <li id="rbt-list-tracks"><a href="{{url('rbt/file_system')}}">List tracks</a></li>
+            @endif
+            @if(get_action_icons('rbt','get'))
+              <li id="rbt-index"><a href="{{url('rbt')}}">RBTs</a></li>
+            @endif
+            @if(get_action_icons('rbt/search','get'))
+              <li id="rbt-search"><a href="{{url('rbt/search')}}">Search in RBTs</a></li>
+            @endif
             <li id="report">
               <a href="#" class="dropdown-toggle">
                 <i class="fa fa-file-text-o"></i>
@@ -466,10 +489,18 @@
 
               <!-- BEGIN Submenu -->
               <ul class="submenu">
-                <li id="report-statistics"><a href="{{url('report/statistics')}}">Statistics</a></li>
-                <li id="report-excel"><a href="{{url('report/excel')}}">Report Excel</a></li>
-                <li id="report-index"><a href="{{url('report')}}">Report</a></li>
-                <li id="report-search"><a href="{{url('report/search')}}">Search in reports</a></li>
+                @if(get_action_icons('report/statistics','get'))
+                  <li id="report-statistics"><a href="{{url('report/statistics')}}">Statistics</a></li>
+                @endif
+                @if(get_action_icons('report/excel','get'))
+                  <li id="report-excel"><a href="{{url('report/excel')}}">Report Excel</a></li>
+                @endif
+                @if(get_action_icons('report','get'))
+                  <li id="report-index"><a href="{{url('report')}}">Report</a></li>
+                @endif
+                @if(get_action_icons('report/search','get'))
+                  <li id="report-search"><a href="{{url('report/search')}}">Search in reports</a></li>
+                @endif
               </ul>
               <!-- END Submenu -->
             </li>
@@ -485,9 +516,15 @@
           </a>
 
           <ul class="submenu">
-            <li id="roadmap-create"><a href="{{route('admin.roadmaps.create')}}">Create Road Map</a></li>
+            @if(get_action_icons('roadmaps/create','get'))
+              <li id="roadmap-create"><a href="{{route('admin.roadmaps.create')}}">Create Road Map</a></li>
+            @endif
+            @if(get_action_icons('roadmaps','get'))
             <li id="roadmap-index"><a href="{{route('admin.roadmaps.index')}}">Road Map</a></li>
+            @endif
+            @if(get_action_icons('roadmaps/calendar/index','get'))
             <li id="roadmap-calendar"><a href="{{route('admin.roadmaps.calendar.index')}}">Road Map Calendar</a></li>
+            @endif
           </ul>
         </li>
 
@@ -500,8 +537,12 @@
 
 
           <ul class="submenu">
-            <li id="employee-create"><a href="{{url('employees/create')}}">Create Employees</a></li>
+            @if(get_action_icons('employees/create','get'))
+              <li id="employee-create"><a href="{{url('employees/create')}}">Create Employees</a></li>
+            @endif
+            @if(get_action_icons('employees','get'))
             <li id="employees-index"><a href="{{url('employees')}}">Employees</a></li>
+            @endif
           </ul>
 
         </li>
@@ -516,8 +557,12 @@
           <!-- BEGIN Submenu -->
 
           <ul class="submenu">
-            <li id="department-create"><a href="{{url('department/create')}}">Create Department</a></li>
-            <li id="department-index"><a href="{{url('department')}}">Departments</a></li>
+            @if(get_action_icons('department/create','get'))
+              <li id="department-create"><a href="{{url('department/create')}}">Create Department</a></li>
+            @endif
+            @if(get_action_icons('department','get'))
+              <li id="department-index"><a href="{{url('department')}}">Departments</a></li>
+            @endif
           </ul>
           <!-- END Submenu -->
         </li>
@@ -531,8 +576,12 @@
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
-            <li id="country-index"><a href="{{url('country')}}">Counties</a></li>
+            @if(get_action_icons('country','get'))
+              <li id="country-index"><a href="{{url('country')}}">Counties</a></li>
+            @endif
+            @if(get_action_icons('operator','get'))
             <li id="operator-index"><a href="{{url('operator')}}">Operators</a></li>
+            @endif
 
           </ul>
         </li>
@@ -546,7 +595,9 @@
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
-            <li id="aggregator-index"><a href="{{url('aggregator')}}">Aggregator</a></li>
+            @if(get_action_icons('aggregator','get'))
+              <li id="aggregator-index"><a href="{{url('aggregator')}}">Aggregator</a></li>
+            @endif
           </ul>
           <!-- END Submenu -->
         </li>
@@ -560,7 +611,9 @@
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
-            <li id="currency-index"><a href="{{url('currency')}}">Currency</a></li>
+            @if(get_action_icons('currency','get'))
+              <li id="currency-index"><a href="{{url('currency')}}">Currency</a></li>
+            @endif
           </ul>
           <!-- END Submenu -->
         </li>
@@ -588,7 +641,9 @@
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
-            <li id="occasion-index"><a href="{{url('occasion')}}">Occasion</a></li>
+            @if(get_action_icons('occasion','get'))
+              <li id="occasion-index"><a href="{{url('occasion')}}">Occasion</a></li>
+            @endif
           </ul>
           <!-- END Submenu -->
         </li>
