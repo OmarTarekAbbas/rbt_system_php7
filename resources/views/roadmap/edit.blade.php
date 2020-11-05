@@ -100,7 +100,7 @@ Departments
       </div>
       <div class="box-content">
         <form class="width_m_auto form-horizontal" action="{{url('roadmaps/'.$roadmap->id)}}" method="post">
-          @method('patch')
+          @method('put')
           {{ csrf_field() }}
           <div class="row">
             <div class="col-md-12">
@@ -111,7 +111,7 @@ Departments
             </div>
             <div class="box-content">
                 <form class="form-horizontal" action="{{url('roadmaps/'.$roadmap->id)}}" method="post">
-                    @method('patch')
+                    @method('put')
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-8" style="float: none; margin: 0 auto;">
