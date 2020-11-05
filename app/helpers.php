@@ -2,12 +2,16 @@
 use App\User;
 use PDF as PDF;
 use App\Country;
+use App\RoleRoute;
+use App\Route as RouteModel;
 use App\Department;
 use App\SecondParty;
 use App\Notification;
 use Illuminate\Http\Request;
 use App\Events\Notifications;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 function delete_multiselect(Request $request) // select many contract from index table and delete them
 {
     $selected_list =  explode(",",$request['selected_list']);
@@ -233,4 +237,20 @@ function list_routes_from_database()
       Route::$method($name, $action)->name($route_name);
 
     }
+}
+
+function get_action_icons($route,$method)
+{
+
+  // check user is login and hass role
+  $userRole = Auth::user()->roles->first()->id;
+
+  // check route
+  $route_id = RouteModel::where('route',$route)->where('method',$method)->first()->id;
+
+  // chec user roles has access this route
+  $routeRole = RoleRoute::where('role_id', $userRole)->where('route_id',  $route_id)->first();
+
+  return $routeRole ? 1 : 0 ;
+
 }
