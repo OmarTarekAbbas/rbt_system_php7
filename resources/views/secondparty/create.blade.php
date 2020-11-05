@@ -20,8 +20,7 @@ Second Party
         <div class="box-content">
 
 
-          <form action="{{url('SecondParty')}}" method="post"
-            class="width_m_auto form-horizontal form-bordered form-row-stripped" enctype="multipart/form-data" novalidate>
+          <form action="{{url('SecondParty')}}" method="post" class="width_m_auto form-horizontal form-bordered form-row-stripped" enctype="multipart/form-data" novalidate>
             {!! csrf_field() !!}
             <input id="hidden_key" name="key" type="hidden" />
 
@@ -81,8 +80,8 @@ Second Party
                     <div class="form-group">
                       <label for="second_party_title" class="col-xs-3 col-lg-2 control-label">Status</label>
                       <div class="col-sm-9 col-lg-10 controls">
-                         {!! Form::radio('second_party_status', 1, true) !!} working
-                         {!! Form::radio('second_party_status', 0) !!} terminated
+                        {!! Form::radio('second_party_status', 1, true) !!} working
+                        {!! Form::radio('second_party_status', 0) !!} terminated
                       </div>
                     </div>
 
@@ -121,7 +120,7 @@ Second Party
                     </div>
 
                     <div class="form-group">
-                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label">  Signature </label>
+                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> Signature </label>
                       <div class="col-sm-9 col-lg-10 controls">
                         <input type="file" name="second_party_signature" id="second_party_signature" placeholder="Second Party Title" class="form-control">
                       </div>
@@ -141,10 +140,13 @@ Second Party
 
             </div>
 
-            <div class="form-group">
-              <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2" style="justify-content: center;width: 65%;display: flex;">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-                <button type="button" class="btn">Cancel</button>
+            <div class="form-group" style="background: transparent; border: none;">
+              <div class="col-sm-6 col-lg-6">
+                <button type="submit" class="btn btn-primary borderRadius pull-right"><i class="fa fa-check"></i> Save</button>
+              </div>
+
+              <div class="col-sm-6 col-lg-6">
+                <button type="button" class="btn borderRadius">Cancel</button>
               </div>
             </div>
 
@@ -157,8 +159,8 @@ Second Party
 @stop
 @section('script')
 <script>
-    $('#contract .submenu').first().css('display', 'block');
-		$('#SecondParty .submenu').first().css('display', 'block');
-    $('#SecondParty-create').addClass('active');
+  $('#contract .submenu').first().css('display', 'block');
+  $('#SecondParty .submenu').first().css('display', 'block');
+  $('#SecondParty-create').addClass('active');
 </script>
 @stop

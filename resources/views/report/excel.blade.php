@@ -4,6 +4,15 @@ RBTs
 @stop
 @section('content')
 @include('errors')
+
+<style>
+  .displayGrid .displayGridHref {
+    width: 75%;
+    margin-left: 24%;
+  }
+</style>
+
+
 <div class="row">
   <div class="col-md-12">
     <div class="box">
@@ -49,7 +58,7 @@ RBTs
           <div class="form-group">
             <label class="col-sm-3 col-lg-2 control-label">Excel file</label>
             <div class="col-sm-9 col-lg-10 controls">
-              <div class="fileupload fileupload-new" data-provides="fileupload">
+              <div class="fileupload fileupload-new displayGrid" data-provides="fileupload">
                 <div class="input-group">
                   <div class="form-control uneditable-input">
                     <i class="fa fa-file fileupload-exists"></i>
@@ -64,13 +73,9 @@ RBTs
                     <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
                   </div>
                 </div>
-
+                <a class="btn btn-success mAuto_dBlock borderRadius displayGridHref" href="{{url('report/downloadSample')}}">Download Sample</a>
               </div>
             </div>
-          </div>
-
-          <div class="col-sm-9 col-lg-12">
-            <a class="btn btn-success mAuto_dBlock" style="width: 17%; margin-bottom: 2%;" href="{{url('report/downloadSample')}}">Download Sample</a>
           </div>
 
           <div class="form-group">
@@ -99,7 +104,7 @@ RBTs
 
           <div class="form-group">
             <div class="col-sm-9 col-lg-12">
-              <input type="submit" class="btn btn-primary mAuto_dBlock" value="Submit">
+              <input type="submit" class="btn btn-primary mAuto_dBlock borderRadius" value="Submit">
             </div>
           </div>
         </form>

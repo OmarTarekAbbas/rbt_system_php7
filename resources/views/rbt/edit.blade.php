@@ -139,7 +139,7 @@ RBTs
 
           <div class="form-group">
             <label for="start_date" class="col-xs-3 col-lg-2 control-label"> Rbt Start Date</label>
-            <div class="input-group date  start_date col-sm-9 col-lg-10 controls" style="width: 78%; margin: 0 auto;">
+            <div class="input-group date  start_date col-sm-9 col-lg-10 controls" style="width: 80.5%; margin: 0 auto;">
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <input type="text" name="start_date" value="{{ $rbt->start_date ? $rbt->start_date->format('d-m-Y') : null}}" id="start_date" autocomplete="off" placeholder="Rbt Start Date" data-date-format="dd-mm-yyyy" class="form-control">
             </div>
@@ -147,7 +147,7 @@ RBTs
 
           <div class="form-group">
             <label for="expire_date" class="col-xs-3 col-lg-2 control-label"> Rbt Expire Date</label>
-            <div class="input-group date expire_date col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy" style="width: 78%; margin: 0 auto;">
+            <div class="input-group date expire_date col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy" style="width: 80.5%; margin: 0 auto;">
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <input type="text" name="expire_date" id="expire_date" value="{{$rbt->expire_date ? $rbt->expire_date->format('d-m-Y') :null }}" autocomplete="off" placeholder="Rbt End Date" data-date-format="dd-mm-yyyy" class="form-control">
             </div>
@@ -155,7 +155,7 @@ RBTs
 
           <div class="form-group">
             <div class="col-sm-9 col-lg-12">
-              <input type="submit" class="btn btn-primary mAuto_dBlock" value="Submit">
+              <input type="submit" class="btn btn-primary mAuto_dBlock borderRadius" value="Submit">
             </div>
           </div>
         </form>

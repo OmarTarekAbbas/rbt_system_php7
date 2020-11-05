@@ -17,7 +17,7 @@ Contract Service
       </div>
       <div class="box-content">
 
-        {!! Form::open(["url"=>"contractservice","class"=>"form-horizontal","method"=>"POST","files"=>"True"]) !!}
+        {!! Form::open(["url"=>"contractservice","class"=>"width_m_auto form-horizontal","method"=>"POST","files"=>"True"]) !!}
 
         <div class="form-group">
           <label class="col-sm-3 col-lg-2 control-label">Contract<span class="text-danger">*</span></label>
@@ -48,7 +48,7 @@ Contract Service
 
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
               <div class="">
-                  <button type="submit" style="width:100%;margin:20px; border-radius: 30px !important;" class="btn btn-primary"><i class="fa fa-cloud" aria-hidden="true" style="padding-right: 7px;"></i>Save</button>
+                <button type="submit" style="width:100%;margin:20px; border-radius: 30px !important;" class="btn btn-primary"><i class="fa fa-cloud" aria-hidden="true" style="padding-right: 7px;"></i>Save</button>
               </div>
             </div>
           </div>

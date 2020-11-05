@@ -20,7 +20,7 @@ Contract Template
         <div class="box-content">
 
 
-          <form action="{{url("ContractTemplate/$ContractTemplate->id")}}" method="POST" class="form-horizontal form-bordered form-row-stripped"
+          <form action="{{url("ContractTemplate/$ContractTemplate->id")}}" method="POST" class="width_m_auto form-horizontal form-bordered form-row-stripped"
             enctype="multipart/form-data" novalidate>
             @method('put')
             @csrf
@@ -41,8 +41,8 @@ Contract Template
             </div>
 
             <div class="form-group last">
-              <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+              <div class="col-sm-9 col-lg-12">
+                <button type="submit" class="btn btn-primary mAuto_dBlock"><i class="fa fa-check"></i> Save</button>
               </div>
             </div>
           </form>
