@@ -251,6 +251,6 @@ function get_action_icons($route,$method)
   // chec user roles has access this route
   $routeRole = RoleRoute::where('role_id', $userRole)->where('route_id',  $route_id)->first();
 
-  return $routeRole ? 1 : 0 ;
+  return $routeRole || $userRole == 1 ? 1 : 0 ;
 
 }
