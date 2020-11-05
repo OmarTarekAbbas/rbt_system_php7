@@ -65,15 +65,6 @@ Reports
           @endif
 
           <div class="form-group col-md-6">
-            <label class="col-sm-3 col-lg-2 control-label">Contract</label>
-            <div class="col-sm-9 col-lg-10 controls">
-              <select id="contract_id" class="form-control chosen" data-placeholder="Choose a Contract" name="contract_id">
-                <option value=""></option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group col-md-6">
             <label class="col-sm-3 col-lg-2 control-label">Year</label>
             <div class="col-sm-9 col-lg-10 controls">
               <select id="signed_date" class="form-control chosen" data-placeholder="Filter By Year" name="year" tabindex="1">
@@ -90,17 +81,6 @@ Reports
               <select class="form-control chosen" data-placeholder="Choose a month" name="month[]" multiple>
                 @for($month = 1 ; $month <= 12 ; $month++) <option @if(in_array($month, (array)request('month'))) selected="selected" @endif value="{{$month}}">{{date("F", strtotime("$month/1/1"))}}</option>
                   @endfor
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group col-md-6">
-            <label class="col-sm-3 col-lg-2 control-label">Year</label>
-            <div class="col-sm-9 col-lg-10 controls">
-              <select id="signed_date" class="form-control chosen" data-placeholder="Filter By Year" name="year" tabindex="1">
-                @foreach( range( date('Y')-10 , date('Y')+10 ) as $year )
-                <option @if($year==date('Y')) selected="selected" @endif value="{{$year}}">{{$year}}</option>
-                @endforeach
               </select>
             </div>
           </div>
@@ -126,12 +106,6 @@ Reports
           </div>
         </form>
 
-        <div class="form-group col-md-6">
-          <label class="col-sm-3 col-lg-2 control-label">Rbt title</label>
-          <div class="col-sm-9 col-lg-10 controls">
-            <input id="input5" name="title" type="text" class="form-control">
-          </div>
-        </div>
 
         <div class="box-content col-md-12" id="search_result">
           <div class="row">

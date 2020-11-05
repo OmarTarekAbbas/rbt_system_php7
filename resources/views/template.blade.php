@@ -209,7 +209,6 @@
     <div id="sidebar" class="navbar-collapse collapse">
       <!-- BEGIN Navlist -->
       <ul class="nav nav-list">
-
         <li id="user">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-user"></i>
@@ -220,9 +219,12 @@
           <!-- BEGIN Submenu -->
 
           <ul class="submenu">
-            <li id="user-create"><a href="{{url('users/new')}}">Create User</a></li>
-            <li id="user-index"><a href="{{url('users')}}">Users</a></li>
-
+            @if(get_action_icons('users/new','get'))
+              <li id="user-create"><a href="{{url('users/new')}}">Create User</a></li>
+            @endif
+            @if(get_action_icons('users','get'))
+             <li id="user-index"><a href="{{url('users')}}">Users</a></li>
+            @endif
             <li id="role">
               <a href="#" class="dropdown-toggle">
                 <i class="glyphicon glyphicon-road"></i>
@@ -232,10 +234,18 @@
 
               <!-- BEGIN Submenu -->
               <ul class="submenu">
-                <li id="role-create"><a href="{{url('roles/new')}}">Create Role</a></li>
-                <li id="role-index"><a href="{{url('roles')}}">Roles</a></li>
-                <li id="route-index"><a href="{{url('all_routes')}}">Routes</a></li>
-                <li id="route-v2-index"><a href="{{url('routes/index_v2')}}">Routes V2</a></li>
+                @if(get_action_icons('roles/new','get'))
+                  <li id="role-create"><a href="{{url('roles/new')}}">Create Role</a></li>
+                @endif
+                @if(get_action_icons('roles','get'))
+                  <li id="role-index"><a href="{{url('roles')}}">Roles</a></li>
+                @endif
+                @if(get_action_icons('all_routes','get'))
+                  <li id="route-index"><a href="{{url('all_routes')}}">Routes</a></li>
+                @endif
+                @if(get_action_icons('routes/index_v2','get'))
+                  <li id="route-v2-index"><a href="{{url('routes/index_v2')}}">Routes V2</a></li>
+                @endif
               </ul>
               <!-- END Submenu -->
             </li>
@@ -249,8 +259,12 @@
 
               <!-- BEGIN Submenu -->
               <ul class="submenu">
-                <li id="setting-create"><a href="{{url('setting/create')}}">Add Settings</a></li>
-                <li id="setting-index"><a href="{{url('setting')}}">Settings</a></li>
+                @if(get_action_icons('setting/create','get'))
+                  <li id="setting-create"><a href="{{url('setting/create')}}">Add Settings</a></li>
+                @endif
+                @if(get_action_icons('setting','get'))
+                  <li id="setting-index"><a href="{{url('setting')}}">Settings</a></li>
+                @endif
               </ul>
               <!-- END Submenu -->
             </li>
@@ -258,8 +272,6 @@
           </ul>
           <!-- END Submenu -->
         </li>
-
-        @if(Auth::user()->hasRole(['super_admin', 'operation', 'legal', 'ceo']))
 
         <li id="contract">
           <a href="#" class="dropdown-toggle">
@@ -270,8 +282,12 @@
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
-            <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
+            @if(get_action_icons('fullcontracts','get'))
+              <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
+            @endif
+            @if(get_action_icons('ContractTemplate','get'))
             <li id="ContractTemplate-index"><a href="{{url('ContractTemplate')}}">Templates</a></li>
+            @endif
             {{-- <li id="contractservice-index"><a href="{{url('contractservice')}}">Service</a></li> --}}
 
             <li id="Attachment">
@@ -283,10 +299,12 @@
 
               <!-- BEGIN Submenu -->
               <ul class="submenu">
-                @if(Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
-                <li id="Attachment-create"><a href="{{url('attachment/create')}}">Add Attachment</a></li>
+                @if(get_action_icons('attachment/create','get'))
+                 <li id="Attachment-create"><a href="{{url('attachment/create')}}">Add Attachment</a></li>
                 @endif
-                <li id="Attachment-index"><a href="{{url('attachment')}}">Attachment</a></li>
+                @if(get_action_icons('attachment','get'))
+                  <li id="Attachment-index"><a href="{{url('attachment')}}">Attachment</a></li>
+                @endif
               </ul>
               <!-- END Submenu -->
             </li>
@@ -300,10 +318,12 @@
 
               <!-- BEGIN Submenu -->
               <ul class="submenu">
-                @if(Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
-                <li id="ServiceTypes-create"><a href="{{url('ServiceTypes/create')}}">Add Service Types</a></li>
+                @if(get_action_icons('ServiceTypes/create','get'))
+                  <li id="ServiceTypes-create"><a href="{{url('ServiceTypes/create')}}">Add Service Types</a></li>
                 @endif
-                <li id="ServiceTypes-index"><a href="{{url('ServiceTypes')}}">Service Types</a></li>
+                @if(get_action_icons('ServiceTypes','get'))
+                  <li id="ServiceTypes-index"><a href="{{url('ServiceTypes')}}">Service Types</a></li>
+                @endif
               </ul>
               <!-- END Submenu -->
             </li>
@@ -317,10 +337,12 @@
 
               <!-- BEGIN Submenu -->
               <ul class="submenu">
-                @if(Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
+                @if(get_action_icons('firstparties/create','get'))
                 <li id="firstpartie-create"><a href="{{url('firstparties/create')}}">Create First Party</a></li>
                 @endif
+                @if(get_action_icons('firstparties','get'))
                 <li id="firstpartie-index"><a href="{{url('firstparties')}}">First Party</a></li>
+                @endif
               </ul>
               <!-- END Submenu -->
             </li>
@@ -334,10 +356,12 @@
 
               <!-- BEGIN Submenu -->
               <ul class="submenu">
-                @if(Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
-                <li id="SecondParty-create"><a href="{{url('SecondParty/create')}}">Add Second Party</a></li>
+                @if(get_action_icons('SecondParty/create','get'))
+                  <li id="SecondParty-create"><a href="{{url('SecondParty/create')}}">Add Second Party</a></li>
                 @endif
-                <li id="SecondParty-index"><a href="{{url('SecondParty')}}">Second Party</a></li>
+                @if(get_action_icons('SecondParty','get'))
+                  <li id="SecondParty-index"><a href="{{url('SecondParty')}}">Second Party</a></li>
+                @endif
               </ul>
               <!-- END Submenu -->
             </li>
@@ -351,10 +375,12 @@
 
               <!-- BEGIN Submenu -->
               <ul class="submenu">
-                @if(Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
-                <li id="SecondPartyType-create"><a href="{{url('SecondPartyType/create')}}">Add Second Party Type</a></li>
+                @if(get_action_icons('SecondPartyType/create','get'))
+                  <li id="SecondPartyType-create"><a href="{{url('SecondPartyType/create')}}">Add Second Party Type</a></li>
                 @endif
-                <li id="SecondPartyType-index"><a href="{{url('SecondPartyType')}}">Second Party Type</a></li>
+                @if(get_action_icons('SecondPartyType','get'))
+                  <li id="SecondPartyType-index"><a href="{{url('SecondPartyType')}}">Second Party Type</a></li>
+                @endif
               </ul>
               <!-- END Submenu -->
             </li>
@@ -368,10 +394,12 @@
 
               <!-- BEGIN Submenu -->
               <ul class="submenu">
-                @if(Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
-                <li id="percentage-create"><a href="{{url('percentages/create')}}">Create Percentage</a></li>
+                @if(get_action_icons('percentages/create','get'))
+                  <li id="percentage-create"><a href="{{url('percentages/create')}}">Create Percentage</a></li>
                 @endif
-                <li id="percentage-index"><a href="{{url('percentages')}}">Percentages</a></li>
+                @if(get_action_icons('percentages','get'))
+                  <li id="percentage-index"><a href="{{url('percentages')}}">Percentages</a></li>
+                @endif
               </ul>
               <!-- END Submenu -->
             </li>
@@ -395,10 +423,6 @@
 
         </li>
 
-        @endif
-
-        @if(Auth::user()->hasRole(['super_admin', 'operation', 'ceo']))
-
         <li id="content">
           <a href="#" class="dropdown-toggle">
             <i class="fa fa-folder-o"></i>
@@ -416,10 +440,6 @@
           </ul>
           <!-- END Submenu -->
         </li>
-
-        @endif
-
-        @if(Auth::user()->hasRole(['super_admin', 'operation', 'ceo']))
 
         <li id="rbt">
           <a href="#" class="dropdown-toggle">
@@ -457,10 +477,6 @@
           <!-- END Submenu -->
         </li>
 
-        @endif
-
-        @if(Auth::user()->hasRole(['super_admin', 'operation', 'ceo']))
-
         <li id="roadmap">
           <a href="#" class="dropdown-toggle">
             <i class="fa fa-file-text-o"></i>
@@ -474,10 +490,6 @@
             <li id="roadmap-calendar"><a href="{{route('admin.roadmaps.calendar.index')}}">Road Map Calendar</a></li>
           </ul>
         </li>
-
-        @endif
-
-        @if(Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
         <li id="employees">
           <a href="#" class="dropdown-toggle">
@@ -494,10 +506,6 @@
 
         </li>
 
-        @endif
-
-        @if(Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
-
         <li id="department">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-briefcase"></i>
@@ -513,10 +521,6 @@
           </ul>
           <!-- END Submenu -->
         </li>
-
-        @endif
-
-        @if(Auth::user()->hasRole(['super_admin', 'operation', 'legal', 'ceo']))
 
         <li id="country">
           <a href="#" class="dropdown-toggle">
@@ -589,7 +593,6 @@
           <!-- END Submenu -->
         </li>
 
-        @endif
 
       </ul>
       <!-- END Navlist -->
