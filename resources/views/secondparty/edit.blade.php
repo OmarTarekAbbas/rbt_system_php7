@@ -147,7 +147,7 @@ Second Party Types
                       </div>
                       @isset($SecondParty->second_party_signature)
                       <div class="col-sm-3 col-lg-3 controls">
-                      <a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_signature")}}">Preview</a>
+                      <a target="_blank" href="{{url("uploads/docs/signature/$SecondParty->second_party_signature")}}">Preview</a>
                       </div>
                       @endisset
                     </div>
@@ -159,7 +159,7 @@ Second Party Types
                       </div>
                       @isset($SecondParty->second_party_seal)
                       <div class="col-sm-3 col-lg-3 controls">
-                      <a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_seal")}}">Preview</a>
+                      <a target="_blank" href="{{url("uploads/docs/signature/$SecondParty->second_party_seal")}}">Preview</a>
                       </div>
                       @endisset
                     </div>

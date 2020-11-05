@@ -110,6 +110,7 @@ function send_notification($message,$dep,$data){
     $contract->save();
     $template_items = $contract->items;
     $content = view('fullcontracts.template', compact('template_items'))->render();
+    PDF::reset();
     $pdf = new PDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
     $pdf::SetTitle($contract->title);
 
