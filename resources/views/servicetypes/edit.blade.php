@@ -22,7 +22,7 @@ ServiceTypes
 
           <form action="{{url("ServiceTypes/$ServiceType->id")}}" method="POST" class="width_m_auto form-horizontal form-bordered form-row-stripped"
             enctype="multipart/form-data" novalidate>
-            @method('PATCH')
+            @method('put')
             @csrf
             <input id="hidden_key" name="key" type="hidden" />
 

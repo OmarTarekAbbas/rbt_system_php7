@@ -22,7 +22,7 @@ Contract Template
 
           <form action="{{url("ContractTemplate/$ContractTemplate->id")}}" method="POST" class="form-horizontal form-bordered form-row-stripped"
             enctype="multipart/form-data" novalidate>
-            @method('PATCH')
+            @method('put')
             @csrf
             <input id="hidden_key" name="key" type="hidden" />
 

@@ -16,7 +16,7 @@ Percentages
       </div>
       <div class="box-content">
         <form class="width_m_auto form-horizontal" action="{{url('percentages/'.$percentage->id)}}" method="post">
-          @method('patch')
+          @method('put')
           {{ csrf_field() }}
           <div class="form-group">
             <label class="col-sm-3 col-lg-2 control-label">Percentage *</label>

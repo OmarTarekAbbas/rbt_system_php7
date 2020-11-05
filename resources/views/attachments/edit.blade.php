@@ -20,7 +20,7 @@ attachment
                 <div class="box-content">
 
                     <form action="{{url("attachment/$Attachment->id")}}" method="post" class="form-horizontal form-bordered form-row-stripped" enctype="multipart/form-data" novalidate>
-                      @method('PATCH')
+                      @method('put')
                       @csrf
                         <input id="hidden_key" name="key" type="hidden" />
 
