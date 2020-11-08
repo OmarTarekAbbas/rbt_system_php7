@@ -45,7 +45,7 @@
     <br>
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 noPaddingPhone">
         <div class="box box-blue">
             <div class="box-title">
                 <h3><i class="fa fa-table"></i> {{$contract->contract_code}}  {{$contract->contract_label}}</h3>

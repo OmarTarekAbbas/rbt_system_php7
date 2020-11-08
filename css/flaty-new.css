@@ -84,4 +84,22 @@
   .input_group_new {
     width: 13%;
   }
+
+  .start_date,
+  .expire_date {
+    width: 92% !important;
+  }
+
+  .displayGrid.displayPhone {
+    display: block;
+  }
+
+  .displayGrid.displayPhone .displayGridHref {
+    width: 60%;
+    margin-left: 0;
+    margin: 6% auto;
+    display: block;
+  }
+
+
 }

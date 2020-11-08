@@ -5,7 +5,7 @@ Contents
 @section('content')
 @include('errors')
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 noPaddingPhone">
     <div class="box">
       <div class="box-title">
         <h3><i class="fa fa-bars"></i>Update Content Form</h3>
@@ -63,7 +63,7 @@ Contents
           <div class="form-group">
             <label class="col-sm-3 col-lg-2 control-label">Track file</label>
             <div class="col-sm-9 col-lg-10 controls">
-              <div class="displayGrid fileupload fileupload-new" data-provides="fileupload">
+              <div class="displayGrid fileupload fileupload-new displayGrid displayPhone" data-provides="fileupload">
                 <div class="input-group">
                   <div class="form-control uneditable-input">
                     <i class="fa fa-file fileupload-exists"></i>
@@ -75,7 +75,7 @@ Contents
                       <span class="fileupload-exists">Change</span>
                       <input type="file" name="path" class="file-input" style="width: 100%;">
                     </a>
-                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    <a href="#" class="btn btn-default fileupload-exists" style="display:none;" data-dismiss="fileupload">Remove</a>
                   </div>
                 </div>
                 <a class="btn btn-sm btn-success borderRadius displayGridHref" href="{{url($content->path)}}" target="_blank">Review</a>
