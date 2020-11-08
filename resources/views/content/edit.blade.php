@@ -17,7 +17,7 @@ Contents
       <div class="box-content">
         <form method='POST' class="form-horizontal" action='{!! url("content")!!}/{!!$content->id!!}/update' enctype="multipart/form-data">
           <input type='hidden' name='_token' value='{{Session::token()}}'>
-          <input type='hidden' name='_method' value='patch'>
+          <input type='hidden' name='_method' value='put'>
           <div class="form-group">
             <label class="col-sm-3 col-lg-2 control-label" for="track_title_en">Content Title *</label>
             <div class="col-sm-9 col-lg-10 controls">

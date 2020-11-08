@@ -37,7 +37,7 @@ class DepartmentController extends Controller
   {
     $validator = Validator::make($request->all(), [
       'title' => 'required',
-      'email' => 'required|email|unique:departments,email',
+      'email' => 'required|email',
       'manager_id' => 'required'
     ]);
     if ($validator->fails()) {
@@ -64,7 +64,7 @@ class DepartmentController extends Controller
   {
     $validator = Validator::make($request->all(), [
       'title' => 'required',
-      'email' => 'required|email|unique:departments,email,' . $id,
+      'email' => 'required|email',
       'manager_id' => 'required'
     ]);
     if ($validator->fails()) {

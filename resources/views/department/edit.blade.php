@@ -16,7 +16,7 @@ Department
       </div>
       <div class="box-content">
         <form class="width_m_auto form-horizontal" action="{{url('department/'.$department->id)}}" method="post">
-          <input type="hidden" value="patch" name="_method">
+          <input type="hidden" value="put" name="_method">
           {{ csrf_field() }}
 
           <div class="form-group">
