@@ -50,3 +50,38 @@
   width: 80%;
   display: inline-block;
 }
+
+.displayGridTwo {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr 1fr);
+  grid-gap: 1rem;
+}
+
+@media (min-width: 320px) and (max-width: 359.9px) {
+  .noPaddingPhone {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  .p-5.noPaddingPhone {
+    padding: 0 !important;
+  }
+
+  .width_m_auto {
+    width: 100% !important;
+  }
+
+  .breadcrumb {
+    margin-bottom: 0;
+  }
+
+  .sximo-form .wizard>.actions>ul {
+    display: flex;
+    justify-content: center;
+    float: none !important;
+  }
+
+  .input_group_new {
+    width: 13%;
+  }
+}

@@ -4,7 +4,7 @@ Contract
 @stop
 @section('content')
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 noPaddingPhone">
     <div class="box box-blue">
       <div class="box-title">
         <h3><i class="fa fa-table"></i> Contract Table</h3>
@@ -56,8 +56,8 @@ Contract
                 <th>Contract Date</th>
                 <th>Contract Signed Date</th>
                 <th>Expiry Date</th>
-                <th class="visible-md visible-lg" style="width:130px">Show Attachments</th>
-                <th class="visible-md visible-lg" style="width:130px">Action</th>
+                <th class="visible-xs visible-md visible-lg" style="width:130px">Show Attachments</th>
+                <th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
               </tr>
             </thead>
             <tbody>
