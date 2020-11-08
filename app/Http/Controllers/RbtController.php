@@ -131,14 +131,7 @@ class RbtController extends Controller
                     return '--';
             })
             ->addColumn('action', function (Rbt $rbt) {
-                if (Auth::user()->hasRole(['super_admin', 'admin', 'ceo']))
-                    return '<td class="visible-md visible-lg">
-                            <div class="btn-group">
-                            <a class="btn btn-sm btn-primary show-tooltip " href="' . url("rbt/" . $rbt->rbt_id) . '" title="Show"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-sm show-tooltip" href="' . url("rbt/" . $rbt->rbt_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("rbt/" . $rbt->rbt_id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
-                            </div>
-                        </td>';
+                    return view('rbt.actions', compact('rbt'));
             })
 
             ->escapeColumns([])

@@ -31,10 +31,8 @@
                                 <th>Revenue Share</th>
                                 <th>Provider Title</th>
                                 <th>Operator Title</th>
-                                @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
                                 <th>Aggregator Title</th>
                                 <th class="visible-md visible-lg" style="width:130px">Action</th>
-                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -52,15 +50,17 @@
                                     <td>{!!$report->revenue_share!!}</td>
                                     <td>{!!($report->second_party_id) ? $report->provider->second_party_title : '--'!!}</td>
                                     <td>{!!($report->operator_id) ? $report->operator->title : '--'!!}</td>
-                                    @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
                                     <td>{!!($report->aggregator_id) ? $report->aggregator->title : '--'!!}</td>
                                     <td class="visible-md visible-lg">
                                         <div class="btn-group">
-                                            <a class="btn btn-sm show-tooltip" title="" href="{{url('report/'.$report->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
-                                            <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('report/'.$report->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                                          @if(get_action_icons('report/{report}/edit','get'))
+                                          <a class="btn btn-sm show-tooltip" title="" href="{{url('report/'.$report->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+                                          @endif
+                                          @if(get_action_icons('report/{id}/delete','get'))
+                                          <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('report/'.$report->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                                          @endif
                                         </div>
                                     </td>
-                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>
