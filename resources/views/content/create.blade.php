@@ -5,7 +5,7 @@ Contents
 @section('content')
 @include('errors')
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 noPaddingPhone">
     <div class="box">
       <div class="box-title">
         <h3><i class="fa fa-bars"></i>Create Content Form</h3>
@@ -92,7 +92,7 @@ Contents
 
           <div class="form-group">
             <label for="start_date" class="col-xs-3 col-lg-2 control-label"> Content Start Date</label>
-            <div class="input-group date  start_date col-sm-9 col-lg-10 controls" style="width: 78%; margin: 0 auto;">
+            <div class="input-group date  start_date col-sm-9 col-lg-10 controls" style="width: 81.25%; margin: 0 auto;">
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <input type="text" name="start_date" id="start_date" autocomplete="off" placeholder="Content Start Date" data-date-format="dd-mm-yyyy" class="form-control">
             </div>
@@ -100,7 +100,7 @@ Contents
 
           <div class="form-group">
             <label for="expire_date" class="col-xs-3 col-lg-2 control-label"> Content Expire Date</label>
-            <div class="input-group date expire_date col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy" style="width: 78%; margin: 0 auto;">
+            <div class="input-group date expire_date col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy" style="width: 81.25%; margin: 0 auto;">
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <input type="text" name="expire_date" id="expire_date" autocomplete="off" placeholder="Content End Date" data-date-format="dd-mm-yyyy" class="form-control">
             </div>

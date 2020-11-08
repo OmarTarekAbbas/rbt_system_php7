@@ -4,11 +4,19 @@ Second Party Types
 @stop
 @section('content')
 
+<style>
+  @media (min-width: 320px) and (max-width: 359.9px) {
+    #main-content {
+      padding: 10px 10px 20px;
+    }
+  }
+</style>
+
 <!-- BEGIN Content -->
 <div id="main-content">
   @include('errors')
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 noPaddingPhone">
       <div class="box">
         <div class="box-title">
           <h3><i class="fa fa-bars"></i>Second Party Types</h3>
@@ -36,15 +44,15 @@ Second Party Types
                   <div class="box-content">
 
                     <div class="form-group">
-                      <label for="second_party_type_id" class="col-xs-3 col-lg-2 control-label">Type</label>
-                      <div class="col-sm-9 col-lg-10 controls">
+                      <label for="second_party_type_id" class="col-xs-12 col-lg-2 control-label">Type</label>
+                      <div class="col-xs-12 col-lg-10 controls">
                         {!! Form::select('second_party_type_id', $SecondPartyTypes, $SecondParty->second_party_type_id, ['class'=>'form-control chosen-rtl' , 'id' => 'second_party_type_id' ,'required' => true,'style'=>'height: 48px;'])!!}
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="second_party_title" class="col-xs-3 col-lg-2 control-label">Title</label>
-                      <div class="col-sm-9 col-lg-10 controls">
+                      <label for="second_party_title" class="col-xs-12 col-lg-2 control-label">Title</label>
+                      <div class="col-xs-12 col-lg-10 controls">
                         <input type="text" name="second_party_title" id="second_party_title" placeholder="Second Party Title" class="form-control" value="{{$SecondParty->second_party_title}}">
                       </div>
                     </div>
@@ -64,24 +72,24 @@ Second Party Types
                   <div class="box-content">
 
                     <div class="form-group">
-                      <label for="second_party_joining_date" class="col-xs-3 col-lg-2 control-label"> Joining date</label>
-                      <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="yyyy-mm-dd">
+                      <label for="second_party_joining_date" class="col-xs-12 col-lg-2 control-label"> Joining date</label>
+                      <div class="input-group date date-picker col-xs-12 col-lg-10 controls" data-date-format="yyyy-mm-dd">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         <input type="text" name="second_party_joining_date" id="second_party_joining_date" autocomplete="off" placeholder="first party joining date" data-date-format="yyyy-mm-dd" class="form-control" value="{{$SecondParty->second_party_joining_date}}">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="second_party_terminate_date" class="col-xs-3 col-lg-2 control-label"> Terminate date</label>
-                      <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date-format="yyyy-mm-dd">
+                      <label for="second_party_terminate_date" class="col-xs-12 col-lg-2 control-label"> Terminate date</label>
+                      <div class="input-group date date-picker col-xs-12 col-lg-10 controls" data-date-format="yyyy-mm-dd">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         <input type="text" name="second_party_terminate_date" id="second_party_terminate_date" autocomplete="off" placeholder="first party joining date" data-date-format="yyyy-mm-dd" class="form-control" value="{{$SecondParty->second_party_terminate_date}}">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="second_party_title" class="col-xs-3 col-lg-2 control-label">Status</label>
-                      <div class="col-sm-9 col-lg-10 controls">
+                      <label for="second_party_title" class="col-xs-12 col-lg-2 control-label">Status</label>
+                      <div class="col-xs-12 col-lg-10 controls">
                         @if ($SecondParty->second_party_status == 'Working')
                         {!! Form::radio('second_party_status', 1, true) !!} working
                         {!! Form::radio('second_party_status', 0) !!} terminated
@@ -106,8 +114,8 @@ Second Party Types
                   <div class="box-content">
 
                     <div class="form-group">
-                      <label for="second_party_identity" class="col-xs-3 col-lg-2 control-label"> ID </label>
-                      <div class="col-sm-6 col-lg-6 controls">
+                      <label for="second_party_identity" class="col-xs-12 col-lg-2 control-label"> ID </label>
+                      <div class="col-xs-12 col-lg-6 controls">
                         <input type="file" name="second_party_identity" id="second_party_identity" placeholder="Second Party Title" class="form-control">
                       </div>
                       @isset($SecondParty->second_party_identity)
@@ -117,48 +125,48 @@ Second Party Types
                       @endisset
                     </div>
                     <div class="form-group">
-                      <label for="second_party_cr" class="col-xs-3 col-lg-2 control-label"> CR </label>
-                      <div class="col-sm-6 col-lg-6 controls">
+                      <label for="second_party_cr" class="col-xs-12 col-lg-2 control-label"> CR </label>
+                      <div class="col-xs-12 col-lg-6 controls">
                         <input type="file" name="second_party_cr" id="second_party_cr" placeholder="Second Party Title" class="form-control">
                       </div>
                       @isset($SecondParty->second_party_cr)
-                      <div class="col-sm-3 col-lg-4 controls">
+                      <div class="col-xs-12 col-lg-4 controls">
                         <a class="btn btn-success borderRadius pull-right" target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_cr")}}">Preview</a>
                       </div>
                       @endisset
                     </div>
 
                     <div class="form-group">
-                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> TC </label>
-                      <div class="col-sm-6 col-lg-6 controls">
+                      <label for="second_party_tc" class="col-xs-12 col-lg-2 control-label"> TC </label>
+                      <div class="col-xs-12 col-lg-6 controls">
                         <input type="file" name="second_party_tc" id="second_party_tc" placeholder="Second Party Title" class="form-control">
                       </div>
                       @isset($SecondParty->second_party_tc)
-                      <div class="col-sm-3 col-lg-4 controls">
+                      <div class="col-xs-12 col-lg-4 controls">
                         <a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_tc")}}">Preview</a>
                       </div>
                       @endisset
                     </div>
 
                     <div class="form-group">
-                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> Signature </label>
-                      <div class="col-sm-6 col-lg-6 controls">
+                      <label for="second_party_tc" class="col-xs-12 col-lg-2 control-label"> Signature </label>
+                      <div class="col-xs-12 col-lg-6 controls">
                         <input type="file" name="second_party_signature" id="second_party_signature" placeholder="Second Party Title" class="form-control">
                       </div>
                       @isset($SecondParty->second_party_signature)
-                      <div class="col-sm-3 col-lg-4 controls">
+                      <div class="col-xs-12 col-lg-4 controls">
                         <a target="_blank" href="{{url("uploads/docs/signature/$SecondParty->second_party_signature")}}">Preview</a>
                       </div>
                       @endisset
                     </div>
 
                     <div class="form-group">
-                      <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> Seal </label>
-                      <div class="col-sm-6 col-lg-4 controls">
+                      <label for="second_party_tc" class="col-xs-12 col-lg-2 control-label"> Seal </label>
+                      <div class="col-xs-12 col-lg-4 controls">
                         <input type="file" name="second_party_seal" id="second_party_seal" placeholder="Second Party Title" class="form-control">
                       </div>
                       @isset($SecondParty->second_party_seal)
-                      <div class="col-sm-3 col-lg-4 controls">
+                      <div class="col-xs-12 col-lg-4 controls">
                         <a target="_blank" href="{{url("uploads/docs/signature/$SecondParty->second_party_seal")}}">Preview</a>
                       </div>
                       @endisset
@@ -172,11 +180,11 @@ Second Party Types
             </div>
 
             <div class="form-group" style="background: transparent; border: none;">
-              <div class="col-sm-6 col-lg-6">
+              <div class="col-xs-6 col-lg-6">
                 <button type="submit" class="btn btn-primary borderRadius pull-right"><i class="fa fa-check"></i> Save</button>
               </div>
 
-              <div class="col-sm-6 col-lg-6">
+              <div class="col-xs-6 col-lg-6">
                 <button type="button" class="btn borderRadius">Cancel</button>
               </div>
             </div>

@@ -5,7 +5,7 @@ Users
 @section('content')
 @include('errors')
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 noPaddingPhone">
     <div class="box">
       <div class="box-title">
         <h3><i class="fa fa-bars"></i>Edit User Form</h3>
@@ -15,7 +15,7 @@ Users
         </div>
       </div>
       <div class="box-content">
-        <form class="form-horizontal" action="{{url('users/'.$user->id.'/update')}}" method="post">
+        <form class="width_m_auto form-horizontal" action="{{url('users/'.$user->id.'/update')}}" method="post">
           {{ csrf_field() }}
 
           @if($user->aggregator_id)

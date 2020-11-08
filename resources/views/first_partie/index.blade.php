@@ -4,7 +4,7 @@
 @stop
 @section('content')
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12 noPaddingPhone">
 			<div class="box box-black">
 				<div class="box-title">
 					<h3><i class="fa fa-table"></i> FirstPartie Table</h3>
@@ -22,7 +22,7 @@
 								<th style="width:18px"><input type="checkbox"></th>
 								<th>FirstPartie Title</th>
 								<th>first party joining date</th>
-								<th class="visible-md visible-lg" style="width:130px">Action</th>
+								<th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
 							</tr>
 							</thead>
 							<tbody>
@@ -31,7 +31,7 @@
 										<td><input type="checkbox"></td>
 										<td>{{$firstpartie->first_party_title}}</td>
 										<td>{{$firstpartie->first_party_joining_date->format('d-m-Y')}}</td>
-										<td class="visible-md visible-lg">
+										<td class="visible-xs visible-md visible-lg">
 
 											<div class="btn-group">
 

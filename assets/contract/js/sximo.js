@@ -103,7 +103,7 @@ jQuery(document).ready(function($) {
 
     $('.editor').summernote({ height: 250 });
     window.prettyPrint && prettyPrint();
-    
+
     $(".select2").select2({ width: "100%" });
     $('.popup').click(function(e) {
         e.stopPropagation();

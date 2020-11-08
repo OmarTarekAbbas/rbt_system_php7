@@ -5,7 +5,7 @@ Contents
 @section('content')
 @include('errors')
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 noPaddingPhone">
     <div class="box">
       <div class="box-title">
         <h3><i class="fa fa-bars"></i>Update Content Form</h3>
@@ -15,7 +15,7 @@ Contents
         </div>
       </div>
       <div class="box-content">
-        <form method='POST' class="form-horizontal" action='{!! url("content")!!}/{!!$content->id!!}/update' enctype="multipart/form-data">
+        <form method='POST' class="width_m_auto form-horizontal" action='{!! url("content")!!}/{!!$content->id!!}/update' enctype="multipart/form-data">
           <input type='hidden' name='_token' value='{{Session::token()}}'>
           <input type='hidden' name='_method' value='put'>
           <div class="form-group">
@@ -63,7 +63,7 @@ Contents
           <div class="form-group">
             <label class="col-sm-3 col-lg-2 control-label">Track file</label>
             <div class="col-sm-9 col-lg-10 controls">
-              <div class="displayGrid fileupload fileupload-new" data-provides="fileupload">
+              <div class="displayGrid fileupload fileupload-new displayGrid displayPhone" data-provides="fileupload">
                 <div class="input-group">
                   <div class="form-control uneditable-input">
                     <i class="fa fa-file fileupload-exists"></i>
@@ -75,7 +75,7 @@ Contents
                       <span class="fileupload-exists">Change</span>
                       <input type="file" name="path" class="file-input" style="width: 100%;">
                     </a>
-                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    <a href="#" class="btn btn-default fileupload-exists" style="display:none;" data-dismiss="fileupload">Remove</a>
                   </div>
                 </div>
                 <a class="btn btn-sm btn-success borderRadius displayGridHref" href="{{url($content->path)}}" target="_blank">Review</a>
@@ -123,7 +123,7 @@ Contents
 
           <div class="form-group">
             <label for="start_date" class="col-xs-3 col-lg-2 control-label"> Content Start Date</label>
-            <div class="input-group date  start_date col-sm-9 col-lg-10 controls" style="width: 80.5%; margin: 0 auto;">
+            <div class="input-group date  start_date col-sm-9 col-lg-10 controls" style="width: 81.25%; margin: 0 auto;">
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <input type="text" name="start_date" value="{{$content->start_date ? $content->start_date->format('d-m-Y') :null}}" id="start_date" autocomplete="off" placeholder="Rbt Start Date" data-date-format="dd-mm-yyyy" class="form-control">
             </div>
@@ -131,7 +131,7 @@ Contents
 
           <div class="form-group">
             <label for="expire_date" class="col-xs-3 col-lg-2 control-label"> Content Expire Date</label>
-            <div class="input-group date expire_date col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy" style="width: 80.5%; margin: 0 auto;">
+            <div class="input-group date expire_date col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy" style="width: 81.25%; margin: 0 auto;">
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <input type="text" name="expire_date" id="expire_date" value="{{$content->expire_date ? $content->expire_date->format('d-m-Y') :null }}" autocomplete="off" placeholder="Rbt End Date" data-date-format="dd-mm-yyyy" class="form-control">
             </div>

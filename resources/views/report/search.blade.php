@@ -17,90 +17,92 @@ Reports
       <div class="box-content col-md-12">
         <form action="{{ url('report/search') }}" id="search_form" method="get">
           @csrf
-          <div class="form-group col-md-6">
-            <label class="col-sm-3 col-lg-2 control-label">Provider</label>
-            <div class="col-sm-9 col-lg-10 controls">
-              <select id="input8" class="form-control second_party_id chosen" data-placeholder="Choose a provider" name="second_party_id">
-                <option value=""></option>
-                @foreach($second_partys as $key => $value)
-                <option @if(request('second_party_id')==$value->second_party_id) selected="selected" @endif value="{{$value->second_party_id}}">{{$value->second_party_title}}</option>
-                @endforeach
-              </select>
+          <div class="displayGridTwo">
+            <div class="form-group ">
+              <label class="col-sm-3 col-lg-2 control-label">Provider</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <select id="input8" class="form-control second_party_id chosen" data-placeholder="Choose a provider" name="second_party_id">
+                  <option value=""></option>
+                  @foreach($second_partys as $key => $value)
+                  <option @if(request('second_party_id')==$value->second_party_id) selected="selected" @endif value="{{$value->second_party_id}}">{{$value->second_party_title}}</option>
+                  @endforeach
+                </select>
+              </div>
             </div>
-          </div>
 
-          <div class="form-group col-md-6">
-            <label class="col-sm-3 col-lg-2 control-label">Operator</label>
-            <div class="col-sm-9 col-lg-10 controls">
-              <select id="input6" class="form-control chosen" data-placeholder="Choose a Operators" name="operator_id" tabindex="1">
-                <option value=""></option>
-                @foreach($operators as $operator)
-                <option @if(request('operator_id')==$operator->id) selected="selected" @endif value="{{$operator->id}}">{{$operator->title}}-{{$operator->country->title}}</option>
-                @endforeach
-              </select>
+            <div class="form-group ">
+              <label class="col-sm-3 col-lg-2 control-label">Operator</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <select id="input6" class="form-control chosen" data-placeholder="Choose a Operators" name="operator_id" tabindex="1">
+                  <option value=""></option>
+                  @foreach($operators as $operator)
+                  <option @if(request('operator_id')==$operator->id) selected="selected" @endif value="{{$operator->id}}">{{$operator->title}}-{{$operator->country->title}}</option>
+                  @endforeach
+                </select>
+              </div>
             </div>
-          </div>
 
-          <div class="form-group col-md-6">
-            <label class="col-sm-3 col-lg-2 control-label">Contract</label>
-            <div class="col-sm-9 col-lg-10 controls">
-              <select id="contract_id" class="form-control chosen" data-placeholder="Choose a Contract" name="contract_id">
-                <option value=""></option>
-              </select>
+            <div class="form-group ">
+              <label class="col-sm-3 col-lg-2 control-label">Contract</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <select id="contract_id" class="form-control chosen" data-placeholder="Choose a Contract" name="contract_id">
+                  <option value=""></option>
+                </select>
+              </div>
             </div>
-          </div>
 
-          @if(Auth::user()->hasRole(["super_admin","admin", 'ceo']))
-          <div class="form-group col-md-6">
-            <label class="col-sm-3 col-lg-2 control-label">Aggregator</label>
-            <div class="col-sm-9 col-lg-10 controls">
-              <select id="input9" class="form-control chosen" data-placeholder="Choose an aggregator" name="aggregator_id" tabindex="1">
-                <option value=""></option>
-                @foreach($aggregators as $key => $value)
-                <option @if(request('aggregator_id')==$key) selected="selected" @endif value="{{$key}}">{{$value}}</option>
-                @endforeach
-              </select>
+            @if(Auth::user()->hasRole(["super_admin","admin", 'ceo']))
+            <div class="form-group ">
+              <label class="col-sm-3 col-lg-2 control-label">Aggregator</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <select id="input9" class="form-control chosen" data-placeholder="Choose an aggregator" name="aggregator_id" tabindex="1">
+                  <option value=""></option>
+                  @foreach($aggregators as $key => $value)
+                  <option @if(request('aggregator_id')==$key) selected="selected" @endif value="{{$key}}">{{$value}}</option>
+                  @endforeach
+                </select>
+              </div>
             </div>
-          </div>
-          @endif
+            @endif
 
-          <div class="form-group col-md-6">
-            <label class="col-sm-3 col-lg-2 control-label">Year</label>
-            <div class="col-sm-9 col-lg-10 controls">
-              <select id="signed_date" class="form-control chosen" data-placeholder="Filter By Year" name="year" tabindex="1">
-                @foreach( range( date('Y')-10 , date('Y')+10 ) as $year )
-                <option @if( (!request('year') && $year==date('Y')) || request('year')==$year) selected="selected" @endif value="{{$year}}">{{$year}}</option>
-                @endforeach
-              </select>
+            <div class="form-group ">
+              <label class="col-sm-3 col-lg-2 control-label">Year</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <select id="signed_date" class="form-control chosen" data-placeholder="Filter By Year" name="year" tabindex="1">
+                  @foreach( range( date('Y')-10 , date('Y')+10 ) as $year )
+                  <option @if( (!request('year') && $year==date('Y')) || request('year')==$year) selected="selected" @endif value="{{$year}}">{{$year}}</option>
+                  @endforeach
+                </select>
+              </div>
             </div>
-          </div>
 
-          <div class="form-group col-md-6">
-            <label class="col-sm-3 col-lg-2 control-label">Month</label>
-            <div class="col-sm-9 col-lg-10 controls">
-              <select class="form-control chosen" data-placeholder="Choose a month" name="month[]" multiple>
-                @for($month = 1 ; $month <= 12 ; $month++) <option @if(in_array($month, (array)request('month'))) selected="selected" @endif value="{{$month}}">{{date("F", strtotime("$month/1/1"))}}</option>
-                  @endfor
-              </select>
+            <div class="form-group ">
+              <label class="col-sm-3 col-lg-2 control-label">Month</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <select class="form-control chosen" data-placeholder="Choose a month" name="month[]" multiple>
+                  @for($month = 1 ; $month <= 12 ; $month++) <option @if(in_array($month, (array)request('month'))) selected="selected" @endif value="{{$month}}">{{date("F", strtotime("$month/1/1"))}}</option>
+                    @endfor
+                </select>
+              </div>
             </div>
-          </div>
 
-          <div class="form-group col-md-6">
-            <label class="col-sm-3 col-lg-2 control-label">Code</label>
-            <div class="col-sm-9 col-lg-10 controls">
-              <input id="input4" name="code" type="number" class="form-control" value="{{ request('code') }}">
+            <div class="form-group ">
+              <label class="col-sm-3 col-lg-2 control-label">Code</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <input id="input4" name="code" type="number" class="form-control" value="{{ request('code') }}">
+              </div>
             </div>
-          </div>
 
-          <div class="form-group col-md-6">
-            <label class="col-sm-3 col-lg-2 control-label">Rbt title</label>
-            <div class="col-sm-9 col-lg-10 controls">
-              <input id="input5" name="title" type="text" class="form-control" value="{{ request('title') }}">
+            <div class="form-group ">
+              <label class="col-sm-3 col-lg-2 control-label">Rbt title</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <input id="input5" name="title" type="text" class="form-control" value="{{ request('title') }}">
+              </div>
             </div>
           </div>
 
           <div class="form-group">
-            <div class="col-sm-9 col-lg-12">
+            <div class="">
               <button type="submit" class="btn btn-primary mAuto_dBlock borderRadius" style="margin-bottom: 2% !important;">Search</button>
             </div>
           </div>

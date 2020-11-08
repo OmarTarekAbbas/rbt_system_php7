@@ -1,4 +1,4 @@
-<td class="visible-md visible-lg">
+<td class="visible-xs visible-md visible-lg">
   <div class="btn-group">
       @if (get_action_icons('SecondParty/{SecondParty}/edit', 'get'))
       <a class="btn btn-sm show-tooltip" href="{{url("SecondParty/$SecondParty->second_party_id/edit")}}" title="Edit"><i class="fa fa-edit"></i></a>

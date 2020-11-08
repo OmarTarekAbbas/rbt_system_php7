@@ -42,7 +42,7 @@ RBTs
           <div class="form-group">
             <label class="col-sm-3 col-lg-2 control-label">Excel file</label>
             <div class="col-sm-9 col-lg-10 controls">
-              <div class="fileupload fileupload-new displayGrid" data-provides="fileupload">
+              <div class="fileupload fileupload-new displayGrid displayPhone" data-provides="fileupload">
                 <div class="input-group">
                   <div class="form-control uneditable-input">
                     <i class="fa fa-file fileupload-exists"></i>
