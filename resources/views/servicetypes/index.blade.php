@@ -46,18 +46,23 @@ ServiceTypes
 								<td>{{$ServiceType->id}}</td>
 								<td>{{$ServiceType->service_type_title}}</td>
 								<td class="visible-md visible-lg">
-                  @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
 								    <div class="btn-group">
-								    	<a class="btn btn-sm show-tooltip" title="" href="{{url('ServiceTypes/'.$ServiceType->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
 
+                      @if (get_action_icons('ServiceTypes/{ServiceType}/edit', 'get'))
+								    	<a class="btn btn-sm show-tooltip" title="" href="{{url('ServiceTypes/'.$ServiceType->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+                      @endif
+
+                      @if (get_action_icons('ServiceTypes/{ServiceType}', 'delete'))
                       <form action="{{url('ServiceTypes/'.$ServiceType->id)}}" method="POST" style="display: inline">
                         @method('DELETE')
                         @csrf
                         <button class="btn btn-sm btn-danger show-tooltip" type="submit" onclick = 'return ConfirmDelete()' data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
                       </form>
+                      @endif
+
                     </div>
-                    @endif
+
 								</td>
 							</tr>
 						@endforeach

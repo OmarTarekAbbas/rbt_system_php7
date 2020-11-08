@@ -209,6 +209,8 @@
     <div id="sidebar" class="navbar-collapse collapse">
       <!-- BEGIN Navlist -->
       <ul class="nav nav-list">
+
+        @if(get_action_icons('users','get'))
         <li id="user">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-user"></i>
@@ -272,7 +274,9 @@
           </ul>
           <!-- END Submenu -->
         </li>
+        @endif
 
+        @if(get_action_icons('fullcontracts','get'))
         <li id="contract">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-copyright-mark"></i>
@@ -424,7 +428,9 @@
           <!-- END Submenu -->
 
         </li>
+        @endif
 
+        @if(get_action_icons('content','get'))
         <li id="content">
           <a href="#" class="dropdown-toggle">
             <i class="fa fa-folder-o"></i>
@@ -452,7 +458,9 @@
           </ul>
           <!-- END Submenu -->
         </li>
+        @endif
 
+        @if(get_action_icons('rbt','get'))
         <li id="rbt">
           <a href="#" class="dropdown-toggle">
             <i class="fa fa-play-circle-o"></i>
@@ -507,7 +515,9 @@
           </ul>
           <!-- END Submenu -->
         </li>
+        @endif
 
+        @if(get_action_icons('roadmaps','get'))
         <li id="roadmap">
           <a href="#" class="dropdown-toggle">
             <i class="fa fa-file-text-o"></i>
@@ -527,7 +537,9 @@
             @endif
           </ul>
         </li>
+        @endif
 
+        @if(get_action_icons('employees','get'))
         <li id="employees">
           <a href="#" class="dropdown-toggle">
             <i class="fa fa-file-text-o"></i>
@@ -546,7 +558,9 @@
           </ul>
 
         </li>
+        @endif
 
+        @if(get_action_icons('department','get'))
         <li id="department">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-briefcase"></i>
@@ -566,7 +580,9 @@
           </ul>
           <!-- END Submenu -->
         </li>
+        @endif
 
+        @if(get_action_icons('country','get'))
         <li id="country">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-globe"></i>
@@ -585,7 +601,9 @@
 
           </ul>
         </li>
+        @endif
 
+        @if(get_action_icons('aggregator','get'))
         <li id="aggregator">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-user"></i>
@@ -601,7 +619,9 @@
           </ul>
           <!-- END Submenu -->
         </li>
+        @endif
 
+        @if(get_action_icons('currency','get'))
         <li id="currency">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-cog"></i>
@@ -617,6 +637,7 @@
           </ul>
           <!-- END Submenu -->
         </li>
+        @endif
 
         {{-- <li id="provider">
           <a href="#" class="dropdown-toggle">
@@ -632,6 +653,7 @@
           <!-- END Submenu -->
         </li> --}}
 
+        @if(get_action_icons('occasion','get'))
         <li id="occasion">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-star"></i>
@@ -647,7 +669,7 @@
           </ul>
           <!-- END Submenu -->
         </li>
-
+        @endif
 
       </ul>
       <!-- END Navlist -->

@@ -3185,6 +3185,61 @@ class RoutesTableSeeder extends Seeder
                 'created_at' => '2017-11-12 13:45:15',
                 'updated_at' => '2017-11-12 14:04:53',
             ),
+            288 => 
+            array (
+                'id' => 299,
+                'method' => 'get',
+                'route' => 'all_routes/{id}/edit',
+                'controller_name' => 'RouteController',
+                'function_name' => 'edit',
+                'route_name' => NULL,
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            289 => 
+            array (
+                'id' => 300,
+                'method' => 'get',
+                'route' => 'all_routes/{id}/delete',
+                'controller_name' => 'RouteController',
+                'function_name' => 'destroy',
+                'route_name' => NULL,
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            290 => 
+            array (
+                'id' => 301,
+                'method' => 'get',
+                'route' => 'routes_v2',
+                'controller_name' => 'RouteController',
+                'function_name' => 'create_v2',
+                'route_name' => NULL,
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            291 => 
+            array (
+                'id' => 302,
+                'method' => 'get',
+                'route' => 'get_controller_methods',
+                'controller_name' => 'RouteController',
+                'function_name' => 'get_methods_for_selected_controller',
+                'route_name' => NULL,
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            292 => 
+            array (
+                'id' => 303,
+                'method' => 'post',
+                'route' => 'routes/store_v2',
+                'controller_name' => 'RouteController',
+                'function_name' => 'store_v2',
+                'route_name' => NULL,
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
         ));
         
         

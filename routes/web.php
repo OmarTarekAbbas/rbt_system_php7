@@ -22,7 +22,3 @@ Auth::routes();
 list_routes_from_database();
 
 // Route::get('providers_to_secondparty', 'SecondPartyController@providers_to_secondparty');
-
-Route::get('routes_v2','RouteController@create_v2') ;
-Route::get('get_controller_methods','RouteController@get_methods_for_selected_controller') ;
-Route::post('routes/store_v2','RouteController@store_v2') ;

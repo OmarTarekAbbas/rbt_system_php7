@@ -114,13 +114,7 @@ class SecondPartyController extends Controller
               return '<td><a class="btn disabled">No File</a></td>';
           })
             ->addColumn('action', function (SecondParties $SecondParty) {
-              if (\Auth::user()->hasRole(['super_admin', 'legal']))
-                    return '<td class="visible-md visible-lg">
-                            <div class="btn-group">
-                                <a class="btn btn-sm show-tooltip" href="' . url("SecondParty/" . $SecondParty->second_party_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("SecondParty/" . $SecondParty->second_party_id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
-                            </div>
-                        </td>';
+                    return view('secondparty.actions', compact('SecondParty'));
             })
 
             ->escapeColumns([])

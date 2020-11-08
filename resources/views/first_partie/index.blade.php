@@ -32,14 +32,20 @@
 										<td>{{$firstpartie->first_party_title}}</td>
 										<td>{{$firstpartie->first_party_joining_date->format('d-m-Y')}}</td>
 										<td class="visible-md visible-lg">
-                      @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
 											<div class="btn-group">
+
+                        @if (get_action_icons('firstparties/{firstparty}/edit', 'get'))
 												<a class="btn btn-sm show-tooltip" title="" href="{{url('firstparties/'.$firstpartie->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
-												<a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('firstparties/'.$firstpartie->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                        @endif
+
+                        @if (get_action_icons('firstparties/{id}/delete', 'get'))
+                        <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('firstparties/'.$firstpartie->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                        @endif
+
                       </div>
-                      @endif
-										</td>
+
+                    </td>
 									</tr>
 							@endforeach
 							</tbody>
