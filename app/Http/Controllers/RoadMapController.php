@@ -134,7 +134,7 @@ class RoadMapController extends Controller
         $roadmap = Roadmap::find($id);
         $countries = all_country();
         $aggregators = Aggregator::all()->pluck('title','id');
-        $providers = Provider::all()->pluck('title','id');
+        $providers = SecondParties::all()->pluck('second_party_title','second_party_id');
         return view('roadmap.edit',compact('countries','aggregators','providers','roadmap'));
     }
 

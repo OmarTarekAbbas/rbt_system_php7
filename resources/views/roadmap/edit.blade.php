@@ -217,6 +217,7 @@ Departments
 
                     <div class="row append-row">
                     @foreach($roadmap->providers as $key => $content)
+
                         <div class="col-md-8" style="float: none; margin: 0 auto;">
                             <div class="box box-red">
                                 <div class="box-title">
@@ -230,7 +231,6 @@ Departments
                                             {!! Form::select('provider_id[]',$providers,$content->pivot->provider_id,['class'=>'provider_id form-control chosen-rtl' , 'id' => 'provider_id_'.$key ,'required' => true,'style'=>'height: 48px;'])!!}
                                         </div>
                                     </div>
-
                                     <div class="form-group content">
                                         <label for="content_id" class="col-xs-3 col-lg-2 control-label">Content</label>
                                         <div class="col-sm-9 col-lg-10 controls">
@@ -339,10 +339,12 @@ Departments
     var y = 0
 
     $(document).on('ready',function(){
+      
       $('.provider_id').each(function(){
         var _this = $(this)
         getContents(_this.val(), function(){
             content_id = $(_this).parent().parent().siblings('.content').children('.controls').children('#content_id')
+            console.log("content is "+ content_id)
             getTracks(content_id.val(),_this)
         },_this)
       })
@@ -433,7 +435,7 @@ Departments
   })
 
   function getFormCopy() {
-    var form = ` <div class="col-md-3 init-input">
+    var form = ` <div class="col-md-8" style="float: none; margin: 0 auto;">
                             <div class="box box-red">
                                 <div class="box-title">
                                     <h3><i class="fa fa-bars"></i> Provider / Content &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-trash pull-right"></i> &nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-plus pull-right"></i> </h3>
@@ -461,6 +463,9 @@ Departments
                             </div>`
     return form;
   }
+
+
+
 
   $(document).on('click', '.fa-trash', function() {
     if ($('.append-row').children().length > 1)
