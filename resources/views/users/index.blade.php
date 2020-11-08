@@ -4,7 +4,7 @@
 @stop
 @section('content')
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12 noPaddingPhone">
 			<div class="box box-black">
 				<div class="box-title">
 					<h3><i class="fa fa-table"></i> Advance Table</h3>
@@ -24,7 +24,7 @@
 								<th>Email</th>
 								<th>Role</th>
 								{{-- <th>Role</th> --}}
-								<th class="visible-md visible-lg" style="width:130px">Action</th>
+								<th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
 							</tr>
 							</thead>
 							<tbody>
@@ -36,7 +36,7 @@
 										<td>{{$user->email}}</td>
 										<td>{{$user->roles()->first()->name}}</td>
 										{{-- <td>{{$user->roles()->first()}}</td> --}}
-										<td class="visible-md visible-lg">
+										<td class="visible-xs visible-md visible-lg">
 											<div class="btn-group">
                         @if (get_action_icons('users/{id}/edit', 'get'))
 												<a class="btn btn-sm show-tooltip" title="" href="{{url('users/'.$user->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>

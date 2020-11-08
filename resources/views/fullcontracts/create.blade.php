@@ -42,7 +42,7 @@
       <div class="ajaxLoading"></div>
       <form method="POST" action="{{url('fullcontracts')}}" class="form-vertical validated sximo-form" id="FormTable" enctype="multipart/form-data">
         @csrf
-        <div class="toolbar-nav">
+        <div class="toolbar-nav visible-md visible-lg">
           <div class="row">
             <div class="col-md-6 ">
               <div class="submitted-button">
@@ -55,7 +55,7 @@
             </div>
           </div>
         </div>
-        <div class="p-5">
+        <div class="p-5 noPaddingPhone">
           <ul class="parsley-error-list">
           </ul>
           <div class="row">
