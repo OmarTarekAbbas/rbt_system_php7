@@ -63,8 +63,8 @@ class RbtController extends Controller
         $title = 'Index - rbt';
         // $rbts = Rbt::all();
         $content_id = $request->all();
-        $rbts = Rbt::select('*','rbts.id AS rbt_id','providers.title as provider','occasions.title as occasion','operators.title as operator','aggregators.title as aggregator','contents.content_title as content','rbts.internal_coding as rbt_internal_coding')
-        ->leftjoin('providers','providers.id','=','rbts.provider_id')
+        $rbts = Rbt::select('*','rbts.id AS rbt_id','second_parties.second_party_title as provider','occasions.title as occasion','operators.title as operator','aggregators.title as aggregator','contents.content_title as content','rbts.internal_coding as rbt_internal_coding')
+        ->leftjoin('second_parties','second_parties.second_party_id','=','rbts.provider_id')
         ->leftjoin('occasions','occasions.id','=','rbts.occasion_id')
         ->leftjoin('operators','operators.id','=','rbts.operator_id')
         ->leftjoin('aggregators','aggregators.id','=','rbts.aggregator_id')
