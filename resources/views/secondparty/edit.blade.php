@@ -111,8 +111,8 @@ Second Party Types
                         <input type="file" name="second_party_identity" id="second_party_identity" placeholder="Second Party Title" class="form-control">
                       </div>
                       @isset($SecondParty->second_party_identity)
-                      <div class="col-sm-3 col-lg-3 controls">
-                      <a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_identity")}}">Preview</a>
+                      <div class="col-sm-3 col-lg-4 controls">
+                        <a class="btn btn-success borderRadius pull-right" target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_identity")}}">Preview</a>
                       </div>
                       @endisset
                     </div>
@@ -122,8 +122,8 @@ Second Party Types
                         <input type="file" name="second_party_cr" id="second_party_cr" placeholder="Second Party Title" class="form-control">
                       </div>
                       @isset($SecondParty->second_party_cr)
-                      <div class="col-sm-3 col-lg-3 controls">
-                      <a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_cr")}}">Preview</a>
+                      <div class="col-sm-3 col-lg-4 controls">
+                        <a class="btn btn-success borderRadius pull-right" target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_cr")}}">Preview</a>
                       </div>
                       @endisset
                     </div>
@@ -134,10 +134,10 @@ Second Party Types
                         <input type="file" name="second_party_tc" id="second_party_tc" placeholder="Second Party Title" class="form-control">
                       </div>
                       @isset($SecondParty->second_party_tc)
-                      <div class="col-sm-3 col-lg-3 controls">
-                      <a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_tc")}}">Preview</a>
+                      <div class="col-sm-3 col-lg-4 controls">
+                        <a target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_tc")}}">Preview</a>
                       </div>
-                    @endisset
+                      @endisset
                     </div>
 
                     <div class="form-group">
@@ -146,20 +146,20 @@ Second Party Types
                         <input type="file" name="second_party_signature" id="second_party_signature" placeholder="Second Party Title" class="form-control">
                       </div>
                       @isset($SecondParty->second_party_signature)
-                      <div class="col-sm-3 col-lg-3 controls">
-                      <a target="_blank" href="{{url("uploads/docs/signature/$SecondParty->second_party_signature")}}">Preview</a>
+                      <div class="col-sm-3 col-lg-4 controls">
+                        <a target="_blank" href="{{url("uploads/docs/signature/$SecondParty->second_party_signature")}}">Preview</a>
                       </div>
                       @endisset
                     </div>
 
                     <div class="form-group">
                       <label for="second_party_tc" class="col-xs-3 col-lg-2 control-label"> Seal </label>
-                      <div class="col-sm-6 col-lg-6 controls">
+                      <div class="col-sm-6 col-lg-4 controls">
                         <input type="file" name="second_party_seal" id="second_party_seal" placeholder="Second Party Title" class="form-control">
                       </div>
                       @isset($SecondParty->second_party_seal)
-                      <div class="col-sm-3 col-lg-3 controls">
-                      <a target="_blank" href="{{url("uploads/docs/signature/$SecondParty->second_party_seal")}}">Preview</a>
+                      <div class="col-sm-3 col-lg-4 controls">
+                        <a target="_blank" href="{{url("uploads/docs/signature/$SecondParty->second_party_seal")}}">Preview</a>
                       </div>
                       @endisset
                     </div>
@@ -171,10 +171,13 @@ Second Party Types
 
             </div>
 
-            <div class="form-group">
-              <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2" style="justify-content: center;width: 65%;display: flex;">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-                <button type="button" class="btn">Cancel</button>
+            <div class="form-group" style="background: transparent; border: none;">
+              <div class="col-sm-6 col-lg-6">
+                <button type="submit" class="btn btn-primary borderRadius pull-right"><i class="fa fa-check"></i> Save</button>
+              </div>
+
+              <div class="col-sm-6 col-lg-6">
+                <button type="button" class="btn borderRadius">Cancel</button>
               </div>
             </div>
 
@@ -188,6 +191,6 @@ Second Party Types
 @section('script')
 <script>
   $('#SecondParty').addClass('active');
-        $('#SecondParty-create').addClass('active');
+  $('#SecondParty-create').addClass('active');
 </script>
 @stop

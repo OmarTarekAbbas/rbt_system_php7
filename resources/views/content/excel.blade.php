@@ -66,11 +66,11 @@ Contents
 
     <div class="form-group">
       <div class="col-sm-9 col-lg-6" style="text-align: right;">
-        <span id="sample_link"><a class="btn btn-success" href="{{url('contents/downloadSample')}}">Download Sample</a></span>
+        <span id="sample_link"><a class="btn btn-success borderRadius" href="{{url('contents/downloadSample')}}">Download Sample</a></span>
       </div>
 
       <div class="col-sm-9 col-lg-6" style="text-align: left;">
-        <input type="submit" class="btn btn-primary" value="Submit">
+        <input type="submit" class="btn btn-primary borderRadius" value="Submit">
       </div>
     </div>
     </form>

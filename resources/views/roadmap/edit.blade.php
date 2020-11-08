@@ -113,7 +113,7 @@ Departments
                     <label for="event_color" class="col-xs-3 col-lg-2 control-label"> Event Color</label>
                     <div class="col-sm-9 col-lg-10 control">
                       <div class="input-group color colorpicker-default" data-color="#3865a8" data-color-format="rgba">
-                        <span class="input-group-addon"><i style="background-color: rgb(21, 96, 209);width:80px"></i></span>
+                        <span class="input-group-addon"><i style="background-color: rgb(21, 96, 209);width:16px;"></i></span>
                         <input type="text" name="event_color" id="event_color" placeholder="Event Color" class="form-control colorpicker-default" value="{{$roadmap->event_color}}">
                       </div>
                     </div>
@@ -121,7 +121,7 @@ Departments
 
                   <div class="form-group">
                     <label for="event_start_date" class="col-xs-3 col-lg-2 control-label"> Event Start Date</label>
-                    <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date="12-02-2012" data-date-format="dd-mm-yyyy" style="width: 78%; margin: 0 auto;">
+                    <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date="12-02-2012" data-date-format="dd-mm-yyyy" style="width: 80.5%; margin: 0 auto;">
                       <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                       <input type="text" value="{{$roadmap->event_start_date->format('d-m-Y')}}" name="event_start_date" id="event_start_date" placeholder="Event Start Date" data-date="12-02-2012" data-date-format="dd-mm-yyyy" class="form-control date-picker">
                     </div>
@@ -129,7 +129,7 @@ Departments
 
                   <div class="form-group">
                     <label for="event_end_date" class="col-xs-3 col-lg-2 control-label"> Event End Date</label>
-                    <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date="12-02-2012" data-date-format="dd-mm-yyyy" style="width: 78%; margin: 0 auto;">
+                    <div class="input-group date date-picker col-sm-9 col-lg-10 controls" data-date="12-02-2012" data-date-format="dd-mm-yyyy" style="width: 80.5%; margin: 0 auto;">
                       <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                       <input type="text" value="{{$roadmap->event_end_date->format('d-m-Y')}}" name="event_end_date" id="event_end_date" placeholder="Event End Date" data-date="12-02-2012" data-date-format="dd-mm-yyyy" class="form-control date-picker">
                     </div>
@@ -244,9 +244,12 @@ Departments
           </div>
 
           <div class="form-group">
-            <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2" style="justify-content: center;width: 65%;display: flex;">
-              <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-              <button type="button" class="btn">Cancel</button>
+            <div class="col-sm-6 col-lg-6">
+              <button type="submit" class="btn btn-primary borderRadius pull-right"><i class="fa fa-check"></i> Save</button>
+            </div>
+
+            <div class="col-sm-6 col-lg-6">
+              <button type="button" class="btn borderRadius">Cancel</button>
             </div>
           </div>
         </form>
