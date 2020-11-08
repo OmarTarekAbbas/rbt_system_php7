@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                             <div class="box-content">
-                                {!! Form::open(["url"=>"routes/index_v2","class"=>"form-horizontal","method"=>"GET","id"=>"form_body"]) !!}
+                                {!! Form::open(["url"=>"routes/index_v2","class"=>"width_m_auto form-horizontal","method"=>"GET","id"=>"form_body"]) !!}
                                     <div class="form-group">
                                         <label class="col-sm-3 col-lg-2 control-label">Select Controller</label>
                                         <div class="col-sm-9 col-md-10 controls">

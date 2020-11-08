@@ -87,7 +87,7 @@ attachment
               </div>
             </div>
 
-            <div class="form-group last">
+            <div class="form-group last" style="background-color: transparent;">
               <div class="col-sm-9 col-lg-12">
                 <button type="submit" class="btn btn-primary mAuto_dBlock borderRadius"><i class="fa fa-check"></i> Save</button>
               </div>

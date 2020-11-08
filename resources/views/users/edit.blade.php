@@ -15,7 +15,7 @@ Users
         </div>
       </div>
       <div class="box-content">
-        <form class="form-horizontal" action="{{url('users/'.$user->id.'/update')}}" method="post">
+        <form class="width_m_auto form-horizontal" action="{{url('users/'.$user->id.'/update')}}" method="post">
           {{ csrf_field() }}
 
           @if($user->aggregator_id)

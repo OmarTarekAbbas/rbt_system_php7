@@ -50,3 +50,19 @@
   width: 80%;
   display: inline-block;
 }
+
+.displayGridTwo {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr 1fr);
+  grid-gap: 1rem;
+}
+
+/* .footer {
+  position: relative;
+}
+
+.footer p {
+  position: absolute;
+  bottom: -95px;
+  left: 50%;
+} */
