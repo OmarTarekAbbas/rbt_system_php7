@@ -81,8 +81,8 @@
                 </div>
             </div>
             <div class="box-content">
-                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
-                <div class="btn-toolbar pull-right clearfix">
+              @if(get_action_icons('aggregator/create','get'))
+              <div class="btn-toolbar pull-right clearfix">
                     <div class="btn-group">
                         <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
                     </div>
@@ -107,15 +107,19 @@
                             <tr class="table-flag-blue">
                                 <td><input type="checkbox" /></td>
                                 <td>{!!$aggregator->title!!}</td>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
-                               <td>
-                                @if(!$aggregator->user)
+
+                                <td>
+                                @if(!$aggregator->user && get_action_icons('users/new','get'))
                                 <a class="btn btn-sm btn-success show-tooltip" title="Add Aggregator" href="{{url("users/new?aggregator_id=".$aggregator->id."&title=".$aggregator->title)}}" data-original-title="Add Operator"><i class="fa fa-plus"></i></a>
                                 @endif
+                                @if(get_action_icons('aggregator/{aggregator}/edit','get'))
                                 <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" {{-- data-toggle="modal" data-target="#editgroup" --}}><i id="{{$aggregator->id}}" class="fa fa-edit"></i></a>
-                                <a class="btn btn-sm btn-danger show-tooltip" title=""   onclick="return confirm('Are you sure you want to delete {{ $aggregator->title }} ?')"     href="{{url('/aggregator/'.$aggregator->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                                </td>
                                 @endif
+                                @if(get_action_icons('aggregator/{id}/delete','get'))
+                                <a class="btn btn-sm btn-danger show-tooltip" title=""   onclick="return confirm('Are you sure you want to delete {{ $aggregator->title }} ?')"     href="{{url('/aggregator/'.$aggregator->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                                @endif
+                                </td>
+
                             </tr>
                         @endforeach
                         </tbody>

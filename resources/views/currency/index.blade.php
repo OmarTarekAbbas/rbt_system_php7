@@ -104,9 +104,12 @@ currencies
                 <td><input type="checkbox" /></td>
                 <td>{!!$currency->title!!}</td>
                 <td>
+                  @if(get_action_icons('currency/update','post'))
                   <a class="btn btn-sm show-tooltip modalToaggal teet" href="#"><i id="{{$currency->id}}" class="fa fa-edit"></i></a>
+                  @endif
+                  @if(get_action_icons('currency/{id}/delete','get'))
                   <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete {{ $currency->title }} ?')" href="{{url('/currency/'.$currency->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-
+                  @endif
                 </td>
               </tr>
               @endforeach
