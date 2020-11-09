@@ -106,4 +106,8 @@
     margin: 6% auto;
     display: block;
   }
+
+  #main-content {
+    padding: 10px 10px 20px;
+  }
 }
