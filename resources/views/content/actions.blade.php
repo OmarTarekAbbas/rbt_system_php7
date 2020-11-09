@@ -1,5 +1,5 @@
-<td class="visible-md visible-lg">
-  <div class="btn-group">
+<td class="visible-xs visible-md visible-lg">
+  <div class="btn-group pull-right">
     @if(count($content->rbts) && get_action_icons('content/{id}/rbts','get'))
     <a class="btn btn-sm btn-info show-tooltip" title="list traks" href="{{url("content/$content->id/rbts")}}"><i
         class="fa fa-music"></i></a>

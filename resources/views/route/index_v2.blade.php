@@ -114,13 +114,14 @@ if (isset($controller_name))
               @endif
               @endforeach
 
-              {!! Form::close() !!}
+
             </tbody>
           </table>
         </div>
         <div style="margin: 1% 0;">
           <input type="submit" class="btn btn-success mAuto_dBlock borderRadius" value="Save Changes">
         </div>
+        {!! Form::close() !!}
       </div>
       @endif
     </div>
