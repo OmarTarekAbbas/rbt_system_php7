@@ -1,181 +1,164 @@
 @extends('template')
 @section('page_title')
-    RBTs
+RBTs
 @stop
 @section('content')
-    @include('errors')
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box">
-                <div class="box-title">
-                    <h3><i class="fa fa-bars"></i>Search in RBTs</h3>
-                    <div class="box-tool">
-                        <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-                        <a data-action="close" href="#"><i class="fa fa-times"></i></a>
-                    </div>
-                </div>
-                <div class="box-content col-md-12">
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label">Rbt Name English </label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <input id="input1"  name = "search_field[]"  type="text" class="form-control input-lg" >
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label"  for="track_title_en">Rbt Name Arabic </label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <input id="input2" name = "search_field[]" type="text" class="form-control input-lg" >
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label"  for="track_title_en">Provider Name English </label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <input id="input3"  name = "search_field[]"  type="text" class="form-control input-lg" >
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label">Provider Name Arabic </label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <input id="input4" name = "search_field[]" type="text" class="form-control input-lg" >
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label"  for="track_title_en">Album  </label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <input id="input5"  name = "search_field[]"  type="text" class="form-control input-lg"  >
-                        </div>
-                    </div>
-
-
-
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label"  for="code">Code </label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <input id="input6" name = "search_field[]" type="text" class="form-control input-lg" >
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label"  for="social_media_code">Social Media Code</label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <input id="input7" name = "search_field[]" type="text" class="form-control input-lg">
-                        </div>
-                    </div>
-
-
-
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label"  for="owner">Owner </label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <input id="input8" name = "search_field[]" type="text" class="form-control input-lg"  >
-                        </div>
-                    </div>
-
-
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label">From</label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <input id="input9" class="form-control date-picker"  id="dp1" size="16" type="text" name="search_field[]" />
-                        </div>
-                    </div>
-
-
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label">To</label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <input id="input10" class="form-control date-picker"  id="dp1" size="16" type="text" name="search_field[]" />
-                        </div>
-                    </div>
-
-
-
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label">Operators Select </label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <select id="input11" class="form-control chosen" data-placeholder="Choose a Operators" name="search_field[]" tabindex="1" >
-                                <option value=""></option>
-                                @foreach($operators as $key => $value)
-                                    <option value="{{$key}}">{{$value}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label">Occasions Select </label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <select id="input12" class="form-control chosen" data-placeholder="Choose a Occasions" name="search_field[]" tabindex="1" >
-                                <option value=""></option>
-                                @foreach($occasions as $key => $value)
-                                    <option value="{{$key}}">{{$value}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label">Aggregator Select</label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <select id="input13" class="form-control chosen" data-placeholder="Choose an aggregator" name="search_field[]" tabindex="1" >
-                                <option value=""></option>
-                                @foreach($aggregators as $key => $value)
-                                    <option value="{{$key}}">{{$value}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    @endif
-
-
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label">Content Owner Select</label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <select id="input14" class="form-control chosen" data-placeholder="Choose a provider" name="search_field[]">
-                                <option value=""></option>
-                                @foreach($providers as $key => $value)
-                                    <option value="{{$key}}">{{$value}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group col-md-6">
-                        <label class="col-sm-3 col-lg-2 control-label">Excel Type Select</label>
-                        <div class="col-sm-9 col-lg-10 controls">
-                            <select id="input15" class="form-control chosen" name="search_field[]">
-                                <option value=""></option>
-                                <option value="0">Old Excel</option>
-                                <option value="1">New Excel</option>
-                            </select>
-                        </div>
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <div class="col-sm-9 col-lg-12">
-                            <button class="btn btn-primary mAuto_dBlock borderRadius" onclick="send_request()">Search</button>
-                        </div>
-                    </div>
-
-
-                    <div class="box-content col-md-12" id="search_result">
-
-                    </div>
-
-                </div>
-
-            </div>
+@include('errors')
+<div id="main-content">
+  <div class="row">
+    <div class="col-md-12 noPaddingPhone">
+      <div class="box">
+        <div class="box-title">
+          <h3><i class="fa fa-bars"></i>Search in RBTs</h3>
+          <div class="box-tool">
+            <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+            <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+          </div>
         </div>
+        <div class="box-content col-md-12 noPaddingPhone">
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label">Rbt Name English </label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <input id="input1" name="search_field[]" type="text" class="form-control input-lg">
+            </div>
+          </div>
 
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label" for="track_title_en">Rbt Name Arabic </label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <input id="input2" name="search_field[]" type="text" class="form-control input-lg">
+            </div>
+          </div>
+
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label" for="track_title_en">Provider Name English </label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <input id="input3" name="search_field[]" type="text" class="form-control input-lg">
+            </div>
+          </div>
+
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label">Provider Name Arabic </label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <input id="input4" name="search_field[]" type="text" class="form-control input-lg">
+            </div>
+          </div>
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label" for="track_title_en">Album </label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <input id="input5" name="search_field[]" type="text" class="form-control input-lg">
+            </div>
+          </div>
+
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label" for="code">Code </label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <input id="input6" name="search_field[]" type="text" class="form-control input-lg">
+            </div>
+          </div>
+
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label" for="social_media_code">Social Media Code</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <input id="input7" name="search_field[]" type="text" class="form-control input-lg">
+            </div>
+          </div>
+
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label" for="owner">Owner </label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <input id="input8" name="search_field[]" type="text" class="form-control input-lg">
+            </div>
+          </div>
+
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label">From</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <input id="input9" class="form-control date-picker" id="dp1" size="16" type="text" name="search_field[]" />
+            </div>
+          </div>
+
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label">To</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <input id="input10" class="form-control date-picker" id="dp1" size="16" type="text" name="search_field[]" />
+            </div>
+          </div>
+
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label">Operators Select </label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <select id="input11" class="form-control chosen" data-placeholder="Choose a Operators" name="search_field[]" tabindex="1">
+                <option value=""></option>
+                @foreach($operators as $key => $value)
+                <option value="{{$key}}">{{$value}}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label">Occasions Select </label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <select id="input12" class="form-control chosen" data-placeholder="Choose a Occasions" name="search_field[]" tabindex="1">
+                <option value=""></option>
+                @foreach($occasions as $key => $value)
+                <option value="{{$key}}">{{$value}}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+
+          @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label">Aggregator Select</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <select id="input13" class="form-control chosen" data-placeholder="Choose an aggregator" name="search_field[]" tabindex="1">
+                <option value=""></option>
+                @foreach($aggregators as $key => $value)
+                <option value="{{$key}}">{{$value}}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          @endif
+
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label">Content Owner Select</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <select id="input14" class="form-control chosen" data-placeholder="Choose a provider" name="search_field[]">
+                <option value=""></option>
+                @foreach($providers as $key => $value)
+                <option value="{{$key}}">{{$value}}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6 noPaddingPhone">
+            <label class="col-sm-3 col-lg-2 control-label">Excel Type Select</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <select id="input15" class="form-control chosen" name="search_field[]">
+                <option value=""></option>
+                <option value="0">Old Excel</option>
+                <option value="1">New Excel</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-9 col-lg-12">
+              <button class="btn btn-primary mAuto_dBlock borderRadius" onclick="send_request()">Search</button>
+            </div>
+          </div>
+          <div class="box-content col-md-12" id="search_result">
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 @stop
-
 @section('script')
     <script>
         function send_request() {

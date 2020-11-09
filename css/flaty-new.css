@@ -92,7 +92,9 @@
   }
 
   .start_date,
-  .expire_date {
+  .expire_date,
+  .event_start_date,
+  .event_end_date {
     width: 92% !important;
   }
 
@@ -109,5 +111,13 @@
 
   #main-content {
     padding: 10px 10px 20px;
+  }
+
+  .displayGridTwo {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .box .box-title h3 {
+    white-space: unset;
   }
 }
