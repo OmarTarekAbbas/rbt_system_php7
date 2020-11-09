@@ -128,7 +128,6 @@ class RouteController extends Controller
 
     public function store_v2(Request $request)
     {
-      // dd($request->all());
         $route_size = count($request['route']);
         for($i = 0 ; $i < $route_size ; $i++)
         {
@@ -155,13 +154,14 @@ class RouteController extends Controller
                 }
                 $IDs = [] ;
                 $holder = [] ;
-                for($j = 3 ; $j < $route_size ; $j++ )  // 0 function name , 1 route link , 2 method type ... so from 3 to ~ these are the roles
+                $role_ids = array_values($request['route'][$i]);
+                for($j = 3 ; $j <= count($role_ids) ; $j++ )  // 0 function name , 1 route link , 2 method type ... so from 3 to ~ these are the roles
                 {
-                    if(isset($request['route'][$i][$j]))
+                    if(isset($role_ids[$j]))
                     {
                         $tmp =
                             [
-                            'role_id'  => (int) $request['route'][$i][$j],
+                            'role_id'  => (int) $role_ids[$j],
                             'route_id' => $check_route->id
                             ] ;
                         array_push($IDs,$tmp) ;

@@ -117,6 +117,15 @@
     grid-template-columns: repeat(1, 1fr);
   }
 
+  #SenderModel .modal-dialog,
+  #editoperator .modal-dialog,
+  #editaggregator .modal-dialog,
+  #editcurrency .modal-dialog,
+  #editoccasion .modal-dialog,
+  #editcountry .modal-dialog {
+    top: 30%;
+  }
+
   .box .box-title h3 {
     white-space: unset;
   }
