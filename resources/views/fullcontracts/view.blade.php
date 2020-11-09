@@ -91,32 +91,37 @@
                                                 <td width='30%' class='label-view text-left'>Label </td>
                                                 <td>{{$contract->contract_label}} </td>
                                             </tr>
-
-                                            <!-- <tr>
+                            <!-- <tr>
                                 <td width='30%' class='label-view text-left'>First Party Id </td>
                                 <td>{{$contract->first_party_id}} </td>
                             </tr>
-
                             <tr>
                                 <td width='30%' class='label-view text-left'>First Party Select </td>
                                 <td>{{$contract->first_party_select ? 'Yes' : 'No'}} </td>
                             </tr>
-
                             <tr>
                                 <td width='30%' class='label-view text-left'>Second Party Id </td>
                                 <td>{{$contract->second_party_id}} </td>
                             </tr> -->
-
+                                            @if($contract->first_party_select == 1)
                                             <tr>
-                                                <td width='30%' class='label-view text-left'>First Party </td>
-
-                                                <td>{{$first_partie->first_party_title ?? ''}} </td>
+                                              <td width='30%' class='label-view text-left'>First Party </td>
+                                              <td>{{$first_partie->first_party_title ?? ''}} </td>
                                             </tr>
-
                                             <tr>
-                                                <td width='30%' class='label-view text-left'>Second Party </td>
-                                                <td>{{$second_parties->second_party_title ?? ''}} </td>
+                                              <td width='30%' class='label-view text-left'>Second Party </td>
+                                              <td>{{$second_parties->second_party_title ?? ''}} </td>
                                             </tr>
+                                            @else
+                                            <tr>
+                                              <td width='30%' class='label-view text-left'>First Party </td>
+                                              <td>{{$second_parties->second_party_title ?? ''}} </td>
+                                            </tr>
+                                            <tr>
+                                              <td width='30%' class='label-view text-left'>Second Party </td>
+                                              <td>{{$first_partie->first_party_title ?? ''}} </td>
+                                            </tr>
+                                            @endif
 
                                             <tr>
                                                 <td width='30%' class='label-view text-left'>Second Party Type </td>

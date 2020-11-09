@@ -83,6 +83,32 @@
                 </div>
 
                 <div class="form-group  ">
+                  <label for="ipt" class=" control-label "> First Party ? <span class="asterix"> *
+                    </span> </label>
+                  <input type="checkbox" class="radio_check" value="1" checked="checked" name='first_party_select' /> Yes
+                  <input type="checkbox" class="radio_check" value="0" name='first_party_select' /> No
+                </div>
+
+                <div class="form-group  ">
+                  <label for="ipt" class=" control-label "> First Party (%) <span class="asterix"> *
+                    </span> </label>
+                  <select name='first_party_percentage' rows='5' id='first_party_percentage' class='form-control ' required>
+                    <option value="">-- Please Select --</option>
+                    @foreach($percentages as $percentage)
+                    <option value="{{$percentage->percentage}}">{{$percentage->percentage}}</option>
+                    @endforeach
+                  </select>
+                </div>
+
+                <div class="form-group  ">
+                  <label for="ipt" class=" control-label "> Copies <span class="asterix"> * </span>
+                  </label>
+                  <input type="checkbox" class="radio_check" checked="checked" value="1" name='copies' /> 1 Copy
+                  <input type="checkbox" class="radio_check" value="2" name='copies' /> 2 Copy
+                  <input type="checkbox" class="radio_check" value="3" name='copies' /> 3 Copy
+                </div>
+
+                <div class="form-group  ">
                   <label for="ipt" class=" control-label "> first part person name (ويمثلها الطرف الاول فى هذا العقد السيد) </label>
                   <input type="text" id="first_part_person_input" class="form-control" name='first_part_person' />
                 </div>
@@ -117,31 +143,7 @@
                   <input type="text" id="first_part_phone_input" class="form-control" name='first_part_phone' />
                 </div>
 
-                <div class="form-group  ">
-                  <label for="ipt" class=" control-label "> First Party ? <span class="asterix"> *
-                    </span> </label>
-                  <input type="checkbox" class="radio_check" value="1" checked="checked" name='first_party_select' /> Yes
-                  <input type="checkbox" class="radio_check" value="0" name='first_party_select' /> No
-                </div>
 
-                <div class="form-group  ">
-                  <label for="ipt" class=" control-label "> First Party (%) <span class="asterix"> *
-                    </span> </label>
-                  <select name='first_party_percentage' rows='5' id='first_party_percentage' class='form-control ' required>
-                    <option value="">-- Please Select --</option>
-                    @foreach($percentages as $percentage)
-                    <option value="{{$percentage->percentage}}">{{$percentage->percentage}}</option>
-                    @endforeach
-                  </select>
-                </div>
-
-                <div class="form-group  ">
-                  <label for="ipt" class=" control-label "> Copies <span class="asterix"> * </span>
-                  </label>
-                  <input type="checkbox" class="radio_check" checked="checked" value="1" name='copies' /> 1 Copy
-                  <input type="checkbox" class="radio_check" value="2" name='copies' /> 2 Copy
-                  <input type="checkbox" class="radio_check" value="3" name='copies' /> 3 Copy
-                </div>
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> Pages <span class="asterix"> * </span>
