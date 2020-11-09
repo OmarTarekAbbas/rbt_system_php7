@@ -4,6 +4,7 @@
 <div class="row">
     <div class="col-md-5">
         <div class="row">
+        @if(get_action_icons('employees','get'))
             <div class="col-md-12">
                 <a href="{{url('employees')}}" >
                     <div class="tile tile-green">
@@ -17,10 +18,12 @@
                     </div>
                 </a>
             </div>
+            @endif
         </div>
     </div>
     <div class="col-md-5">
         <div class="row">
+        @if(get_action_icons('department','get'))
             <div class="col-md-12">
                 <a href="{{url('department')}}" >
                     <div class="tile tile-green">
@@ -34,10 +37,12 @@
                     </div>
                 </a>
             </div>
+        @endif
         </div>
     </div>
     <div class="col-md-5">
         <div class="row">
+        @if(get_action_icons('fullcontracts','get'))
             <div class="col-md-12">
                 <a href="{{url('fullcontracts')}}" >
                     <div class="tile tile-green">
@@ -51,10 +56,12 @@
                     </div>
                 </a>
             </div>
+        @endif
         </div>
     </div>
     <div class="col-md-5">
         <div class="row">
+        @if(get_action_icons('content','get'))
             <div class="col-md-12">
                 <a href="{{url('content')}}" >
                     <div class="tile tile-green">
@@ -68,13 +75,14 @@
                     </div>
                 </a>
             </div>
+            @endif
         </div>
     </div>
     <div class="col-md-5">
         <div class="row">
+        @if(get_action_icons('rbt','get'))
             <div class="col-md-12">
                 <a href="{{url('rbt')}}" >
-
                     <div class="tile tile-green">
                         <div class="img">
                             <i class="fa fa-copy"></i>
@@ -86,11 +94,13 @@
                     </div>
                 </a>
             </div>
+        @endif
         </div>
     </div>
 
     <div class="col-md-5">
         <div class="row">
+        @if(get_action_icons('report','get'))
             <div class="col-md-12">
                 <a href="{{url('report')}}" >
 
@@ -105,10 +115,12 @@
                     </div>
                 </a>
             </div>
+            @endif
         </div>
     </div>
     <div class="col-md-5">
         <div class="row">
+        @if(get_action_icons('roadmaps','get'))
             <div class="col-md-12">
                 <a href="{{url('roadmaps')}}" >
 
@@ -123,11 +135,13 @@
                     </div>
                 </a>
             </div>
+            @endif
         </div>
     </div>
 
     <div class="col-md-5">
         <div class="row">
+        @if(get_action_icons('SecondParty','get'))
             <div class="col-md-12">
                 <a href="{{url('SecondParty')}}" >
 
@@ -142,6 +156,7 @@
                     </div>
                 </a>
             </div>
+            @endif
         </div>
     </div>
 </div>

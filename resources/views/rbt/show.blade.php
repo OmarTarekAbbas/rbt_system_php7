@@ -12,11 +12,9 @@ RBT
     List Rbt
     </a>
   </div>
-
   <div class="col-md-4" style="text-align: center;">
     <a class="btn btn-circle show-tooltip " href="{{url('rbt/'.$rbt->rbt_id.'/edit')}}" title="Edit Rbt"><i class="fa fa-edit"></i></a>
     <a href="{{url('rbt/'.$rbt->rbt_id.'/edit')}}" title="Edit Rbt">Edit Rbt</a>
-
   </div>
 
   <div class="col-md-4" style="text-align: end;">

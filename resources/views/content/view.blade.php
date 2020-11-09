@@ -10,18 +10,18 @@ Content
     </a>
     <a href="{{url('/content')}}" title="List Content">List Content</a>
   </div>
-
+  @if(get_action_icons('content/{id}/edit','get'))
   <div class="col-md-4" style="text-align: center;">
     <a class="btn btn-circle show-tooltip " href="{{url('content/'.$content->id.'/edit')}}" title="Edit Content"><i class="fa fa-edit"></i></a>
     <a  href="{{url('content/'.$content->id.'/edit')}}" title="Edit Content">Edit Content</a>
-
   </div>
-
+  @endif
+  @if(get_action_icons('content/create','get'))
   <div class="col-md-4" style="text-align: end;">
     <a class="btn btn-circle btn-success show-tooltip" href="{{url('content/create')}}" title="" data-original-title="Create New Content"><i class="fa fa-plus"></i></a>
     <a href="{{url('content/create')}}" title="" data-original-title="Create New Content">Create New Content</a>
-
   </div>
+  @endif
   <br>
   <br>
 </div>
