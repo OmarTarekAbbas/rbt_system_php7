@@ -6,7 +6,7 @@ RBTs
 
 <div id="main-content">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 noPaddingPhone">
       <div class="box box-blue">
         <div class="box-title">
           <h3><i class="fa fa-table"></i> RBT Table</h3>
@@ -29,7 +29,7 @@ RBTs
                   <th>owner</th>
                   @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
                   <th>Aggregator Title</th>
-                  <th class="visible-md visible-lg" style="width:130px">Action</th>
+                  <th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
                   @endif
                 </tr>
               </thead>
@@ -52,7 +52,7 @@ RBTs
                   <td>{{$rbt->owner}}</td>
                   @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
                   <td>{{$rbt->aggregator->title}}</td>
-                  <td class="visible-md visible-lg" style="width:130px">
+                  <td class="visible-xs visible-md visible-lg" style="width:130px">
                     <a class="btn btn-sm show-tooltip modalToaggal teet" href="{{url('/rbt/'.$rbt->id.'/edit')}}"><i id="{{$rbt->id}}" class="fa fa-edit"></i></a>
                     <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete {{ $rbt->title }} ?')" href="{{url('/rbt/'.$rbt->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                   </td>

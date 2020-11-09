@@ -6,7 +6,7 @@ RBT Statistics
 @include('errors')
 <div id="main-content">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 noPaddingPhone">
       <div class="box">
         <?php
         $months = months();

@@ -110,4 +110,8 @@
   #main-content {
     padding: 10px 10px 20px;
   }
+
+  .displayGridTwo {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
