@@ -81,68 +81,70 @@ Occasions
 </div>
 @endif
 <!-- BEGIN Main Content -->
-<div class="row">
-  <div class="col-md-12">
-    <div class="box">
-      <div class="box-title">
-        <h3><i class="fa fa-code-fork"></i>Occasions</h3>
-        <div class="box-tool">
-          <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-          <a data-action="close" href="#"><i class="fa fa-times"></i></a>
-        </div>
-      </div>
-      <div class="box-content">
-        @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
-        <div class="btn-toolbar pull-right clearfix">
-          <div class="btn-group">
-            <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
+<div id="main-content">
+  <div class="row">
+    <div class="col-md-12 noPaddingPhone">
+      <div class="box">
+        <div class="box-title">
+          <h3><i class="fa fa-code-fork"></i>Occasions</h3>
+          <div class="box-tool">
+            <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+            <a data-action="close" href="#"><i class="fa fa-times"></i></a>
           </div>
         </div>
-        <div class="clearfix"></div>
-        <div class="btn-toolbar pull-right clearfix" style="margin-top: 10px">
-          <div class="btn-group">
-            <input id="search" type="text" placeholder="Search" class="form-control input-sm" table_name="occasions" />
+        <div class="box-content">
+          @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
+          <div class="btn-toolbar pull-right clearfix">
+            <div class="btn-group">
+              <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
+            </div>
           </div>
-        </div>
-        @endif
-        <br /><br />
-        <div class="clearfix"></div>
+          <div class="clearfix"></div>
+          <div class="btn-toolbar pull-right clearfix" style="margin-top: 10px">
+            <div class="btn-group">
+              <input id="search" type="text" placeholder="Search" class="form-control input-sm" table_name="occasions" />
+            </div>
+          </div>
+          @endif
+          <br /><br />
+          <div class="clearfix"></div>
 
-        <div class="table-responsive" style="border:0">
-          <table class="table table-advance">
-            <thead>
-              <tr>
-                <th style="width:18px"><input type="checkbox" /></th>
-                <th class="search">Title</th>
-                <th class="search">Country</th>
-                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
-                <th>Delete</th>
-                @endif
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($occasions as $occasion)
-              <tr class="table-flag-blue">
-                <td><input type="checkbox" /></td>
-                <td>{!!$occasion->title!!}</td>
-                <td>{!!$occasion->country->title!!}</td>
-                <td>
-                  @if(get_action_icons('occasion/update','post'))
-                  <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" data-occasion_id="{{$occasion->id}}" data-country_id="{{$occasion->country->id}}" data-occasion_title="{{$occasion->title}}"><i id="{{$occasion->id}}" class="fa fa-edit"></i></a>
+          <div class="table-responsive" style="border:0">
+            <table class="table table-advance">
+              <thead>
+                <tr>
+                  <th style="width:18px"><input type="checkbox" /></th>
+                  <th class="search">Title</th>
+                  <th class="search">Country</th>
+                  @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
+                  <th>Delete</th>
                   @endif
-                  @if(get_action_icons('occasion/{id}/delete','get'))
-                  <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete {{ $occasion->title }} ?')" href="{{url('/occasion/'.$occasion->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                  @endif
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-          <div class="pull-right" id="pageination">
-            {{ $occasions->render() }}
-          </div>
-          <div class="pull-right" id="pageination1">
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($occasions as $occasion)
+                <tr class="table-flag-blue">
+                  <td><input type="checkbox" /></td>
+                  <td>{!!$occasion->title!!}</td>
+                  <td>{!!$occasion->country->title!!}</td>
+                  <td>
+                    @if(get_action_icons('occasion/update','post'))
+                    <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" data-occasion_id="{{$occasion->id}}" data-country_id="{{$occasion->country->id}}" data-occasion_title="{{$occasion->title}}"><i id="{{$occasion->id}}" class="fa fa-edit"></i></a>
+                    @endif
+                    @if(get_action_icons('occasion/{id}/delete','get'))
+                    <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete {{ $occasion->title }} ?')" href="{{url('/occasion/'.$occasion->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                    @endif
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+            <div class="pull-right" id="pageination">
+              {{ $occasions->render() }}
+            </div>
+            <div class="pull-right" id="pageination1">
 
+            </div>
           </div>
         </div>
       </div>

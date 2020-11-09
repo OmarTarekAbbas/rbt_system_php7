@@ -27,8 +27,6 @@ currencies
         </div>
       </form>
     </div>
-
-
   </div>
 </div>
 
@@ -70,51 +68,53 @@ currencies
 </div>
 @endif
 <!-- BEGIN Main Content -->
-<div class="row">
-  <div class="col-md-12">
-    <div class="box">
-      <div class="box-title">
-        <h3><i class="fa fa-code-fork"></i>Currency</h3>
-        <div class="box-tool">
-          <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-          <a data-action="close" href="#"><i class="fa fa-times"></i></a>
-        </div>
-      </div>
-      <div class="box-content">
-        <div class="btn-toolbar pull-right clearfix">
-          <div class="btn-group">
-            <a class="btn btn-success borderRadius show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i> Add Currency</a>
+<div id="main-content">
+  <div class="row">
+    <div class="col-md-12 noPaddingPhone">
+      <div class="box">
+        <div class="box-title">
+          <h3><i class="fa fa-code-fork"></i>Currency</h3>
+          <div class="box-tool">
+            <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+            <a data-action="close" href="#"><i class="fa fa-times"></i></a>
           </div>
         </div>
-        <br /><br />
-        <div class="clearfix"></div>
+        <div class="box-content">
+          <div class="btn-toolbar pull-right clearfix">
+            <div class="btn-group">
+              <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
+            </div>
+          </div>
+          <br /><br />
+          <div class="clearfix"></div>
 
-        <div class="table-responsive" style="border:0">
-          <table class="table table-advance" id="table1">
-            <thead>
-              <tr>
-                <th style="width:18px"><input type="checkbox" /></th>
-                <th>Title</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($currencies as $currency)
-              <tr class="table-flag-blue">
-                <td><input type="checkbox" /></td>
-                <td>{!!$currency->title!!}</td>
-                <td>
-                  @if(get_action_icons('currency/update','post'))
-                  <a class="btn btn-sm show-tooltip modalToaggal teet" href="#"><i id="{{$currency->id}}" class="fa fa-edit"></i></a>
-                  @endif
-                  @if(get_action_icons('currency/{id}/delete','get'))
-                  <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete {{ $currency->title }} ?')" href="{{url('/currency/'.$currency->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                  @endif
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
+          <div class="table-responsive" style="border:0">
+            <table class="table table-advance" id="table1">
+              <thead>
+                <tr>
+                  <th style="width:18px"><input type="checkbox" /></th>
+                  <th>Title</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($currencies as $currency)
+                <tr class="table-flag-blue">
+                  <td><input type="checkbox" /></td>
+                  <td>{!!$currency->title!!}</td>
+                  <td>
+                    @if(get_action_icons('currency/update','post'))
+                    <a class="btn btn-sm show-tooltip modalToaggal teet pull-right" href="#"><i id="{{$currency->id}}" class="fa fa-edit"></i></a>
+                    @endif
+                    @if(get_action_icons('currency/{id}/delete','get'))
+                    <a class="btn btn-sm btn-danger show-tooltip pull-right" title="" onclick="return confirm('Are you sure you want to delete {{ $currency->title }} ?')" href="{{url('/currency/'.$currency->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                    @endif
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

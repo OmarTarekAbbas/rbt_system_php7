@@ -119,6 +119,9 @@
 
   #SenderModel .modal-dialog,
   #editoperator .modal-dialog,
+  #editaggregator .modal-dialog,
+  #editcurrency .modal-dialog,
+  #editoccasion .modal-dialog,
   #editcountry .modal-dialog {
     top: 30%;
   }
