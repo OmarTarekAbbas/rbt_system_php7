@@ -105,8 +105,7 @@ if (isset($controller_name))
                 @foreach($roles as $index=>$role)
                 <td>
                   <label class="checkbox-inline displayFlex">
-                    <input type="checkbox" name="route[{{$i}}][{{$j++}}]" value="{{$role->id}}" class="check_role_{{$role->id}}" @foreach($selected_routes as $route) @if($route->function_name == $function_name) @foreach($route->roles_routes as $role_route) @if($role_route->role_id == $role->id) checked @endif @endforeach @endif @endforeach
-                    />
+                    <input type="checkbox" name="route[{{$i}}][{{$j++}}]" value="{{$role->id}}" class="check_role_{{$role->id}}" @foreach($selected_routes as $route) @if($route->function_name == $function_name) @foreach($route->roles_routes as $role_route) @if($role_route->role_id == $role->id) checked @endif @endforeach @endif @endforeach />
                   </label>
                 </td>
                 @endforeach

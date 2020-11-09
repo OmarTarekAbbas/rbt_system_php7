@@ -94,20 +94,20 @@ class RouteController extends Controller
     public function index_v2(Request $request)
     {
         $controllers = $this->get_controllers() ; // in main controller
-
         $controller_name = NULL ;
         $methods = NULL ;
         $selected_routes = NULL ;
 
         if(isset($request['controller_name'])&&!empty($request['controller_name']))
         {
-            $controller_name = $request['controller_name'] ;
-            $selected_routes = Route::where('controller_name',$controller_name)->get() ;
-            $methods = $this->get_controllers()[$controller_name] ;
+          $controller_name = $request['controller_name'] ;
+          $selected_routes = Route::where('controller_name',$controller_name)->get() ;
+          $methods = $this->get_controllers()[$controller_name] ;
         }
         $roles = Role::all() ;
         $method_types = $this->form_methods ;
         // dd($method_types);
+        //dd($controllers);
         return view('route.index_v2',compact('controllers','selected_routes','method_types','methods','controller_name','roles')) ;
     }
 
@@ -128,6 +128,7 @@ class RouteController extends Controller
 
     public function store_v2(Request $request)
     {
+      // dd($request->all());
         $route_size = count($request['route']);
         for($i = 0 ; $i < $route_size ; $i++)
         {
