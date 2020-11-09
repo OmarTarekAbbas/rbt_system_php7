@@ -28,12 +28,13 @@ class FirstpartieController extends Controller
      * @param  FirstpartieRepository $firstpartieRepository
      * @param  FirstpartieService $firstpartieService
      */
+
     public function __construct(
         FirstpartieRepository $firstpartieRepository,
         FirstpartieService $firstpartieService
     )
     {
-        $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index']]);
+      $this->get_privilege();
         $this->firstpartieRepository = $firstpartieRepository;
         $this->firstpartieService = $firstpartieService;
     }

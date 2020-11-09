@@ -13,7 +13,7 @@ class ContractItemsApprovidsController extends Controller
 
   public function __construct()
   {
-    $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index']]);
+    $this->get_privilege();
   }
 
   /**
@@ -79,7 +79,7 @@ class ContractItemsApprovidsController extends Controller
     ->join('contracts', 'contract_items.contract_id', '=', 'contracts.id')
     ->join('departments', 'departments.manager_id', '=', 'contract_items_approves.user_id')
     ->first();
-    
+
     if($list_contract_items_send->status === 2 || $list_contract_items_send->status === 1){ //1-notapprove 2-appaove 0-notaction
       return redirect('fullcontracts/'.$list_contract_items_send->contract_id);
     }else{

@@ -5,7 +5,7 @@ Contents
 @section('content')
 @include('errors')
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 noPaddingPhone">
     <div class="box">
       <div class="box-title">
         <h3><i class="fa fa-bars"></i>Create Content Form</h3>
@@ -15,7 +15,7 @@ Contents
         </div>
       </div>
       <div class="box-content">
-        <form method='POST' class="form-horizontal" action='{!! url("content")!!}' enctype="multipart/form-data">
+        <form method='POST' class="width_m_auto form-horizontal" action='{!! url("content")!!}' enctype="multipart/form-data">
           <input type='hidden' name='_token' value='{{Session::token()}}'>
           <div class="form-group">
             <label class="col-sm-3 col-lg-2 control-label" for="track_title_en">Content Title *</label>
@@ -91,24 +91,24 @@ Contents
           </div>
 
           <div class="form-group">
-              <label for="start_date" class="col-xs-3 col-lg-2 control-label"> Content Start Date</label>
-              <div class="input-group date  start_date col-sm-9 col-lg-10 controls" style="width: 78%; margin: 0 auto;">
-                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                  <input type="text" name="start_date" id="start_date" autocomplete="off" placeholder="Content Start Date" data-date-format="dd-mm-yyyy" class="form-control">
-              </div>
+            <label for="start_date" class="col-xs-3 col-lg-2 control-label"> Content Start Date</label>
+            <div class="input-group date  start_date col-sm-9 col-lg-10 controls" style="width: 81.25%; margin: 0 auto;">
+              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+              <input type="text" name="start_date" id="start_date" autocomplete="off" placeholder="Content Start Date" data-date-format="dd-mm-yyyy" class="form-control">
+            </div>
           </div>
 
           <div class="form-group">
-              <label for="expire_date" class="col-xs-3 col-lg-2 control-label"> Content Expire Date</label>
-              <div class="input-group date expire_date col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy" style="width: 78%; margin: 0 auto;">
-                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                  <input type="text" name="expire_date" id="expire_date" autocomplete="off" placeholder="Content End Date" data-date-format="dd-mm-yyyy" class="form-control">
-              </div>
+            <label for="expire_date" class="col-xs-3 col-lg-2 control-label"> Content Expire Date</label>
+            <div class="input-group date expire_date col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy" style="width: 81.25%; margin: 0 auto;">
+              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+              <input type="text" name="expire_date" id="expire_date" autocomplete="off" placeholder="Content End Date" data-date-format="dd-mm-yyyy" class="form-control">
+            </div>
           </div>
 
           <div class="form-group">
-            <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
-              <input type="submit" class="btn btn-primary" value="Submit">
+            <div class="col-sm-9 col-lg-12">
+              <input type="submit" class="btn btn-primary mAuto_dBlock borderRadius" value="Submit">
             </div>
           </div>
         </form>
@@ -123,21 +123,21 @@ Contents
 @section('script')
 <script>
   $(document).on('ready', function() {
-      $('.start_date').datepicker({
-          format: 'dd-mm-yyyy',
-          autoclose: true,
-      }).on('changeDate', function(selected) {
-          var minDate = new Date(selected.date.valueOf());
-          $('.expire_date').each(function(){
-            $(this).datepicker('setStartDate', minDate);
-            $(this).datepicker('setDate', minDate);
-          })
+    $('.start_date').datepicker({
+      format: 'dd-mm-yyyy',
+      autoclose: true,
+    }).on('changeDate', function(selected) {
+      var minDate = new Date(selected.date.valueOf());
+      $('.expire_date').each(function() {
+        $(this).datepicker('setStartDate', minDate);
+        $(this).datepicker('setDate', minDate);
       })
+    })
 
-      $('.expire_date').datepicker({
-          format: 'dd-mm-yyyy',
-          autoclose: true,
-      })
+    $('.expire_date').datepicker({
+      format: 'dd-mm-yyyy',
+      autoclose: true,
+    })
   })
 </script>
 <script>

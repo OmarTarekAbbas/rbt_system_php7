@@ -18,6 +18,12 @@ use Validator;
  */
 class ProviderController extends Controller
 {
+
+  public function __construct()
+  {
+    $this->get_privilege();
+  }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,16 +48,16 @@ class ProviderController extends Controller
         $validator = Validator::make($request->all(),[
                 'title' => 'required|unique:providers,title'
             ]);
-        
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
         $provider = new Provider();
 
-        
+
         $provider->title = $request->title;
-        
+
         $provider->save();
 
         $request->session()->flash('success', 'Created successfuly');
@@ -71,16 +77,16 @@ class ProviderController extends Controller
         $validator = Validator::make($request->all(),[
                 'title' => 'required|unique:providers,title,'.$request->provider_id
             ]);
-        
+
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
         $provider = Provider::findOrfail($request->provider_id);
-    	
+
         $provider->title = $request->title;
-        
-        
+
+
         $provider->save();
 
         $request->session()->flash('success', 'Updated successfuly');

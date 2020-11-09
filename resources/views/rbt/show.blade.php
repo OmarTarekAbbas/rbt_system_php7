@@ -38,26 +38,26 @@ RBT
         </div>
       </div>
       <div class="box-content">
-        <div class="table-responsive">
+        <div class="table-responsive width_m_auto">
           <table class="table table-striped table-bordered ">
             <tbody>
               <tr>
-                <td width='30%' class='label-view text-right'>ID</td>
+                <td width='30%' class='label-view text-left'>ID</td>
                 <td>{{$rbt->rbt_id}} </td>
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Internal Coding</td>
+                <td width='30%' class='label-view text-left'>Internal Coding</td>
                 <td>{{$rbt->rbt_internal_coding}} </td>
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Track Title EN</td>
+                <td width='30%' class='label-view text-left'>Track Title EN</td>
                 <td>{{$rbt->track_title_en}} </td>
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Track Title AR</td>
+                <td width='30%' class='label-view text-left'>Track Title AR</td>
                 @if($rbt->track_title_ar)
                 <td>{{$rbt->track_title_ar}} </td>
                 @else
@@ -66,7 +66,7 @@ RBT
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Artist Name EN</td>
+                <td width='30%' class='label-view text-left'>Artist Name EN</td>
                 @if($rbt->artist_name_en)
                 <td>{{$rbt->artist_name_en}} </td>
                 @else
@@ -75,7 +75,7 @@ RBT
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Artist Name AR</td>
+                <td width='30%' class='label-view text-left'>Artist Name AR</td>
                 @if($rbt->artist_name_ar)
                 <td>{{$rbt->artist_name_ar}} </td>
                 @else
@@ -84,7 +84,7 @@ RBT
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Album Name</td>
+                <td width='30%' class='label-view text-left'>Album Name</td>
                 @if($rbt->album_name)
                 <td>{{$rbt->album_name}} </td>
                 @else
@@ -93,12 +93,12 @@ RBT
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Code</td>
+                <td width='30%' class='label-view text-left'>Code</td>
                 <td>{{$rbt->code}} </td>
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Audio</td>
+                <td width='30%' class='label-view text-left'>Audio</td>
                 <td>
                   <audio class="content_audios" controls style="width: 75%;">
                     <source src="{{url($rbt->track_file)}}">
@@ -107,37 +107,37 @@ RBT
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Operator</td>
+                <td width='30%' class='label-view text-left'>Operator</td>
                 <td>{{$rbt->operator}} </td>
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Occasion</td>
+                <td width='30%' class='label-view text-left'>Occasion</td>
                 <td> {{$rbt->occasion}}</td>
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Aggregator</td>
+                <td width='30%' class='label-view text-left'>Aggregator</td>
                 <td>{{$rbt->aggregator}}</td>
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Content</td>
+                <td width='30%' class='label-view text-left'>Content</td>
                 <td>{{$rbt->content}}</td>
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>start Date</td>
+                <td width='30%' class='label-view text-left'>start Date</td>
                 <td>{{ optional($rbt->start_date)->format('d-m-Y') }}</td>
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Expire Date</td>
+                <td width='30%' class='label-view text-left'>Expire Date</td>
                 <td>{{ optional($rbt->expire_date)->format('d-m-Y') }}</td>
               </tr>
 
               <tr>
-                <td width='30%' class='label-view text-right'>Content Code</td>
+                <td width='30%' class='label-view text-left'>Content Code</td>
                 @if($rbt->internal_coding)
                 <td> <a href="{{ url('content/'.$rbt->content_id) }}"> {{$rbt->internal_coding}} </a></td>
                 @else

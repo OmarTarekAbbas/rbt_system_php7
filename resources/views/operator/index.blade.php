@@ -33,7 +33,7 @@ Operators
 
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-primary borderRadius">Save</button>
         </div>
       </form>
     </div>
@@ -72,7 +72,7 @@ Operators
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-primary borderRadius">Save</button>
         </div>
       </form>
     </div>
@@ -130,8 +130,12 @@ Operators
                 <td>{!!$operator->country->title!!}</td>
                 @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                 <td>
+                  @if(get_action_icons('operator/{operator}/edit','get'))
                   <a class="btn btn-sm show-tooltip teet" href="#"><i id="{{$operator->id}}_{{$operator->country->id}}" class="fa fa-edit"></i></a>
+                  @endif
+                  @if(get_action_icons('operator/{id}/delete','get'))
                   <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete {{ $operator->title }} ?')" href="{{url('/operator/'.$operator->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                  @endif
                 </td>
                 @endif
               </tr>

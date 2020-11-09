@@ -1,9 +1,10 @@
 @extends('template') @section('page_title') Contract @stop @section('content')
 <style>
-  .panel-title>a{
+  .h_font_w{
     font-weight: bold;
+    color: black;
   }
-  .panel-default>.panel-heading{
+  .panel-group .panel-heading{
     background-color: #0000001f;
   }
 </style>
@@ -44,7 +45,7 @@
     <br>
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 noPaddingPhone">
         <div class="box box-blue">
             <div class="box-title">
                 <h3><i class="fa fa-table"></i> {{$contract->contract_code}}  {{$contract->contract_label}}</h3>
@@ -56,14 +57,14 @@
             <div class="box-content">
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
                         <div class="panel-heading" role="tab" id="headingOne">
-                            <h4 class="panel-title">
-                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-                                    aria-expanded="true" aria-controls="collapseOne">
-                                    Contract Basic Information
-                                </a>
+                            <h4 class="panel-title h_font_w">
+                            Contract Basic Information
                             </h4>
                         </div>
+                      </a>
                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
                             aria-labelledby="headingOne">
                             <div class="panel-body">
@@ -72,92 +73,92 @@
                                     <table class="table table-striped table-bordered ">
                                         <tbody>
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>ID</td>
+                                                <td width='30%' class='label-view text-left'>ID</td>
                                                 <td>{{$contract->id}} </td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Code</td>
+                                                <td width='30%' class='label-view text-left'>Code</td>
                                                 <td><a href="#0">{{$contract->contract_code}} </a> </td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Service Type </td>
+                                                <td width='30%' class='label-view text-left'>Service Type </td>
                                                 <td>{{$contract->service_type->service_type_title}} </td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Label </td>
+                                                <td width='30%' class='label-view text-left'>Label </td>
                                                 <td>{{$contract->contract_label}} </td>
                                             </tr>
 
                                             <!-- <tr>
-                                <td width='30%' class='label-view text-right'>First Party Id </td>
+                                <td width='30%' class='label-view text-left'>First Party Id </td>
                                 <td>{{$contract->first_party_id}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>First Party Select </td>
+                                <td width='30%' class='label-view text-left'>First Party Select </td>
                                 <td>{{$contract->first_party_select ? 'Yes' : 'No'}} </td>
                             </tr>
 
                             <tr>
-                                <td width='30%' class='label-view text-right'>Second Party Id </td>
+                                <td width='30%' class='label-view text-left'>Second Party Id </td>
                                 <td>{{$contract->second_party_id}} </td>
                             </tr> -->
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>First Party </td>
+                                                <td width='30%' class='label-view text-left'>First Party </td>
 
                                                 <td>{{$first_partie->first_party_title ?? ''}} </td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Second Party </td>
+                                                <td width='30%' class='label-view text-left'>Second Party </td>
                                                 <td>{{$second_parties->second_party_title ?? ''}} </td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Second Party Type </td>
+                                                <td width='30%' class='label-view text-left'>Second Party Type </td>
                                                 <td>{{ $second_party_types->second_party_type_title ?? ''}}</td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>First Party (%) </td>
+                                                <td width='30%' class='label-view text-left'>First Party (%) </td>
                                                 <td>{{$contract->first_party_percentage}} </td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Second Party (%) </td>
+                                                <td width='30%' class='label-view text-left'>Second Party (%) </td>
                                                 <td>{{$contract->second_party_percentage}} </td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Contract Singed Date </td>
+                                                <td width='30%' class='label-view text-left'>Contract Singed Date </td>
                                                 <td>{{ date('F j, Y',strtotime($contract->contract_signed_date)) }}
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Contract Start Date </td>
+                                                <td width='30%' class='label-view text-left'>Contract Start Date </td>
                                                 <td>{{ date('F j, Y',strtotime($contract->contract_date))  }} </td>
                                             </tr>
 
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Contract Expiry Date </td>
+                                                <td width='30%' class='label-view text-left'>Contract Expiry Date </td>
                                                 <td>{{ date('F j, Y',strtotime($contract->contract_expiry_date)) }}
                                                 </td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Contract Duration </td>
+                                                <td width='30%' class='label-view text-left'>Contract Duration </td>
                                                 <td>{{ $contract->contractRenew->count() ?  $contract->contractRenew[0]->duration->contract_duration_title : $contract->duration->contract_duration_title}}
                                                 </td>
                                             </tr>
 
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Renewal Status </td>
+                                                <td width='30%' class='label-view text-left'>Renewal Status </td>
                                                 @if($contract->renewal_status == 0)
                                                 <td> <button class="btn btn-danger">No</button></td>
                                                 @elseif($contract->renewal_status == 1)
@@ -168,7 +169,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Contract Status </td>
+                                                <td width='30%' class='label-view text-left'>Contract Status </td>
                                                 @if($contract->contract_status == 0)
                                                 <td> <button class="btn btn-danger">Not Active</button></td>
                                                 @else
@@ -177,27 +178,27 @@
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Countries </td>
+                                                <td width='30%' class='label-view text-left'>Countries </td>
                                                 <td>{{ $contract->country_title }} </td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Operators </td>
+                                                <td width='30%' class='label-view text-left'>Operators </td>
                                                 <td>{{ $contract->operator_title }} </td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Copies </td>
+                                                <td width='30%' class='label-view text-left'>Copies </td>
                                                 <td>{{ $contract->copies }} </td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Pages </td>
+                                                <td width='30%' class='label-view text-left'>Pages </td>
                                                 <td>{{ $contract->pages }} </td>
                                             </tr>
                                             @if($contract->annex)
                                             <tr>
-                                                <td width='30%' class='label-view text-right'> Annex </td>
+                                                <td width='30%' class='label-view text-left'> Annex </td>
                                                 <td>
                                                     <div class="btn-group">
                                                         <a class="btn btn-sm btn-info show-tooltip"
@@ -209,7 +210,7 @@
                                             @endif
                                             @if($contract->authorization)
                                             <tr>
-                                                <td width='30%' class='label-view text-right'> Authorization </td>
+                                                <td width='30%' class='label-view text-left'> Authorization </td>
                                                 <td>
                                                     <div class="btn-group">
 
@@ -223,7 +224,7 @@
                                             @endif
                                             @if($contract->copyright)
                                             <tr>
-                                                <td width='30%' class='label-view text-right'> copyright </td>
+                                                <td width='30%' class='label-view text-left'> copyright </td>
                                                 <td>
                                                     <div class="btn-group">
 
@@ -236,7 +237,7 @@
                                             @endif
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Notes </td>
+                                                <td width='30%' class='label-view text-left'>Notes </td>
                                                 @if($contract->contract_notes)
                                                 <td>{{ $contract->contract_notes }} </td>
                                                 @else
@@ -245,28 +246,28 @@
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Entry By </td>
+                                                <td width='30%' class='label-view text-left'>Entry By </td>
                                                 <td>{{ $contract->entry_by_details }} </td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Contract File </td>
+                                                <td width='30%' class='label-view text-left'>Contract File </td>
                                                 <td> <a href="{{url('uploads/contracts/'.$contract->contract_pdf)}}"
                                                         target="_blank">Review</a></td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Full Approve </td>
+                                                <td width='30%' class='label-view text-left'>Full Approve </td>
                                                 <td>{{ $contract->fullapprove ? "Yes" : "No" }}</td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Created At </td>
+                                                <td width='30%' class='label-view text-left'>Created At </td>
                                                 <td>{{ date('F j, Y, g:i a',strtotime($contract->updated_at)) }} </td>
                                             </tr>
 
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>Updated At </td>
+                                                <td width='30%' class='label-view text-left'>Updated At </td>
                                                 <td>{{ date('F j, Y, g:i a',strtotime($contract->updated_at)) }} </td>
                                             </tr>
 
@@ -279,16 +280,17 @@
                             </div>
                         </div>
                     </div>
+
                     @if($contract->contractRenew->count())
                     <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingTwo">
-                            <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
                                     href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title h_font_w">
                                     Contract Renews
-                                </a>
                             </h4>
                         </div>
+                        </a>
                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
                             aria-labelledby="headingTwo">
                             <div class="panel-body">
@@ -338,29 +340,28 @@
                     @endif
                     @if($contract->items->count())
                     <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingThree">
-                            <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
                                     href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title h_font_w">
                                     Contract PDF Items
-                                </a>
                             </h4>
                         </div>
+                        </a>
                         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
                             aria-labelledby="headingThree">
                             <div class="panel-body">
-
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered ">
                                         <thead>
-                                            <td width='30%' class='label-view text-right' style="font-weight: bold;">
+                                            <td width='30%' class='label-view text-left' style="font-weight: bold;">
                                                 Approve Status </td>
                                             <td style="font-weight: bold;"> Item </td>
                                         </thead>
                                         <tbody>
                                             @foreach($contract->items as $item)
                                             <tr>
-                                                <td width='30%' class='label-view text-right'>
+                                                <td width='30%' class='label-view text-left'>
                                                     @if($item->fullapproves == 0)
                                                     <button class="btn btn-danger"
                                                         style="margin-top: 3%;">{{ $approveStatus::getLabel($item->fullapproves) }}</button>

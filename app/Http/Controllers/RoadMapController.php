@@ -12,6 +12,12 @@ use App\Http\Requests\RoadmapStoreRequest;
 
 class RoadMapController extends Controller
 {
+
+  public function __construct()
+  {
+    $this->get_privilege();
+  }
+
   public function index()
   {
       $title = 'Index - Roadmap';
@@ -74,13 +80,7 @@ class RoadMapController extends Controller
             return $roadmap->event_end_date->format('Y-m-d');
           })
           ->addColumn('action', function (Roadmap $roadmap) {
-              return '<td class="visible-md visible-lg">
-                          <div class="btn-group">
-                              <a class="btn btn-sm show-tooltip btn-primary" href="' . url("roadmaps/" . $roadmap->roadmap_id) . '" title="view"><i class="fa fa-eye"></i></a>
-                              <a class="btn btn-sm show-tooltip" href="' . url("roadmaps/" . $roadmap->roadmap_id . "/edit") . '" title="Edit"><i class="fa fa-edit"></i></a>
-                              <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();" href="' . url("roadmaps/" . $roadmap->roadmap_id . "/delete") . '" title="Delete"><i class="fa fa-trash"></i></a>
-                          </div>
-                      </td>';
+              return view('roadmap.actions', compact('roadmap'));;
           })
 
           ->escapeColumns([])
@@ -134,7 +134,7 @@ class RoadMapController extends Controller
         $roadmap = Roadmap::find($id);
         $countries = all_country();
         $aggregators = Aggregator::all()->pluck('title','id');
-        $providers = Provider::all()->pluck('title','id');
+        $providers = SecondParties::all()->pluck('second_party_title','second_party_id');
         return view('roadmap.edit',compact('countries','aggregators','providers','roadmap'));
     }
 

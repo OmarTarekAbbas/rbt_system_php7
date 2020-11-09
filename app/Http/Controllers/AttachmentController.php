@@ -35,12 +35,13 @@ class AttachmentController extends Controller
      *
      * @param SecondPartyRepository $SecondPartyRepository
      */
+
     public function __construct(
         AttachmentRepository $AttachmentRepository,
         AttachmentStoreService $AttachmentStoreService,
         AttachmentUpdateService $AttachmentUpdateService
         ) {
-        $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index']]);
+        $this->get_privilege();
         $this->AttachmentRepository = $AttachmentRepository;
         $this->AttachmentStoreService = $AttachmentStoreService;
         $this->AttachmentUpdateService = $AttachmentUpdateService;
@@ -114,6 +115,11 @@ class AttachmentController extends Controller
         return redirect('attachment')->with(['success' => 'Updated Successfully!']);
     }
 
+
+    public function show()
+    {
+
+    }
     /**
      * Remove the specified resource from storage.
      *

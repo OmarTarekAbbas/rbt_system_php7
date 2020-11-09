@@ -7,7 +7,7 @@ Contents
 
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 noPaddingPhone">
     <div class="box box-blue">
       <div class="box-title">
         <h3><i class="fa fa-table"></i> Content Table</h3>
@@ -36,7 +36,7 @@ Contents
                 <th>Contract Code</th>
                 <th>Occasion Title</th>
                 <th>Provider</th>
-                <th class="visible-md visible-lg" style="width:130px">Action</th>
+                <th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
               </tr>
             </thead>
             <tbody>

@@ -28,12 +28,14 @@ class PercentageController extends Controller
      * @param  PercentageRepository $percentageRepository
      * @param  PercentageService $percentageService
      */
+
+
     public function __construct(
         PercentageRepository $percentageRepository,
         PercentageService $percentageService
     )
     {
-        $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index']]);
+      $this->get_privilege();
         $this->percentageRepository = $percentageRepository;
         $this->percentageService = $percentageService;
     }

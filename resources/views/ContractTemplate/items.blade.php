@@ -8,7 +8,7 @@ Second Party Types
 <div id="main-content">
   @include('errors')
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 noPaddingPhone">
       <div class="box">
         <div class="box-title">
           <button id="add" class="btn btn-info">Add item</button>
@@ -21,8 +21,8 @@ Second Party Types
         <div id="ContractTemplateItems" class="container box-content" style="border: 2px dashed black; margin: 20px 0px">
 
           @forelse ($ContractTemplateItems as $item)
-          <div class="container text-right">
-            <div class="container-fluid" style="padding: 20px">
+          <div class="container noPaddingPhone text-right">
+            <div class="container-fluid noPaddingPhone" style="padding: 20px">
               <a data-id="{{$item->id}}" onclick="removeItem({{$item->id}})" type="button" class="btn btn-danger btn-circle remove-item"><i class="fa fa-times" aria-hidden="true"></i></a>
               <a data-id="{{$item->id}}" onclick="showEditModal({{$item->id}})" type="button" class="btn btn-success btn-circle edit-item"><i class="fa fa-pencil" aria-hidden="true"></i></a>
               <div id="{{$item->id}}">

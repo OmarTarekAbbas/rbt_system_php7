@@ -15,10 +15,10 @@ use App\Contract;
 
 class ServicecontractsController extends Controller
 {
-    public function __construct()
-    {
-      $this->middleware(['auth', 'role:super_admin|legal|ceo'], ['except' => ['index']]);
-    }
+  public function __construct()
+  {
+    $this->get_privilege();
+  }
 
     public function index()
     {

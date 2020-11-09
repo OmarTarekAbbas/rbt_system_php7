@@ -1,37 +1,37 @@
 @extends('template')
 @section('page_title')
-    Occasions
+Occasions
 @stop
 @section('content')
 <div class="modal fade" id="SenderModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form method = 'POST' action = "{{url('occasion')}}" class="form-horizontal">
-      {{ csrf_field() }}
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add Occasion</h4>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
+      <form method='POST' action="{{url('occasion')}}" class="form-horizontal">
+        {{ csrf_field() }}
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Add Occasion</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
             <label for="country_id" class="col-xs-3 col-lg-2 control-label">Country</label>
             <div class="col-sm-9 col-lg-10 controls">
-                {!! Form::select('country_id',$countries,null,['class'=>'form-control' , 'id' => 'country_id' ,'required' => true])!!}
+              {!! Form::select('country_id',$countries,null,['class'=>'form-control' , 'id' => 'country_id' ,'required' => true])!!}
             </div>
 
-        </div>
-        <div class="form-group">
-           <label class="col-sm-3 col-lg-2 control-label">Title</label>
-           <div class="col-sm-9 col-lg-10 controls">
-              <input type="text" placeholder="Title" name = "title" class="form-control" />
-           </div>
-        </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 col-lg-2 control-label">Title</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <input type="text" placeholder="Title" name="title" class="form-control" />
+            </div>
+          </div>
 
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save</button>
-      </div>
-        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary borderRadius">Save</button>
+        </div>
+      </form>
     </div>
 
 
@@ -41,116 +41,118 @@
 <div class="modal fade" id="editoccasion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form method = 'POST' action = "{{url('occasion/update')}}" class="form-horizontal">
-      {{ csrf_field() }}
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Update Occasion</h4>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
+      <form method='POST' action="{{url('occasion/update')}}" class="form-horizontal">
+        {{ csrf_field() }}
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Update Occasion</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
             <label for="country_id" class="col-xs-3 col-lg-2 control-label">Country</label>
             <div class="col-sm-9 col-lg-10 controls">
-                {!! Form::select('country_id',$countries,null,['class'=>'form-control' , 'id' => 'country_id_edit' ,'required' => true])!!}
+              {!! Form::select('country_id',$countries,null,['class'=>'form-control' , 'id' => 'country_id_edit' ,'required' => true])!!}
             </div>
-        </div>
-        <div class="form-group">
-           <label class="col-sm-3 col-lg-2 control-label">Title</label>
-           <div class="col-sm-9 col-lg-10 controls">
-              <input type="text" placeholder="Title" id="edit-occasion" name = "title" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 col-lg-2 control-label">Title</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <input type="text" placeholder="Title" id="edit-occasion" name="title" class="form-control" />
               <input type="hidden" name="occasion_id" id="occasion_id">
-           </div>
-        </div>
+            </div>
+          </div>
 
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save</button>
-      </div>
-        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary borderRadius">Save</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
 @if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+<div class="alert alert-danger">
+  <ul>
+    @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+    @endforeach
+  </ul>
+</div>
 @endif
 <!-- BEGIN Main Content -->
 <div class="row">
-    <div class="col-md-12">
-        <div class="box">
-            <div class="box-title">
-                <h3><i class="fa fa-code-fork"></i>Occasions</h3>
-                <div class="box-tool">
-                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
-                </div>
-            </div>
-            <div class="box-content">
-                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
-                <div class="btn-toolbar pull-right clearfix">
-                    <div class="btn-group">
-                        <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
-                    </div>
-                </div>
-                    <div class="clearfix"></div>
-                <div class="btn-toolbar pull-right clearfix" style="margin-top: 10px">
-                    <div class="btn-group">
-                        <input id="search" type="text" placeholder="Search" class="form-control input-sm" table_name="occasions"/>
-                    </div>
-                </div>
-                @endif
-                <br/><br/>
-                <div class="clearfix"></div>
-
-                <div class="table-responsive" style="border:0">
-                    <table class="table table-advance"  >
-                        <thead>
-                            <tr>
-                                <th style="width:18px"><input type="checkbox" /></th>
-                                <th class="search">Title</th>
-                                <th class="search">Country</th>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
-                                <th>Delete</th>
-                                @endif
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($occasions as $occasion)
-                            <tr class="table-flag-blue">
-                                <td><input type="checkbox" /></td>
-                                <td >{!!$occasion->title!!}</td>
-                                <td >{!!$occasion->country->title!!}</td>
-                                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
-                               <td>
-                                <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" data-occasion_id="{{$occasion->id}}"  data-country_id="{{$occasion->country->id}}" data-occasion_title="{{$occasion->title}}"><i id="{{$occasion->id}}" class="fa fa-edit"></i></a>
-                                <a class="btn btn-sm btn-danger show-tooltip" title=""   onclick="return confirm('Are you sure you want to delete {{ $occasion->title }} ?')"     href="{{url('/occasion/'.$occasion->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                               @endif
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                    <div class="pull-right" id="pageination">
-                        {{ $occasions->render() }}
-                    </div>
-                    <div class="pull-right" id="pageination1">
-
-                    </div>
-                </div>
-            </div>
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-title">
+        <h3><i class="fa fa-code-fork"></i>Occasions</h3>
+        <div class="box-tool">
+          <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+          <a data-action="close" href="#"><i class="fa fa-times"></i></a>
         </div>
+      </div>
+      <div class="box-content">
+        @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
+        <div class="btn-toolbar pull-right clearfix">
+          <div class="btn-group">
+            <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="btn-toolbar pull-right clearfix" style="margin-top: 10px">
+          <div class="btn-group">
+            <input id="search" type="text" placeholder="Search" class="form-control input-sm" table_name="occasions" />
+          </div>
+        </div>
+        @endif
+        <br /><br />
+        <div class="clearfix"></div>
+
+        <div class="table-responsive" style="border:0">
+          <table class="table table-advance">
+            <thead>
+              <tr>
+                <th style="width:18px"><input type="checkbox" /></th>
+                <th class="search">Title</th>
+                <th class="search">Country</th>
+                @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
+                <th>Delete</th>
+                @endif
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($occasions as $occasion)
+              <tr class="table-flag-blue">
+                <td><input type="checkbox" /></td>
+                <td>{!!$occasion->title!!}</td>
+                <td>{!!$occasion->country->title!!}</td>
+                <td>
+                  @if(get_action_icons('occasion/update','post'))
+                  <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" data-occasion_id="{{$occasion->id}}" data-country_id="{{$occasion->country->id}}" data-occasion_title="{{$occasion->title}}"><i id="{{$occasion->id}}" class="fa fa-edit"></i></a>
+                  @endif
+                  @if(get_action_icons('occasion/{id}/delete','get'))
+                  <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete {{ $occasion->title }} ?')" href="{{url('/occasion/'.$occasion->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                  @endif
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+          <div class="pull-right" id="pageination">
+            {{ $occasions->render() }}
+          </div>
+          <div class="pull-right" id="pageination1">
+
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- END Main Content -->
 @endsection
 @section('script')
-        <script>
+<script>
             // $('#audience').addClass('active');
             function ConfirmDelete()
             {

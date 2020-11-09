@@ -40,10 +40,8 @@ RBTs
                                 <th>Occasion Title</th>
                                 <th>Master Content Title</th>
                                 <th>owner</th>
-                                @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
                                 <th>Aggregator Title</th>
                                 <th class="visible-md visible-lg" style="width:130px">Action</th>
-                                @endif
                             </tr>
                         </thead>
                         <tbody>

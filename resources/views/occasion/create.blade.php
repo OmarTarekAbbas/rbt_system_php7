@@ -14,7 +14,7 @@
             <label for="title">title</label>
             <input id="title" name = "title" type="text" class="form-control">
         </div>
-        <button class = 'btn btn-success' type ='submit'> <i class="fa fa-floppy-o"></i> Save</button>
+        <button class = 'btn btn-success borderRadius' type ='submit'> <i class="fa fa-floppy-o"></i> Save</button>
     </form>
 </section>
 @endsection

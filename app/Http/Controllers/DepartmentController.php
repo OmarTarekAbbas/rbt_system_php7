@@ -12,6 +12,12 @@ use Validator;
 
 class DepartmentController extends Controller
 {
+
+  public function __construct()
+  {
+    $this->get_privilege();
+  }
+
   public function index()
   {
     $departments = Department::all();
@@ -31,7 +37,7 @@ class DepartmentController extends Controller
   {
     $validator = Validator::make($request->all(), [
       'title' => 'required',
-      'email' => 'required|email|unique:departments,email',
+      'email' => 'required|email',
       'manager_id' => 'required'
     ]);
     if ($validator->fails()) {
@@ -58,7 +64,7 @@ class DepartmentController extends Controller
   {
     $validator = Validator::make($request->all(), [
       'title' => 'required',
-      'email' => 'required|email|unique:departments,email,' . $id,
+      'email' => 'required|email',
       'manager_id' => 'required'
     ]);
     if ($validator->fails()) {

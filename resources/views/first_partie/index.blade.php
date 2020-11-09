@@ -4,7 +4,7 @@
 @stop
 @section('content')
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12 noPaddingPhone">
 			<div class="box box-black">
 				<div class="box-title">
 					<h3><i class="fa fa-table"></i> FirstPartie Table</h3>
@@ -22,7 +22,7 @@
 								<th style="width:18px"><input type="checkbox"></th>
 								<th>FirstPartie Title</th>
 								<th>first party joining date</th>
-								<th class="visible-md visible-lg" style="width:130px">Action</th>
+								<th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
 							</tr>
 							</thead>
 							<tbody>
@@ -31,15 +31,21 @@
 										<td><input type="checkbox"></td>
 										<td>{{$firstpartie->first_party_title}}</td>
 										<td>{{$firstpartie->first_party_joining_date->format('d-m-Y')}}</td>
-										<td class="visible-md visible-lg">
-                      @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
+										<td class="visible-xs visible-md visible-lg">
 
 											<div class="btn-group">
+
+                        @if (get_action_icons('firstparties/{firstparty}/edit', 'get'))
 												<a class="btn btn-sm show-tooltip" title="" href="{{url('firstparties/'.$firstpartie->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
-												<a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('firstparties/'.$firstpartie->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                        @endif
+
+                        @if (get_action_icons('firstparties/{id}/delete', 'get'))
+                        <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('firstparties/'.$firstpartie->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                        @endif
+
                       </div>
-                      @endif
-										</td>
+
+                    </td>
 									</tr>
 							@endforeach
 							</tbody>

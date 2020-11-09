@@ -8,7 +8,7 @@ ServiceTypes
 <div id="main-content">
   @include('errors')
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 noPaddingPhone">
       <div class="box">
         <div class="box-title">
           <h3><i class="fa fa-bars"></i>ServiceTypes</h3>
@@ -20,9 +20,9 @@ ServiceTypes
         <div class="box-content">
 
 
-          <form action="{{url("ServiceTypes/$ServiceType->id")}}" method="POST" class="form-horizontal form-bordered form-row-stripped"
+          <form action="{{url("ServiceTypes/$ServiceType->id")}}" method="POST" class="width_m_auto form-horizontal form-bordered form-row-stripped"
             enctype="multipart/form-data" novalidate>
-            @method('PATCH')
+            @method('put')
             @csrf
             <input id="hidden_key" name="key" type="hidden" />
 
@@ -35,8 +35,8 @@ ServiceTypes
             </div>
 
             <div class="form-group last">
-              <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+              <div class="col-sm-9 col-lg-12">
+                <button type="submit" class="btn btn-primary mAuto_dBlock borderRadius"><i class="fa fa-check"></i> Save</button>
               </div>
             </div>
           </form>

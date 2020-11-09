@@ -7,7 +7,7 @@ Second Party
 <!-- BEGIN Content -->
 <div id="main-content">
 	<div class="row">
-	    <div class="col-md-12">
+	    <div class="col-md-12 noPaddingPhone">
 	        <div class="box box-black">
 	            <div class="box-title">
 	                <h3><i class="fa fa-table"></i> Second Party Table</h3>

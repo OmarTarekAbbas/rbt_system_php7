@@ -40,6 +40,12 @@ use Auth;
  */
 class ReportController extends Controller
 {
+
+  public function __construct()
+  {
+    $this->get_privilege();
+  }
+
     /**
      * Display a listing of the resource.
      *

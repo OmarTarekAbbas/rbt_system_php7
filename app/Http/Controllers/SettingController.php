@@ -49,6 +49,7 @@ class SettingController extends Controller
      * @param  SettingUpdateService $settingUpdateService
      * @return void
      */
+
     public function __construct(
         SettingRepository $settingRepository,
         TypeRepository $typeRepository,
@@ -56,7 +57,8 @@ class SettingController extends Controller
         SettingUpdateService $settingUpdateService
     )
     {
-        $this->settingRepository = $settingRepository;
+      $this->get_privilege();
+      $this->settingRepository = $settingRepository;
         $this->settingStoreService = $settingStoreService;
         $this->settingUpdateService = $settingUpdateService;
         $this->typeRepository = $typeRepository;
