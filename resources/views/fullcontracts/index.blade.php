@@ -3,6 +3,15 @@
 Contract
 @stop
 @section('content')
+
+<style>
+  @media (min-width: 320px) and (max-width: 359.9px) {
+    #main-content {
+    padding: 10px 20px 20px;
+  }
+  }
+</style>
+
 <div class="row">
   <div class="col-md-12 noPaddingPhone">
     <div class="box box-blue">

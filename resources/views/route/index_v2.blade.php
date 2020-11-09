@@ -13,6 +13,13 @@ if (isset($controller_name))
 @section('content')
 @include('errors')
 
+<style>
+  .chosen-container-single .chosen-single {
+    border-bottom-right-radius: 0.5rem !important;
+    border-top-right-radius: 0.5rem !important;
+  }
+</style>
+
 <div class="row">
   <div class="col-md-12 noPaddingPhone">
     <div class="box">
@@ -77,15 +84,15 @@ if (isset($controller_name))
               @if($function_name!="")
               <tr>
 
-                <td>
+                <td style="width: 90%;">
                   <p>{{$function_name}}</p>
                   {!! Form::hidden("route[$i][$j]",$function_name) !!}
                   <?php $j++; ?>
-                  <div class="col-sm-4 col-lg-4 controls">
-                    <input type="text" name="route[{{$i}}][{{$j++}}]" @foreach($selected_routes as $route) @if($route->function_name == $function_name) style="border: 1px solid #248dc1" value="{{$route->route}}" @endif @endforeach placeholder="..." class="form-control input-lg">
+                  <div class="col-sm-4 col-lg-8 controls" style="padding: 0;">
+                    <input type="text" name="route[{{$i}}][{{$j++}}]" @foreach($selected_routes as $route) @if($route->function_name == $function_name) style="border: 1px solid #b6d1f2;border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;" value="{{$route->route}}" @endif @endforeach placeholder="..." class="form-control" style="border: 1px solid #b6d1f2;border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;">
                   </div>
                   <div class="form-group">
-                    <div class="col-sm-3 col-lg-2 controls">
+                    <div class="col-sm-3 col-lg-3 controls" style="padding: 0;">
                       <select class="form-control chosen-rtl" name="route[{{$i}}][{{$j++}}]">
                         <option></option>
                         @foreach($method_types as $index=>$type)
@@ -97,7 +104,7 @@ if (isset($controller_name))
                 </td>
                 @foreach($roles as $index=>$role)
                 <td>
-                  <label class="checkbox-inline">
+                  <label class="checkbox-inline displayFlex">
                     <input type="checkbox" name="route[{{$i}}][{{$j++}}]" value="{{$role->id}}" class="check_role_{{$role->id}}" @foreach($selected_routes as $route) @if($route->function_name == $function_name) @foreach($route->roles_routes as $role_route) @if($role_route->role_id == $role->id) checked @endif @endforeach @endif @endforeach
                     />
                   </label>
@@ -106,13 +113,15 @@ if (isset($controller_name))
               </tr>
               @endif
               @endforeach
-              <div class="btn-group">
-                <input type="submit" class="btn btn-primary btn-success" value="Save Changes">
-              </div><br><br>
-              {!! Form::close() !!}
+
+
             </tbody>
           </table>
         </div>
+        <div style="margin: 1% 0;">
+          <input type="submit" class="btn btn-success mAuto_dBlock borderRadius" value="Save Changes">
+        </div>
+        {!! Form::close() !!}
       </div>
       @endif
     </div>
@@ -121,7 +130,6 @@ if (isset($controller_name))
 </div>
 
 @stop
-
 @section('script')
     <script>
         var checked_roles = [] ;

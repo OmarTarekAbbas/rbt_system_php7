@@ -32,6 +32,12 @@
   float: right;
 }
 
+.displayFlex {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .displayGrid {
   display: grid;
   grid-template-columns: 75% 25%;
@@ -101,5 +107,7 @@
     display: block;
   }
 
-
+  #main-content {
+    padding: 10px 10px 20px;
+  }
 }
