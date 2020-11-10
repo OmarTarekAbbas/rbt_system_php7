@@ -5,6 +5,7 @@ Contract Service
 @section('content')
 
 @include('errors')
+<div id="main-content">
 <div class="row">
   <div class="col-md-12 noPaddingPhone">
     <div class="box">
@@ -60,6 +61,7 @@ Contract Service
 
   </div>
 
+</div>
 </div>
 
 @stop

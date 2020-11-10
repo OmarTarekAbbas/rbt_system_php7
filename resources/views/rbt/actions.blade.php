@@ -1,4 +1,4 @@
-<td class="visible-md visible-lg">
+<td class="visible-xs visible-md visible-lg">
   <div class="btn-group">
     @if(get_action_icons('rbt/{rbt}','get'))
     <a class="btn btn-sm btn-primary show-tooltip" href="{{url("rbt/$rbt->rbt_id")}}" title="Show"><i

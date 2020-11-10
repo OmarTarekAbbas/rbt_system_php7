@@ -32,6 +32,12 @@
   float: right;
 }
 
+.displayFlex {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .displayGrid {
   display: grid;
   grid-template-columns: 75% 25%;
@@ -86,7 +92,9 @@
   }
 
   .start_date,
-  .expire_date {
+  .expire_date,
+  .event_start_date,
+  .event_end_date {
     width: 92% !important;
   }
 
@@ -101,5 +109,24 @@
     display: block;
   }
 
+  #main-content {
+    padding: 10px 10px 20px;
+  }
 
+  .displayGridTwo {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  #SenderModel .modal-dialog,
+  #editoperator .modal-dialog,
+  #editaggregator .modal-dialog,
+  #editcurrency .modal-dialog,
+  #editoccasion .modal-dialog,
+  #editcountry .modal-dialog {
+    top: 30%;
+  }
+
+  .box .box-title h3 {
+    white-space: unset;
+  }
 }

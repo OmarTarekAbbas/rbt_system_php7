@@ -94,20 +94,20 @@ class RouteController extends Controller
     public function index_v2(Request $request)
     {
         $controllers = $this->get_controllers() ; // in main controller
-
         $controller_name = NULL ;
         $methods = NULL ;
         $selected_routes = NULL ;
 
         if(isset($request['controller_name'])&&!empty($request['controller_name']))
         {
-            $controller_name = $request['controller_name'] ;
-            $selected_routes = Route::where('controller_name',$controller_name)->get() ;
-            $methods = $this->get_controllers()[$controller_name] ;
+          $controller_name = $request['controller_name'] ;
+          $selected_routes = Route::where('controller_name',$controller_name)->get() ;
+          $methods = $this->get_controllers()[$controller_name] ;
         }
         $roles = Role::all() ;
         $method_types = $this->form_methods ;
         // dd($method_types);
+        //dd($controllers);
         return view('route.index_v2',compact('controllers','selected_routes','method_types','methods','controller_name','roles')) ;
     }
 
@@ -154,13 +154,14 @@ class RouteController extends Controller
                 }
                 $IDs = [] ;
                 $holder = [] ;
-                for($j = 3 ; $j < $route_size ; $j++ )  // 0 function name , 1 route link , 2 method type ... so from 3 to ~ these are the roles
+                $role_ids = array_values($request['route'][$i]);
+                for($j = 3 ; $j <= count($role_ids) ; $j++ )  // 0 function name , 1 route link , 2 method type ... so from 3 to ~ these are the roles
                 {
-                    if(isset($request['route'][$i][$j]))
+                    if(isset($role_ids[$j]))
                     {
                         $tmp =
                             [
-                            'role_id'  => (int) $request['route'][$i][$j],
+                            'role_id'  => (int) $role_ids[$j],
                             'route_id' => $check_route->id
                             ] ;
                         array_push($IDs,$tmp) ;

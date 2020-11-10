@@ -227,7 +227,6 @@ function send_notification($message,$dep,$data){
 function list_routes_from_database()
 {
     $routes = App\Route::all();
-
     foreach( $routes as $route ){
       $method = $route->method;
       $name = (string)$route->route;
@@ -250,7 +249,6 @@ function get_action_icons($route,$method)
 
   // chec user roles has access this route
   $routeRole = RoleRoute::where('role_id', $userRole)->where('route_id',  $route_id)->first();
-
   return $routeRole || $userRole == 1 ? 1 : 0 ;
 
 }
