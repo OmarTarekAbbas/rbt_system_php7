@@ -4,75 +4,66 @@ Contract
 @stop
 @section('content')
 
-<style>
-  @media (min-width: 320px) and (max-width: 359.9px) {
-    #main-content {
-    padding: 10px 20px 20px;
-  }
-  }
-</style>
-
-<div class="row">
-  <div class="col-md-12 noPaddingPhone">
-    <div class="box box-blue">
-      <div class="box-title">
-        <h3><i class="fa fa-table"></i> Contract Table</h3>
-        <div class="box-tool">
-          <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-          <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+<div id="main-content">
+  <div class="row">
+    <div class="col-md-12 noPaddingPhone">
+      <div class="box box-blue">
+        <div class="box-title">
+          <h3><i class="fa fa-table"></i> Contract Table</h3>
+          <div class="box-tool">
+            <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+            <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+          </div>
         </div>
-      </div>
-      <div class="box-content">
-        @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
+        <div class="box-content">
+          @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
-        <div class="btn-group">
-          <a class="btn btn-circle btn-success show-tooltip" href="{{url('fullcontracts/create')}}"
-            title="Create New Rbt" href="#"><i class="fa fa-plus"></i></a>
-          <a id="delete_button" onclick="delete_selected('contracts')" class="btn btn-circle btn-danger show-tooltip"
-            title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
-        </div>
-        @endif
-        <br>
-        <br>
-        <label class="text-muted" for="date">Filter By Sign Date</label>
-        <select id="signed_date" class="form-control chosen" data-placeholder="Filter By Sign Date" name="date"
-          tabindex="1">
-          <option value="{{null}}">ALL</option>
-          @foreach( range( date('Y') , date('Y')-10 ) as $year )
-          <option value="{{$year}}">{{$year}}</option>
-          @endforeach
-        </select>
-        <hr>
-        {{--<label class="text-muted" for="page_input">Filter By Page</label>
+          <div class="btn-group">
+            <a class="btn btn-circle btn-success show-tooltip" href="{{url('fullcontracts/create')}}" title="Create New Rbt" href="#"><i class="fa fa-plus"></i></a>
+            <a id="delete_button" onclick="delete_selected('contracts')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
+          </div>
+          @endif
+          <br>
+          <br>
+          <label class="text-muted" for="date">Filter By Sign Date</label>
+          <select id="signed_date" class="form-control chosen" data-placeholder="Filter By Sign Date" name="date" tabindex="1">
+            <option value="{{null}}">ALL</option>
+            @foreach( range( date('Y') , date('Y')-10 ) as $year )
+            <option value="{{$year}}">{{$year}}</option>
+            @endforeach
+          </select>
+          <hr>
+          {{--<label class="text-muted" for="page_input">Filter By Page</label>
         <select id="page_input" class="form-control chosen" data-placeholder="Filter By page" name="page"
           tabindex="1">
           <option value="{{null}}">ALL</option>
           @foreach( range( 0 , $contracts->lastPage() ) as $page )
           <option value="{{$page}}">{{$page+1}}</option>
           @endforeach
-        </select>
-        <hr> --}}
-        <div class="table-responsive" style="border:0">
-          <table class="table table-advance data_contract">
-            <thead>
-              <tr>
-                <th style="width:18px"><input type="checkbox" /></th>
-                <th>id</th>
-                <th>Code</th>
-                <th>Service Type</th>
-                <th>Label</th>
-                <th>Contract Status</th>
-                <th>Contract Date</th>
-                <th>Contract Signed Date</th>
-                <th>Expiry Date</th>
-                <th class="visible-xs visible-md visible-lg" style="width:130px">Show Attachments</th>
-                <th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
-              </tr>
-            </thead>
-            <tbody>
+          </select>
+          <hr> --}}
+          <div class="table-responsive" style="border:0">
+            <table class="table table-advance data_contract">
+              <thead>
+                <tr>
+                  <th style="width:18px"><input type="checkbox" /></th>
+                  <th>id</th>
+                  <th>Code</th>
+                  <th>Service Type</th>
+                  <th>Label</th>
+                  <th>Contract Status</th>
+                  <th>Contract Date</th>
+                  <th>Contract Signed Date</th>
+                  <th>Expiry Date</th>
+                  <th class="visible-xs visible-md visible-lg" style="width:130px">Show Attachments</th>
+                  <th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
+                </tr>
+              </thead>
+              <tbody>
 
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -81,7 +72,6 @@ Contract
 
 
 @stop
-
 @section('script')
 <script>
 $('#contract .submenu').first().css('display', 'block');
