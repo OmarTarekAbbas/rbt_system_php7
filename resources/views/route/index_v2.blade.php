@@ -15,8 +15,15 @@ if (isset($controller_name))
 
 <style>
   .chosen-container-single .chosen-single {
-    border-bottom-right-radius: 0.5rem !important;
-    border-top-right-radius: 0.5rem !important;
+    border-radius: 0.6rem !important;
+  }
+
+  tr:nth-of-type(odd) {
+    background-color: #cfcfcf;
+  }
+
+  tr:nth-of-type(even) {
+    background-color: #FFF;
   }
 </style>
 <div id="main-content">
@@ -57,8 +64,8 @@ if (isset($controller_name))
         </div>
         @if(isset($methods))
         <div class="box-content">
-          <div class="table-responsive">
-            <table class="table table-striped table-hover fill-head">
+          <div class="table-responsive" style="overflow: scroll;">
+            <table class="table fill-head">
               <thead>
                 <tr>
                   <th>method name</th>
@@ -84,15 +91,15 @@ if (isset($controller_name))
                 @if($function_name!="")
                 <tr>
 
-                  <td style="width: 90%;">
+                  <td style="width: 100%;">
                     <p>{{$function_name}}</p>
                     {!! Form::hidden("route[$i][$j]",$function_name) !!}
                     <?php $j++; ?>
-                    <div class="col-xs-10 col-lg-8 controls" style="padding: 0;">
-                      <input type="text" name="route[{{$i}}][{{$j++}}]" @foreach($selected_routes as $route) @if($route->function_name == $function_name) style="border: 1px solid #b6d1f2;border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;" value="{{$route->route}}" @endif @endforeach placeholder="..." class="form-control" style="border: 1px solid #b6d1f2;border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;">
+                    <div class="controls" style="padding: 0;">
+                      <input class="borderRadius btn-lg" type="text" name="route[{{$i}}][{{$j++}}]" @foreach($selected_routes as $route) @if($route->function_name == $function_name) style="border: 1px solid #b6d1f2;" value="{{$route->route}}" @endif @endforeach placeholder="..." class="form-control" style="border: 1px solid #b6d1f2;">
                     </div>
                     <div class="form-group">
-                      <div class="col-xs-2 col-lg-3 controls" style="padding: 0;">
+                      <div class="controls" style="padding: 0;">
                         <select class="form-control chosen-rtl" name="route[{{$i}}][{{$j++}}]">
                           <option></option>
                           @foreach($method_types as $index=>$type)
