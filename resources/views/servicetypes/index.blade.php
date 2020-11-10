@@ -47,7 +47,7 @@ ServiceTypes
                   <td>{{$ServiceType->service_type_title}}</td>
                   <td class="visible-xs visible-md visible-lg">
 
-                    <div class="btn-group">
+                    <div class="btn-group pull-right">
 
                       @if (get_action_icons('ServiceTypes/{ServiceType}/edit', 'get'))
                       <a class="btn btn-sm show-tooltip" title="" href="{{url('ServiceTypes/'.$ServiceType->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>

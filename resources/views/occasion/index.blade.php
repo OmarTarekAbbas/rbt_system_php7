@@ -130,10 +130,10 @@ Occasions
                   <td>{!!$occasion->country->title!!}</td>
                   <td>
                     @if(get_action_icons('occasion/update','post'))
-                    <a class="btn btn-sm show-tooltip modalToaggal teet" href="#" data-occasion_id="{{$occasion->id}}" data-country_id="{{$occasion->country->id}}" data-occasion_title="{{$occasion->title}}"><i id="{{$occasion->id}}" class="fa fa-edit"></i></a>
+                    <a class="btn btn-sm show-tooltip modalToaggal teet pull-right" href="#" data-occasion_id="{{$occasion->id}}" data-country_id="{{$occasion->country->id}}" data-occasion_title="{{$occasion->title}}"><i id="{{$occasion->id}}" class="fa fa-edit"></i></a>
                     @endif
                     @if(get_action_icons('occasion/{id}/delete','get'))
-                    <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete {{ $occasion->title }} ?')" href="{{url('/occasion/'.$occasion->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                    <a class="btn btn-sm btn-danger show-tooltip pull-right" title="" onclick="return confirm('Are you sure you want to delete {{ $occasion->title }} ?')" href="{{url('/occasion/'.$occasion->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                     @endif
                   </td>
                 </tr>

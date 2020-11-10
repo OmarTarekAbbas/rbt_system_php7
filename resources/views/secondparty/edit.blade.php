@@ -5,10 +5,9 @@ Second Party Types
 @section('content')
 
 <style>
-  @media (min-width: 320px) and (max-width: 359.9px) {
-    #main-content {
-      padding: 10px 10px 20px;
-    }
+  @media (min-width: 320px) and (max-width: 374.9px) {
+    #attachment_a_pdf {
+      margin: 0% auto !important;
   }
 </style>
 
@@ -119,8 +118,8 @@ Second Party Types
                         <input type="file" name="second_party_identity" id="second_party_identity" placeholder="Second Party Title" class="form-control">
                       </div>
                       @isset($SecondParty->second_party_identity)
-                      <div class="col-sm-3 col-lg-4 controls">
-                        <a class="btn btn-success borderRadius pull-right" target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_identity")}}">Preview</a>
+                      <div class="col-xs-12 col-lg-4 controls">
+                        <a class="btn btn-success borderRadius pull-right" id="attachment_a_pdf" target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_identity")}}">Preview</a>
                       </div>
                       @endisset
                     </div>
@@ -131,7 +130,7 @@ Second Party Types
                       </div>
                       @isset($SecondParty->second_party_cr)
                       <div class="col-xs-12 col-lg-4 controls">
-                        <a class="btn btn-success borderRadius pull-right" target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_cr")}}">Preview</a>
+                        <a class="btn btn-success borderRadius pull-right" id="attachment_a_pdf" target="_blank" href="{{url("uploads/docs/$SecondParty->second_party_cr")}}">Preview</a>
                       </div>
                       @endisset
                     </div>

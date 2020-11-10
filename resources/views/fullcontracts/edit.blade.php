@@ -31,9 +31,19 @@
   .nav-list>li {
     width: 100%;
   }
+
+  @media (min-width: 320px) and (max-width: 374.9px) {
+  .signed_date_input,
+  .start_date,
+  .contract_expiry_date {
+    width: 100% !important;
+  }
+}
 </style>
 
 <div id="preloader"></div>
+
+<div id="main-content">
 <div id="app" class="page-wrapper">
   <main class="page-content">
     <a href="javascript:;" class="toggleMenu flying-button"><i class="lni-menu"></i></a>
@@ -54,7 +64,7 @@
             </div>
           </div>
         </div>
-        <div class="p-5">
+        <div class="p-5 noPaddingPhone">
           <ul class="parsley-error-list">
           </ul>
           <div class="row">
@@ -162,7 +172,7 @@
                 <div class="form-group">
                   <label for="signed_date_input" class=" control-label"> Contract Singed Date</label>
                   <div class="input-group date  signed_date_input controls">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <span class="input-group-addon input_group_new"><i class="fa fa-calendar"></i></span>
                     <input type="text" name="contract_signed_date" id="signed_date_input" autocomplete="off" placeholder="Contract Singed Date" data-date-format="dd-mm-yyyy" class="form-control" value="{{date('d-m-Y',strtotime($contract->contract_signed_date))}}" style="height: 33px;" required>
                   </div>
                 </div>
@@ -171,7 +181,7 @@
                 <div class="form-group">
                   <label for="start_date" class=" control-label"> Contract Start Date</label>
                   <div class="input-group date  start_date controls">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <span class="input-group-addon input_group_new"><i class="fa fa-calendar"></i></span>
                     <input type="text" name="contract_date" id="start_date" autocomplete="off" placeholder="Contract Start Date" data-date-format="dd-mm-yyyy" class="form-control" value="{{date('d-m-Y',strtotime($contract->contract_date))}}" style="height: 33px;" required>
                   </div>
                 </div>
@@ -203,7 +213,7 @@
                 <div class="form-group">
                   <label for="contract_expiry_date" class=" control-label">Expiry Date</label>
                   <div class="input-group date contract_expiry_date controls">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <span class="input-group-addon input_group_new"><i class="fa fa-calendar"></i></span>
                     <input type="text" name="contract_expiry_date" placeholder=" End Date" data-date-format="dd-mm-yyyy" class="form-control" value="{{date('d-m-Y',strtotime($contract->contract_expiry_date))}}" style="height: 33px;" id="contract_expiry_date" required>
                   </div>
                 </div>
@@ -218,7 +228,8 @@
                 </div>
 
                 <div class="form-group  ">
-                  <label for="ipt" class=" control-label "> Contract File <a href="{{url('uploads/contracts/'.$contract->contract_pdf)}}" target="_blank"> Click To Preview </a> </label>
+                  <label for="ipt" class="control-label" style="margin-bottom: 1.5rem;"> Contract File</label>
+                  <a class="btn btn-success borderRadius pull-right" style="margin-bottom: 1.5rem;" href="{{url('uploads/contracts/'.$contract->contract_pdf)}}" target="_blank"> Click To Preview </a>
                   <div class="fileUpload btn ">
                     <span> <i class="fa fa-copy"></i> </span>
                     <div class="title"> Browse File </div>
@@ -266,6 +277,7 @@
       </script>
     </div>
   </main>
+</div>
 </div>
 @stop @section('script')
 <script>

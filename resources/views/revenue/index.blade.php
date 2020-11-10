@@ -18,7 +18,7 @@ Revenue
           @if (get_action_icons('revenue/create', 'get'))
           <div class="btn-toolbar pull-right clearfix">
             <div class="btn-group">
-              <a class="btn btn-success show-tooltip" title="Add" href="{{url('revenue/create')}}"><i class="fa fa-plus"></i> Add Revenue</a>
+              <a class="btn btn-circle show-tooltip" title="Add" href="{{url('revenue/create')}}"><i class="fa fa-plus"></i></a>
             </div>
           </div>
           <br /><br />

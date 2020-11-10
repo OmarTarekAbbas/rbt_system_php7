@@ -10,7 +10,7 @@ Employees Contracts
     padding-left: 15px;
   }
 
-  @media (min-width: 320px) and (max-width: 359.9px) {
+  @media (min-width: 320px) and (max-width: 374.9px) {
     .event_start_date,
     .event_end_date {
       width: 100% !important;

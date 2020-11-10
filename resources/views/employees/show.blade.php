@@ -3,7 +3,7 @@
 Employee
 @stop
 @section('content')
-<div class="row">
+<div class="row marginZero">
   <div class="col-md-4">
     <a class="btn btn-circle btn-primary show-tooltip " href="{{url('/employees')}}" title="List Employees">
       <i class="fa fa-eye"></i>
