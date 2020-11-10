@@ -63,6 +63,66 @@ class ReportController extends Controller
         return view('report.index', compact('reports', 'title'));
     }
 
+    public function allDate (Request $request)
+    {
+
+      $title = 'Index - report';
+        if (Auth::user()->hasRole(['super_admin', 'admin', 'ceo'])) {
+            $reports = Report::all();
+        } else {
+            $reports = Report::where('aggregator_id', Auth::user()->aggregator_id)->get();
+        }
+        $datatable = \Datatables::of($reports)
+            ->addColumn('index', function (Report $report) {
+                return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$report->id.'" class="roles" onclick="collect_selected(this)">';
+            })
+            ->addColumn('rbt_id', function (Report $report) {
+                return $report->rbt_id;
+            })
+            ->addColumn('rbt_name', function (Report $report) {
+              return $report->rbt_name;
+          })
+            ->addColumn('year', function (Report $report) {
+              return $report->year;
+          })
+            ->addColumn('month', function (Report $report) {
+                return $report->month;
+            })
+            ->addColumn('code', function (Report $report) {
+                return $report->code;
+            })
+            ->addColumn('classification', function (Report $report) {
+              return $report->classification ? $report->classification : '---';
+            })
+            ->addColumn('download_no', function (Report $report) {
+              return $report->download_no ? $report->download_no : '---';
+            })
+            ->addColumn('total_revenue', function (Report $report) {
+              return $report->total_revenue;
+            })
+            ->addColumn('revenue_share', function (Report $report) {
+              return $report->revenue_share;
+            })
+            ->addColumn('second_party_id', function (Report $report) {
+              return $report->second_party_id ? $report->provider->second_party_title : '---';
+            })
+            ->addColumn('operator_id', function (Report $report) {
+              return $report->operator_id ? $report->operator->title : '---';
+            })
+            ->addColumn('aggregator_id', function (Report $report) {
+              return $report->aggregator_id ? $report->aggregator->title : '---';
+            })
+
+            ->addColumn('action', function (Report $report) {
+                    return view('report.actions', compact('report'));
+            })
+
+            ->escapeColumns([])
+            ->make(true);
+
+        return $datatable;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -107,7 +167,6 @@ class ReportController extends Controller
 
         $successful_creations = 0;
         $total_reports = 0;
-
         if ($request->hasFile('fileToUpload')) {
             $ext =  $request->file('fileToUpload')->getClientOriginalExtension();
             if ($ext != 'xls' && $ext != 'xlsx' && $ext != 'csv') {
@@ -133,7 +192,6 @@ class ReportController extends Controller
                     }
 
 
-
                     $report['classification'] = $row->classification;
                     if ($row->code != "") {  // if you write rbt code only
                         $report['code'] = $row->code;
@@ -144,7 +202,6 @@ class ReportController extends Controller
 
                             continue;
                         }
-
                         // old report for the rbt code in the same operator
                         $old_report =   Report::where([['operator_id', $rbt->operator_id], ['second_party_id', $rbt->second_party_id], ['code', $rbt->code]])->where('year', $request->year)->where('month', $request->month)->first();
                         if ($old_report) {
@@ -155,6 +212,7 @@ class ReportController extends Controller
                         $report['rbt_id'] = $rbt->id;
                         $report['second_party_id'] = $rbt->provider_id;
                     } elseif ($row->code == "" && $row->track_name != "" && $row->artist_name != "") { // if you write rbt name + second_party name
+
                         $second_party = SecondParties::where('second_party_title', $row->artist_name)->first();
                         if (!$second_party) {
                             continue;
@@ -179,6 +237,7 @@ class ReportController extends Controller
 
                     $report['client_revenu'] = !$rbt->content->contract->first_party_select ?  ($row->revenue_share * ($rbt->content->contract->first_party_percentage/100)) :  ($row->revenue_share * ($rbt->content->contract->second_party_percentage/100));
                     $check = Report::create($report);
+                    // dd($check);
                     if ($check)
                         $successful_creations++;
                 }
