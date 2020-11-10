@@ -92,12 +92,12 @@ RoadMap
                     name: "aggregator"
                 },
                 {
-                    data: "event_end_date",
-                    name: "event_end_date"
-                },
-                {
                     data: "event_start_date",
                     name: "event_start_date"
+                },
+                {
+                    data: "event_end_date",
+                    name: "event_end_date"
                 },
                 {
                     data: "action",

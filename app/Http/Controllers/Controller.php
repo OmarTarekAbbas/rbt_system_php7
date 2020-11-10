@@ -96,27 +96,33 @@ class Controller extends BaseController
     {
       $this->middleware(function ($request, $next) {
 
-        $this->userRole = Auth::user()->roles->first()->id;
+        if(Auth::user()){
 
-        if($this->userRole == 1){
-          return $next($request);
+          $this->userRole = Auth::user()->roles->first()->id;
+
+          if($this->userRole == 1){
+            return $next($request);
+          }
+
+          $uri = Route::current()->uri;
+          $method = strtolower(Route::current()->methods[0]);
+
+          $this->route = RouteModel::where('route', $uri)->where('method', $method)->first()->id;
+
+          $routeRole = RoleRoute::where('role_id', $this->userRole)->where('route_id', $this->route)->first();
+
+          if($routeRole){
+            return $next($request);
+          }else{
+            return redirect('/')->with('failed', 'You Dont Have The Privilege To Access This page!');
+          }
+
         }
-
-        $uri = Route::current()->uri;
-        $method = strtolower(Route::current()->methods[0]);
-
-        $this->route = RouteModel::where('route', $uri)->where('method', $method)->first()->id;
-
-        $routeRole = RoleRoute::where('role_id', $this->userRole)->where('route_id', $this->route)->first();
-
-        if($routeRole){
-          return $next($request);
-        }else{
-          return redirect('/')->with('failed', 'You Dont Have The Privilege To Access This page!');
+        else{
+          return redirect('login');
         }
 
       });
 
     }
-
 }
