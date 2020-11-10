@@ -1,6 +1,6 @@
 @extends('template')
 @section('page_title')
-Contents
+ClientPayments
 @stop
 @section('content')
 
@@ -10,7 +10,7 @@ Contents
     <div class="col-md-12 noPaddingPhone">
       <div class="box box-blue">
         <div class="box-title">
-          <h3><i class="fa fa-table"></i> Content Table</h3>
+          <h3><i class="fa fa-table"></i> ClientPayment Table</h3>
           <div class="box-tool">
             <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
             <a data-action="close" href="#"><i class="fa fa-times"></i></a>
@@ -18,24 +18,23 @@ Contents
         </div>
         <div class="box-content">
           <div class="btn-group">
-            @if(Auth::user()->hasRole(['super_admin','admin', 'ceo','Quality','Content','RBT Upload']))
-            <a class="btn btn-circle btn-success show-tooltip" href="{{url('content/create')}}" title="Create New content" href="#"><i class="fa fa-plus"></i></a>
-            <a id="delete_button" onclick="delete_selected('contents')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
+            @if(Auth::user()->hasRole(['super_admin','admin', 'ceo','Quality','RBT Upload']))
+            <a class="btn btn-circle btn-success show-tooltip" href="{{url('clientpayments/create')}}" title="Create New content" href="#"><i class="fa fa-plus"></i></a>
+            <a id="delete_button" onclick="delete_selected('client_payments')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
             @endif
           </div><br><br>
           <div class="table-responsive" style="border:0">
             <table class="table table-advance data_content">
               <thead>
                 <tr>
-                  <th style="width:18px"><input type="checkbox" onclick="select_all('contents')" /></th>
+                  <th style="width:18px"><input type="checkbox" onclick="select_all('client_payments')" /></th>
                   <th>id</th>
-                  <th>Internal Coding</th>
-                  <th>Content Title</th>
-                  <th>Content Type</th>
-                  <th>content File</th>
-                  <th>Contract Code</th>
-                  <th>Occasion Title</th>
+                  <th>contract</th>
                   <th>Provider</th>
+                  <th>Amount</th>
+                  <th>Currency</th>
+                  <th>Year</th>
+                  <th>Months</th>
                   <th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
                 </tr>
               </thead>
@@ -69,7 +68,7 @@ Contents
       "search": {
         "regex": true
       },
-      ajax: "{{ request()->has('contract_id') ? url('content/allData?contract_id='.request()->contract_id) : url('content/allData') }}",
+      ajax: "{{ url('clientpayments/ajax/allData') }}",
       columns: [{
           data: "index",
           searchable: false,
@@ -80,32 +79,28 @@ Contents
           name: "id"
         },
         {
-          data: "internal_coding",
-          name: "internal_coding"
-        },
-        {
-          data: "content_title",
-          name: "content_title"
-        },
-        {
-          data: "content_type",
-          name: "content_type"
-        },
-        {
-          data: "path",
-          name: "path"
-        },
-        {
-          data: "contract_code",
-          name: "contract_code"
-        },
-        {
-          data: "occasion",
-          name: "occasion"
+          data: "contract",
+          name: "contract"
         },
         {
           data: "provider",
           name: "provider"
+        },
+        {
+          data: "amount",
+          name: "amount"
+        },
+        {
+          data: "currency",
+          name: "currency"
+        },
+        {
+          data: "year",
+          name: "year"
+        },
+        {
+          data: "month",
+          name: "month"
         },
         {
           data: "action",
@@ -114,13 +109,6 @@ Contents
       ],
       "pageLength": 10,
       stateSave: true
-    });
-  });
-  $(document).ajaxComplete(function() {
-    $("audio").on("play", function() {
-      $("audio").not(this).each(function(index, audio) {
-        audio.pause();
-      });
     });
   });
 </script>

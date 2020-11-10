@@ -66,6 +66,11 @@ class Contract extends Model
         return $this->belongsTo(SecondParties::class, 'second_party_id');
     }
 
+    public function second_party_type()
+    {
+        return $this->belongsTo(SecondParty::class, 'second_party_type_id');
+    }
+
     public function contract_service()
     {
         return $this->hasMany('App\ContractService');

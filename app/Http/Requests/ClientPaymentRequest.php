@@ -24,7 +24,7 @@ class ClientPaymentRequest extends Request
     public function rules()
     {
        return [
-        'second_party_id' => "required|exists:second_parties,id",
+        'second_party_id' => "required|exists:second_parties,second_party_id",
         'contract_id' => "required|exists:contracts,id",
         'currency_id' => "required|exists:currencies,id",
         'amount' => "required",

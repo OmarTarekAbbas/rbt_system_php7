@@ -17,7 +17,7 @@ RBTs
         <div class="box-content">
 
           <div class="table-responsive">
-            <table id="example" class="table table-striped dt-responsive" cellspacing="0" width="100%">
+            <table id="" class="table table-striped dt-responsive data_report" cellspacing="0" width="100%">
               <thead>
                 <tr>
                   <th style="width:18px"><input type="checkbox"></th>
@@ -36,35 +36,7 @@ RBTs
                   <th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
                 </tr>
               </thead>
-              <tbody>
-                @foreach($reports as $report)
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>{{$report->rbt_id}}</td>
-                  <td>{!!$report->rbt_name!!}</td>
-                  <td>{!!$report->year!!}</td>
-                  <td>{!!$report->month!!}</td>
-                  <td>{!!$report->code!!}</td>
-                  <td>{!!($report->classification) ? $report->classification : '--'!!}</td>
-                  <td>{!!($report->download_no) ? $report->download_no : '--'!!}</td>
-                  <td>{!!($report->total_revenue)!!}</td>
-                  <td>{!!$report->revenue_share!!}</td>
-                  <td>{!!($report->second_party_id) ? $report->provider->second_party_title : '--'!!}</td>
-                  <td>{!!($report->operator_id) ? $report->operator->title : '--'!!}</td>
-                  <td>{!!($report->aggregator_id) ? $report->aggregator->title : '--'!!}</td>
-                  <td class="visible-xs visible-md visible-lg">
-                    <div class="btn-group">
-                      @if(get_action_icons('report/{report}/edit','get'))
-                      <a class="btn btn-sm show-tooltip" title="" href="{{url('report/'.$report->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
-                      @endif
-                      @if(get_action_icons('report/{id}/delete','get'))
-                      <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('report/'.$report->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                      @endif
-                    </div>
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
+
             </table>
           </div>
         </div>
@@ -80,5 +52,82 @@ RBTs
   $('#rbt .submenu').first().css('display', 'block');
   $('#report .submenu').first().css('display', 'block');
   $('#report-index').addClass('active');
+
+  $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+        }
+    });
+    $(document).ready(function() {
+        $('.data_report').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "search": {
+                "regex": true
+            },
+            ajax: "{!! url('report_all/allData') !!}",
+            columns: [{
+                    data: "index",
+                    searchable: false,
+                    orderable: false
+                },
+                {
+                    data: "rbt_id",
+                    name: "rbt_id"
+                },
+                {
+                    data: "rbt_name",
+                    name: "rbt_name"
+                },
+                {
+                    data: "year",
+                    name: "year"
+                },
+                {
+                    data: "month",
+                    name: "month"
+                },
+                {
+                    data: "code",
+                    name: "code"
+                },
+                {
+                    data: "classification",
+                    name: "classification"
+                },
+                {
+                    data: "download_no",
+                    name: "download_no"
+                },
+                {
+                    data: "total_revenue",
+                    name: "total_revenue"
+                },
+                {
+                    data: "revenue_share",
+                    name: "revenue_share"
+                },
+                {
+                    data: "second_party_id",
+                    name: "second_party_id"
+                },
+                {
+                    data: "operator_id",
+                    name: "operator_id"
+                },
+                {
+                    data: "aggregator_id",
+                    name: "aggregator_id"
+                },
+                {
+                    data: "action",
+                    searchable: false
+                }
+            ],
+            "pageLength": 10,
+            stateSave: true
+
+        });
+    });
 </script>
 @stop
