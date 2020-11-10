@@ -58,6 +58,60 @@ class AttachmentController extends Controller
         return view('attachments.index', compact('Attachments'));
     }
 
+
+    public function allData(Request $request)
+    {
+
+      $Attachments = $this->AttachmentRepository->get();
+        $datatable = \Datatables::of($Attachments)
+            ->addColumn('index', function (Attachment $Attachment) {
+                return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$Attachment->id.'" class="roles" onclick="collect_selected(this)">';
+            })
+            ->addColumn('id', function (Attachment $Attachment) {
+                return $Attachment->id;
+            })
+            ->addColumn('attachment_code', function (Attachment $Attachment) {
+              return '<a target="_blank" href="'.url($Attachment->attachment_pdf).'">'.$Attachment->attachment_code.'</a>';
+          })
+            ->addColumn('contract', function (Attachment $Attachment) {
+              return '<a href="'.url('fullcontracts'.optional($Attachment->contract)->id).'">'.optional($Attachment->contract)->contract_code.' - '.optional($Attachment->contract)->contract_label.'</a>';
+          })
+            ->addColumn('attachment_type', function (Attachment $Attachment) {
+                return $Attachment->attachment_type;
+            })
+            ->addColumn('attachment_title', function (Attachment $Attachment) {
+                return $Attachment->attachment_title;
+            })
+            ->addColumn('attachment_date', function (Attachment $Attachment) {
+                return $Attachment->attachment_date;
+            })
+            ->addColumn('attachment_expiry_date', function (Attachment $Attachment) {
+              return $Attachment->attachment_expiry_date;
+            })
+            ->addColumn('contract_expiry_date', function (Attachment $Attachment) {
+              return $Attachment->contract_expiry_date;
+            })
+            ->addColumn('attachment_pdf', function (Attachment $Attachment) {
+                return '<a href="'.url($Attachment->attachment_pdf).'">Preview</a>';
+            })
+            ->addColumn('attachment_status', function (Attachment $Attachment) {
+              return $Attachment->attachment_status;
+
+            })
+            ->addColumn('notes', function (Attachment $Attachment) {
+              return $Attachment->notes;
+            })
+            ->addColumn('action', function (Attachment $Attachment) {
+                    return view('attachments.actions', compact('Attachment'));
+            })
+
+            ->escapeColumns([])
+            ->make(true);
+
+        return $datatable;
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

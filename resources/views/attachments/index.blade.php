@@ -29,7 +29,7 @@ attachment
           @endif
           <br><br>
           <div class="table-responsive">
-            <table id="example" class="table table-striped dt-responsive" cellspacing="0" width="100%">
+            <table id="" class="table table-striped dt-responsive data_attachment" cellspacing="0" width="100%">
               <thead>
                 <tr>
                   <th style="width:18px"><input type="checkbox" onclick="select_all('Attachments')"></th>
@@ -47,38 +47,7 @@ attachment
                   <th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
                 </tr>
               </thead>
-              <tbody id="tablecontents">
-                @foreach($Attachments as $Attachment)
-                <tr class="table-flag-blue">
-                  <td><input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$Attachment->id}}" onclick="collect_selected(this)"></td>
-                  <td>{{$Attachment->id}}</td>
-                  <td><a target="_blank" href="{{url($Attachment->attachment_pdf)}}">{{$Attachment->attachment_code}}</a></td>
-                  <td><a href="{{url("fullcontracts/".optional($Attachment->contract)->id)}}">{{optional($Attachment->contract)->contract_code}} - {{optional($Attachment->contract)->contract_label}}</a></td>
-                  <td>{{$Attachment->attachment_type}}</td>
-                  <td>{{$Attachment->attachment_title}}</td>
-                  <td>{{$Attachment->attachment_date}}</td>
-                  <td>{{$Attachment->attachment_expiry_date}}</td>
-                  <td>{{$Attachment->contract_expiry_date}}</td>
-                  <td><a target="_blank" href="{{url($Attachment->attachment_pdf)}}">Preview</a></td>
-                  <td>{{$Attachment->attachment_status}}</td>
-                  <td>{{$Attachment->notes}}</td>
-                  <td class="visible-xs visible-md visible-lg">
-                    <div class="btn-group">
-                      @if (get_action_icons('attachment/{attachment}/edit', 'get'))
-                      <a class="btn btn-sm show-tooltip" title="" href="{{url('attachment/'.$Attachment->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
-                      @endif
-                      @if (get_action_icons('attachment/{attachment}', 'delete'))
-                      <form action="{{url('attachment/'.$Attachment->id)}}" method="POST" style="display: inline">
-                        @method('DELETE')
-                        @csrf
-                        <button class="btn btn-sm btn-danger show-tooltip" type="submit" onclick='return ConfirmDelete()' data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
-                      </form>
-                      @endif
-                    </div>
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
+
             </table>
           </div>
         </div>
@@ -99,5 +68,78 @@ attachment
   $('#contract .submenu').first().css('display', 'block');
   $('#Attachment .submenu').first().css('display', 'block');
   $('#Attachment-index').addClass('active');
+
+  $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+        }
+    });
+    $(document).ready(function() {
+        $('.data_attachment').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "search": {
+                "regex": true
+            },
+            ajax: "{!! url('attachment_all/allData') !!}",
+            columns: [{
+                    data: "index",
+                    searchable: false,
+                    orderable: false
+                },
+                {
+                    data: "id",
+                    name: "id"
+                },
+                {
+                    data: "attachment_code",
+                    name: "attachment_code"
+                },
+                {
+                    data: "contract",
+                    name: "contract"
+                },
+                {
+                    data: "attachment_type",
+                    name: "attachment_type"
+                },
+                {
+                    data: "attachment_title",
+                    name: "attachment_title"
+                },
+                {
+                    data: "attachment_date",
+                    name: "attachment_date"
+                },
+                {
+                    data: "attachment_expiry_date",
+                    name: "attachment_expiry_date"
+                },
+                {
+                    data: "contract_expiry_date",
+                    name: "contract_expiry_date"
+                },
+                {
+                    data: "attachment_pdf",
+                    name: "attachment_pdf"
+                },
+                {
+                    data: "attachment_status",
+                    name: "attachment_status"
+                },
+                {
+                    data: "notes",
+                    name: "notes"
+                },
+                {
+                    data: "action",
+                    searchable: false
+                }
+            ],
+            "pageLength": 10,
+            stateSave: true
+
+        });
+    });
 </script>
 @stop
