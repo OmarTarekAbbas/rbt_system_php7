@@ -1,5 +1,6 @@
 <?php
 
+use App\Contract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,15 @@ list_routes_from_database();
 // Route::resource('clientpayments', 'ClientPaymentController');
 // Route::get('clientpayments/ajax/allData', 'ClientPaymentController@allData');
 // Route::get('providers_to_secondparty', 'SecondPartyController@providers_to_secondparty');
+Route::get("change/contract/code",function(){
+  $contracts = Contract::all();
+  foreach($contracts as $contract) {
+    $serviceTypeId = $contract->service_type_id;
+    $first_party_title = strtolower(substr(optional($contract->first_parties)->first_party_title,0,2));
+    $second_party_id = optional($contract->second_parties)->second_party_id;
+    $second_party_type_id = optional($contract->second_party_type)->id;
+    $contract_id = $contract->id;
+    $contract->contract_code = $serviceTypeId.'-'.$first_party_title.'-'.$second_party_id.'-'.$second_party_type_id.'-'.$contract_id;
+    $contract->save();
+  }
+});
