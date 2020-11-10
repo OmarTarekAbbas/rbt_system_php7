@@ -118,7 +118,7 @@ Content
                 @endforeach
                 <tr>
                   <td width='30%' class='label-view text-right'>provider</td>
-                  <td> {{optional($provider)->title}}</td>
+                  <td> {{optional($provider)->second_party_title}}</td>
                 </tr>
 
                 <tr>

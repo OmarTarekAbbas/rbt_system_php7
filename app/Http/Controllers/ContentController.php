@@ -182,7 +182,7 @@ class ContentController extends Controller
   public function show($id)
   {
     $content  = content::find($id);
-    $provider = DB::table('providers')->where('id', $content->provider_id)->first();
+    $provider = DB::table('second_parties')->where('second_party_id', $content->provider_id)->first();
     $occasion = DB::table('occasions')->where('id', $content->occasion_id)->first();
     $contract = DB::table('contracts')->where('id', $content->contract_id)->first();
     $rbts     = DB::table('rbts')->where('content_id', $id)->get();
@@ -203,7 +203,7 @@ class ContentController extends Controller
   {
     $title = 'Create - Content';
     $occasions = Occasion::all()->pluck('title', 'id');
-    $providers = Provider::all()->pluck('title', 'id');
+    $providers = SecondParties::all()->pluck('second_party_title', 'second_party_id');
     return view('content.excel', compact('title', 'providers', 'occasions'));
   }
 
@@ -318,7 +318,7 @@ class ContentController extends Controller
   {
     $title = "Content - Edit";
     $occasions = Occasion::all()->pluck('title', 'id');
-    $providers = Provider::all()->pluck('title', 'id');
+    $providers = SecondParties::all()->pluck('second_party_title', 'second_party_id');
     $content = content::findOrfail($id);
     $contracts = Contract::all();
 
@@ -404,7 +404,7 @@ class ContentController extends Controller
     $operators = Operator::all()->pluck('title', 'id');
     $occasions = Occasion::all()->pluck('title', 'id');
     $aggregators = Aggregator::all()->pluck('title', 'id');
-    $providers = Provider::all()->pluck('title', 'id');
+    $providers = SecondParties::all()->pluck('second_party_title', 'second_party_id');
     return view('rbt.search', compact('operators', 'occasions', 'aggregators', 'providers'));
   }
 
@@ -454,9 +454,9 @@ class ContentController extends Controller
       }
     }
 
-    $select = "SELECT rbts.* , operators.title AS operator_title, providers.title AS provider_title,occasions.title AS occasion_title, aggregators.title AS aggregator_title
+    $select = "SELECT rbts.* , operators.title AS operator_title, second_parties.second_party_title AS provider_title,occasions.title AS occasion_title, aggregators.title AS aggregator_title
                    FROM rbts
-                   JOIN providers ON rbts.provider_id = providers.id
+                   JOIN providers ON rbts.provider_id = second_parties.second_party_id
                    JOIN aggregators ON rbts.aggregator_id = aggregators.id
                    JOIN operators ON rbts.operator_id = operators.id
                    JOIN occasions ON rbts.occasion_id = occasions.id";
