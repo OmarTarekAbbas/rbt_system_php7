@@ -29,7 +29,7 @@ Employees
                   <th>Phone</th>
                   <th>Release Date</th>
                   <th>Status</th>
-                  <th class="visible-md visible-lg" style="width:130px">Action</th>
+                  <th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -47,7 +47,7 @@ Employees
                     Leave
                     @endif
                   </td>
-                  <td class="visible-md visible-lg">
+                  <td class="visible-xs visible-md visible-lg">
                     <div class="btn-group">
                       <a class="btn btn-sm btn-success show-tooltip" title="Add Employee Contracts" href="{{url("employees/create_contracts?employee_id=".$employee->id."&title=".$employee->full_name)}}" data-original-title="Add Employee Contracts"><i class="fa fa-plus"></i></a>
 
