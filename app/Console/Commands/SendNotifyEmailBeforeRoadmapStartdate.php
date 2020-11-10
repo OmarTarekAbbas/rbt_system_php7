@@ -54,7 +54,7 @@ class SendNotifyEmailBeforeRoadmapStartdate extends Command
             $subject = "Roadmap Start Date Notifiy";
 
             $data['title'] = $roadmap->event_title;
-            $data['url'] = APP_URL."/roadmap/$roadmap->id";
+            $data['url'] = url("/roadmap/$roadmap->id");
             $data['start_date'] = $roadmap->event_start_date->format('Y-m-d');
 
             $emails = explode(',', setting('notify_roadmap_emails'));
