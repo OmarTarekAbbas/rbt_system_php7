@@ -24,7 +24,7 @@ ClientPayments
                   <select id="input8" class="form-control second_party_id chosen" data-placeholder="Choose a provider" name="second_party_id">
                     <option value=""></option>
                     @foreach($second_partys as $key => $value)
-                    <option value="{{$value->second_party_id}}">{{$value->second_party_title}}</option>
+                    <option @if($clientPayment->second_party_id == $value->second_party_id) selected="selected" @endif value="{{$value->second_party_id}}">{{$value->second_party_title}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -44,7 +44,7 @@ ClientPayments
               <div class="col-sm-9 col-lg-10 controls">
                 <select id="signed_date" class="form-control chosen" data-placeholder="Filter By Year" name="year" tabindex="1">
                   @foreach( range( date('Y')-10 , date('Y')+10 ) as $year )
-                  <option @if( $year==date('Y') ) selected="selected" @endif value="{{$year}}">{{$year}}</option>
+                  <option @if($clientPayment->year == $year ) selected="selected" @endif value="{{$year}}">{{$year}}</option>
                   @endforeach
                 </select>
               </div>
@@ -54,7 +54,7 @@ ClientPayments
               <label class="col-sm-3 col-lg-2 control-label">Month</label>
               <div class="col-sm-9 col-lg-10 controls">
                 <select class="form-control chosen" data-placeholder="Choose a month" name="month[]" multiple>
-                  @for($month = 1 ; $month <= 12 ; $month++) <option @if(in_array($clientPayment->month, (array)request('month'))) selected="selected" @endif  value="{{$month}}">{{date("F", strtotime("$month/1/1"))}}</option>
+                  @for($month = 1 ; $month <= 12 ; $month++) <option @if(in_array($month, (array)$clientPayment->month)) selected="selected" @endif  value="{{$month}}">{{date("F", strtotime("$month/1/1"))}}</option>
                     @endfor
                 </select>
               </div>
@@ -63,7 +63,7 @@ ClientPayments
             <div class="form-group ">
               <label class="col-sm-3 col-lg-2 control-label">Amount</label>
               <div class="col-sm-9 col-lg-10 controls">
-               <input type="text" class="form-control" name="amount">
+               <input type="text" class="form-control" name="amount" value="{{ $clientPayment->amount }}">
               </div>
             </div>
 
@@ -73,7 +73,7 @@ ClientPayments
                   <select id="input8" class="form-control  chosen" data-placeholder="Choose a currency" name="currency_id">
                     <option value=""></option>
                     @foreach($currenies as $key => $value)
-                    <option value="{{$value->id}}">{{$value->title}}</option>
+                    <option @if($clientPayment->currency_id == $value->id) selected="selected" @endif value="{{$value->id}}">{{$value->title}}</option>
                     @endforeach
                   </select>
                 </div>

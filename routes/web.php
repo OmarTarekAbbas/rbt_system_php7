@@ -21,8 +21,8 @@ define('PROVIDER_ID', provider());
 Auth::routes();
 
 list_routes_from_database();
-// Route::resource('clientpayments', 'ClientPaymentController');
-// Route::get('clientpayments/ajax/allData', 'ClientPaymentController@allData');
+Route::resource('clientpayments', 'ClientPaymentController');
+Route::get('clientpayments/ajax/allData', 'ClientPaymentController@allData');
 // Route::get('providers_to_secondparty', 'SecondPartyController@providers_to_secondparty');
 Route::get("change/contract/code",function(){
   $contracts = Contract::all();
