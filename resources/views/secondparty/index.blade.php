@@ -3,55 +3,55 @@
 Second Party
 @stop
 @section('content')
-	@include('errors')
+@include('errors')
 <!-- BEGIN Content -->
 <div id="main-content">
-	<div class="row">
-	    <div class="col-md-12 noPaddingPhone">
-	        <div class="box box-black">
-	            <div class="box-title">
-	                <h3><i class="fa fa-table"></i> Second Party Table</h3>
-	                <div class="box-tool">
-	                    <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-	                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
-	                </div>
-	            </div>
-	            <div class="box-content">
-                @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
+  <div class="row">
+    <div class="col-md-12 noPaddingPhone">
+      <div class="box box-black">
+        <div class="box-title">
+          <h3><i class="fa fa-table"></i> Second Party Table</h3>
+          <div class="box-tool">
+            <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+            <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+          </div>
+        </div>
+        <div class="box-content">
+          @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
-					<div class="btn-toolbar pull-right">
-						<div class="btn-group">
-							<a class="btn btn-circle show-tooltip" title="" href="{{url('SecondParty/create')}}" data-original-title="Add new record"><i class="fa fa-plus"></i></a>
-						</div>
+          <div class="btn-toolbar pull-right">
+            <div class="btn-group">
+              <a class="btn btn-circle show-tooltip" title="" href="{{url('SecondParty/create')}}" data-original-title="Add new record"><i class="fa fa-plus"></i></a>
+            </div>
           </div>
           @endif
-					<br><br>
-					<div class="table-responsive">
-						<table id="secondParty" class="table table-striped dt-responsive " cellspacing="0" width="100%">
-						<thead>
-							<tr>
-								<th style="width:18px"><input type="checkbox" onclick="select_all('SecondParty')"></th>
-								<th>Id</th>
-								<th>Second Party Type Title</th>
-								<th>second party title</th>
-								<th>second_party_joining_date</th>
-								<th>second_party_terminate_date</th>
-								<th>second_party_status</th>
-								<th>second_party_identity</th>
-								<th>second_party_cr</th>
-								<th>second_party_tc</th>
-								<th class="visible-md visible-lg" style="width:130px">Action</th>
-							</tr>
-						</thead>
-						<tbody id="tablecontents">
+          <br><br>
+          <div class="table-responsive">
+            <table id="secondParty" class="table table-striped dt-responsive " cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                  <th style="width:18px"><input type="checkbox" onclick="select_all('SecondParty')"></th>
+                  <th>Id</th>
+                  <th>Second Party Type Title</th>
+                  <th>second party title</th>
+                  <th>second_party_joining_date</th>
+                  <th>second_party_terminate_date</th>
+                  <th>second_party_status</th>
+                  <th>second_party_identity</th>
+                  <th>second_party_cr</th>
+                  <th>second_party_tc</th>
+                  <th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
+                </tr>
+              </thead>
+              <tbody id="tablecontents">
 
-						</tbody>
-						</table>
-					</div>
-	            </div>
-	        </div>
-	    </div>
-	</div>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 @stop

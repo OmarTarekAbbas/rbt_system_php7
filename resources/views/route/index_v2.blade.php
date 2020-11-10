@@ -88,11 +88,11 @@ if (isset($controller_name))
                     <p>{{$function_name}}</p>
                     {!! Form::hidden("route[$i][$j]",$function_name) !!}
                     <?php $j++; ?>
-                    <div class="col-sm-4 col-lg-8 controls" style="padding: 0;">
+                    <div class="col-xs-10 col-lg-8 controls" style="padding: 0;">
                       <input type="text" name="route[{{$i}}][{{$j++}}]" @foreach($selected_routes as $route) @if($route->function_name == $function_name) style="border: 1px solid #b6d1f2;border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;" value="{{$route->route}}" @endif @endforeach placeholder="..." class="form-control" style="border: 1px solid #b6d1f2;border-bottom-left-radius: 0.5rem; border-top-left-radius: 0.5rem;">
                     </div>
                     <div class="form-group">
-                      <div class="col-sm-3 col-lg-3 controls" style="padding: 0;">
+                      <div class="col-xs-2 col-lg-3 controls" style="padding: 0;">
                         <select class="form-control chosen-rtl" name="route[{{$i}}][{{$j++}}]">
                           <option></option>
                           @foreach($method_types as $index=>$type)

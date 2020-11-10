@@ -3,65 +3,71 @@
 Contract Service
 @stop
 @section('content')
-
 @include('errors')
+
+<style>
+  @media (min-width: 320px) and (max-width: 374.9px) {
+    #main-content {
+      padding: 10px 15px 20px;
+    }
+  }
+</style>
+
 <div id="main-content">
-<div class="row">
-  <div class="col-md-12 noPaddingPhone">
-    <div class="box">
-      <div class="box-title">
-        <h3><i class="fa fa-bars"></i>Contract Service Form</h3>
-        <div class="box-tool">
-          <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-          <a data-action="close" href="#"><i class="fa fa-times"></i></a>
-        </div>
-      </div>
-      <div class="box-content">
-
-        {!! Form::open(["url"=>"contractservice","class"=>"width_m_auto form-horizontal","method"=>"POST","files"=>"True"]) !!}
-
-        <div class="form-group">
-          <label class="col-sm-3 col-lg-2 control-label">Contract<span class="text-danger">*</span></label>
-          <div class="col-sm-9 col-lg-10 controls">
-            <select class="form-control chosen" data-placeholder="Choose a Role" name="contract_id" tabindex="1" required>
-              @if (isset($contract_show))
-              <option value="{{$contract_show->id}}">{{$contract_show->contract_code}}
-                {{$contract_show->contract_label}}</option>
-              @else
-              <option value="">-- Please Select --</option>
-              @foreach($contracts as $contract)
-              <option value="{{$contract->id}}">{{$contract->contract_code}} {{$contract->contract_label}}</option>
-              @endforeach
-              @endif
-            </select>
+  <div class="row">
+    <div class="col-md-12 noPaddingPhone">
+      <div class="box">
+        <div class="box-title">
+          <h3><i class="fa fa-bars"></i>Contract Service Form</h3>
+          <div class="box-tool">
+            <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+            <a data-action="close" href="#"><i class="fa fa-times"></i></a>
           </div>
         </div>
+        <div class="box-content">
 
-        <div id="service_input"></div>
+          {!! Form::open(["url"=>"contractservice","class"=>"width_m_auto form-horizontal","method"=>"POST","files"=>"True"]) !!}
 
-        <div class="container text-center" style="display: flex; justify-content: center;">
-          <div class="row">
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-              <div class="">
-                <a id="add_service" class="btn btn-success" style="width:100%;margin:20px; border-radius: 30px !important;"><i class="fa fa-plus-square" aria-hidden="true" style="padding-right: 7px;"></i> Add Service</a>
-              </div>
-            </div>
-
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-              <div class="">
-                <button type="submit" style="width:100%;margin:20px; border-radius: 30px !important;" class="btn btn-primary"><i class="fa fa-cloud" aria-hidden="true" style="padding-right: 7px;"></i>Save</button>
-              </div>
+          <div class="form-group">
+            <label class="col-sm-3 col-lg-2 control-label">Contract<span class="text-danger">*</span></label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <select class="form-control chosen" data-placeholder="Choose a Role" name="contract_id" tabindex="1" required>
+                @if (isset($contract_show))
+                <option value="{{$contract_show->id}}">{{$contract_show->contract_code}}
+                  {{$contract_show->contract_label}}</option>
+                @else
+                <option value="">-- Please Select --</option>
+                @foreach($contracts as $contract)
+                <option value="{{$contract->id}}">{{$contract->contract_code}} {{$contract->contract_label}}</option>
+                @endforeach
+                @endif
+              </select>
             </div>
           </div>
 
+          <div id="service_input"></div>
+
+          <div class="container text-center" style="display: flex; justify-content: center;">
+            <div class="row">
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="">
+                  <a id="add_service" class="btn btn-success marginZero" style="width:100%;margin:20px; border-radius: 30px !important;"><i class="fa fa-plus-square" aria-hidden="true" style="padding-right: 7px;"></i> Add Service</a>
+                </div>
+              </div>
+
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="">
+                  <button type="submit" style="width:100%;margin:20px; border-radius: 30px !important;" class="btn btn-primary marginZero"><i class="fa fa-cloud" aria-hidden="true" style="padding-right: 7px;"></i>Save</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          {!! Form::close() !!}
         </div>
-        {!! Form::close() !!}
       </div>
     </div>
-
   </div>
-
-</div>
 </div>
 
 @stop

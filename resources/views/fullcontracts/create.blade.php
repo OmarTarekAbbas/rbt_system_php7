@@ -31,10 +31,22 @@
   .nav-list>li {
     width: 100%;
   }
+
+  @media (min-width: 320px) and (max-width: 374.9px) {
+  .signed_date_input,
+  .start_date,
+  .contract_expiry_date {
+    width: 100% !important;
+  }
+
+  .footer {
+    margin-top: 23%;
+  }
+  }
 </style>
 
 <div id="preloader"></div>
-
+<div id="main-content">
 <div id="app" class="page-wrapper">
   <main class="page-content">
     <a href="javascript:;" class="toggleMenu flying-button"><i class="lni-menu"></i></a>
@@ -64,7 +76,7 @@
               <section class="width_m_auto">
                 <input name="contract_code" type="hidden" value="">
 
-                <div class="form-group  ">
+                <div class="form-group">
                   <label for="ipt" class=" control-label "> Label <span class="asterix"> * </span>
                   </label>
                   <input type='text' name='contract_label' id='contract_label' value='' required class='form-control' />
@@ -375,6 +387,7 @@
       </script>
     </div>
   </main>
+</div>
 </div>
 
 <div id="add-modal" class="modal add-modal" tabindex="-1" role="dialog">

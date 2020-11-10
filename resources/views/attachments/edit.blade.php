@@ -76,7 +76,7 @@ attachment
               <label for="attachment_pdf" class="col-xs-12 col-lg-2 control-label"> Attachment Pdf </label>
               <div class="col-xs-12 col-lg-10 controls">
                 <input type="file" name="attachment_pdf" id="attachment_pdf" placeholder="Second Party Title" class="form-control">
-                <a class="btn btn-success pull-right borderRadius" target="_blank" href="{{url($Attachment->attachment_pdf)}}">Preview</a>
+                <a class="btn btn-success pull-right borderRadius" id="attachment_a_pdf" target="_blank" href="{{url($Attachment->attachment_pdf)}}">Preview</a>
               </div>
             </div>
 
