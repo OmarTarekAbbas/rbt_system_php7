@@ -69,7 +69,12 @@ if (isset($controller_name))
               <thead>
                 <tr>
                   <th>method name</th>
-
+                  <th>
+                    <label class="checkbox-inline">
+                      <input type="checkbox" onchange="" />
+                      All
+                    </label>
+                  </th>
                   @foreach($roles as $role)
                   <th>
                     <label class="checkbox-inline">
@@ -108,6 +113,11 @@ if (isset($controller_name))
                         </select>
                       </div>
                     </div>
+                  </td>
+                  <td>
+                    <label class="checkbox-inline displayFlex">
+                      <input type="checkbox" name="all_roles" value="all_roles" class="all_roles" />
+                    </label>
                   </td>
                   @foreach($roles as $index=>$role)
                   <td>
@@ -153,6 +163,20 @@ if (isset($controller_name))
                 $('.check_role_'+role_id).prop('checked', true);
             }
         }
+
+        $('.all_roles').click(function (e) {
+          if($(this).prop("checked")){
+            $(this).parent().parent().siblings().each(function () {
+              element = $(this).children().children();
+              element.prop("checked", true );
+            });
+          }else{
+            $(this).parent().parent().siblings().each(function () {
+              element = $(this).children().children();
+              element.prop("checked", false );
+            });
+          }
+        });
 
         function get_controller_methods(element)
         {
