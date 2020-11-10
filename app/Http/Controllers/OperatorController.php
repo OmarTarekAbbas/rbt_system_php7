@@ -47,7 +47,6 @@ class OperatorController extends Controller
     public function create()
     {
         $title = 'Create - operator';
-
         $countries = Country::all()->pluck('title','id');
 
         return view('operator.create',compact('title','countries'  ));
@@ -74,6 +73,7 @@ class OperatorController extends Controller
      */
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(),[
                 'title' => 'required',
                 'country_id' => 'required'
