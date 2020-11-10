@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\ClientPayment;
 use App\Currency;
 use App\Http\Controllers\Controller;
 use App\Http\Repository\ClientPaymentRepository;
 use App\Http\Requests\ClientPaymentRequest;
+use App\Http\Requests\Request;
 use App\Http\Services\ClientPaymentService;
 use App\SecondParties;
 
@@ -48,6 +50,60 @@ class ClientPaymentController extends Controller
     }
 
     /**
+     * Method allData
+     *
+     * return client payments data as server side
+     *
+     * @return void
+     */
+    public function allData()
+    {
+        $client_payments = $this->clientPaymentRepository
+        ->select('*', 'client_payments.id AS id', 'second_parties.second_party_title as provider', 'currencies.title as currency', 'contracts.contract_code as contract_code', 'contracts.contract_label as contract_label', 'contracts.id as contract_id')
+        ->join('second_parties', 'second_parties.second_party_id', '=', 'client_payments.second_party_id')
+        ->join('currencies', 'currencies.id', '=', 'client_payments.currency_id')
+        ->join('contracts', 'contracts.id', '=', 'client_payments.contract_id')
+        ->latest('client_payments.id')
+        ->get();
+
+      $datatable = \Datatables::of($client_payments)
+        ->addColumn('index', function (ClientPayment $client_payment) {
+          return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$client_payment->id.'" class="roles" onclick="collect_selected(this)">';
+        })
+        ->addColumn('id', function (ClientPayment $client_payment) {
+          return $client_payment->id;
+        })
+        ->addColumn('provider', function (ClientPayment $client_payment) {
+          return $client_payment->provider;
+        })
+        ->addColumn('amount', function (ClientPayment $client_payment) {
+            return $client_payment->amount;
+        })
+        ->addColumn('currency', function (ClientPayment $client_payment) {
+            return $client_payment->currency;
+        })
+        ->addColumn('contract', function (ClientPayment $client_payment) {
+          if ($client_payment->contract_code)
+            return '<a  href="' . url("fullcontracts/$client_payment->contract_id") . '" >' . $client_payment->contract_code . " " . $client_payment->contract_label. '</a>';
+          else
+            return '---';
+        })
+        ->addColumn('year', function (ClientPayment $client_payment) {
+            return $client_payment->year;
+        })
+        ->addColumn('months', function (ClientPayment $client_payment) {
+            return $client_payment->month;
+        })
+        ->addColumn('action', function (ClientPayment $client_payment) {
+            return view('client_payment.actions', compact('client_payment'));;
+        })
+        ->escapeColumns([])
+        ->make(true);
+
+      return $datatable;
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return  View
@@ -71,7 +127,7 @@ class ClientPaymentController extends Controller
 
         $request->session()->flash('success', 'ClientPayment created successfull');
 
-        return redirect('clientPayments');
+        return redirect('clientpayments');
     }
 
     /**
@@ -82,8 +138,9 @@ class ClientPaymentController extends Controller
     public function edit($id)
     {
         $clientPayment = $this->clientPaymentRepository->findOrfail($id);
-
-        return view('client_payment.edit',compact('clientPayment'));
+        $second_partys = SecondParties::all();
+        $currenies     = Currency::all();
+        return view('client_payment.edit',compact('clientPayment', 'second_partys', 'currenies'));
     }
 
     /**

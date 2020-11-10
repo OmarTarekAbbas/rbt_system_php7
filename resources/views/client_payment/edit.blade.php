@@ -1,6 +1,6 @@
 @extends('template')
 @section('page_title')
-Contents
+ClientPayments
 @stop
 @section('content')
 @include('errors')
@@ -9,133 +9,74 @@ Contents
     <div class="col-md-12 noPaddingPhone">
       <div class="box">
         <div class="box-title">
-          <h3><i class="fa fa-bars"></i>Update Content Form</h3>
+          <h3><i class="fa fa-bars"></i>Create ClientPayment Form</h3>
           <div class="box-tool">
             <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
             <a data-action="close" href="#"><i class="fa fa-times"></i></a>
           </div>
         </div>
         <div class="box-content">
-          <form method='POST' class="width_m_auto form-horizontal" action='{!! url("content")!!}/{!!$content->id!!}/update' enctype="multipart/form-data">
-            <input type='hidden' name='_token' value='{{Session::token()}}'>
-            <input type='hidden' name='_method' value='patch'>
-            <div class="form-group">
-              <label class="col-sm-3 col-lg-2 control-label" for="track_title_en">Content Title *</label>
-              <div class="col-sm-9 col-lg-10 controls">
-                <input id="content_title" name="content_title" value="{{$content->content_title}}" type="text" class="form-control input-lg" required>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-3 col-lg-2 control-label" for="code">content Type *</label>
-              <div class="col-sm-9 col-lg-10 controls">
-                {!! Form::select('content_type', ['image'=>'image','video' =>'video','audio' => 'audio'], $content->content_type, ['class' => 'form-control input-lg' , 'required' => 'required']) !!}
-              </div>
-            </div>
-            @if($content->path)
-            @if(file_exists($content->path))
-            @if(!strcmp($content->content_type,'audio'))
-            <div class="form-group">
-              <label class="col-sm-3 col-lg-2 control-label">Track </label>
-              <div class="col-sm-9 col-lg-10 controls">
-                <audio controls>
-                  <source src="{{$content->path}}" width="100%" type="audio/ogg">
-                </audio>
-              </div>
-            </div>
-            @elseif(!strcmp($content->content_type,'video'))
-            <div class="form-group">
-              <label class="col-sm-3 col-lg-2 control-label">Track </label>
-              <div class="col-sm-9 col-lg-10 controls">
-                <video controls>
-                  <source src="{{$content->path}}" width="100%" type="audio/ogg">
-                </video>
-              </div>
-            </div>
-            @else
-            <div class="form-group">
-              <label class="col-sm-3 col-lg-2 control-label">Track </label>
-              <div class="col-sm-9 col-lg-10 controls">
-                <img src="{{$content->path}}" width="100%" controls>
-              </div>
-            </div>
-            @endif
-            @endif
-            @endif
-            <div class="form-group">
-              <label class="col-sm-3 col-lg-2 control-label">Track file</label>
-              <div class="col-sm-9 col-lg-10 controls">
-                <div class="displayGrid fileupload fileupload-new displayGrid displayPhone" data-provides="fileupload">
-                  <div class="input-group">
-                    <div class="form-control uneditable-input">
-                      <i class="fa fa-file fileupload-exists"></i>
-                      <span class="fileupload-preview"></span>
-                    </div>
-                    <div class="input-group-btn">
-                      <a class="btn bun-default btn-file">
-                        <span class="fileupload-new">Select file</span>
-                        <span class="fileupload-exists">Change</span>
-                        <input type="file" name="path" class="file-input" style="width: 100%;">
-                      </a>
-                      <a href="#" class="btn btn-default fileupload-exists" style="display:none;" data-dismiss="fileupload">Remove</a>
-                    </div>
-                  </div>
-                  <a class="btn btn-sm btn-success borderRadius displayGridHref" href="{{url($content->path)}}" target="_blank">Review</a>
+          <form method='POST' class="width_m_auto form-horizontal" action='{!! url("clientpayments")!!}' enctype="multipart/form-data">
+            @csrf
+            <div class="form-group ">
+                <label class="col-sm-3 col-lg-2 control-label">Provider</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <select id="input8" class="form-control second_party_id chosen" data-placeholder="Choose a provider" name="second_party_id">
+                    <option value=""></option>
+                    @foreach($second_partys as $key => $value)
+                    <option value="{{$value->second_party_id}}">{{$value->second_party_title}}</option>
+                    @endforeach
+                  </select>
                 </div>
+            </div>
+
+            <div class="form-group ">
+              <label class="col-sm-3 col-lg-2 control-label">Contract</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <select id="contract_id" class="form-control chosen" data-placeholder="Choose a Contract" name="contract_id">
+                  <option value=""></option>
+                </select>
               </div>
             </div>
 
-            <div class="form-group">
-              <label class="col-sm-3 col-lg-2 control-label">Occasion Select *</label>
+            <div class="form-group ">
+              <label class="col-sm-3 col-lg-2 control-label">Year</label>
               <div class="col-sm-9 col-lg-10 controls">
-                <select class="form-control chosen" data-placeholder="Choose a Occasion" name="occasion_id" tabindex="1" required>
-                  <option value=""></option>
-                  @foreach($occasions as $key => $value)
-                  <option value="{{$key}}" {{($content->occasion_id == $key) ? 'selected' : ''}}>{{$value}}</option>
+                <select id="signed_date" class="form-control chosen" data-placeholder="Filter By Year" name="year" tabindex="1">
+                  @foreach( range( date('Y')-10 , date('Y')+10 ) as $year )
+                  <option @if( $year==date('Y') ) selected="selected" @endif value="{{$year}}">{{$year}}</option>
                   @endforeach
                 </select>
               </div>
             </div>
 
-
-            <div class="form-group">
-              <label class="col-sm-3 col-lg-2 control-label">Providers Select</label>
+            <div class="form-group ">
+              <label class="col-sm-3 col-lg-2 control-label">Month</label>
               <div class="col-sm-9 col-lg-10 controls">
-                <select class="form-control chosen" data-placeholder="Choose a provider" name="provider_id" tabindex="1">
-                  <option value=""></option>
-                  @foreach($providers as $key => $value)
-                  <option value="{{$key}}" {{($content->provider_id == $key) ? 'selected' : ''}}>{{$value}}</option>
-                  @endforeach
+                <select class="form-control chosen" data-placeholder="Choose a month" name="month[]" multiple>
+                  @for($month = 1 ; $month <= 12 ; $month++) <option @if(in_array($clientPayment->month, (array)request('month'))) selected="selected" @endif  value="{{$month}}">{{date("F", strtotime("$month/1/1"))}}</option>
+                    @endfor
                 </select>
               </div>
             </div>
 
-            <div class="form-group">
-              <label class="col-sm-3 col-lg-2 control-label">Contract Select</label>
+            <div class="form-group ">
+              <label class="col-sm-3 col-lg-2 control-label">Amount</label>
               <div class="col-sm-9 col-lg-10 controls">
-                <select class="form-control chosen" data-placeholder="Choose a Contract" name="contract_id" tabindex="1">
-                  <option value=""></option>
-                  @foreach($contracts as $contract)
-                  <option value="{{$contract->id}}" {{($content->contract_id == $contract->id) ? 'selected' : ''}}>{{$contract->contract_code}} {{$contract->contract_label}}</option>
-                  @endforeach
-
-                </select>
+               <input type="text" class="form-control" name="amount">
               </div>
             </div>
 
-            <div class="form-group">
-              <label for="start_date" class="col-xs-3 col-lg-2 control-label"> Content Start Date</label>
-              <div class="input-group date  start_date col-sm-9 col-lg-10 controls" style="width: 81.25%; margin: 0 auto;">
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <input type="text" name="start_date" value="{{$content->start_date ? $content->start_date->format('d-m-Y') :null}}" id="start_date" autocomplete="off" placeholder="Rbt Start Date" data-date-format="dd-mm-yyyy" class="form-control">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="expire_date" class="col-xs-3 col-lg-2 control-label"> Content Expire Date</label>
-              <div class="input-group date expire_date col-sm-9 col-lg-10 controls" data-date-format="dd-mm-yyyy" style="width: 81.25%; margin: 0 auto;">
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <input type="text" name="expire_date" id="expire_date" value="{{$content->expire_date ? $content->expire_date->format('d-m-Y') :null }}" autocomplete="off" placeholder="Rbt End Date" data-date-format="dd-mm-yyyy" class="form-control">
-              </div>
+            <div class="form-group ">
+                <label class="col-sm-3 col-lg-2 control-label">currency</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <select id="input8" class="form-control  chosen" data-placeholder="Choose a currency" name="currency_id">
+                    <option value=""></option>
+                    @foreach($currenies as $key => $value)
+                    <option value="{{$value->id}}">{{$value->title}}</option>
+                    @endforeach
+                  </select>
+                </div>
             </div>
 
             <div class="form-group">
@@ -153,22 +94,28 @@ Contents
 @stop
 @section('script')
 <script>
-  $(document).on('ready', function() {
-      $('.start_date').datepicker({
-          format: 'dd-mm-yyyy',
-          autoclose: true,
-      }).on('changeDate', function(selected) {
-          var minDate = new Date(selected.date.valueOf());
-          $('.expire_date').each(function(){
-            $(this).datepicker('setStartDate', minDate);
-          })
-      })
-
-      $('.expire_date').datepicker({
-          format: 'dd-mm-yyyy',
-          autoclose: true,
-      })
+  $('.second_party_id').change(function(){
+    getContracts($(this).val())
   })
+  // api for get contracts
+  function getContracts(contract_id) {
+      var contracts = []
+      $.get("{{ url('/api/contracts/') }}/" + contract_id, function(response) {
+          form = createContractForm(response)
+          $('#contract_id').html(form)
+          $(".chosen").each(function() {
+              $(this).trigger("chosen:updated");
+          })
+      });
+  }
+  // create input for contracts
+  function createContractForm(contracts) {
+      var input = '<option value=""></option>'
+      Object.keys(contracts).forEach(key => {
+          input += `<option value="${contracts[key].id}">${contracts[key].contract_code} _ ${contracts[key].contract_label}</option>`
+      });
+      return input
+  }
 </script>
 <script>
   $('#content').addClass('active');
