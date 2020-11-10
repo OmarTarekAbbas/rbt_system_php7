@@ -128,6 +128,7 @@ class RouteController extends Controller
 
     public function store_v2(Request $request)
     {
+        $request['route'] = array_values($request['route']);
         $route_size = count($request['route']);
         for($i = 0 ; $i < $route_size ; $i++)
         {
