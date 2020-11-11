@@ -63,7 +63,7 @@ class ReportController extends Controller
         return view('report.index', compact('reports', 'title'));
     }
 
-    public function allDate (Request $request)
+    public function allData (Request $request)
     {
 
       $title = 'Index - report';

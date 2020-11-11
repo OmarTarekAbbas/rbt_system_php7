@@ -46,14 +46,14 @@ class SendNotifyEmailBeforeRbtAndContentEnd extends Command
         $subject = "Rbt Expire Data Notifiy";
         $data['title'] = 'Rbt '.$rbt->track_title_en;
         $data['url']   = url('rbt/'.$rbt->id);
-        $data['expire_date'] = $rbt->expire_date;
+        $data['expire_date'] = $rbt->expire_date->format('Y-m-d');
         $this->sendEmail(explode(',',setting('notifiy_rbt_emails')), $data, $subject);
       }
       foreach ($contents as  $content) {
         $subject = "Content Expire Data Notifiy";
         $data['title'] = 'Content '.$content->content_title;
         $data['url']    = url('content/'.$content->id);
-        $data['expire_date'] = $content->expire_date;
+        $data['expire_date'] = $content->expire_date->format('Y-m-d');
         $this->sendEmail(explode(',',setting('notifiy_content_emails')), $data, $subject);
       }
     }

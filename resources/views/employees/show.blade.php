@@ -63,7 +63,7 @@ Employee
                   <td width='30%' class='label-view text-left' style="font-weight: bold">Status</td>
                   @if ($employee->status == 1)
                   <td>
-                    <button class="btn btn-success">In work</button>
+                    <button class="btn btn-success borderRadius">In work</button>
                   </td>
                   @else
                   <td>
@@ -108,18 +108,18 @@ Employee
                         <span style="font-weight: bold;margin-right: 10px;">Birth Certificate:
                         </span>
                         @if ($employee->birth_certificate)
-                        <a href="{{url('uploads/employee_papers/'.$employee->birth_certificate)}}" target="_blank"><button class="btn btn-success">Review</button></a>
+                        <a href="{{url('uploads/employee_papers/'.$employee->birth_certificate)}}" target="_blank"><button class="btn btn-success borderRadius">Review</button></a>
                         @else
-                        <button class="btn btn-danger">Needed</button>
+                        <button class="btn btn-danger borderRadius">Needed</button>
                         @endif
                       </div>
                       <div class="col-md-2">
                         <span style="font-weight: bold; margin-right: 10px">Graduation Certificate:
                         </span>
                         @if ($employee->graduation_certificate)
-                        <a href="{{url('uploads/employee_papers/'.$employee->graduation_certificate)}}" target="_blank"><button class="btn btn-success">Review</button></a>
+                        <a href="{{url('uploads/employee_papers/'.$employee->graduation_certificate)}}" target="_blank"><button class="btn btn-success borderRadius">Review</button></a>
                         @else
-                        <button class="btn btn-danger">Needed</button>
+                        <button class="btn btn-danger borderRadius">Needed</button>
                         @endif
                       </div>
 
@@ -127,9 +127,9 @@ Employee
                         <span style="font-weight: bold; margin-right: 10px">Army Certificate:
                         </span>
                         @if ($employee->army_certificate)
-                        <a href="{{url('uploads/employee_papers/'.$employee->army_certificate)}}" target="_blank"><button class="btn btn-success">Review</button></a>
+                        <a href="{{url('uploads/employee_papers/'.$employee->army_certificate)}}" target="_blank"><button class="btn btn-success borderRadius">Review</button></a>
                         @else
-                        <button class="btn btn-danger">Needed</button>
+                        <button class="btn btn-danger borderRadius">Needed</button>
                         @endif
                       </div>
 
@@ -137,18 +137,18 @@ Employee
                         <span style="font-weight: bold; margin-right: 10px">Social insurance:
                         </span>
                         @if ($employee->insurance_certificate)
-                        <a href="{{url('uploads/employee_papers/'.$employee->insurance_certificate)}}" target="_blank"><button class="btn btn-success">Review</button></a>
+                        <a href="{{url('uploads/employee_papers/'.$employee->insurance_certificate)}}" target="_blank"><button class="btn btn-success borderRadius">Review</button></a>
                         @else
-                        <button class="btn btn-danger">Needed</button>
+                        <button class="btn btn-danger borderRadius">Needed</button>
                         @endif
                       </div>
                       <div class="col-md-3">
                         <span style="font-weight: bold; margin-right: 50px">Certificate of Police
                           Record: </span>
                         @if ($employee->fish_watashbih)
-                        <a href="{{url('uploads/employee_papers/'.$employee->fish_watashbih)}}" target="_blank"><button class="btn btn-success">Review</button></a>
+                        <a href="{{url('uploads/employee_papers/'.$employee->fish_watashbih)}}" target="_blank"><button class="btn btn-success borderRadius">Review</button></a>
                         @else
-                        <button class="btn btn-danger">Needed</button>
+                        <button class="btn btn-danger borderRadius">Needed</button>
                         @endif
                       </div>
                     </div>
@@ -188,10 +188,10 @@ Employee
                     @if ($employee_contract->contract_status == 1)
                     <button class="btn btn-success">New</button>
                     @else
-                    <button class="btn btn-danger">Draft</button>
+                    <button class="btn btn-danger borderRadius">Draft</button>
                     @endif
                   </td>
-                  <td><a href="{{url('uploads/employee_contract/'.$employee_contract->contract_attachment)}}" target="_blank">Review</a></td>
+                  <td><a class="btn btn-success borderRadius" href="{{url('uploads/employee_contract/'.$employee_contract->contract_attachment)}}" target="_blank">Review</a></td>
                   <td>
                     <div class="btn-group">
                       <a class="btn btn-sm show-tooltip" title="" href="{{url('employee_contract/'.$employee_contract->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>

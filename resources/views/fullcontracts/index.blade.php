@@ -139,16 +139,16 @@ function datatable_draw_func(params) {
       name: "contract_status"
     },
     {
-      data: "first_parties",
-      name: "first_parties"
+      data: "first_party",
+      name: "first_party"
     },
     {
-      data: "second_parties",
-      name: "second_parties"
+      data: "second_party",
+      name: "second_party"
     },
     {
-      data: "second_party_types",
-      name: "second_party_types"
+      data: "second_party_type_id",
+      name: "second_party_type_id"
     },
     {
       data: "contract_date",
