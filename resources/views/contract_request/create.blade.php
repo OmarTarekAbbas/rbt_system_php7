@@ -4,6 +4,18 @@ ContractRequests
 @stop
 @section('content')
 @include('errors')
+
+<style>
+  .testt {
+    display: inline;
+  }
+
+  .chosen-container-single .chosen-single,
+  .chosen-container-multi .chosen-choices {
+    border-radius: 0.6rem !important;
+  }
+</style>
+
 <div id="main-content">
   <div class="row">
     <div class="col-md-12 noPaddingPhone">
@@ -19,80 +31,94 @@ ContractRequests
           <form method='POST' class="width_m_auto form-horizontal" action='{!! url("contractrequests")!!}' enctype="multipart/form-data">
             @csrf
             <div class="col-md-12">
-              <h1>CONTRACT BASIC INFO</h1>
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">contract type</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <select class="form-control chosen" data-placeholder="Choose a Contract Type" name="contract_type">
-                    <option value=""></option>
-                    @foreach(contract_type() as $key => $value)
-                    <option value="{{$key}}">{{$value}}</option>
-                    @endforeach
-                  </select>
+              <h1 class="newTitle">CONTRACT BASIC INFO</h1>
+              <div class="width_m_auto">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">contract type</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <select class="form-control chosen borderRadius" data-placeholder="Choose a Contract Type" name="contract_type">
+                      <option value=""></option>
+                      @foreach(contract_type() as $key => $value)
+                      <option value="{{$key}}">{{$value}}</option>
+                      @endforeach
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">contract Content type</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <select class="form-control chosen" data-placeholder="Choose a Contract Content Type" name="contract_content_type">
-                    <option value=""></option>
-                    @foreach(contract_content_type() as $key => $value)
-                    <option value="{{$key}}">{{$value}}</option>
-                    @endforeach
-                  </select>
+              <div class="width_m_auto">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">contract Content type</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <select class="form-control chosen" data-placeholder="Choose a Contract Content Type" name="contract_content_type">
+                      <option value=""></option>
+                      @foreach(contract_content_type() as $key => $value)
+                      <option value="{{$key}}">{{$value}}</option>
+                      @endforeach
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">Country</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <select class="form-control chosen" data-placeholder="Choose a Country" multiple name="country_title[]">
-                    <option value=""></option>
-                    @foreach($countries as $country)
-                    <option value="{{$country->title}}">{{$country->title}}</option>
-                    @endforeach
-                  </select>
+              <div class="width_m_auto">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">Country</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <select class="form-control chosen" data-placeholder="Choose a Country" multiple name="country_title[]">
+                      <option value=""></option>
+                      @foreach($countries as $country)
+                      <option value="{{$country->title}}">{{$country->title}}</option>
+                      @endforeach
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">Operator</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <select class="form-control chosen" data-placeholder="Choose a Operator" multiple name="operator_title[]">
-                    <option value=""></option>
-                    @foreach($operators as $operator)
-                    <option value="{{$operator->title}}">
-                      {{$operator->title}}</option>
-                    @endforeach
-                  </select>
+              <div class="width_m_auto">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">Operator</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <select class="form-control chosen" data-placeholder="Choose a Operator" multiple name="operator_title[]">
+                      <option value=""></option>
+                      @foreach($operators as $operator)
+                      <option value="{{$operator->title}}">
+                        {{$operator->title}}</option>
+                      @endforeach
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">Service Type</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <select class="form-control chosen" data-placeholder="Choose a Service Type" name="service_type_id">
-                    <option value=""></option>
-                    @foreach($service_types as $type)
-                    <option value="{{$type->id}}">
-                      {{$type->service_type_title}}</option>
-                    @endforeach
-                  </select>
+              <div class="width_m_auto">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">Service Type</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <select class="form-control chosen" data-placeholder="Choose a Service Type" name="service_type_id">
+                      <option value=""></option>
+                      @foreach($service_types as $type)
+                      <option value="{{$type->id}}">
+                        {{$type->service_type_title}}</option>
+                      @endforeach
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">Title</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <input type="text" class="form-control" name="title">
+              <div class="width_m_auto">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">Title</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <input type="text" class="form-control borderRadius" name="title">
+                  </div>
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">Objective</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <textarea name="objective" class="form-control" cols="30" rows="10"></textarea>
+              <div class="width_m_auto">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">Objective</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <textarea name="objective" class="form-control borderRadius" cols="30" rows="10"></textarea>
+                  </div>
                 </div>
               </div>
               <hr>
@@ -100,25 +126,31 @@ ContractRequests
 
             <div class="col-md-12">
               <h1>CONTRACT COMPANY INFO</h1>
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">Company</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <select class="form-control chosen" data-placeholder="Choose a Company" name="first_party_id">
-                    <option value=""></option>
-                    @foreach($first_parties as $first_party)
-                    <option value="{{$first_party->id}}">
-                      {{$first_party->first_party_title}}</option>
-                    @endforeach
-                  </select>
+              <div class="width_m_auto">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">Company</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <select class="form-control chosen" data-placeholder="Choose a Company" name="first_party_id">
+                      <option value=""></option>
+                      @foreach($first_parties as $first_party)
+                      <option value="{{$first_party->id}}">
+                        {{$first_party->first_party_title}}</option>
+                      @endforeach
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">Company Party type</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  @foreach(party_type() as $key => $value)
-                  <input type="radio" name="company_party_type" value="{{ $key }}" class="form-control"> {{ $value }}
-                  @endforeach
+              <div class="width_m_auto">
+                <div class="form-group">
+                  <div class="testt">
+                    <label class=" control-label">Company Party type</label>
+                    <div class=" controls">
+                      @foreach(party_type() as $key => $value)
+                      <input type="radio" name="company_party_type" value="{{ $key }}" class="form-control"> {{ $value }}
+                      @endforeach
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -195,8 +227,8 @@ ContractRequests
               <div class="form-group">
                 <label class="col-sm-3 col-lg-2 control-label">Client name</label>
                 <div class="col-sm-9 col-lg-10 controls">
-                <select class="form-control" id="client_name" data-placeholder="Choose a Client Name" name="second_party_id">
-                </select>
+                  <select class="form-control" id="client_name" data-placeholder="Choose a Client Name" name="second_party_id">
+                  </select>
                 </div>
               </div>
 
@@ -421,14 +453,14 @@ ContractRequests
               <div class="form-group">
                 <label class="col-sm-3 col-lg-2 control-label">Advance payment Details</label>
                 <div class="col-sm-9 col-lg-10 controls">
-                  <textarea name="advance_payment_details"  cols="30" rows="10"></textarea>
+                  <textarea name="advance_payment_details" cols="30" rows="10"></textarea>
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-sm-3 col-lg-2 control-label">Installment Period Details</label>
                 <div class="col-sm-9 col-lg-10 controls">
-                  <textarea name="installment_period_details"  cols="30" rows="10"></textarea>
+                  <textarea name="installment_period_details" cols="30" rows="10"></textarea>
                 </div>
               </div>
 
@@ -501,7 +533,7 @@ ContractRequests
 @stop
 @section('script')
 <script>
-    $('#client_type').on('change', function() {
+  $('#client_type').on('change', function() {
     $.ajax({
         method: 'GET',
         url: "{{url('/client_type')}}",
