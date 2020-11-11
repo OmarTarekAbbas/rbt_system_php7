@@ -52,6 +52,9 @@ Contract
                   <th>Service Type</th>
                   <th>Label</th>
                   <th>Contract Status</th>
+                  <th>First Party</th>
+                  <th>Second Party</th>
+                  <th>Second Party Type</th>
                   <th>Contract Date</th>
                   <th>Contract Signed Date</th>
                   <th>Expiry Date</th>
@@ -134,6 +137,18 @@ function datatable_draw_func(params) {
     {
       data: "contract_status",
       name: "contract_status"
+    },
+    {
+      data: "first_parties",
+      name: "first_parties"
+    },
+    {
+      data: "second_parties",
+      name: "second_parties"
+    },
+    {
+      data: "second_party_types",
+      name: "second_party_types"
     },
     {
       data: "contract_date",
