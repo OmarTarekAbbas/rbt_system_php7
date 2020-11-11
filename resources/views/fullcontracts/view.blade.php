@@ -154,7 +154,7 @@
 
                         <tr>
                           <td width='30%' class='label-view text-left'>Contract Duration </td>
-                          <td>{{ $contract->contractRenew->count() ?  $contract->contractRenew[0]->duration->contract_duration_title : $contract->duration->contract_duration_title}}
+                          <td>{{ $contract->contractRenew->count() ?  $contract->contractRenew[0]->duration->contract_duration_title : optional($contract->duration)->contract_duration_title}}
                           </td>
                         </tr>
 
