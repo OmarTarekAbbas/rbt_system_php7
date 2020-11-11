@@ -13,15 +13,15 @@ class CreateRoutesTable extends Migration
      */
     public function up()
     {
-        Schema::create('routes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('method', 16);
-            $table->string('route', 128);
-            $table->string('controller_name', 128);
-            $table->string('function_name', 128);
-            $table->string('route_name', 128)->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('routes', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('method', 16);
+        //     $table->string('route', 128);
+        //     $table->string('controller_name', 128);
+        //     $table->string('function_name', 128);
+        //     $table->string('route_name', 128)->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     /**

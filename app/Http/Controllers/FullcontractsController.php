@@ -75,7 +75,7 @@ class FullcontractsController extends Controller
 
         $contracts = Contract::select('*', 'contracts.id as id', 'contracts.contract_code as code', 'contracts.contract_signed_date as sd', 'service_types.service_type_title as service_type')
         ->join('service_types', 'service_types.id', '=', 'contracts.service_type_id')
-        ->filter($filters)->orderBy('sd','desc')->get();
+        ->filter($filters)->orderBy('sd','desc')->with('second_party_type')->get();
 
         $datatable = \Datatables::of($contracts)
             ->addColumn('index', function (Contract $contract) {
