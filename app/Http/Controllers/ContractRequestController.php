@@ -136,7 +136,7 @@ class ContractRequestController extends Controller
      */
     public function update($id, ContractRequestRequest $request)
     {
-
+        dd($request->all());
         $this->contractRequestService->handle($request->validated(), $id);
 
         $request->session()->flash('success', 'updated successfully');
