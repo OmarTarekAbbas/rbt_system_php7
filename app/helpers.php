@@ -252,3 +252,80 @@ function get_action_icons($route,$method)
   return $routeRole || $userRole == 1 ? 1 : 0 ;
 
 }
+
+function contract_type()
+{
+  return [
+    "Content Provider" => "Content Provider",
+    "Aggregator"       => "Aggregator"
+  ];
+}
+function contract_content_type()
+{
+  return [
+    "Library" => "Library",
+    "Album"   => "Album",
+    "single"  => "single",
+    "Film"    => "Film",
+    "Series"  => "Series",
+    "Other"   => "Other"
+  ];
+}
+function party_type()
+{
+  return [
+    "First"  => "First",
+    "Second" => "Second",
+    "Third"  => "Third",
+    "Fourth" => "Fourth"
+  ];
+}
+function client_type()
+{
+  return [
+    "Establishment"  => "Establishment",
+    "Individual" => "Individual"
+  ];
+}
+function content_type()
+{
+  return [
+    "Audio"     => "Audio",
+    "Video"     => "Video",
+    "Images"    => "Images",
+    "Documents" => "Documents",
+    "Other"     => "Other",
+  ];
+}
+function content_storage()
+{
+  return [
+    "HDD"            => "HDD",
+    "Audio Cassette" => "Audio Cassette",
+    "Video Cassette" => "Video Cassette",
+    "Flash Memory"   => "Flash Memory",
+    "Cloud link"     => "Cloud link",
+    "Other"          => "Other",
+  ];
+}
+function advance_payment()
+{
+  return [
+    "Yes" => "Yes",
+    "No"  => "No"
+  ];
+}
+function advance_payment_type()
+{
+  return [
+    "Deduct" => "Deduct",
+    "No"     => "No"
+  ];
+}
+function payment_method()
+{
+  return [
+    "installment" => "installment",
+    "Cash"        => "Cash"
+  ];
+}
