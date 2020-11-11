@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ContractRequest;
 use App\Country;
 use App\Firstpartie;
 use App\Http\Controllers\Controller;
@@ -47,7 +48,37 @@ class ContractRequestController extends Controller
     public function index()
     {
         $contractRequests = $this->contractRequestRepository->get();
-        return view('contractRequest.index',compact('contractRequests'));
+        return view('contract_request.index',compact('contractRequests'));
+    }
+
+        /**
+     * Method allData
+     *
+     * return client payments data as server side
+     *
+     * @return void
+     */
+    public function allData()
+    {
+      $contract_requests = $this->contractRequestRepository->latest()->get();
+
+      $datatable = \Datatables::of($contract_requests)
+        ->addColumn('index', function (ContractRequest $contract_request) {
+          return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$contract_request->id.'" class="roles" onclick="collect_selected(this)">';
+        })
+        ->addColumn('id', function (ContractRequest $contract_request) {
+          return $contract_request->id;
+        })
+        ->addColumn('title', function (ContractRequest $contract_request) {
+          return $contract_request->title;
+        })
+        ->addColumn('action', function (ContractRequest $contract_request) {
+            return view('contract_request.actions', compact('contract_request'));;
+        })
+        ->escapeColumns([])
+        ->make(true);
+
+      return $datatable;
     }
 
     /**
@@ -88,8 +119,12 @@ class ContractRequestController extends Controller
     public function edit($id)
     {
         $contractRequest = $this->contractRequestRepository->findOrfail($id);
-
-        return view('contract_request.edit',compact('contractRequest'));
+        $first_parties = Firstpartie::all();
+        $service_types = ServiceTypes::all();
+        $second_party_types = SecondParty::all();
+        $countries = Country::all();
+        $operators = Operator::all();
+        return view('contract_request.edit',compact('contractRequest','countries','operators','second_party_types','service_types','first_parties'));
     }
 
     /**

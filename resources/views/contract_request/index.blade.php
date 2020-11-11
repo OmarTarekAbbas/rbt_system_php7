@@ -1,6 +1,6 @@
 @extends('template')
 @section('page_title')
-ClientPayments
+ContractRequests
 @stop
 @section('content')
 
@@ -10,7 +10,7 @@ ClientPayments
     <div class="col-md-12 noPaddingPhone">
       <div class="box box-blue">
         <div class="box-title">
-          <h3><i class="fa fa-table"></i> ClientPayment Table</h3>
+          <h3><i class="fa fa-table"></i> ContractRequest Table</h3>
           <div class="box-tool">
             <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
             <a data-action="close" href="#"><i class="fa fa-times"></i></a>
@@ -19,22 +19,17 @@ ClientPayments
         <div class="box-content">
           <div class="btn-group">
             @if(Auth::user()->hasRole(['super_admin','admin', 'ceo','Quality','RBT Upload']))
-            <a class="btn btn-circle btn-success show-tooltip" href="{{url('clientpayments/create')}}" title="Create New content" href="#"><i class="fa fa-plus"></i></a>
-            <a id="delete_button" onclick="delete_selected('client_payments')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
+            <a class="btn btn-circle btn-success show-tooltip" href="{{url('contractrequests/create')}}" title="Create New content" href="#"><i class="fa fa-plus"></i></a>
+            <a id="delete_button" onclick="delete_selected('contract_requests')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
             @endif
           </div><br><br>
           <div class="table-responsive" style="border:0">
             <table class="table table-advance data_content">
               <thead>
                 <tr>
-                  <th style="width:18px"><input type="checkbox" onclick="select_all('client_payments')" /></th>
+                  <th style="width:18px"><input type="checkbox" onclick="select_all('contract_requests')" /></th>
                   <th>id</th>
-                  <th>contract</th>
-                  <th>Provider</th>
-                  <th>Amount</th>
-                  <th>Currency</th>
-                  <th>Year</th>
-                  <th>Months</th>
+                  <th>title</th>
                   <th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
                 </tr>
               </thead>
@@ -68,7 +63,7 @@ ClientPayments
       "search": {
         "regex": true
       },
-      ajax: "{{ url('clientpayments/ajax/allData') }}",
+      ajax: "{{ url('contractrequests/ajax/allData') }}",
       columns: [{
           data: "index",
           searchable: false,
@@ -79,28 +74,8 @@ ClientPayments
           name: "id"
         },
         {
-          data: "contract",
-          name: "contract"
-        },
-        {
-          data: "provider",
-          name: "provider"
-        },
-        {
-          data: "amount",
-          name: "amount"
-        },
-        {
-          data: "currency",
-          name: "currency"
-        },
-        {
-          data: "year",
-          name: "year"
-        },
-        {
-          data: "month",
-          name: "month"
+          data: "title",
+          name: "title"
         },
         {
           data: "action",

@@ -1,6 +1,6 @@
 @extends('template')
 @section('page_title')
-ClientPayments
+ContractRequests
 @stop
 @section('content')
 @include('errors')
@@ -9,74 +9,481 @@ ClientPayments
     <div class="col-md-12 noPaddingPhone">
       <div class="box">
         <div class="box-title">
-          <h3><i class="fa fa-bars"></i>Create ClientPayment Form</h3>
+          <h3><i class="fa fa-bars"></i>Create ContractRequest Form</h3>
           <div class="box-tool">
             <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
             <a data-action="close" href="#"><i class="fa fa-times"></i></a>
           </div>
         </div>
         <div class="box-content">
-          <form method='POST' class="width_m_auto form-horizontal" action='{!! url("clientpayments")!!}' enctype="multipart/form-data">
+          <form method='POST' class="width_m_auto form-horizontal" action='{!! url("contractrequests")!!}' enctype="multipart/form-data">
             @csrf
-            <div class="form-group ">
-                <label class="col-sm-3 col-lg-2 control-label">Provider</label>
+            <div class="col-md-12">
+              <h1>CONTRACT BASIC INFO</h1>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">contract type</label>
                 <div class="col-sm-9 col-lg-10 controls">
-                  <select id="input8" class="form-control second_party_id chosen" data-placeholder="Choose a provider" name="second_party_id">
+                  <select class="form-control chosen" data-placeholder="Choose a Contract Type" name="contract_type">
                     <option value=""></option>
-                    @foreach($second_partys as $key => $value)
-                    <option @if($clientPayment->second_party_id == $value->second_party_id) selected="selected" @endif value="{{$value->second_party_id}}">{{$value->second_party_title}}</option>
+                    @foreach(contract_type() as $key => $value)
+                    <option value="{{$key}}">{{$value}}</option>
                     @endforeach
                   </select>
                 </div>
-            </div>
-
-            <div class="form-group ">
-              <label class="col-sm-3 col-lg-2 control-label">Contract</label>
-              <div class="col-sm-9 col-lg-10 controls">
-                <select id="contract_id" class="form-control chosen" data-placeholder="Choose a Contract" name="contract_id">
-                  <option value=""></option>
-                </select>
               </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">contract Content type</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <select class="form-control chosen" data-placeholder="Choose a Contract Content Type" name="contract_content_type">
+                    <option value=""></option>
+                    @foreach(contract_content_type() as $key => $value)
+                    <option value="{{$key}}">{{$value}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Country</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <select class="form-control chosen" data-placeholder="Choose a Country" multiple name="country_title[]">
+                    <option value=""></option>
+                    @foreach($countries as $country)
+                    <option value="{{$country->title}}">{{$country->title}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Operator</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <select class="form-control chosen" data-placeholder="Choose a Operator" multiple name="operator_title[]">
+                    <option value=""></option>
+                    @foreach($operators as $operator)
+                    <option value="{{$operator->title}}">
+                      {{$operator->title}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Service Type</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <select class="form-control chosen" data-placeholder="Choose a Service Type" name="service_type_id">
+                    <option value=""></option>
+                    @foreach($service_types as $type)
+                    <option value="{{$type->id}}">
+                      {{$type->service_type_title}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Title</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="title">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Objective</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <textarea name="objective" class="form-control" cols="30" rows="10"></textarea>
+                </div>
+              </div>
+              <hr>
             </div>
 
-            <div class="form-group ">
-              <label class="col-sm-3 col-lg-2 control-label">Year</label>
-              <div class="col-sm-9 col-lg-10 controls">
-                <select id="signed_date" class="form-control chosen" data-placeholder="Filter By Year" name="year" tabindex="1">
-                  @foreach( range( date('Y')-10 , date('Y')+10 ) as $year )
-                  <option @if($clientPayment->year == $year ) selected="selected" @endif value="{{$year}}">{{$year}}</option>
+            <div class="col-md-12">
+              <h1>CONTRACT COMPANY INFO</h1>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Company</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <select class="form-control chosen" data-placeholder="Choose a Company" name="first_party_id">
+                    <option value=""></option>
+                    @foreach($first_parties as $first_party)
+                    <option value="{{$first_party->id}}">
+                      {{$first_party->first_party_title}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Company Party type</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  @foreach(party_type() as $key => $value)
+                  <input type="radio" name="company_party_type" value="{{ $key }}" class="form-control"> {{ $value }}
                   @endforeach
-                </select>
+                </div>
               </div>
-            </div>
 
-            <div class="form-group ">
-              <label class="col-sm-3 col-lg-2 control-label">Month</label>
-              <div class="col-sm-9 col-lg-10 controls">
-                <select class="form-control chosen" data-placeholder="Choose a month" name="month[]" multiple>
-                  @for($month = 1 ; $month <= 12 ; $month++) <option @if(in_array($month, (array)$clientPayment->month)) selected="selected" @endif  value="{{$month}}">{{date("F", strtotime("$month/1/1"))}}</option>
-                    @endfor
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group ">
-              <label class="col-sm-3 col-lg-2 control-label">Amount</label>
-              <div class="col-sm-9 col-lg-10 controls">
-               <input type="text" class="form-control" name="amount" value="{{ $clientPayment->amount }}">
-              </div>
-            </div>
-
-            <div class="form-group ">
-                <label class="col-sm-3 col-lg-2 control-label">currency</label>
+              <h4>Company Authorized signatory</h4>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">name</label>
                 <div class="col-sm-9 col-lg-10 controls">
-                  <select id="input8" class="form-control  chosen" data-placeholder="Choose a currency" name="currency_id">
+                  <input type="text" class="form-control" name="company_authorized_signatory_name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">position</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="company_authorized_signatory_position">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">mobile</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="company_authorized_signatory_mobile">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">email</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="email" class="form-control" name="company_authorized_signatory_email">
+                </div>
+              </div>
+
+              <h4>Company Project Manager</h4>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">name</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="company_project_manager_name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">position</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="company_project_manager_position">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">mobile</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="company_project_manager_mobile">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">email</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="email" class="form-control" name="company_project_manager_email">
+                </div>
+              </div>
+
+              <hr>
+            </div>
+
+            <div class="col-md-12">
+              <h1>CLIENT INFO</h1>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Client Type</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <select class="form-control" id="client_type" data-placeholder="Choose a Client Type" name="second_party_type_id">
                     <option value=""></option>
-                    @foreach($currenies as $key => $value)
-                    <option @if($clientPayment->currency_id == $value->id) selected="selected" @endif value="{{$value->id}}">{{$value->title}}</option>
+                    @foreach($second_party_types as $second_party_type)
+                    <option value="{{$second_party_type->id}}">
+                      {{$second_party_type->second_party_type_title}}</option>
                     @endforeach
                   </select>
                 </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Client name</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                <select class="form-control" id="client_name" data-placeholder="Choose a Client Name" name="second_party_id">
+                </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Client Party type</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  @foreach(party_type() as $key => $value)
+                  <input type="radio" name="client_party_type" value="{{ $key }}" class="form-control"> {{ $value }}
+                  @endforeach
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Client ID</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="client_id">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="second_party_tc" class="col-xs-12 col-lg-2 control-label"> Client ID Image </label>
+                <div class="col-xs-12 col-lg-10 controls">
+                  <input type="file" name="client_id_image" id="client_id_image" placeholder="Client ID Image" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="second_party_tc" class="col-xs-12 col-lg-2 control-label"> Client TC</label>
+                <div class="col-xs-12 col-lg-10 controls">
+                  <input type="file" name="client_tc_image" id="client_tc_image" placeholder="Client TC" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="second_party_tc" class="col-xs-12 col-lg-2 control-label"> Client CR</label>
+                <div class="col-xs-12 col-lg-10 controls">
+                  <input type="file" name="client_cr_image" id="client_cr_image" placeholder="Client CR" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Client Adress</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <textarea name="client_address" class="form-control" cols="30" rows="10"></textarea>
+                </div>
+              </div>
+
+              <h4>Client Authorized signatory</h4>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">name</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="client_authorized_signatory_name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">position</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="client_authorized_signatory_position">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">mobile</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="client_authorized_signatory_mobile">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">email</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="email" class="form-control" name="client_authorized_signatory_email">
+                </div>
+              </div>
+
+              <h4>Client Project Manager</h4>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">name</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="client_project_manager_name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">position</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="client_project_manager_position">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">mobile</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="client_project_manager_mobile">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">email</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="email" class="form-control" name="client_project_manager_email">
+                </div>
+              </div>
+
+              <hr>
+            </div>
+
+            <div class="col-md-12">
+              <h1>CONTENT INFO</h1>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">content type</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <select class="form-control chosen" data-placeholder="Choose a Content Type" name="content_type">
+                    <option value=""></option>
+                    @foreach(content_type() as $key => $value)
+                    <option value="{{$key}}">{{$value}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Content Storage</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <select class="form-control chosen" data-placeholder="Choose a Content Storage" name="content_storage">
+                    <option value=""></option>
+                    @foreach(content_storage() as $key => $value)
+                    <option value="{{$key}}">{{$value}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Tracks Count</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="tracks_count">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Clips Count</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="clips_count">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Images Count</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="images_count">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="first_party_joining_date" class="col-xs-12 col-lg-2 control-label"> Delivered Date </label>
+                <div class="input-group date date-picker col-xs-12 col-lg-10 controls" data-date-format="dd-mm-yyyy">
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                  <input type="text" name="delivered_date" id="delivered_date" autocomplete="off" placeholder="first party joining date" data-date-format="dd-mm-yyyy" class="form-control">
+                </div>
+              </div>
+
+              <h4>Content Receiver</h4>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">name</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="receiver_name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">position</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="receiver_position">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">mobile</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="receiver_mobile">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">email</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="email" class="form-control" name="receiver_email">
+                </div>
+              </div>
+              <hr>
+            </div>
+
+            <div class="col-md-12">
+              <h1>FINANTAL INFO</h1>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Advance payment</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  @foreach(advance_payment() as $key => $value)
+                  <input type="radio" name="advance_payment" value="{{ $key }}" class="form-control"> {{ $value }}
+                  @endforeach
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Advance payment Type</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  @foreach(advance_payment_type() as $key => $value)
+                  <input type="radio" name="advance_payment_type" value="{{ $key }}" class="form-control"> {{ $value }}
+                  @endforeach
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Advance Payment method</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  @foreach(payment_method() as $key => $value)
+                  <input type="radio" name="advance_payment_method" value="{{ $key }}" class="form-control"> {{ $value }}
+                  @endforeach
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Advance Payment Amount</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="advance_payment_amount">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Advance payment Details</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <textarea name="advance_payment_details"  cols="30" rows="10"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Installment Period Details</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <textarea name="installment_period_details"  cols="30" rows="10"></textarea>
+                </div>
+              </div>
+
+              <h4>Percentages (%)</h4>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">First Party (%)</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="first_party_percentage">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Second Party (%)</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="second_party_percentage">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Third Party (%)</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="third_party_percentage">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">Fourth Party (%)</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="fourth_party_percentage">
+                </div>
+              </div>
+
+              <h4>Legal Officer</h4>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">name</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="legal_officer_name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">position</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="legal_officer_position">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">mobile</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="text" class="form-control" name="legal_officer_mobile">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 col-lg-2 control-label">email</label>
+                <div class="col-sm-9 col-lg-10 controls">
+                  <input type="email" class="form-control" name="legal_officer_email">
+                </div>
+              </div>
+
             </div>
 
             <div class="form-group">
@@ -94,28 +501,19 @@ ClientPayments
 @stop
 @section('script')
 <script>
-  $('.second_party_id').change(function(){
-    getContracts($(this).val())
-  })
-  // api for get contracts
-  function getContracts(contract_id) {
-      var contracts = []
-      $.get("{{ url('/api/contracts/') }}/" + contract_id, function(response) {
-          form = createContractForm(response)
-          $('#contract_id').html(form)
-          $(".chosen").each(function() {
-              $(this).trigger("chosen:updated");
-          })
+    $('#client_type').on('change', function() {
+    $.ajax({
+        method: 'GET',
+        url: "{{url('/client_type')}}",
+        data: {
+          body: $(this).val(),
+          //   _token: token
+        }
+      })
+      .done(function(client_type) {
+        $('#client_name').html(client_type);
       });
-  }
-  // create input for contracts
-  function createContractForm(contracts) {
-      var input = '<option value=""></option>'
-      Object.keys(contracts).forEach(key => {
-          input += `<option value="${contracts[key].id}">${contracts[key].contract_code} _ ${contracts[key].contract_label}</option>`
-      });
-      return input
-  }
+  });
 </script>
 <script>
   $('#content').addClass('active');

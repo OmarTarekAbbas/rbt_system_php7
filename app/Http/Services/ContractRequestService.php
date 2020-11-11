@@ -54,19 +54,19 @@ class ContractRequestService
           "country_title"  => implode(",", $request['country_title'])
         ]);
 
-        if (isset($request['first_party_signature'])) {
+        if (isset($request['client_id_image'])) {
           $request = array_merge($request, [
             "client_id_image"  =>  $this->handleFile($request['client_id_image'] , self::Client_ID_Image)
           ]);
         }
 
-        if (isset($request['first_party_seal'])) {
+        if (isset($request['client_tc_image'])) {
           $request = array_merge($request, [
             "client_tc_image"  =>  $this->handleFile($request['client_tc_image'] , self::Client_TC)
           ]);
         }
 
-        if (isset($request['first_party_seal'])) {
+        if (isset($request['client_cr_image'])) {
           $request = array_merge($request, [
             "client_cr_image"  =>  $this->handleFile($request['client_cr_image'] , self::Client_CR)
           ]);

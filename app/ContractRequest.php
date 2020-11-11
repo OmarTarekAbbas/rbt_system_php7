@@ -63,6 +63,8 @@ class ContractRequest extends Model
       'country_title',
       'operator_title',
       'service_type_id',
+      'second_party_type_id',
+      'second_party_id',
       'first_party_id'
     ];
 }
