@@ -41,7 +41,7 @@ Report
                 <select class="form-control chosen" data-placeholder="Choose a Months" name="month" tabindex="1">
                   <option value=""></option>
                   @foreach($months as $index=>$month)
-                  <option value="{{$index+1}}" {{($report->month == $index+1) ? ' selected' : ''}}>{{$month}}</option>
+                  <option value="{{$index+1}}" {{($report->month == $month) ? ' selected' : ''}}>{{$month}}</option>
                   @endforeach
                 </select>
               </div>
@@ -93,8 +93,8 @@ Report
               <div class="col-sm-9 col-lg-10 controls">
                 <select name='provider_id' class='form-control chosen' ata-placeholder="Providers a Operators" required>
                   <option value=""></option>
-                  @foreach($providers as $key => $value)
-                  <option value="{{$key}}" {{($report->provider_id == $key) ? 'selected' : ''}}>{{$value}}</option>
+                  @foreach($second_partys as $key => $value)
+                  <option value="{{$key}}" {{($report->second_party_id == $key) ? 'selected' : ''}}>{{$value}}</option>
                   @endforeach
                 </select>
               </div>
@@ -106,7 +106,7 @@ Report
                 <select class="form-control chosen" data-placeholder="Choose a Operators" name="operator_id" tabindex="1" required>
                   <option value=""></option>
                   @foreach($operators as $operator)
-                  <option value="{{$operator->id}}" {{($rbt->operator_id == $operator->id) ? 'selected' : ''}}>{{$operator->title}}-{{$operator->country->title}}</option>
+                  <option value="{{$operator->id}}" {{($report->operator_id == $operator->id) ? 'selected' : ''}}>{{$operator->title}}-{{$operator->country->title}}</option>
                   @endforeach
                 </select>
               </div>

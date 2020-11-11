@@ -133,7 +133,7 @@ class ReportController extends Controller
         $title = 'Create - report';
 
         $operators = Operator::all();
-        $second_partys = Provider::all()->pluck('title', 'id');
+        $second_partys = SecondParties::all()->pluck('second_party_title', 'second_party_id');
         $aggregators = Aggregator::all()->pluck('title', 'id');
 
 
@@ -145,7 +145,7 @@ class ReportController extends Controller
         $title = 'Create - report';
 
         $operators = Operator::all();
-        $second_partys = Provider::all()->pluck('title', 'id');
+        $second_partys = SecondParties::all()->pluck('second_party_title', 'second_party_id');
         $aggregators = Aggregator::all()->pluck('title', 'id');
 
         return view('report.excel', compact('operators', 'second_partys', 'aggregators'));
@@ -348,7 +348,7 @@ class ReportController extends Controller
         $title = 'Edit - report';
 
         $operators = Operator::all();
-        $second_partys = Provider::all()->pluck('title', 'id');
+        $second_partys = SecondParties::all()->pluck('second_party_title', 'second_party_id');
         $aggregators = Aggregator::all()->pluck('title', 'id');
 
 
