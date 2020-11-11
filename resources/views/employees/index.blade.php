@@ -45,9 +45,9 @@ Employees
                   <td>{{$employee->release_date ? $employee->release_date : '----'}}</td>
                   <td>
                     @if ($employee->status == 1)
-                    <button class="btn btn-success">In work</button>
+                    <button class="btn btn-success borderRadius">In work</button>
                     @else
-                    <button class="btn btn-danger">Leave</button>
+                    <button class="btn btn-danger borderRadius">Leave</button>
                     @endif
                   </td>
                   <td class="visible-xs visible-md visible-lg">

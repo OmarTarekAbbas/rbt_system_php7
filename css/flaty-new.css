@@ -252,3 +252,101 @@
     width: 40%;
   }
 }
+
+@media (min-width: 375px) and (max-width: 410.9px) {
+
+  .navbar .navbar-btn,
+  .navbar .navbar-btn:focus {
+    margin-right: 3px !important;
+  }
+
+  .noPaddingPhone {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  .p-5.noPaddingPhone {
+    padding: 0 !important;
+  }
+
+  .width_m_auto {
+    width: 100% !important;
+  }
+
+  .breadcrumb {
+    margin-bottom: 0;
+  }
+
+  .sximo-form .wizard>.actions>ul {
+    display: flex;
+    justify-content: center;
+    float: none !important;
+  }
+
+  .input_group_new {
+    width: 13%;
+  }
+
+  .start_date,
+  .expire_date,
+  .event_start_date,
+  .event_end_date {
+    width: 92% !important;
+  }
+
+  .displayGrid.displayPhone {
+    display: block;
+  }
+
+  .displayGrid.displayPhone .displayGridHref {
+    width: 60%;
+    margin-left: 0;
+    margin: 6% auto;
+    display: block;
+  }
+
+  #main-content {
+    padding: 10px 10px 20px;
+  }
+
+  .displayGridTwo {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  #SenderModel .modal-dialog,
+  #editoperator .modal-dialog,
+  #editaggregator .modal-dialog,
+  #editcurrency .modal-dialog,
+  #editoccasion .modal-dialog,
+  #editcountry .modal-dialog {
+    top: 30%;
+  }
+
+  .box .box-title h3 {
+    white-space: unset;
+  }
+
+  .fileUpload {
+    width: 100% !important;
+  }
+
+  .fileUpload .title {
+    width: 85% !important;
+  }
+
+  .marginZero {
+    margin: 0 !important;
+    width: unset !important;
+  }
+
+  #attachment_pdf {
+    width: 100%;
+  }
+
+  #attachment_a_pdf {
+    float: none !important;
+    margin: 6% auto;
+    display: block;
+    width: 40%;
+  }
+}

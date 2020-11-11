@@ -64,7 +64,7 @@ Contents
             <div class="form-group">
               <label class="col-sm-3 col-lg-2 control-label">Track file</label>
               <div class="col-sm-9 col-lg-10 controls">
-                <div class="displayGrid fileupload fileupload-new displayGrid displayPhone" data-provides="fileupload">
+                <div class="fileupload fileupload-new displayGrid displayPhone" data-provides="fileupload">
                   <div class="input-group">
                     <div class="form-control uneditable-input">
                       <i class="fa fa-file fileupload-exists"></i>
@@ -74,7 +74,7 @@ Contents
                       <a class="btn bun-default btn-file">
                         <span class="fileupload-new">Select file</span>
                         <span class="fileupload-exists">Change</span>
-                        <input type="file" name="path" class="file-input" style="width: 100%;">
+                        <input type="file" name="path" class="file-input">
                       </a>
                       <a href="#" class="btn btn-default fileupload-exists" style="display:none;" data-dismiss="fileupload">Remove</a>
                     </div>
