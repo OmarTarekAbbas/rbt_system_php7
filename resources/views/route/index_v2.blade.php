@@ -18,6 +18,15 @@ if (isset($controller_name))
     border-radius: 0.6rem !important;
   }
 
+  .table>thead>tr>th,
+  .table>tbody>tr>th,
+  .table>tfoot>tr>th,
+  .table>thead>tr>td,
+  .table>tbody>tr>td,
+  .table>tfoot>tr>td {
+    padding: 8px 5px;
+  }
+
   tr:nth-of-type(odd) {
     background-color: #cfcfcf;
   }
@@ -101,10 +110,10 @@ if (isset($controller_name))
                     {!! Form::hidden("route[$i][$j]",$function_name) !!}
                     <?php $j++; ?>
                     <div class="controls" style="padding: 0;">
-                      <input class="borderRadius btn-lg" type="text" name="route[{{$i}}][{{$j++}}]" @foreach($selected_routes as $route) @if($route->function_name == $function_name) style="border: 1px solid #b6d1f2;" value="{{$route->route}}" @endif @endforeach placeholder="..." class="form-control" style="border: 1px solid #b6d1f2;">
+                      <input class="borderRadius mAuto_dBlock width_m_auto" style="height: 4rem;" type="text" name="route[{{$i}}][{{$j++}}]" @foreach($selected_routes as $route) @if($route->function_name == $function_name) style="border: 1px solid #b6d1f2;" value="{{$route->route}}" @endif @endforeach placeholder="..." class="form-control" style="border: 1px solid #b6d1f2;">
                     </div>
                     <div class="form-group">
-                      <div class="controls" style="padding: 0;">
+                      <div class="controls" style="padding: 0; width: 90%; margin: 0 auto!important; display: block;">
                         <select class="form-control chosen-rtl" name="route[{{$i}}][{{$j++}}]">
                           <option></option>
                           @foreach($method_types as $index=>$type)
@@ -115,13 +124,13 @@ if (isset($controller_name))
                     </div>
                   </td>
                   <td>
-                    <label class="checkbox-inline displayFlex">
+                    <label class="checkbox-inline">
                       <input type="checkbox" name="all_roles" value="all_roles" class="all_roles" />
                     </label>
                   </td>
                   @foreach($roles as $index=>$role)
                   <td>
-                    <label class="checkbox-inline displayFlex">
+                    <label class="checkbox-inline">
                       <input type="checkbox" name="route[{{$i}}][{{$j++}}]" value="{{$role->id}}" class="check_role_{{$role->id}}" @foreach($selected_routes as $route) @if($route->function_name == $function_name) @foreach($route->roles_routes as $role_route) @if($role_route->role_id == $role->id) checked @endif @endforeach @endif @endforeach
                       />
                     </label>
@@ -148,44 +157,41 @@ if (isset($controller_name))
 
 @stop
 @section('script')
-    <script>
-        var checked_roles = [] ;
-        function check_all(role_id)
-        {
-            var index = checked_roles.indexOf(role_id) ;
-            if(index!=-1)
-            {
-                checked_roles.splice(index,1) ;
-                $('.check_role_'+role_id).prop('checked', false);
-            }
-            else{
-                checked_roles.push(role_id) ;
-                $('.check_role_'+role_id).prop('checked', true);
-            }
-        }
+<script>
+  var checked_roles = [];
 
-        $('.all_roles').click(function (e) {
-          if($(this).prop("checked")){
-            $(this).parent().parent().siblings().each(function () {
-              element = $(this).children().children();
-              element.prop("checked", true );
-            });
-          }else{
-            $(this).parent().parent().siblings().each(function () {
-              element = $(this).children().children();
-              element.prop("checked", false );
-            });
-          }
-        });
+  function check_all(role_id) {
+    var index = checked_roles.indexOf(role_id);
+    if (index != -1) {
+      checked_roles.splice(index, 1);
+      $('.check_role_' + role_id).prop('checked', false);
+    } else {
+      checked_roles.push(role_id);
+      $('.check_role_' + role_id).prop('checked', true);
+    }
+  }
 
-        function get_controller_methods(element)
-        {
-            $('#form_body').submit();
-        }
-    </script>
+  $('.all_roles').click(function(e) {
+    if ($(this).prop("checked")) {
+      $(this).parent().parent().siblings().each(function() {
+        element = $(this).children().children();
+        element.prop("checked", true);
+      });
+    } else {
+      $(this).parent().parent().siblings().each(function() {
+        element = $(this).children().children();
+        element.prop("checked", false);
+      });
+    }
+  });
 
-    <script>
-        $('#role').addClass('active');
-        $('#route-v2-index').addClass('active');
-    </script>
+  function get_controller_methods(element) {
+    $('#form_body').submit();
+  }
+</script>
+
+<script>
+  $('#role').addClass('active');
+  $('#route-v2-index').addClass('active');
+</script>
 @stop

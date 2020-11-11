@@ -18,7 +18,7 @@ Contract
         <div class="box-content">
           @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
-          <div class="btn-group">
+          <div class="btn-group pull-right">
             <a class="btn btn-circle btn-success show-tooltip" href="{{url('fullcontracts/create')}}" title="Create New Rbt" href="#"><i class="fa fa-plus"></i></a>
             <a id="delete_button" onclick="delete_selected('contracts')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
           </div>
