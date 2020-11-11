@@ -143,70 +143,70 @@ ContractRequests
 
               <div class="width_m_auto">
                 <div class="form-group">
-                  <div class="testt">
-                    <label class=" control-label">Company Party type</label>
-                    <div class=" controls">
-                      @foreach(party_type() as $key => $value)
-                      <input type="radio" name="company_party_type" value="{{ $key }}" class="form-control"> {{ $value }}
-                      @endforeach
-                    </div>
+                  <label class="col-sm-3 col-lg-2 control-label">Company Party type</label>
+                  <div class="col-sm-9 col-lg-10 controls" style="font-size: 2rem; margin-bottom: 3%;">
+                    @foreach(party_type() as $key => $value)
+                    <input type="radio" name="company_party_type" value="{{ $key }}" class="form-control" style="display: inline;width: 5%;">{{ $value }}
+                    @endforeach
                   </div>
                 </div>
               </div>
 
               <h4>Company Authorized signatory</h4>
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">name</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <input type="text" class="form-control" name="company_authorized_signatory_name">
+              <div style="margin: 0 3%;">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">name</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <input type="text" class="form-control" name="company_authorized_signatory_name">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">position</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <input type="text" class="form-control" name="company_authorized_signatory_position">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">position</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <input type="text" class="form-control" name="company_authorized_signatory_position">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">mobile</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <input type="text" class="form-control" name="company_authorized_signatory_mobile">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">mobile</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <input type="text" class="form-control" name="company_authorized_signatory_mobile">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">email</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <input type="email" class="form-control" name="company_authorized_signatory_email">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">email</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <input type="email" class="form-control" name="company_authorized_signatory_email">
+                  </div>
                 </div>
-              </div>
 
-              <h4>Company Project Manager</h4>
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">name</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <input type="text" class="form-control" name="company_project_manager_name">
+                <h4>Company Project Manager</h4>
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">name</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <input type="text" class="form-control" name="company_project_manager_name">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">position</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <input type="text" class="form-control" name="company_project_manager_position">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">position</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <input type="text" class="form-control" name="company_project_manager_position">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">mobile</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <input type="text" class="form-control" name="company_project_manager_mobile">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">mobile</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <input type="text" class="form-control" name="company_project_manager_mobile">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-3 col-lg-2 control-label">email</label>
-                <div class="col-sm-9 col-lg-10 controls">
-                  <input type="email" class="form-control" name="company_project_manager_email">
+                <div class="form-group">
+                  <label class="col-sm-3 col-lg-2 control-label">email</label>
+                  <div class="col-sm-9 col-lg-10 controls">
+                    <input type="email" class="form-control" name="company_project_manager_email">
+                  </div>
                 </div>
-              </div>
 
-              <hr>
+                <hr>
+              </div>
             </div>
 
             <div class="col-md-12">
