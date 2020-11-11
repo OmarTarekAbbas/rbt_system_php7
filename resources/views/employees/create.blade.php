@@ -14,7 +14,7 @@ Employees
     width: 23%;
   }
 
-  @media (min-width: 320px) and (max-width: 374.9px) {
+  @media (min-width: 320px) and (max-width: 410.9px) {
     .event_start_date,
     .event_end_date {
       width: 100% !important;
