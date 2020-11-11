@@ -32,7 +32,7 @@
     width: 100%;
   }
 
-  @media (min-width: 320px) and (max-width: 374.9px) {
+  @media (min-width: 320px) and (max-width: 410.9px) {
   .signed_date_input,
   .start_date,
   .contract_expiry_date {
