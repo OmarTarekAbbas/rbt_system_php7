@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\SecondParty;
+use App\SecondParties;
 use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

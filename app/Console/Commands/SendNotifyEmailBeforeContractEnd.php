@@ -48,7 +48,7 @@ class SendNotifyEmailBeforeContractEnd extends Command
         $subject = "Contract Expire Data Notifiy";
         $data['title'] = $contract->contract_code . ' ' . $contract->contract_label;
         $data['url']   = url('contracts/'.$contract->id.'/renew');
-        $data['expire_date'] = $contract->expire_date;
+        $data['expire_date'] = $contract->contract_expiry_date->format('Y-m-d');
         $this->sendEmail(explode(',',setting('notifiy_contract_emails')), $data, $subject);
         $this->sendNotifyToCeo($data);
       }

@@ -96,6 +96,21 @@ class FullcontractsController extends Controller
             ->addColumn('contract_status', function (Contract $contract) {
               return $contract->contract_status ? 'Active' : 'Not Active';
             })
+            ->addColumn('first_party', function (Contract $contract) {
+                if($contract->first_party_select){
+                  return $contract->first_parties->first_party_title;
+                }
+                return $contract->second_parties->second_party_title;
+            })
+            ->addColumn('second_party', function (Contract $contract) {
+                if($contract->first_party_select){
+                  return $contract->second_parties->second_party_title;
+                }
+                return $contract->first_parties->first_party_title;
+            })
+            ->addColumn('second_party_type_id', function (Contract $contract) {
+                return $contract->second_party_type->second_party_type_title;
+            })
             ->addColumn('contract_date', function (Contract $contract) {
                 return  date('F j, Y', strtotime($contract->contract_date));
             })
