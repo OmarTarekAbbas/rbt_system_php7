@@ -39,7 +39,7 @@ ContractRequests
                     <select class="form-control chosen borderRadius" data-placeholder="Choose a Contract Type" name="contract_type">
                       <option value=""></option>
                       @foreach(contract_type() as $key => $value)
-                      <option value="{{$key}}">{{$value}}</option>
+                      <option value="{{$key}}" @if($contractRequest->) checked @endif>{{$value}}</option>
                       @endforeach
                     </select>
                   </div>

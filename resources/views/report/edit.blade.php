@@ -22,6 +22,7 @@ Report
             $years = years();
             ?>
             <input type='hidden' name='_token' value='{{Session::token()}}'>
+            <input type="hidden" value="put" name="_method">
 
             <div class="form-group">
               <label class="col-sm-3 col-lg-2 control-label">Years Select </label>
@@ -91,7 +92,7 @@ Report
             <div class="form-group">
               <label class="col-sm-3 col-lg-2 control-label">Providers Select *</label>
               <div class="col-sm-9 col-lg-10 controls">
-                <select name='provider_id' class='form-control chosen' ata-placeholder="Providers a Operators" required>
+                <select name='second_party_id' class='form-control chosen' ata-placeholder="Providers a Operators" required>
                   <option value=""></option>
                   @foreach($second_partys as $key => $value)
                   <option value="{{$key}}" {{($report->second_party_id == $key) ? 'selected' : ''}}>{{$value}}</option>
