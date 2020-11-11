@@ -62,9 +62,7 @@ RBTs
         $('.data_report').DataTable({
             "processing": true,
             "serverSide": true,
-            "search": {
-                "regex": true
-            },
+           "search": {"regex": true},
             ajax: "{!! url('report_all/allData') !!}",
             columns: [{
                     data: "index",
@@ -111,10 +109,9 @@ RBTs
                     data: "second_party_id",
                     name: "second_party_id"
                 },
-                {
-                    data: "operator_id",
-                    name: "operator_id"
-                },
+
+
+                {data: 'operator_id', name:'operator.title'},
                 {
                     data: "aggregator_id",
                     name: "aggregator_id"

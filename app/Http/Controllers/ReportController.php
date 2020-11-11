@@ -68,9 +68,9 @@ class ReportController extends Controller
 
       $title = 'Index - report';
         if (Auth::user()->hasRole(['super_admin', 'admin', 'ceo'])) {
-            $reports = Report::all();
+            $reports = Report::with('operator')->get();
         } else {
-            $reports = Report::where('aggregator_id', Auth::user()->aggregator_id)->get();
+            $reports = Report::where('aggregator_id', Auth::user()->aggregator_id)->with('operator')->get();
         }
         $datatable = \Datatables::of($reports)
             ->addColumn('index', function (Report $report) {
