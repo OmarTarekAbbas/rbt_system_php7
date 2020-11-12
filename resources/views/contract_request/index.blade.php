@@ -48,8 +48,11 @@ ContractRequests
 @stop
 @section('script')
 <script>
-  $('#content').addClass('active');
-  $('#content-index').addClass('active');
+
+  $('#contract .submenu').first().css('display', 'block');
+  $('#contract .submenu').first().css('display', 'block');
+  $('#contract-index').addClass('active');
+
 
   $.ajaxSetup({
     headers: {

@@ -548,7 +548,8 @@ ContractRequests
   });
 </script>
 <script>
-  $('#content').addClass('active');
-  $('#content-create').addClass('active');
+  $('#contract .submenu').first().css('display', 'block');
+  $('#contract .submenu').first().css('display', 'block');
+  $('#contract-index').addClass('active');
 </script>
 @stop
