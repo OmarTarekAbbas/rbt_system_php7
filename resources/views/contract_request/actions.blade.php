@@ -9,10 +9,12 @@
     <a class="btn btn-sm show-tooltip" href="{{url("contractrequests/$contract_request->id/edit")}}" title="Edit"><i
         class="fa fa-edit"></i></a>
 
-
-
-    <a class="btn btn-sm show-tooltip btn-danger" onclick="return ConfirmDelete();"
-      href="{{url("contractrequests/$contract_request->id/delete")}}" title="Delete"><i class="fa fa-trash"></i></a>
+    <form action="{{url('contractrequests/'.$contract_request->id)}}" method="POST" style="display: inline">
+        @method('DELETE')
+        @csrf
+        <button class="btn btn-sm btn-danger show-tooltip" type="submit" onclick='return ConfirmDelete()'
+            data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
+    </form>
 
   </div>
 </td>

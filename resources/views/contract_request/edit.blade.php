@@ -28,7 +28,7 @@ ContractRequests
           </div>
         </div>
         <div class="box-content">
-          <form method='POST' class="width_m_auto form-horizontal" action='{!! url("contractrequests/{{$contractRequest->id}}")!!}' enctype="multipart/form-data">
+          <form method='POST' class="width_m_auto form-horizontal" action='{!! url("contractrequests/$contractRequest->id")!!}' enctype="multipart/form-data">
             @csrf
             @method('patch')
             <div class="col-md-12">
@@ -68,7 +68,7 @@ ContractRequests
                     <select class="form-control chosen" data-placeholder="Choose a Country" multiple name="country_title[]">
                       <option value=""></option>
                       @foreach($countries as $country)
-                      <option value="{{$country->title}} @if(in_array($country->title,explode(",",$contractRequest->country_title))) selected @endif">{{$country->title}}</option>
+                      <option value="{{$country->title}}" @if(in_array($country->title,explode(",",$contractRequest->country_title))) selected @endif>{{$country->title}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -247,7 +247,7 @@ ContractRequests
               </div>
 
               @if ($contractRequest->client_id_image)
-              <img width="100px" src="{{url($contractRequest->client_id_image)}}" alt="{{$contractRequest->client_id_image}}">
+              <a target="_blank" href="{{url($contractRequest->client_id_image)}}">preview</a>
               @endif
 
               <div class="form-group">
@@ -258,7 +258,7 @@ ContractRequests
               </div>
 
               @if ($contractRequest->client_tc_image)
-              <img width="100px" src="{{url($contractRequest->client_tc_image)}}" alt="{{$contractRequest->client_tc_image}}">
+              <a target="_blank" href="{{url($contractRequest->client_tc_image)}}">preview</a>
               @endif
 
               <div class="form-group">
@@ -269,7 +269,7 @@ ContractRequests
               </div>
 
               @if ($contractRequest->client_cr_image)
-              <img width="100px" src="{{url($contractRequest->client_cr_image)}}" alt="{{$contractRequest->client_cr_image}}">
+              <a target="_blank" href="{{url($contractRequest->client_cr_image)}}">preview</a>
               @endif
 
               <div class="form-group">

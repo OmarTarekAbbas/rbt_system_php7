@@ -112,6 +112,17 @@ class ContractRequestController extends Controller
     }
 
     /**
+     * Show the specified resource.
+     * @param    int  $id
+     * @return  View
+     */
+    public function show($id)
+    {
+        $contractRequest = $this->contractRequestRepository->findOrfail($id);
+        return view('contract_request.show',compact('contractRequest'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      * @param    int  $id
      * @return  View
@@ -136,7 +147,6 @@ class ContractRequestController extends Controller
      */
     public function update($id, ContractRequestRequest $request)
     {
-        dd($request->all());
         $this->contractRequestService->handle($request->validated(), $id);
 
         $request->session()->flash('success', 'updated successfully');

@@ -71,7 +71,6 @@ class ContractRequestService
             "client_cr_image"  =>  $this->handleFile($request['client_cr_image'] , self::Client_CR)
           ]);
         }
-
         $contractRequest->fill($request);
 
         $contractRequest->save();

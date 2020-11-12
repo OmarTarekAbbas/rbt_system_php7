@@ -25,7 +25,7 @@ class ContractRequest extends Model
       'client_id',
       'client_id_image',
       'client_tc_image',
-      'client_cr_iamge',
+      'client_cr_image',
       'client_address',
       'client_authorized_signatory_name',
       'client_authorized_signatory_position',
@@ -67,4 +67,21 @@ class ContractRequest extends Model
       'second_party_id',
       'first_party_id'
     ];
+
+    public function secondpartytype()
+    {
+        return $this->belongsTo('App\SecondParty', 'second_party_type_id', 'id');
+    }
+    public function secondparty()
+    {
+        return $this->belongsTo('App\SecondParties', 'second_party_id', 'second_party_id');
+    }
+    public function servicetype()
+    {
+        return $this->belongsTo('App\ServiceTypes', 'service_type_id', 'id');
+    }
+    public function firstparty()
+    {
+        return $this->belongsTo('App\Firstpartie', 'first_party_id', 'id');
+    }
 }
