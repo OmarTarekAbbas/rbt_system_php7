@@ -74,7 +74,6 @@
             <div id="wizard-step" class="wizard-circle number-tab-steps">
               <h3>Main</h3>
               <section class="width_m_auto">
-                <input name="contract_code" type="hidden" value="">
 
                 <div class="form-group">
                   <label for="ipt" class=" control-label "> Label <span class="asterix"> * </span>

@@ -43,7 +43,6 @@ class ContractService
     }
 
     $request = array_merge($request, [
-      "contract_code"  =>  'C#' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time(),
       "operator_title" => implode(",", $request['operator_title']),
       "country_title"  => implode(",", $request['country_title']),
       "second_party_percentage"  => 100 - $request['first_party_percentage'],
@@ -56,6 +55,12 @@ class ContractService
     if (isset($request['contract_pdf'])) {
       $request = array_merge($request, [
         "contract_pdf"  =>  basename($this->handleFile($request['contract_pdf'], self::IMAGE_PATH))
+      ]);
+    }
+
+    if (isset($request['contract_code'])) {
+      $request = array_merge($request, [
+        "contract_code"  =>  $request['contract_code']
       ]);
     }
 
