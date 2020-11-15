@@ -119,6 +119,13 @@
                   <input type="checkbox" class="radio_check" value="3" name='copies' /> 3 Copy
                 </div>
 
+
+                <div class="form-group  ">
+                  <label for="ipt" class=" control-label "> Pages <span class="asterix"> * </span>
+                  </label>
+                  <input type='text' name='pages' id='pages' value='' required class='form-control form-control-sm ' />
+                </div>
+
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> first part person name (ويمثلها الطرف الاول فى هذا العقد السيد) </label>
                   <input type="text" id="first_part_person_input" class="form-control" name='first_part_person' />
@@ -152,14 +159,6 @@
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> first part phone </label>
                   <input type="text" id="first_part_phone_input" class="form-control" name='first_part_phone' />
-                </div>
-
-
-
-                <div class="form-group  ">
-                  <label for="ipt" class=" control-label "> Pages <span class="asterix"> * </span>
-                  </label>
-                  <input type='text' name='pages' id='pages' value='' required class='form-control form-control-sm ' />
                 </div>
 
               </section>
