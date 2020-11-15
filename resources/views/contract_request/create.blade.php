@@ -146,7 +146,7 @@ ContractRequests
                   <label class="col-sm-3 col-lg-2 control-label">Company Party type</label>
                   <div class="col-sm-9 col-lg-10 controls" style="font-size: 2rem; margin-bottom: 3%;">
                     @foreach(party_type() as $key => $value)
-                    <input type="radio" name="company_party_type" value="{{ $key }}" class="form-control" style="display: inline;width: 5%;">{{ $value }}
+                    <input type="radio" name="company_party_type" value="{{ $key }}" class="form-control" style="display: inline;width: 2%; margin: 4px 6px 0;">{{ $value }}
                     @endforeach
                   </div>
                 </div>
@@ -236,7 +236,7 @@ ContractRequests
                 <label class="col-sm-3 col-lg-2 control-label">Client Party type</label>
                 <div class="col-sm-9 col-lg-10 controls">
                   @foreach(party_type() as $key => $value)
-                  <input type="radio" name="client_party_type" value="{{ $key }}" class="form-control"> {{ $value }}
+                  <input type="radio" name="client_party_type" value="{{ $key }}" class="form-control" style="display: inline;width: 2%; margin: 4px 6px 0;"> {{ $value }}
                   @endforeach
                 </div>
               </div>
@@ -420,7 +420,7 @@ ContractRequests
                 <label class="col-sm-3 col-lg-2 control-label">Advance payment</label>
                 <div class="col-sm-9 col-lg-10 controls">
                   @foreach(advance_payment() as $key => $value)
-                  <input type="radio" name="advance_payment" value="{{ $key }}" class="form-control"> {{ $value }}
+                  <input type="radio" name="advance_payment" value="{{ $key }}" class="form-control" style="display: inline;width: 2%; margin: 4px 6px 0;"> {{ $value }}
                   @endforeach
                 </div>
               </div>
@@ -429,7 +429,7 @@ ContractRequests
                 <label class="col-sm-3 col-lg-2 control-label">Advance payment Type</label>
                 <div class="col-sm-9 col-lg-10 controls">
                   @foreach(advance_payment_type() as $key => $value)
-                  <input type="radio" name="advance_payment_type" value="{{ $key }}" class="form-control"> {{ $value }}
+                  <input type="radio" name="advance_payment_type" value="{{ $key }}" class="form-control" style="display: inline;width: 2%; margin: 4px 6px 0;"> {{ $value }}
                   @endforeach
                 </div>
               </div>
@@ -438,7 +438,7 @@ ContractRequests
                 <label class="col-sm-3 col-lg-2 control-label">Advance Payment method</label>
                 <div class="col-sm-9 col-lg-10 controls">
                   @foreach(payment_method() as $key => $value)
-                  <input type="radio" name="advance_payment_method" value="{{ $key }}" class="form-control"> {{ $value }}
+                  <input type="radio" name="advance_payment_method" value="{{ $key }}" class="form-control" style="display: inline;width: 2%; margin: 4px 6px 0;"> {{ $value }}
                   @endforeach
                 </div>
               </div>
