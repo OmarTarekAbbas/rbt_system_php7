@@ -19,6 +19,13 @@ contract request
     <a href="{{url('contractrequests/'.$contractRequest->id.'/edit')}}" title="Edit contractRequest">Edit contract request</a>
 
   </div>
+
+  <div class="col-md-4" style="text-align: center;">
+    <a class="btn btn-circle btn-success show-tooltip " href="{{url('contractrequests/'.$contractRequest->id.'/create')}}" title="create contractRequest"><i class="fa fa-plus"></i></a>
+    <a href="{{url('contractrequests/'.$contractRequest->id.'/create')}}" title="create contractRequest">create contract request</a>
+
+  </div>
+
   <br>
   <br>
 </div>

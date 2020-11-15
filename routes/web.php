@@ -23,6 +23,7 @@ Auth::routes();
 list_routes_from_database();
 Route::resource('contractrequests', 'ContractRequestController');
 Route::get('contractrequests/ajax/allData', 'ContractRequestController@allData');
+Route::get('contractrequests/{id}/create', 'ContractRequestController@contractCreate');
 Route::resource('clientpayments', 'ClientPaymentController');
 Route::get('clientpayments/ajax/allData', 'ClientPaymentController@allData');
 // Route::get('providers_to_secondparty', 'SecondPartyController@providers_to_secondparty');

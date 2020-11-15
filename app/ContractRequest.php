@@ -65,7 +65,8 @@ class ContractRequest extends Model
       'service_type_id',
       'second_party_type_id',
       'second_party_id',
-      'first_party_id'
+      'first_party_id',
+      'contract_code'
     ];
 
     public function secondpartytype()

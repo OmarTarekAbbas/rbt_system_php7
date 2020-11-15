@@ -2,15 +2,18 @@
 
 namespace App\Providers;
 
-use App\Constants\FullApproveStatus;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
+use View;
 use App\Contract;
 use App\ContractItem;
 use App\ContractRenew;
+use App\ContractRequest;
 use App\Observers\ContractObserver;
+use App\Constants\FullApproveStatus;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
 use App\Observers\ContractRenewObserver;
-use View;
+use App\Observers\ContractRequestObserver;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -24,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         Contract::observe(ContractObserver::class);
         ContractRenew::observe(ContractRenewObserver::class);
         ContractItem::observe(ContractItemObserver::class);
+        ContractRequest::observe(ContractRequestObserver::class);
     }
 
     /**
