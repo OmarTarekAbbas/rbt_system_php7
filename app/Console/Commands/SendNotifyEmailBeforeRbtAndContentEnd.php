@@ -56,6 +56,7 @@ class SendNotifyEmailBeforeRbtAndContentEnd extends Command
         $data['expire_date'] = $content->expire_date->format('Y-m-d');
         $this->sendEmail(explode(',',setting('notifiy_content_emails')), $data, $subject);
       }
+      echo "contents and rbts notify Done" ;
     }
 
     public function sendEmail($emails, $data, $subject)

@@ -228,7 +228,7 @@ class FullcontractsController extends Controller
       $contract = Contract::find($id);
       $Attachments = Attachment::where('contract_id', $contract->id)->where('attachment_type', 1)->get();
       if($Attachments){
-        return view('attachments.index', compact('Attachments'));
+        return view('attachments.attachment', compact('Attachments'));
       }
     }
     public function authorization($id)
@@ -236,7 +236,7 @@ class FullcontractsController extends Controller
       $contract = Contract::find($id);
       $Attachments = Attachment::where('contract_id', $contract->id)->where('attachment_type', 2)->get();
       if($Attachments){
-        return view('attachments.index', compact('Attachments'));
+        return view('attachments.attachment', compact('Attachments'));
       }
     }
     public function copyright($id)
@@ -244,7 +244,7 @@ class FullcontractsController extends Controller
       $contract = Contract::find($id);
       $Attachments = Attachment::where('contract_id', $contract->id)->where('attachment_type', 3)->get();
       if($Attachments){
-        return view('attachments.index', compact('Attachments'));
+        return view('attachments.attachment', compact('Attachments'));
       }
     }
 

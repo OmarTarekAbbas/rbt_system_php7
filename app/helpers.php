@@ -243,14 +243,16 @@ function get_action_icons($route,$method)
 
   // check user is login and hass role
   $userRole = Auth::user()->roles->first()->id;
-
-  // check route
-  $route_id = RouteModel::where('route',$route)->where('method',$method)->first()->id;
-
-  // chec user roles has access this route
-  $routeRole = RoleRoute::where('role_id', $userRole)->where('route_id',  $route_id)->first();
-  return $routeRole || $userRole == 1 ? 1 : 0 ;
-
+  if($userRole){
+    // check route
+    $route = RouteModel::where('route',$route)->where('method',$method)->first();
+  }
+  if($route){
+    // chec user roles has access this route
+    $routeRole = RoleRoute::where('role_id', $userRole)->where('route_id',  $route->id)->first();
+    return $routeRole || $userRole == 1 ? 1 : 0 ;
+  }
+  return false;
 }
 
 function contract_type()

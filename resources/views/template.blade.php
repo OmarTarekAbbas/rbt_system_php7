@@ -57,6 +57,7 @@
         return false;
     }
   </script>
+  @yield('style')
 </head>
 
 <body>

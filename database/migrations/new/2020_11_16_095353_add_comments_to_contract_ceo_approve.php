@@ -13,7 +13,7 @@ class AddCommentsToContractCeoApprove extends Migration
      */
     public function up()
     {
-      DB::statement("ALTER TABLE `contracts` CHANGE `ceo_approve` `ceo_approve` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '2 = approve and 1= dis approval\''");
+      DB::statement("ALTER TABLE `contracts` CHANGE `ceo_approve` `ceo_approve` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '  0=no action  ,  2 = approve and 1= dis approval'");
     }
 
     /**
