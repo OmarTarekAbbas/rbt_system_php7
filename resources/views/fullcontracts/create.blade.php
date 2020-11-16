@@ -509,8 +509,8 @@
   })
 
   function initAutoCompleteTemplete() {
-    setAutoCompleteValue('signed_date', moment($('#signed_date_input').val(), "YYYY-MM-DD").locale('ar').format('YYYY/MM/DD'))
-    setAutoCompleteValue('day_name', moment($('#signed_date_input').val(), "YYYY-MM-DD").locale('ar').format('dddd'))
+    setAutoCompleteValue('signed_date', moment($('#signed_date_input').val(), "DD-MM-YYYY").locale('ar').format('YYYY/MM/DD'))
+    setAutoCompleteValue('day_name', moment($('#signed_date_input').val(), "DD-MM-YYYY").locale('ar').format('dddd'))
 
     var percent = parseInt($('#first_party_percentage').find('option:selected').text())
     setAutoCompleteValue('first_part_percent', percent + '%')
@@ -668,8 +668,8 @@
   })
 
   $('#signed_date_input').change(function() {
-    setAutoCompleteValue('signed_date', moment($('#signed_date_input').val(), "YYYY-MM-DD").locale('ar').format('YYYY/MM/DD'))
-    setAutoCompleteValue('day_name', moment($('#signed_date_input').val(), "YYYY-MM-DD").locale('ar').format('dddd'))
+    setAutoCompleteValue('signed_date', moment($('#signed_date_input').val(), "DD-MM-YYYY").locale('ar').format('YYYY/MM/DD'))
+    setAutoCompleteValue('day_name', moment($('#signed_date_input').val(), "DD-MM-YYYY").locale('ar').format('dddd'))
   })
 
   function setAutoCompleteValue(input, value) {
