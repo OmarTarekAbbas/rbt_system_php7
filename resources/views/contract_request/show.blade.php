@@ -19,6 +19,13 @@ contract request
     <a href="{{url('contractrequests/'.$contractRequest->id.'/edit')}}" title="Edit contractRequest">Edit contract request</a>
 
   </div>
+
+  <div class="col-md-4" style="text-align: center;">
+    <a class="btn btn-circle btn-success show-tooltip " href="{{url('contractrequests/'.$contractRequest->id.'/create')}}" title="create contractRequest"><i class="fa fa-plus"></i></a>
+    <a href="{{url('contractrequests/'.$contractRequest->id.'/create')}}" title="create contractRequest">create contract request</a>
+
+  </div>
+
   <br>
   <br>
 </div>
@@ -45,12 +52,12 @@ contract request
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">contract_type</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">contract type</td>
                   <td>{{$contractRequest->contract_type}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">contract_content_type</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">contract content type</td>
                   <td>{{$contractRequest->contract_content_type}} </td>
                 </tr>
 
@@ -60,72 +67,72 @@ contract request
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">company_party_type</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">company party type</td>
                   <td>{{$contractRequest->company_party_type}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">company_authorized_signatory_name</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">company authorized signatory name</td>
                   <td>{{$contractRequest->company_authorized_signatory_name}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">company_authorized_signatory_position</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">company authorized signatory position</td>
                   <td>{{$contractRequest->company_authorized_signatory_position}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">company_authorized_signatory_mobile</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">company authorized signatory mobile</td>
                   <td>{{$contractRequest->company_authorized_signatory_mobile}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">company_authorized_signatory_email</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">company authorized signatory email</td>
                   <td>{{$contractRequest->company_authorized_signatory_email}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">company_project_manager_name</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">company project manager name</td>
                   <td>{{$contractRequest->company_project_manager_name}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">company_project_manager_position</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">company project manager position</td>
                   <td>{{$contractRequest->company_project_manager_position}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">company_project_manager_mobile</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">company project manager mobile</td>
                   <td>{{$contractRequest->company_project_manager_mobile}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">company_project_manager_email</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">company project manager email</td>
                   <td>{{$contractRequest->company_project_manager_email}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">second_party_type_id</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">second party type</td>
                   <td>{{$contractRequest->secondpartytype->second_party_type_title}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">second_party_id</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">second party</td>
                   <td>{{$contractRequest->secondparty->second_party_title}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">client_party_type</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">client party type</td>
                   <td>{{$contractRequest->client_party_type}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">client id</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">client</td>
                   <td>{{$contractRequest->client_id}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">client_id_image</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">client identity image</td>
                   <td>
                     @if ($contractRequest->client_id_image)
                     <a target="_blank" href="{{url($contractRequest->client_id_image)}}">preview</a>
@@ -134,7 +141,7 @@ contract request
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">client_tc_image</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">client tc image</td>
                   <td>
                     @if ($contractRequest->client_tc_image)
                     <a target="_blank" href="{{url($contractRequest->client_tc_image)}}">preview</a>
@@ -143,7 +150,7 @@ contract request
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">client_cr_image</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">client cr image</td>
                   <td>
                     @if ($contractRequest->client_cr_image)
                     <a target="_blank" href="{{url($contractRequest->client_cr_image)}}">preview</a>
@@ -152,162 +159,162 @@ contract request
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">client_address</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">client address</td>
                   <td>{{$contractRequest->client_address}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">client_authorized_signatory_name</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">client authorized signatory name</td>
                   <td>{{$contractRequest->client_authorized_signatory_name}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">client_authorized_signatory_position</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">client authorized signatory position</td>
                   <td>{{$contractRequest->client_authorized_signatory_position}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">client_authorized_signatory_mobile</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">client authorized signatory mobile</td>
                   <td>{{$contractRequest->client_authorized_signatory_mobile}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">client_authorized_signatory_email</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">client authorized signatory email</td>
                   <td>{{$contractRequest->client_authorized_signatory_email}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">client_project_manager_name</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">client project manager name</td>
                   <td>{{$contractRequest->client_project_manager_name}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">client_project_manager_position</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">client project manager position</td>
                   <td>{{$contractRequest->client_project_manager_position}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">client_project_manager_mobile</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">client project manager mobile</td>
                   <td>{{$contractRequest->client_project_manager_mobile}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">client_project_manager_email</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">client project manager email</td>
                   <td>{{$contractRequest->client_project_manager_email}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">content_type</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">content type</td>
                   <td>{{$contractRequest->content_type}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">content_storage</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">content storage</td>
                   <td>{{$contractRequest->content_storage}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">tracks_count</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">tracks count</td>
                   <td>{{$contractRequest->tracks_count}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">clips_count</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">clips count</td>
                   <td>{{$contractRequest->clips_count}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">images_count</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">images count</td>
                   <td>{{$contractRequest->images_count}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">delivered_date</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">delivered date</td>
                   <td>{{$contractRequest->delivered_date}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">receiver_position</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">receiver position</td>
                   <td>{{$contractRequest->receiver_position}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">receiver_mobile</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">receiver mobile</td>
                   <td>{{$contractRequest->receiver_mobile}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">receiver_email</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">receiver email</td>
                   <td>{{$contractRequest->receiver_email}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">advance_payment</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">advance payment</td>
                   <td>{{$contractRequest->advance_payment}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">advance_payment_type</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">advance payment type</td>
                   <td>{{$contractRequest->advance_payment_type}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">advance_payment_amount</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">advance payment amount</td>
                   <td>{{$contractRequest->advance_payment_amount}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">advance_payment_details</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">advance payment details</td>
                   <td>{{$contractRequest->advance_payment_details}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">advance_payment_method</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">advance payment method</td>
                   <td>{{$contractRequest->advance_payment_method}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">installment_period_details</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">installment period details</td>
                   <td>{{$contractRequest->installment_period_details}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">first_party_percentage</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">first party percentage</td>
                   <td>{{$contractRequest->first_party_percentage}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">second_party_percentage</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">second party percentage</td>
                   <td>{{$contractRequest->second_party_percentage}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">third_party_percentage</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">third party percentage</td>
                   <td>{{$contractRequest->third_party_percentage}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">fourth_party_percentage</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">fourth party percentage</td>
                   <td>{{$contractRequest->fourth_party_percentage}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">legal_officer_name</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">legal officer name</td>
                   <td>{{$contractRequest->legal_officer_name}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">legal_officer_position</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">legal officer position</td>
                   <td>{{$contractRequest->legal_officer_position}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">legal_officer_mobile</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">legal officer mobile</td>
                   <td>{{$contractRequest->legal_officer_mobile}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">legal_officer_email</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">legal officer email</td>
                   <td>{{$contractRequest->legal_officer_email}} </td>
                 </tr>
 
@@ -317,32 +324,32 @@ contract request
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">country_title</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">country  </td>
                   <td>{{$contractRequest->country_title}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">operator_title</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">operator  </td>
                   <td>{{$contractRequest->operator_title}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">service_type</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">service type</td>
                   <td>{{$contractRequest->servicetype->service_type_title}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">first_party</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">first party</td>
                   <td>{{$contractRequest->firstparty->first_party_title}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">created_at</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">created at</td>
                   <td>{{$contractRequest->created_at}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">updated_at</td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">updated at</td>
                   <td>{{$contractRequest->updated_at}} </td>
                 </tr>
 

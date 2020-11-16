@@ -185,8 +185,13 @@ class SecondPartyController extends Controller
      */
     public function destroy($id)
     {
-        $SecondParty = $this->SecondPartyRepository->where('second_party_id', $id)->delete();
+        $SecondParty = $this->SecondPartyRepository->where('second_party_id', $id)->first();
+        if($SecondParty->contracts->count()){
+          return back()->with(['failed' => 'This Second Party Have Contracts']);
+        }
+        $SecondParty->delete();
         return back()->with(['success' => 'Deleted Successfully']);
+
     }
 
     public function providers_to_secondparty() {

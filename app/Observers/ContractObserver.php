@@ -40,6 +40,17 @@ class ContractObserver
         $this->sendCeoEmail($contract, $url);
       }
 
+      if (!isset($contract->contract_code)) {
+        $serviceTypeId = $contract->service_type_id;
+        $first_party_title = strtolower(substr(optional($contract->first_parties)->first_party_title,0,2));
+        $second_party_id = optional($contract->second_parties)->second_party_id;
+        $second_party_type_id = optional($contract->second_party_type)->id;
+        $contract_id = $contract->id;
+        $contract->contract_code = $serviceTypeId.'-'.$first_party_title.'-'.$second_party_id.'-'.$second_party_type_id.'-'.$contract_id;
+
+        $contract->save();
+      }
+
       if ($contract->isDirty('ceo_approve') && $contract->ceo_approve) {
         $this->updateContractItems($contract);
         foreach($contract->items as $item) {

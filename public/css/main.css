@@ -1,0 +1,17 @@
+h1,
+h4 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: grey;
+    margin-bottom: 15px;
+}
+
+hr {
+    border: grey 1px solid;
+    border-radius: 70%;
+}
+
+input[type="radio"] {
+    font-size: 1.1rem;
+    margin: 0px 3px 10px 10px;
+}

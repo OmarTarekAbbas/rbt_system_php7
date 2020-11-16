@@ -65,7 +65,8 @@ class ContractRequest extends Model
       'service_type_id',
       'second_party_type_id',
       'second_party_id',
-      'first_party_id'
+      'first_party_id',
+      'contract_code'
     ];
 
     public function secondpartytype()
@@ -84,4 +85,9 @@ class ContractRequest extends Model
     {
         return $this->belongsTo('App\Firstpartie', 'first_party_id', 'id');
     }
+    public function contracts()
+    {
+        return $this->hasOne('App\Contract', 'contract_code', 'contract_code');
+    }
+
 }

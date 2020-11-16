@@ -63,7 +63,7 @@
               </div>
             </div>
             <div class="col-md-6 text-right ">
-              <a href="{{url('fullcontracts')}}" class="tips btn   btn-sm " title="Back"><i class="fa  fa-times"></i></a>
+              <a href="{{url('fullcontracts')}}" class="tips btn btn-sm " title="Back"><i class="fa  fa-times"></i></a>
             </div>
           </div>
         </div>
@@ -74,51 +74,51 @@
             <div id="wizard-step" class="wizard-circle number-tab-steps">
               <h3>Main</h3>
               <section class="width_m_auto">
+                <input name="contract_code" type="hidden" value="{{$contractRequest->contract_code}}">
 
                 <div class="form-group">
                   <label for="ipt" class=" control-label "> Label <span class="asterix"> * </span>
                   </label>
-                  <input type='text' name='contract_label' id='contract_label' value='' required class='form-control' />
+                  <input type='text' name='contract_label' id='contract_label' value='{{$contractRequest->title}}' required class='form-control' />
                 </div>
 
-                <div class="form-group  ">
+                <div class="form-group">
                   <label for="ipt" class=" control-label "> Company <span class="asterix"> * </span>
                   </label>
                   <select name='first_party_id' rows='5' id='first_party_id' class='form-control' required>
                     <option value="">-- Please Select --</option>
                     @foreach($first_parties as $first_partie)
-                    <option value="{{$first_partie->id}}">{{$first_partie->first_party_title}}
+                    <option value="{{$first_partie->id}}"@if($contractRequest->first_party_id == $first_partie->id) selected @endif>{{$first_partie->first_party_title}}
                     </option>
                     @endforeach
                   </select>
                 </div>
 
-                <div class="form-group  ">
+                <div class="form-group">
                   <label for="ipt" class=" control-label "> First Party ? <span class="asterix"> *
                     </span> </label>
-                  <input type="checkbox" class="radio_check" value="1" checked="checked" name='first_party_select' /> Yes
-                  <input type="checkbox" class="radio_check" value="0" name='first_party_select' /> No
+                  <input type="checkbox" class="radio_check" value="1" checked="checked" name='first_party_select' @if($contractRequest->company_party_type == "First") selected @endif/> Yes
+                  <input type="checkbox" class="radio_check" value="0" name='first_party_select' @if($contractRequest->company_party_type == "Second  ") selected @endif/> No
                 </div>
 
-                <div class="form-group  ">
+                <div class="form-group">
                   <label for="ipt" class=" control-label "> First Party (%) <span class="asterix"> *
                     </span> </label>
                   <select name='first_party_percentage' rows='5' id='first_party_percentage' class='form-control ' required>
                     <option value="">-- Please Select --</option>
                     @foreach($percentages as $percentage)
-                    <option value="{{$percentage->percentage}}">{{$percentage->percentage}}</option>
+                    <option value="{{$percentage->percentage}}"@if($contractRequest->first_party_percentage == $percentage->percentage) selected @endif>{{$percentage->percentage}}</option>
                     @endforeach
                   </select>
                 </div>
 
-                <div class="form-group  ">
+                <div class="form-group">
                   <label for="ipt" class=" control-label "> Copies <span class="asterix"> * </span>
                   </label>
                   <input type="checkbox" class="radio_check" checked="checked" value="1" name='copies' /> 1 Copy
                   <input type="checkbox" class="radio_check" value="2" name='copies' /> 2 Copy
                   <input type="checkbox" class="radio_check" value="3" name='copies' /> 3 Copy
                 </div>
-
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> Pages <span class="asterix"> * </span>
@@ -128,17 +128,17 @@
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> first part person name (ويمثلها الطرف الاول فى هذا العقد السيد) </label>
-                  <input type="text" id="first_part_person_input" class="form-control" name='first_part_person' />
+                  <input type="text" id="first_part_person_input" class="form-control" value="{{$contractRequest->company_authorized_signatory_name}}" name='first_part_person' />
                 </div>
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> first part character name (بصفته) </label>
-                  <input type="text" id="first_part_character_input" class="form-control" name='first_part_character' />
+                  <input type="text" id="first_part_character_input" value="{{$contractRequest->company_authorized_signatory_name}}" class="form-control" name='first_part_character' />
                 </div>
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> first part address </label>
-                  <input type="text" id="first_part_address_input" class="form-control" name='first_part_address' />
+                  <input type="text" id="first_part_address_input" class="form-control" name='first_part_address'/>
                 </div>
 
                 <div class="form-group  ">
@@ -153,13 +153,14 @@
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> first part email </label>
-                  <input type="text" id="first_part_email_input" class="form-control" name='first_part_email' />
+                  <input type="text" id="first_part_email_input" class="form-control" name='first_part_email' value="{{$contractRequest->company_authorized_signatory_email}}"/>
                 </div>
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> first part phone </label>
-                  <input type="text" id="first_part_phone_input" class="form-control" name='first_part_phone' />
+                  <input type="text" id="first_part_phone_input" class="form-control" name='first_part_phone' value="{{$contractRequest->company_authorized_signatory_mobile}}"/>
                 </div>
+
 
               </section>
               <h3>Services/Client/Network</h3>
@@ -170,7 +171,7 @@
                   <select name='service_type_id' rows='5' id='service_type_id' class='select2 ' required>
                     <option value="">-- Please Select --</option>
                     @foreach($service_types as $service_type)
-                    <option value="{{$service_type->id}}">{{$service_type->service_type_title}}
+                    <option value="{{$service_type->id}}"@if($contractRequest->servicetype->id == $service_type->id) selected @endif>{{$service_type->service_type_title}}
                     </option>
                     @endforeach
                   </select>
@@ -182,7 +183,7 @@
                   <select name='second_party_type_id' rows='5' id='second_party_type_cli' class="form-control" required>
                     <option value="">-- Please Select --</option>
                     @foreach($second_partys as $second_party)
-                    <option value="{{$second_party->id}}">{{$second_party->second_party_type_title}}
+                    <option value="{{$second_party->id}}"@if($contractRequest->firstparty->id == $second_party->id) selected @endif>{{$second_party->second_party_type_title}}
                     </option>
                     @endforeach
                   </select>
@@ -196,17 +197,17 @@
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> second part person name (ويمثلها الطرف الثانى فى هذا العقد السيد) </label>
-                  <input type="text" id="second_part_person_input" class="form-control" name='second_part_person' />
+                  <input type="text" id="second_part_person_input" class="form-control" name='second_part_person' value="{{$contractRequest->client_authorized_signatory_name}}"/>
                 </div>
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> second part character name (بصفته) </label>
-                  <input type="text" id="second_part_character_input" class="form-control" name='second_part_character' />
+                  <input type="text" id="second_part_character_input" class="form-control" name='second_part_character' value="{{$contractRequest->client_authorized_signatory_name}}"/>
                 </div>
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> second part address </label>
-                  <input type="text" id="second_part_address_input" class="form-control" name='second_part_address' />
+                  <input type="text" id="second_part_address_input" class="form-control" name='second_part_address' value="{{$contractRequest->client_address}}"/>
                 </div>
 
                 <div class="form-group  ">
@@ -221,12 +222,12 @@
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> second part email </label>
-                  <input type="text" id="second_part_email_input" class="form-control" name='second_part_email' />
+                  <input type="text" id="second_part_email_input" class="form-control" name='second_part_email' value="{{$contractRequest->client_authorized_signatory_email}}"/>
                 </div>
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> second part phone </label>
-                  <input type="text" id="second_part_phone_input" class="form-control" name='second_part_phone' />
+                  <input type="text" id="second_part_phone_input" class="form-control" name='second_part_phone' value="{{$contractRequest->client_project_manager_mobile}}"/>
                 </div>
 
                 <div class="form-group  ">
@@ -235,7 +236,7 @@
                   <select name='country_title[]' multiple rows='5' id='country_title' class='select2 ' required>
 
                     @foreach($countries as $country)
-                    <option value="{{$country->title}}">{{$country->title}}</option>
+                    <option value="{{$country->title}}"@if(in_array($country->title,explode(",",$contractRequest->country_title))) selected @endif>{{$country->title}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -246,7 +247,7 @@
                   <select name='operator_title[]' multiple rows='5' id='operator_title' class='select2 ' required>
 
                     @foreach($operators as $operator)
-                    <option value="{{$operator->title}}">
+                    <option value="{{$operator->title}}"@if(in_array($operator->title,explode(",",$contractRequest->operator_title))) selected @endif>
                       {{$operator->title}}</option>
                     @endforeach
                   </select>
@@ -462,6 +463,22 @@
       })
       .done(function(client_type) {
         $('#second_party_id').html(client_type);
+      });
+  });
+
+  $(document).ready(function() {
+    $.ajax({
+        method: 'GET',
+        url: "{{url('/client_type')}}",
+        data: {
+          body: $('#second_party_type_cli').val(),
+          //   _token: token
+        }
+      })
+      .done(function(client_type) {
+        $('#second_party_id').html(client_type);
+        var second_party_id = "{{$contractRequest->second_party_id}}";
+        $(`option[value='${second_party_id}']`).attr('selected', 'selected');
       });
   });
 

@@ -46,4 +46,9 @@ class SecondParties extends Model
       }
     }
 
+    public function contracts()
+    {
+        return $this->hasMany('App\Contract', 'second_party_id', 'second_party_id');
+    }
+
 }

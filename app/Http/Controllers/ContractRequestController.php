@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\ContractRequest;
 use App\Country;
-use App\Firstpartie;
-use App\Http\Controllers\Controller;
-use App\Http\Repository\ContractRequestRepository;
-use App\Http\Requests\ContractRequestRequest;
-use App\Http\Services\ContractRequestService;
 use App\Operator;
+use App\Department;
+use App\Percentage;
+use App\Firstpartie;
 use App\SecondParty;
 use App\ServiceTypes;
+use App\ContractRequest;
+use App\ContractDuration;
+use App\Http\Controllers\Controller;
+use App\Http\Repository\ContractRepository;
+use App\Http\Requests\ContractRequestRequest;
+use App\Http\Services\ContractRequestService;
+use App\Http\Repository\ContractRequestRepository;
+use App\Http\Repository\ContractTemplateRepository;
 
 class ContractRequestController extends Controller
 {
@@ -21,6 +26,18 @@ class ContractRequestController extends Controller
      * @var ContractRequestRepository
      */
     private $contractRequestRepository;
+    /**
+     * ContractRepository
+     *
+     * @var ContractRepository
+     */
+    private $contractRepository;
+    /**
+     * ContractTemplateRepository
+     *
+     * @var ContractTemplateRepository
+     */
+    private $ContractTemplateRepository;
     /**
      * ContractRequestService
      *
@@ -33,10 +50,15 @@ class ContractRequestController extends Controller
      * @param  ContractRequestRepository $contractRequestRepository
      * @param  ContractRequestService $contractRequestService
      */
-    public function __construct(ContractRequestRepository $contractRequestRepository, ContractRequestService $contractRequestService)
+    public function __construct(
+      ContractRequestRepository $contractRequestRepository,
+      ContractRequestService $contractRequestService,
+      ContractTemplateRepository $ContractTemplateRepository
+     )
     {
         $this->get_privilege();
         $this->contractRequestRepository = $contractRequestRepository;
+        $this->ContractTemplateRepository = $ContractTemplateRepository;
         $this->contractRequestService = $contractRequestService;
     }
 
@@ -72,8 +94,20 @@ class ContractRequestController extends Controller
         ->addColumn('title', function (ContractRequest $contract_request) {
           return $contract_request->title;
         })
+        ->addColumn('first_party_id', function (ContractRequest $contract_request) {
+          return $contract_request->firstparty->first_party_title;
+        })
+        ->addColumn('second_party_id', function (ContractRequest $contract_request) {
+          return $contract_request->secondparty->second_party_title;
+        })
+        ->addColumn('second_party_type_id', function (ContractRequest $contract_request) {
+          return $contract_request->secondpartytype->second_party_type_title;
+        })
+        ->addColumn('service_type_id', function (ContractRequest $contract_request) {
+          return $contract_request->servicetype->service_type_title;
+        })
         ->addColumn('action', function (ContractRequest $contract_request) {
-            return view('contract_request.actions', compact('contract_request'));;
+            return view('contract_request.actions', compact('contract_request'));
         })
         ->escapeColumns([])
         ->make(true);
@@ -170,5 +204,41 @@ class ContractRequestController extends Controller
         \Session::flash('success', 'deleted successfully');
 
         return back();
+    }
+
+
+    /**
+     * create contract from contract request.
+     *
+     * @param    int $id
+     * @return  View
+     */
+    public function contractCreate($id)
+    {
+      $first_parties = Firstpartie::all();
+      $percentages = Percentage::all();
+      $service_types = ServiceTypes::all();
+      $second_partys = SecondParty::all();
+      $countries = Country::all();
+      $operators = Operator::all();
+      $contract_durations = ContractDuration::all();
+      $templates = $this->ContractTemplateRepository->all();
+      $departments = Department::all();
+
+        $contractRequest = $this->contractRequestRepository->findOrfail($id);
+
+        return view('contract_request.contractCreate', compact('contractRequest', 'first_parties', 'percentages', 'service_types', 'second_partys', 'countries', 'operators', 'contract_durations', 'templates','departments'));
+    }
+
+    /**
+     * list contract from contract request.
+     *
+     * @param    int $id
+     * @return  View
+     */
+    public function contractRequestsListContract($id)
+    {
+        $contract = $this->contractRequestRepository->findOrfail($id)->contracts;
+        return view('fullcontracts.view', compact('contract'));
     }
 }
