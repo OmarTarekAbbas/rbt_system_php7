@@ -74,7 +74,7 @@ class AttachmentController extends Controller
               return '<a target="_blank" href="'.url($Attachment->attachment_pdf).'">'.$Attachment->attachment_code.'</a>';
           })
             ->addColumn('contract', function (Attachment $Attachment) {
-              return '<a href="'.url('fullcontracts'.optional($Attachment->contract)->id).'">'.optional($Attachment->contract)->contract_code.' - '.optional($Attachment->contract)->contract_label.'</a>';
+              return '<a href="'.url('fullcontracts/'.optional($Attachment->contract)->id).'">'.optional($Attachment->contract)->contract_code.' - '.optional($Attachment->contract)->contract_label.'</a>';
           })
             ->addColumn('attachment_type', function (Attachment $Attachment) {
                 return $Attachment->attachment_type;
@@ -90,9 +90,6 @@ class AttachmentController extends Controller
             })
             ->addColumn('contract_expiry_date', function (Attachment $Attachment) {
               return $Attachment->contract_expiry_date;
-            })
-            ->addColumn('attachment_pdf', function (Attachment $Attachment) {
-                return '<a href="'.url($Attachment->attachment_pdf).'">Preview</a>';
             })
             ->addColumn('attachment_status', function (Attachment $Attachment) {
               return $Attachment->attachment_status;

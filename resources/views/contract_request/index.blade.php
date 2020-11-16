@@ -30,6 +30,10 @@ ContractRequests
                   <th style="width:18px"><input type="checkbox" onclick="select_all('contract_requests')" /></th>
                   <th>id</th>
                   <th>title</th>
+                  <th>first party</th>
+                  <th>second party</th>
+                  <th>second party type</th>
+                  <th>service type</th>
                   <th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
                 </tr>
               </thead>
@@ -79,6 +83,22 @@ ContractRequests
         {
           data: "title",
           name: "title"
+        },
+        {
+          data: "first_party_id",
+          name: "first_party_id"
+        },
+        {
+          data: "second_party_id",
+          name: "second_party_id"
+        },
+        {
+          data: "second_party_type_id",
+          name: "second_party_type_id"
+        },
+        {
+          data: "service_type_id",
+          name: "service_type_id"
         },
         {
           data: "action",

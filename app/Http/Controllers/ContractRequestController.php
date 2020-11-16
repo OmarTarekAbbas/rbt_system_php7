@@ -94,8 +94,20 @@ class ContractRequestController extends Controller
         ->addColumn('title', function (ContractRequest $contract_request) {
           return $contract_request->title;
         })
+        ->addColumn('first_party_id', function (ContractRequest $contract_request) {
+          return $contract_request->firstparty->first_party_title;
+        })
+        ->addColumn('second_party_id', function (ContractRequest $contract_request) {
+          return $contract_request->secondparty->second_party_title;
+        })
+        ->addColumn('second_party_type_id', function (ContractRequest $contract_request) {
+          return $contract_request->secondpartytype->second_party_type_title;
+        })
+        ->addColumn('service_type_id', function (ContractRequest $contract_request) {
+          return $contract_request->servicetype->service_type_title;
+        })
         ->addColumn('action', function (ContractRequest $contract_request) {
-            return view('contract_request.actions', compact('contract_request'));;
+            return view('contract_request.actions', compact('contract_request'));
         })
         ->escapeColumns([])
         ->make(true);
@@ -216,5 +228,17 @@ class ContractRequestController extends Controller
         $contractRequest = $this->contractRequestRepository->findOrfail($id);
 
         return view('contract_request.contractCreate', compact('contractRequest', 'first_parties', 'percentages', 'service_types', 'second_partys', 'countries', 'operators', 'contract_durations', 'templates','departments'));
+    }
+
+    /**
+     * list contract from contract request.
+     *
+     * @param    int $id
+     * @return  View
+     */
+    public function contractRequestsListContract($id)
+    {
+        $contract = $this->contractRequestRepository->findOrfail($id)->contracts;
+        return view('fullcontracts.view', compact('contract'));
     }
 }
