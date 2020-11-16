@@ -104,7 +104,7 @@ function datatable_draw_func(params) {
   $(".data_contract").dataTable().fnDestroy()
 
   var table = $('.data_contract').DataTable({
-    order: [ [7, 'desc'] ],
+    order: [ [10, 'desc'] ],
     "processing": true,
     "serverSide": true,
     "search": {
@@ -146,8 +146,6 @@ function datatable_draw_func(params) {
       data: "second_party",
       name: "second_party"
     },
-
-
     {
       data: 'second_party_type_id',
       name:'second_party_type.second_party_type_title'
@@ -174,7 +172,7 @@ function datatable_draw_func(params) {
     }
     ],
       "pageLength": 10,
-      stateSave: true
+      // stateSave: true
 
   });
   // $( ".paginate_button  [data-dt-idx='"+page+"']" ).trigger("click");
