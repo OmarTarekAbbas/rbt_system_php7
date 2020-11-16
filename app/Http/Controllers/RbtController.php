@@ -131,7 +131,7 @@ class RbtController extends Controller
                     return '--';
             })
             ->addColumn('action', function (Rbt $rbt) {
-                    return view('rbt.actions', compact('rbt'));
+                    return view('rbt.actions', compact('rbt'))->render();
             })
 
             ->escapeColumns([])
