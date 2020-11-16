@@ -172,7 +172,7 @@ function datatable_draw_func(params) {
     }
     ],
       "pageLength": 10,
-      // stateSave: true
+      stateSave: true
 
   });
   // $( ".paginate_button  [data-dt-idx='"+page+"']" ).trigger("click");
