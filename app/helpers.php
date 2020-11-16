@@ -99,7 +99,7 @@ function send_notification($message,$dep,$data){
   function ceo_data(){
     $ceo = User::select('*','users.id as id')->join('user_has_roles', 'users.id', '=', 'user_has_roles.user_id')
     ->join('roles','user_has_roles.role_id','=','roles.id')
-    ->where('roles.name','like','%ceo%')
+    ->where('roles.name','Ceo')
     ->first();
     if($ceo) {
       return $ceo;
