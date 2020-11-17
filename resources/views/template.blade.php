@@ -277,8 +277,10 @@
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
+            <li id="contract-index"><a href="{{url('contractrequests/create')}}">Create Contract Requests</a></li>
             <li id="contract-index"><a href="{{url('contractrequests')}}">Contract Requests</a></li>
             @if(get_action_icons('fullcontracts','get'))
+            <li id="contract-index"><a href="{{url('fullcontracts/create')}}">Create Contracts</a></li>
             <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
             @endif
             @if(get_action_icons('ContractTemplate','get'))
