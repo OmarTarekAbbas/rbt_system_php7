@@ -9,10 +9,6 @@ ContractRequests
 @include('errors')
 
 <style>
-  .testt {
-    display: inline;
-  }
-
   .chosen-container-single .chosen-single,
   .chosen-container-multi .chosen-choices {
     border-radius: 0.6rem !important;
@@ -147,9 +143,9 @@ ContractRequests
               <div class="width_m_auto">
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">Company Party type</label>
-                  <div class="col-sm-9 col-lg-9 controls" style="">
+                  <div class="col-sm-9 col-lg-9 controls">
                     @foreach(party_type() as $key => $value)
-                    <input type="radio" name="company_party_type" value="{{ $key }}" class="" style="">{{ $value }}
+                    <input type="radio" name="company_party_type" value="{{ $key }}" class="">{{ $value }}
                     @endforeach
                   </div>
                 </div>
@@ -437,7 +433,7 @@ ContractRequests
 
             </div>
             <div class="col-md-12">
-              <h1>FINANTAL INFO</h1>
+              <h1>FINANCIAL INFO</h1>
               <div class="width_m_auto">
 
                 <div class="form-group">
@@ -484,7 +480,7 @@ ContractRequests
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">Installment Period Details</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <textarea class="borderRadius w-100" style="width: 100%;" name="installment_period_details" cols="30" rows="10"></textarea>
+                    <textarea class="borderRadius" style="width: 100%;" name="installment_period_details" cols="30" rows="10"></textarea>
                   </div>
                 </div>
               </div>
