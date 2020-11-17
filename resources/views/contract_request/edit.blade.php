@@ -257,12 +257,12 @@ ContractRequests
 
                 <div class="form-group">
                   <label for="second_party_tc" class="col-xs-12 col-lg-3 control-label"> Client ID Image </label>
-                  <div class="col-xs-12 col-lg-8 controls">
+                  <div class="col-xs-9 col-sm-10 col-md-10 col-lg-8 controls">
                     <input type="file" name="client_id_image" id="client_id_image" placeholder="Client ID Image" class="form-control borderRadius">
                   </div>
 
                   @if ($contractRequest->client_id_image)
-                  <div class="col-xs-12 col-lg-1">
+                  <div class="col-xs-3 col-sm-2 col-md-2 col-lg-1 noPaddingPhone">
                     <a class="btn btn-success borderRadius" target="_blank" href="{{url($contractRequest->client_id_image)}}">preview</a>
                   </div>
                   @endif
@@ -270,12 +270,12 @@ ContractRequests
 
                 <div class="form-group">
                   <label for="second_party_tc" class="col-xs-12 col-lg-3 control-label"> Client TC</label>
-                  <div class="col-xs-12 col-lg-8 controls">
+                  <div class="col-xs-9 col-sm-10 col-md-10 col-lg-8 controls">
                     <input type="file" name="client_tc_image" id="client_tc_image" placeholder="Client TC" class="form-control borderRadius">
                   </div>
 
                   @if ($contractRequest->client_id_image)
-                  <div class="col-xs-12 col-lg-1">
+                  <div class="col-xs-3 col-sm-2 col-md-2 col-lg-1 noPaddingPhone">
                     <a class="btn btn-success borderRadius" target="_blank" href="{{url($contractRequest->client_tc_image)}}">preview</a>
                   </div>
                   @endif
@@ -283,12 +283,12 @@ ContractRequests
 
                 <div class="form-group">
                   <label for="second_party_tc" class="col-xs-12 col-lg-3 control-label"> Client CR</label>
-                  <div class="col-xs-12 col-lg-8 controls">
+                  <div class="col-xs-9 col-sm-10 col-md-10 col-lg-8 controls">
                     <input type="file" name="client_cr_image" id="client_cr_image" placeholder="Client CR" class="form-control borderRadius">
                   </div>
 
                   @if ($contractRequest->client_id_image)
-                  <div class="col-xs-12 col-lg-1">
+                  <div class="col-xs-3 col-sm-2 col-md-2 col-lg-1 noPaddingPhone">
                     <a class="btn btn-success borderRadius" target="_blank" href="{{url($contractRequest->client_cr_image)}}">preview</a>
                   </div>
                   @endif
