@@ -9,6 +9,7 @@ use App\ContractRenew;
 use App\ContractRequest;
 use App\Observers\ContractObserver;
 use App\Constants\FullApproveStatus;
+use App\Observers\ContractItemObserver;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\ContractRenewObserver;

@@ -52,6 +52,8 @@ class SendNotifyEmailBeforeContractEnd extends Command
         $this->sendEmail(explode(',',setting('notifiy_contract_emails')), $data, $subject);
         $this->sendNotifyToCeo($data);
       }
+
+      echo "contract notify done";
     }
 
     /**
@@ -99,5 +101,6 @@ class SendNotifyEmailBeforeContractEnd extends Command
       $notification->link = $data['url'];
       $notification->seen = 0;
       $notification->save();
+
     }
 }

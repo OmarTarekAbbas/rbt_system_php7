@@ -13,9 +13,9 @@ class AddContractCodeToContractRequest extends Migration
      */
     public function up()
     {
-      Schema::table('contract_requests', function (Blueprint $table) {
-	  		$table->string('contract_code', 60)->default('#CODE');
-      });
+      // Schema::table('contract_requests', function (Blueprint $table) {
+	  	// 	$table->string('contract_code', 60)->default('#CODE');
+      // });
     }
 
     /**
