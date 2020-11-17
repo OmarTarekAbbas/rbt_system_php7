@@ -9,8 +9,10 @@ use App\ContractItem;
 class ContractItemObserver
 {
     /**
-     * Method saved
-     * function work after save contract
+     * Method created
+     *
+     * @param ContractItem $contractItem
+     *
      * @return void
      */
     public function created(ContractItem $contractItem)

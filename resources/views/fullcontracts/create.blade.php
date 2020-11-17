@@ -96,8 +96,8 @@
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> First Party ? <span class="asterix"> *
                     </span> </label>
-                  <input type="checkbox" class="radio_check" value="1" checked="checked" name='first_party_select' /> Yes
-                  <input type="checkbox" class="radio_check" value="0" name='first_party_select' /> No
+                  <input type="checkbox" class="radio_check first_party_select_yes" value="1" checked="checked" name='first_party_select' /> Yes
+                  <input type="checkbox" class="radio_check first_party_select_no" value="0" name='first_party_select' /> No
                 </div>
 
                 <div class="form-group  ">
@@ -475,6 +475,41 @@
 </script>
 
 <script>
+  //init value to carry one if first part select checked Yes and zero if Checked No
+  var first_part_select_type = 1;
+  if($('.first_party_select_yes').prop('checked') == false) {
+    first_part_select_type = 0
+  }
+  $('.first_party_select_yes').click(function(){
+    if($(this).prop('checked') == true) {
+      first_part_select_type = 1
+    } else {
+      first_part_select_type = 0
+    }
+    var percent = parseInt($('#first_party_percentage').find('option:selected').text())
+    if(!first_part_select_type) {
+      percent = 100 - percent;
+    }
+    setAutoCompleteValue('first_part_percent', percent + '%')
+    setAutoCompleteValue('second_part_percent', (100 - percent) + '%')
+  })
+  $('.first_party_select_no').click(function(){
+    if($(this).prop('checked') == true) {
+      first_part_select_type = 0
+    } else {
+      first_part_select_type = 1
+    }
+    var percent = parseInt($('#first_party_percentage').find('option:selected').text())
+    if(!first_part_select_type) {
+      percent = 100 - percent;
+    }
+    setAutoCompleteValue('first_part_percent', percent + '%')
+    setAutoCompleteValue('second_part_percent', (100 - percent) + '%')
+  })
+
+</script>
+
+<script>
   $('#template_id').change(function(e) {
     var id = $('#template_id').val();
     $.ajax({
@@ -509,10 +544,13 @@
   })
 
   function initAutoCompleteTemplete() {
-    setAutoCompleteValue('signed_date', moment($('#signed_date_input').val(), "YYYY-MM-DD").locale('ar').format('YYYY/MM/DD'))
-    setAutoCompleteValue('day_name', moment($('#signed_date_input').val(), "YYYY-MM-DD").locale('ar').format('dddd'))
+    setAutoCompleteValue('signed_date', moment($('#signed_date_input').val(), "DD-MM-YYYY").locale('ar').format('YYYY/MM/DD'))
+    setAutoCompleteValue('day_name', moment($('#signed_date_input').val(), "DD-MM-YYYY").locale('ar').format('dddd'))
 
     var percent = parseInt($('#first_party_percentage').find('option:selected').text())
+    if(!first_part_select_type) {
+      percent = 100 - percent;
+    }
     setAutoCompleteValue('first_part_percent', percent + '%')
     setAutoCompleteValue('second_part_percent', (100 - percent) + '%')
 
@@ -658,6 +696,9 @@
 
   $('#first_party_percentage').change(function() {
     var percent = parseInt($(this).find('option:selected').text())
+    if(!first_part_select_type) {
+      percent = 100 - percent;
+    }
     setAutoCompleteValue('first_part_percent', percent + '%')
     setAutoCompleteValue('second_part_percent', (100 - percent) + '%')
   })
@@ -668,8 +709,8 @@
   })
 
   $('#signed_date_input').change(function() {
-    setAutoCompleteValue('signed_date', moment($('#signed_date_input').val(), "YYYY-MM-DD").locale('ar').format('YYYY/MM/DD'))
-    setAutoCompleteValue('day_name', moment($('#signed_date_input').val(), "YYYY-MM-DD").locale('ar').format('dddd'))
+    setAutoCompleteValue('signed_date', moment($('#signed_date_input').val(), "DD-MM-YYYY").locale('ar').format('YYYY/MM/DD'))
+    setAutoCompleteValue('day_name', moment($('#signed_date_input').val(), "DD-MM-YYYY").locale('ar').format('dddd'))
   })
 
   function setAutoCompleteValue(input, value) {
