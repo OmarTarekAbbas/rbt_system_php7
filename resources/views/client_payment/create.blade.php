@@ -53,8 +53,10 @@ ClientPayments
             <div class="form-group ">
               <label class="col-sm-3 col-lg-2 control-label">Month</label>
               <div class="col-sm-9 col-lg-10 controls">
-                <select class="form-control chosen" data-placeholder="Choose a month" name="month[]" multiple>
-                  @for($month = 1 ; $month <= 12 ; $month++) <option value="{{$month}}">{{date("F", strtotime("$month/1/1"))}}</option>
+                <select class="form-control chosen" id="group_select" data-placeholder="Choose a month" name="month[]" multiple >
+                <option id="select_all" value="all">All</option>
+                  @for($month = 1 ; $month <= 12 ; $month++)
+                  <option value="{{date("F", strtotime("$month/1/1"))}}">{{date("F", strtotime("$month/1/1"))}}</option>
                     @endfor
                 </select>
               </div>
@@ -118,7 +120,20 @@ ClientPayments
   }
 </script>
 <script>
-  $('#content').addClass('active');
-  $('#content-create').addClass('active');
+ $('#clientpayments').addClass('active');
+  $('#clientpayments-index').addClass('active');
 </script>
+<!-- <script>
+$("select").on("click", function(){
+
+  if ($(this).find(":selected").text() == "Select All"){
+    if ($(this).attr("data-select") == "false")
+      $(this).attr("data-select", "true").find("option").not($('#select_all')).prop("selected", true);
+    else
+      $(this).attr("data-select", "false").find("option").not($('#select_all')).prop("selected", false);
+  }
+});
+
+</script> -->
+
 @stop

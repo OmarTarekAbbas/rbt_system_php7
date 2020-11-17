@@ -55,7 +55,9 @@ class ContractRequestService
         $request = array_merge($request,[
           'delivered_date' => date('Y-m-d',strtotime($request['delivered_date'])),
           "operator_title" => implode(",", $request['operator_title']),
-          "country_title"  => implode(",", $request['country_title'])
+          "country_title"  => implode(",", $request['country_title']),
+          "content_type"  => implode(",", $request['content_type']),
+          "content_storage"  => implode(",", $request['content_storage'])
         ]);
 
         if (isset($request['client_id_image'])) {

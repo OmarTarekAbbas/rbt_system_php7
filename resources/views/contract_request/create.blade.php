@@ -9,10 +9,6 @@ ContractRequests
 @include('errors')
 
 <style>
-  .testt {
-    display: inline;
-  }
-
   .chosen-container-single .chosen-single,
   .chosen-container-multi .chosen-choices {
     border-radius: 0.6rem !important;
@@ -147,9 +143,9 @@ ContractRequests
               <div class="width_m_auto">
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">Company Party type</label>
-                  <div class="col-sm-9 col-lg-9 controls" style="">
+                  <div class="col-sm-9 col-lg-9 controls">
                     @foreach(party_type() as $key => $value)
-                    <input type="radio" name="company_party_type" value="{{ $key }}" class="" style="">{{ $value }}
+                    <input type="radio" name="company_party_type" value="{{ $key }}" class="">{{ $value }}
                     @endforeach
                   </div>
                 </div>
@@ -352,7 +348,7 @@ ContractRequests
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">content type</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <select class="form-control chosen borderRadius" data-placeholder="Choose a Content Type" name="content_type">
+                    <select class="form-control chosen borderRadius" data-placeholder="Choose a Content Type" multiple name="content_type[]">
                       <option value=""></option>
                       @foreach(content_type() as $key => $value)
                       <option value="{{$key}}">{{$value}}</option>
@@ -364,7 +360,7 @@ ContractRequests
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">Content Storage</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <select class="form-control chosen borderRadius" data-placeholder="Choose a Content Storage" name="content_storage">
+                    <select class="form-control chosen borderRadius" data-placeholder="Choose a Content Storage" multiple name="content_storage[]">
                       <option value=""></option>
                       @foreach(content_storage() as $key => $value)
                       <option value="{{$key}}">{{$value}}</option>
@@ -395,8 +391,8 @@ ContractRequests
                 </div>
 
                 <div class="form-group">
-                  <label for="first_party_joining_date" class="col-xs-12 col-md-3 col-lg-3 control-label"> Delivered Date </label>
-                  <div class="input-group date date-picker col-xs-12 col-md-9 col-lg-9 controls delivered_date" data-date-format="dd-mm-yyyy">
+                  <label for="first_party_joining_date" class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label"> Delivered Date </label>
+                  <div class="input-group date date-picker col-xs-12 col-sm-12 col-md-9 col-lg-9 controls delivered_date" data-date-format="dd-mm-yyyy">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     <input type="text" name="delivered_date" id="delivered_date" autocomplete="off" placeholder="first party joining date" data-date-format="dd-mm-yyyy" class="form-control">
                   </div>
@@ -437,7 +433,7 @@ ContractRequests
 
             </div>
             <div class="col-md-12">
-              <h1>FINANTAL INFO</h1>
+              <h1>FINANCIAL INFO</h1>
               <div class="width_m_auto">
 
                 <div class="form-group">
@@ -484,7 +480,7 @@ ContractRequests
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">Installment Period Details</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <textarea class="borderRadius w-100" style="width: 100%;" name="installment_period_details" cols="30" rows="10"></textarea>
+                    <textarea class="borderRadius" style="width: 100%;" name="installment_period_details" cols="30" rows="10"></textarea>
                   </div>
                 </div>
               </div>

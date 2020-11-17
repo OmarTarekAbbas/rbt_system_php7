@@ -97,8 +97,8 @@
                 <div class="form-group">
                   <label for="ipt" class=" control-label "> First Party ? <span class="asterix"> *
                     </span> </label>
-                  <input type="checkbox" class="radio_check" value="1" checked="checked" name='first_party_select' @if($contractRequest->company_party_type == "First") selected @endif/> Yes
-                  <input type="checkbox" class="radio_check" value="0" name='first_party_select' @if($contractRequest->company_party_type == "Second  ") selected @endif/> No
+                  <input type="checkbox" class="radio_check" value="1" name='first_party_select' @if($contractRequest->company_party_type == "First") checked @endif/> Yes
+                  <input type="checkbox" class="radio_check" value="0" name='first_party_select' @if($contractRequest->company_party_type == "Second") checked @endif/> No
                 </div>
 
                 <div class="form-group">
@@ -133,7 +133,7 @@
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> first part character name (بصفته) </label>
-                  <input type="text" id="first_part_character_input" value="{{$contractRequest->company_authorized_signatory_name}}" class="form-control" name='first_part_character' />
+                  <input type="text" id="first_part_character_input" value="{{$contractRequest->company_authorized_signatory_position}}" class="form-control" name='first_part_character' />
                 </div>
 
                 <div class="form-group  ">
@@ -183,7 +183,7 @@
                   <select name='second_party_type_id' rows='5' id='second_party_type_cli' class="form-control" required>
                     <option value="">-- Please Select --</option>
                     @foreach($second_partys as $second_party)
-                    <option value="{{$second_party->id}}"@if($contractRequest->firstparty->id == $second_party->id) selected @endif>{{$second_party->second_party_type_title}}
+                    <option value="{{$second_party->id}}"@if($contractRequest->secondpartytype->id == $second_party->id) selected @endif>{{$second_party->second_party_type_title}}
                     </option>
                     @endforeach
                   </select>
@@ -202,7 +202,7 @@
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> second part character name (بصفته) </label>
-                  <input type="text" id="second_part_character_input" class="form-control" name='second_part_character' value="{{$contractRequest->client_authorized_signatory_name}}"/>
+                  <input type="text" id="second_part_character_input" class="form-control" name='second_part_character' value="{{$contractRequest->client_authorized_signatory_position}}"/>
                 </div>
 
                 <div class="form-group  ">
@@ -227,7 +227,7 @@
 
                 <div class="form-group  ">
                   <label for="ipt" class=" control-label "> second part phone </label>
-                  <input type="text" id="second_part_phone_input" class="form-control" name='second_part_phone' value="{{$contractRequest->client_project_manager_mobile}}"/>
+                  <input type="text" id="second_part_phone_input" class="form-control" name='second_part_phone' value="{{$contractRequest->client_authorized_signatory_mobile}}"/>
                 </div>
 
                 <div class="form-group  ">

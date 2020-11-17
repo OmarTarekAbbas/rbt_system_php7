@@ -287,7 +287,9 @@ class RouteController extends Controller
             $route['function_name'] = $method;
             $route['route_name'] = $value->getName();
 
-            Route::create($route);
+            if($controller == "ContractRequestController" || $controller == "ClientPaymentController"){
+              Route::create($route);
+            }
 
           }
           return 'done!';

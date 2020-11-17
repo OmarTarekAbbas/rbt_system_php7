@@ -138,11 +138,11 @@ class ContractRequestController extends Controller
      */
     public function store(ContractRequestRequest $request)
     {
-        $this->contractRequestService->handle($request->validated());
+        $contractRequest = $this->contractRequestService->handle($request->validated());
 
         $request->session()->flash('success', 'ContractRequest created successfull');
 
-        return redirect('contractrequests');
+        return redirect("contractrequests/$contractRequest->id");
     }
 
     /**
@@ -181,11 +181,11 @@ class ContractRequestController extends Controller
      */
     public function update($id, ContractRequestRequest $request)
     {
-        $this->contractRequestService->handle($request->validated(), $id);
+        $contractRequest = $this->contractRequestService->handle($request->validated(), $id);
 
         $request->session()->flash('success', 'updated successfully');
 
-        return redirect('contractrequests');
+        return redirect("contractrequests/$contractRequest->id");
     }
 
 
