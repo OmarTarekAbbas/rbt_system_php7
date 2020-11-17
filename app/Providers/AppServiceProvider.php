@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         Contract::observe(ContractObserver::class);
         ContractRenew::observe(ContractRenewObserver::class);
         ContractItem::observe(ContractItemObserver::class);
-        ContractRequest::observe(ContractRequestObserver::class);
+        // ContractRequest::observe(ContractRequestObserver::class);
     }
 
     /**

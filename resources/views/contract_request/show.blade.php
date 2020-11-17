@@ -62,8 +62,33 @@ contract request
                 </tr>
 
                 <tr>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">country  </td>
+                  <td>{{$contractRequest->country_title}} </td>
+                </tr>
+
+                <tr>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">operator  </td>
+                  <td>{{$contractRequest->operator_title}} </td>
+                </tr>
+
+                <tr>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">service type</td>
+                  <td>{{$contractRequest->servicetype->service_type_title}} </td>
+                </tr>
+
+                <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">title</td>
                   <td>{{$contractRequest->title}} </td>
+                </tr>
+
+                <tr>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">objective</td>
+                  <td>{{$contractRequest->objective}} </td>
+                </tr>
+
+                <tr>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">first party</td>
+                  <td>{{$contractRequest->firstparty->first_party_title}} </td>
                 </tr>
 
                 <tr>
@@ -316,31 +341,6 @@ contract request
                 <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">legal officer email</td>
                   <td>{{$contractRequest->legal_officer_email}} </td>
-                </tr>
-
-                <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">objective</td>
-                  <td>{{$contractRequest->objective}} </td>
-                </tr>
-
-                <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">country </td>
-                  <td>{{$contractRequest->country_title}} </td>
-                </tr>
-
-                <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">operator </td>
-                  <td>{{$contractRequest->operator_title}} </td>
-                </tr>
-
-                <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">service type</td>
-                  <td>{{$contractRequest->servicetype->service_type_title}} </td>
-                </tr>
-
-                <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">first party</td>
-                  <td>{{$contractRequest->firstparty->first_party_title}} </td>
                 </tr>
 
                 <tr>

@@ -3,8 +3,10 @@
 
 namespace App\Http\Services;
 
-use App\Http\Repository\ContractRequestRepository;
+use App\Firstpartie;
+use App\ContractRequest;
 use Illuminate\Http\UploadedFile;
+use App\Http\Repository\ContractRequestRepository;
 
 class ContractRequestService
 {
@@ -25,6 +27,7 @@ class ContractRequestService
      */
     private $contractRequestRepository;
 
+
     /**
      * __construct
      *
@@ -42,16 +45,19 @@ class ContractRequestService
      */
     public function handle($request, $contractRequestId = null)
     {
-        $contractRequest = $this->contractRequestRepository;
 
-        if($contractRequestId) {
-            $contractRequest = $this->contractRequestRepository->find($contractRequestId);
+        $contractRequest = new ContractRequest();
+
+        if ($contractRequestId) {
+          $contractRequest = ContractRequest::find($contractRequestId);
         }
 
         $request = array_merge($request,[
           'delivered_date' => date('Y-m-d',strtotime($request['delivered_date'])),
           "operator_title" => implode(",", $request['operator_title']),
-          "country_title"  => implode(",", $request['country_title'])
+          "country_title"  => implode(",", $request['country_title']),
+          "content_type"  => implode(",", $request['content_type']),
+          "content_storage"  => implode(",", $request['content_storage'])
         ]);
 
         if (isset($request['client_id_image'])) {
@@ -71,11 +77,22 @@ class ContractRequestService
             "client_cr_image"  =>  $this->handleFile($request['client_cr_image'] , self::Client_CR)
           ]);
         }
+
         $contractRequest->fill($request);
 
         $contractRequest->save();
 
-    	return $contractRequest;
+        $serviceTypeId = $request['service_type_id'];
+        $first_party_title = Firstpartie::find($request['first_party_id'])->first_party_title;
+        $second_party_id = $request['second_party_id'];
+        $second_party_type_id = $request['second_party_type_id'];
+        $contract_id = $contractRequest->id;
+
+        $contractRequest->contract_code = $serviceTypeId.'-'.$first_party_title.'-'.$second_party_id.'-'.$second_party_type_id.'-'.$contract_id;
+
+        $contractRequest->save();
+
+    	  return $contractRequest;
     }
 
      /**

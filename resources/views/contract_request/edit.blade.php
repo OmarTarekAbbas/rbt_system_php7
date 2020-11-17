@@ -27,7 +27,8 @@ ContractRequests
           </div>
         </div>
         <div class="box-content">
-          <form method='POST' class="width_m_auto form-horizontal" action='{!! url("contractrequests/$contractRequest->id")!!}' enctype="multipart/form-data">
+          <form method='POST' class="width_m_auto form-horizontal"
+            action='{!! url("contractrequests/$contractRequest->id")!!}' enctype="multipart/form-data">
             @csrf
             @method('patch')
             <div class="col-md-12">
@@ -39,7 +40,8 @@ ContractRequests
                     <select class="form-control chosen borderRadius" data-placeholder="Choose a Contract Type" name="contract_type">
                       <option value=""></option>
                       @foreach(contract_type() as $key => $value)
-                      <option value="{{$key}}" @if($contractRequest->contract_type == $value) selected @endif>{{$value}}</option>
+                      <option value="{{$key}}" @if($contractRequest->contract_type == $value) selected @endif>{{$value}}
+                      </option>
                       @endforeach
                     </select>
                   </div>
@@ -53,7 +55,8 @@ ContractRequests
                     <select class="form-control chosen borderRadius" data-placeholder="Choose a Contract Content Type" name="contract_content_type">
                       <option value=""></option>
                       @foreach(contract_content_type() as $key => $value)
-                      <option value="{{$key}}" @if($contractRequest->contract_content_type == $value) selected @endif>{{$value}}</option>
+                      <option value="{{$key}}" @if($contractRequest->contract_content_type == $value) selected
+                        @endif>{{$value}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -67,7 +70,10 @@ ContractRequests
                     <select class="form-control chosen borderRadius" data-placeholder="Choose a Country" multiple name="country_title[]">
                       <option value=""></option>
                       @foreach($countries as $country)
-                      <option value="{{$country->title}}" @if(in_array($country->title,explode(",",$contractRequest->country_title))) selected @endif>{{$country->title}}</option>
+                      <option value="{{$country->title}}"
+                      @if(in_array($country->title,explode(",",$contractRequest->country_title))) selected @endif>
+                      {{$country->title}}
+                      </option>
                       @endforeach
                     </select>
                   </div>
@@ -81,7 +87,9 @@ ContractRequests
                     <select class="form-control chosen borderRadius" data-placeholder="Choose a Operator" multiple name="operator_title[]">
                       <option value=""></option>
                       @foreach($operators as $operator)
-                      <option value="{{$operator->title}}" @if(in_array($operator->title,explode(",",$contractRequest->operator_title))) selected @endif>{{$operator->title}}</option>
+                      <option value="{{$operator->title}}" @if(in_array($operator->
+                        title,explode(",",$contractRequest->operator_title))) selected @endif>{{$operator->title}}
+                      </option>
                       @endforeach
                     </select>
                   </div>
@@ -95,7 +103,8 @@ ContractRequests
                     <select class="form-control chosen borderRadius" data-placeholder="Choose a Service Type" name="service_type_id">
                       <option value=""></option>
                       @foreach($service_types as $type)
-                      <option value="{{$type->id}}" @if($contractRequest->service_type_id == $type->id) selected @endif>{{$type->service_type_title}}</option>
+                      <option value="{{$type->id}}" @if($contractRequest->service_type_id == $type->id) selected
+                        @endif>{{$type->service_type_title}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -131,7 +140,8 @@ ContractRequests
                     <select class="form-control chosen borderRadius" data-placeholder="Choose a Company" name="first_party_id">
                       <option value=""></option>
                       @foreach($first_parties as $first_party)
-                      <option value="{{$first_party->id}}" @if($contractRequest->first_party_id == $first_party->id) selected @endif>{{$first_party->first_party_title}}</option>
+                      <option value="{{$first_party->id}}" @if($contractRequest->first_party_id == $first_party->id)
+                        selected @endif>{{$first_party->first_party_title}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -370,10 +380,10 @@ ContractRequests
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">content type</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <select class="form-control chosen borderRadius" data-placeholder="Choose a Content Type" name="content_type">
+                    <select class="form-control chosen borderRadius" data-placeholder="Choose a Content Type" multiple name="content_type[]">
                       <option value=""></option>
                       @foreach(content_type() as $key => $value)
-                      <option value="{{$key}}" @if($contractRequest->content_type == $value) selected @endif>{{$value}}</option>
+                      <option value="{{$key}}" @if(in_array($value,explode(",",$contractRequest->content_type))) selected @endif>{{$value}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -382,10 +392,10 @@ ContractRequests
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">Content Storage</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <select class="form-control chosen borderRadius" data-placeholder="Choose a Content Storage" name="content_storage">
+                    <select class="form-control chosen borderRadius" data-placeholder="Choose a Content Storage" multiple name="content_storage[]">
                       <option value=""></option>
                       @foreach(content_storage() as $key => $value)
-                      <option value="{{$key}}" @if($contractRequest->content_storage == $value) selected @endif>{{$value}}</option>
+                      <option value="{{$key}}" @if(in_array($value,explode(",",$contractRequest->content_storage))) selected @endif>{{$value}}</option>
                       @endforeach
                     </select>
                   </div>
