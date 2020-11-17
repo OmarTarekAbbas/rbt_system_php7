@@ -40,3 +40,8 @@ Route::get("change/contract/code",function(){
     $contract->save();
   }
 });
+Route::get('read_notify/{id}', function ($id) {
+  \App\Notification::find($id)->update([
+      'seen' => 1,
+  ]);
+});
