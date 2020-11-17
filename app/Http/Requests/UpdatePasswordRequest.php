@@ -27,7 +27,7 @@ class UpdatePasswordRequest extends FormRequest
             "current-password" => [
                 "required",
                 function ($attribute, $value, $fail) {
-                    if (!\Hash::check($value, auth()->user()->password)) {
+                    if ((auth()->check() && !\Hash::check($value, auth()->user()->password)) || (session()->has('client') && !\Hash::check($value, session()->get('client')->password))) {
                         $fail("Error in your old password");
                     }
                 }

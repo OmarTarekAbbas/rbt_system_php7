@@ -57,6 +57,10 @@ class SecondPartyStoreService
       $second_party_seal = $this->UploaderService->upload($request['second_party_seal'], '/docs/signature');
       $request['second_party_seal'] = basename($second_party_seal);
     }
+    if (isset($request['image'])) {
+      $user_image = $this->UploaderService->upload($request['image'], '/second_party');
+      $request['image'] = $user_image;
+    }
 
         return $this->SecondPartyRepository->create($request);
     }
