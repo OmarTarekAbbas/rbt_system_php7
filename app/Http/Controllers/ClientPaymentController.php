@@ -115,6 +115,13 @@ class ClientPaymentController extends Controller
         return view('client_payment.create', compact('second_partys', 'currenies'));
     }
 
+    public function show($id)
+    {
+      $clientPayment = $this->clientPaymentRepository->findOrfail($id);
+      // dd($clientPayment);
+      return view('client_payment.view', compact('clientPayment'));
+    }
+
     /**
      * store ClientPayment data
      *
@@ -156,7 +163,7 @@ class ClientPaymentController extends Controller
         $this->clientPaymentService->handle($request->validated(), $id);
 
         $request->session()->flash('success', 'updated successfully');
-
+        // dd();
         return redirect('clientpayments');
     }
 
