@@ -63,6 +63,11 @@
   grid-gap: 1rem;
 }
 
+.delivered_date {
+  width: 73%;
+  margin: 0 auto;
+}
+
 @media (min-width: 320px) and (max-width: 359.9px) {
   .noPaddingPhone {
     padding-right: 0 !important;

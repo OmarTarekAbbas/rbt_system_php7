@@ -160,25 +160,25 @@ ContractRequests
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">name</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <input type="text" class="form-control" name="company_authorized_signatory_name">
+                    <input type="text" class="form-control borderRadius" name="company_authorized_signatory_name">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">position</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <input type="text" class="form-control" name="company_authorized_signatory_position">
+                    <input type="text" class="form-control borderRadius" name="company_authorized_signatory_position">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">mobile</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <input type="text" class="form-control" name="company_authorized_signatory_mobile">
+                    <input type="text" class="form-control borderRadius" name="company_authorized_signatory_mobile">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">email</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <input type="email" class="form-control" name="company_authorized_signatory_email">
+                    <input type="email" class="form-control borderRadius" name="company_authorized_signatory_email">
                   </div>
                 </div>
               </div>
@@ -189,25 +189,25 @@ ContractRequests
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">name</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <input type="text" class="form-control" name="company_project_manager_name">
+                    <input type="text" class="form-control borderRadius" name="company_project_manager_name">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">position</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <input type="text" class="form-control" name="company_project_manager_position">
+                    <input type="text" class="form-control borderRadius" name="company_project_manager_position">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">mobile</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <input type="text" class="form-control" name="company_project_manager_mobile">
+                    <input type="text" class="form-control borderRadius" name="company_project_manager_mobile">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">email</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <input type="email" class="form-control" name="company_project_manager_email">
+                    <input type="email" class="form-control borderRadius" name="company_project_manager_email">
                   </div>
                 </div>
               </div>
@@ -222,7 +222,7 @@ ContractRequests
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">Client Type</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <select class="form-control" id="client_type" data-placeholder="Choose a Client Type" name="second_party_type_id">
+                  <select class="form-control borderRadius" id="client_type" data-placeholder="Choose a Client Type" name="second_party_type_id">
                     <option value=""></option>
                     @foreach($second_party_types as $second_party_type)
                     <option value="{{$second_party_type->id}}">
@@ -235,7 +235,7 @@ ContractRequests
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">Client name</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <select class="form-control" id="client_name" data-placeholder="Choose a Client Name" name="second_party_id">
+                  <select class="form-control borderRadius" id="client_name" data-placeholder="Choose a Client Name" name="second_party_id">
                   </select>
                 </div>
               </div>
@@ -244,7 +244,7 @@ ContractRequests
                 <label class="col-sm-3 col-lg-3 control-label">Client Party type</label>
                 <div class="col-sm-9 col-lg-9 controls">
                   @foreach(party_type() as $key => $value)
-                  <input type="radio" name="client_party_type" value="{{ $key }}"  style=" "> {{ $value }}
+                  <input type="radio" name="client_party_type" value="{{ $key }}"  class="borderRadius"> {{ $value }}
                   @endforeach
                 </div>
               </div>
@@ -252,35 +252,35 @@ ContractRequests
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">Client ID</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <input type="text" class="form-control" name="client_id">
+                  <input type="text" class="form-control borderRadius" name="client_id">
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="second_party_tc" class="col-xs-12 col-lg-3 control-label"> Client ID Image </label>
                 <div class="col-xs-12 col-lg-9 controls">
-                  <input type="file" name="client_id_image" id="client_id_image" placeholder="Client ID Image" class="form-control">
+                  <input type="file" name="client_id_image" id="client_id_image" placeholder="Client ID Image" class="form-control borderRadius">
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="second_party_tc" class="col-xs-12 col-lg-3 control-label"> Client TC</label>
                 <div class="col-xs-12 col-lg-9 controls">
-                  <input type="file" name="client_tc_image" id="client_tc_image" placeholder="Client TC" class="form-control">
+                  <input type="file" name="client_tc_image" id="client_tc_image" placeholder="Client TC" class="form-control borderRadius">
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="second_party_tc" class="col-xs-12 col-lg-3 control-label"> Client CR</label>
                 <div class="col-xs-12 col-lg-9 controls">
-                  <input type="file" name="client_cr_image" id="client_cr_image" placeholder="Client CR" class="form-control">
+                  <input type="file" name="client_cr_image" id="client_cr_image" placeholder="Client CR" class="form-control borderRadius">
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">Client Adress</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <textarea name="client_address" class="form-control" cols="30" rows="10"></textarea>
+                  <textarea name="client_address" class="form-control borderRadius" cols="30" rows="10"></textarea>
                 </div>
               </div>
               </div>
@@ -291,25 +291,25 @@ ContractRequests
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">name</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <input type="text" class="form-control" name="client_authorized_signatory_name">
+                  <input type="text" class="form-control borderRadius" name="client_authorized_signatory_name">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">position</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <input type="text" class="form-control" name="client_authorized_signatory_position">
+                  <input type="text" class="form-control borderRadius" name="client_authorized_signatory_position">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">mobile</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <input type="text" class="form-control" name="client_authorized_signatory_mobile">
+                  <input type="text" class="form-control borderRadius" name="client_authorized_signatory_mobile">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">email</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <input type="email" class="form-control" name="client_authorized_signatory_email">
+                  <input type="email" class="form-control borderRadius" name="client_authorized_signatory_email">
                 </div>
               </div>
               </div>
@@ -320,25 +320,25 @@ ContractRequests
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">name</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <input type="text" class="form-control" name="client_project_manager_name">
+                  <input type="text" class="form-control borderRadius" name="client_project_manager_name">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">position</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <input type="text" class="form-control" name="client_project_manager_position">
+                  <input type="text" class="form-control borderRadius" name="client_project_manager_position">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">mobile</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <input type="text" class="form-control" name="client_project_manager_mobile">
+                  <input type="text" class="form-control borderRadius" name="client_project_manager_mobile">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">email</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <input type="email" class="form-control" name="client_project_manager_email">
+                  <input type="email" class="form-control borderRadius" name="client_project_manager_email">
                 </div>
               </div>
               </div>
@@ -376,27 +376,27 @@ ContractRequests
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">Tracks Count</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <input type="text" class="form-control" name="tracks_count">
+                  <input type="text" class="form-control borderRadius" name="tracks_count">
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">Clips Count</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <input type="text" class="form-control" name="clips_count">
+                  <input type="text" class="form-control borderRadius" name="clips_count">
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-sm-3 col-lg-3 control-label">Images Count</label>
                 <div class="col-sm-9 col-lg-9 controls">
-                  <input type="text" class="form-control" name="images_count">
+                  <input type="text" class="form-control borderRadius" name="images_count">
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="first_party_joining_date" class="col-xs-12 col-lg-3 control-label"> Delivered Date </label>
-                <div class="input-group date date-picker col-xs-12 col-lg-9 controls" data-date-format="dd-mm-yyyy">
+                <div class="input-group date date-picker col-xs-12 col-lg-9 controls delivered_date" data-date-format="dd-mm-yyyy">
                   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                   <input type="text" name="delivered_date" id="delivered_date" autocomplete="off" placeholder="first party joining date" data-date-format="dd-mm-yyyy" class="form-control">
                 </div>
