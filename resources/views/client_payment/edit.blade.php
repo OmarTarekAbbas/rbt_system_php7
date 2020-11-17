@@ -16,7 +16,7 @@ ClientPayments
           </div>
         </div>
         <div class="box-content">
-          <form method='POST' class="width_m_auto form-horizontal" action='{!! url("clientpayments")!!}' enctype="multipart/form-data">
+          <form method='POST' class="width_m_auto form-horizontal" action='{{ url("clientpayments/".$clientPayment->id)}}' enctype="multipart/form-data">
             @csrf
             <div class="form-group ">
                 <label class="col-sm-3 col-lg-2 control-label">Provider</label>
@@ -50,12 +50,20 @@ ClientPayments
               </div>
             </div>
 
+                <?php
+                $all_month = "January,February,March,April,May,June,July,August,September,October,November,December";
+                ?>
             <div class="form-group ">
               <label class="col-sm-3 col-lg-2 control-label">Month</label>
               <div class="col-sm-9 col-lg-10 controls">
                 <select class="form-control chosen" data-placeholder="Choose a month" name="month[]" multiple>
-                  @for($month = 1 ; $month <= 12 ; $month++) <option @if(in_array($month, (array)$clientPayment->month)) selected="selected" @endif  value="{{$month}}">{{date("F", strtotime("$month/1/1"))}}</option>
-                    @endfor
+                  @if($clientPayment->month == $all_month)
+                  <option id="select_all"   @if($clientPayment->month == $all_month) selected="selected" @endif  value="all">All</option>
+                  @else
+                  @for($month = 1 ; $month <= 12 ; $month++)
+                      <option @if(in_array(date("F", strtotime("$month/1/1")),explode(",", $clientPayment->month))) selected="selected" @endif  value="{{date("F", strtotime("$month/1/1"))}}">{{date("F", strtotime("$month/1/1"))}}</option>
+                      @endfor
+                  @endif
                 </select>
               </div>
             </div>
@@ -118,7 +126,7 @@ ClientPayments
   }
 </script>
 <script>
-  $('#content').addClass('active');
-  $('#content-create').addClass('active');
+$('#clientpayments').addClass('active');
+  $('#clientpayments-index').addClass('active');
 </script>
 @stop
