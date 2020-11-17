@@ -33,11 +33,21 @@ class ClientPaymentService
         if($clientPaymentId) {
             $clientPayment = $this->clientPaymentRepository->find($clientPaymentId);
         }
+        if($request['month'][0]== "all"){
+          $months_array = [];
+          for($month = 1 ; $month <= 12 ; $month++){
+            $months_array []= date("F", strtotime("$month/1/1"));
+          }
+          $request = array_merge($request,[
+            'month' => implode(',', $months_array)
+          ]);
+        }else{
+            $request = array_merge($request,[
+              'month' => implode(',', $request['month'])
+            ]);
+        }
 
-        $request = array_merge($request,[
-          'month' => implode(',', $request['month'])
-        ]);
-        
+
         $clientPayment->fill($request);
 
         $clientPayment->save();

@@ -162,20 +162,20 @@
                         <tr>
                           <td width='30%' class='label-view text-left'>Renewal Status </td>
                           @if($contract->renewal_status == 0)
-                          <td> <button class="btn btn-danger">No</button></td>
+                          <td> <button class="btn btn-danger borderRadius">No</button></td>
                           @elseif($contract->renewal_status == 1)
-                          <td> <button class="btn btn-success">AR</button></td>
+                          <td> <button class="btn btn-success borderRadius">AR</button></td>
                           @else
-                          <td> <button class="btn btn-primary">RBAO</button></td>
+                          <td> <button class="btn btn-primary borderRadius">RBAO</button></td>
                           @endif
                         </tr>
 
                         <tr>
                           <td width='30%' class='label-view text-left'>Contract Status </td>
                           @if($contract->contract_status == 0)
-                          <td> <button class="btn btn-danger">Not Active</button></td>
+                          <td> <button class="btn btn-danger borderRadius">Not Active</button></td>
                           @else
-                          <td> <button class="btn btn-success">Active</button></td>
+                          <td> <button class="btn btn-success borderRadius">Active</button></td>
                           @endif
                         </tr>
 
@@ -248,7 +248,7 @@
 
                         <tr>
                           <td width='30%' class='label-view text-left'>Contract File </td>
-                          <td> <a href="{{url('uploads/contracts/'.$contract->contract_pdf)}}" target="_blank">Review</a></td>
+                          <td> <a href="{{url('uploads/contracts/'.$contract->contract_pdf)}}" class="btn btn-success borderRadius" target="_blank">Review</a></td>
                         </tr>
 
                         <tr>
