@@ -664,9 +664,9 @@
       </li>
       @endif
 
-      {{--
+
         @if(get_action_icons('clientpayments','get'))
-         --}}
+
       <li id="clientpayments">
         <a href="#" class="dropdown-toggle">
           <i class="glyphicon glyphicon-star"></i>
@@ -676,19 +676,19 @@
 
         <!-- BEGIN Submenu -->
         <ul class="submenu">
-        {{--
+
           @if(get_action_icons('clientpayments','get'))
-          --}}
+
           <li id="clientpayments-index"><a href="{{url('clientpayments')}}">Client Payments</a></li>
-          {{--
+
           @endif
-          --}}
+
         </ul>
         <!-- END Submenu -->
       </li>
-      {{--
+
       @endif
-      --}}
+      
 
       </ul>
       <!-- END Navlist -->
