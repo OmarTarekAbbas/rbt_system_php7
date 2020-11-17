@@ -4,7 +4,7 @@ contract request
 @stop
 @section('content')
 <div class="row marginZero">
-  <div class="col-md-4">
+  <div class="col-md-4 noPaddingPhone" style="text-align: center;">
     <a class="btn btn-circle btn-primary show-tooltip " href="{{url('/contractrequests')}}" title="List contractRequests">
       <i class="fa fa-eye"></i>
     </a>
@@ -14,13 +14,13 @@ contract request
 
   </div>
 
-  <div class="col-md-4" style="text-align: center;">
+  <div class="col-md-4 noPaddingPhone" style="text-align: center;">
     <a class="btn btn-circle show-tooltip " href="{{url('contractrequests/'.$contractRequest->id.'/edit')}}" title="Edit contractRequest"><i class="fa fa-edit"></i></a>
     <a href="{{url('contractrequests/'.$contractRequest->id.'/edit')}}" title="Edit contractRequest">Edit contract request</a>
 
   </div>
 
-  <div class="col-md-4" style="text-align: center;">
+  <div class="col-md-4 noPaddingPhone" style="text-align: center;">
     <a class="btn btn-circle btn-success show-tooltip " href="{{url('contractrequests/'.$contractRequest->id.'/create')}}" title="create contractRequest"><i class="fa fa-plus"></i></a>
     <a href="{{url('contractrequests/'.$contractRequest->id.'/create')}}" title="create contractRequest">create contract request</a>
 
@@ -324,12 +324,12 @@ contract request
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">country  </td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">country </td>
                   <td>{{$contractRequest->country_title}} </td>
                 </tr>
 
                 <tr>
-                  <td width='30%' class='label-view text-left' style="font-weight: bold">operator  </td>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">operator </td>
                   <td>{{$contractRequest->operator_title}} </td>
                 </tr>
 
