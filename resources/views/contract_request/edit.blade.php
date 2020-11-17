@@ -255,37 +255,43 @@ ContractRequests
                   </div>
                 </div>
 
-                @if ($contractRequest->client_id_image)
-                <a target="_blank" href="{{url($contractRequest->client_id_image)}}">preview</a>
-                @endif
-
                 <div class="form-group">
                   <label for="second_party_tc" class="col-xs-12 col-lg-3 control-label"> Client ID Image </label>
-                  <div class="col-xs-12 col-lg-9 controls">
+                  <div class="col-xs-12 col-lg-8 controls">
                     <input type="file" name="client_id_image" id="client_id_image" placeholder="Client ID Image" class="form-control borderRadius">
                   </div>
-                </div>
 
-                @if ($contractRequest->client_tc_image)
-                <a target="_blank" href="{{url($contractRequest->client_tc_image)}}">preview</a>
-                @endif
+                  @if ($contractRequest->client_id_image)
+                  <div class="col-xs-12 col-lg-1">
+                    <a class="btn btn-success borderRadius" target="_blank" href="{{url($contractRequest->client_id_image)}}">preview</a>
+                  </div>
+                  @endif
+                </div>
 
                 <div class="form-group">
                   <label for="second_party_tc" class="col-xs-12 col-lg-3 control-label"> Client TC</label>
-                  <div class="col-xs-12 col-lg-9 controls">
+                  <div class="col-xs-12 col-lg-8 controls">
                     <input type="file" name="client_tc_image" id="client_tc_image" placeholder="Client TC" class="form-control borderRadius">
                   </div>
-                </div>
 
-                @if ($contractRequest->client_cr_image)
-                <a target="_blank" href="{{url($contractRequest->client_cr_image)}}">preview</a>
-                @endif
+                  @if ($contractRequest->client_id_image)
+                  <div class="col-xs-12 col-lg-1">
+                    <a class="btn btn-success borderRadius" target="_blank" href="{{url($contractRequest->client_tc_image)}}">preview</a>
+                  </div>
+                  @endif
+                </div>
 
                 <div class="form-group">
                   <label for="second_party_tc" class="col-xs-12 col-lg-3 control-label"> Client CR</label>
-                  <div class="col-xs-12 col-lg-9 controls">
+                  <div class="col-xs-12 col-lg-8 controls">
                     <input type="file" name="client_cr_image" id="client_cr_image" placeholder="Client CR" class="form-control borderRadius">
                   </div>
+
+                  @if ($contractRequest->client_id_image)
+                  <div class="col-xs-12 col-lg-1">
+                    <a class="btn btn-success borderRadius" target="_blank" href="{{url($contractRequest->client_cr_image)}}">preview</a>
+                  </div>
+                  @endif
                 </div>
 
                 <div class="form-group">
@@ -356,7 +362,6 @@ ContractRequests
               </div>
 
               <hr>
-
             </div>
 
             <div class="col-md-12">
@@ -408,8 +413,8 @@ ContractRequests
                 </div>
 
                 <div class="form-group">
-                  <label for="first_party_joining_date" class="col-xs-12 col-md-3 col-lg-3 control-label"> Delivered Date </label>
-                  <div class="input-group date date-picker col-xs-12 col-md-9 col-lg-9 controls delivered_date" data-date-format="dd-mm-yyyy">
+                  <label for="first_party_joining_date" class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label"> Delivered Date </label>
+                  <div class="input-group date date-picker col-xs-12 col-sm-12 col-md-9 col-lg-9 controls delivered_date" data-date-format="dd-mm-yyyy">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     <input type="text" name="delivered_date" id="delivered_date" autocomplete="off" placeholder="first party joining date" data-date-format="dd-mm-yyyy" class="form-control" value="{{$contractRequest->delivered_date}}">
                   </div>
