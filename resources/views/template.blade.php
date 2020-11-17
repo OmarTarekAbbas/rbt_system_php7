@@ -802,6 +802,7 @@
         all_notifications: function() {
           var _this = this
           var data = "{{json_encode(all_notify())}}";
+          // console.log(data);
           let total = [];
           this.notification_data = JSON.parse(data.replace(/&quot;/g, '"'))
           for (let index = 0; index < this.notification_data.length; index++) {
