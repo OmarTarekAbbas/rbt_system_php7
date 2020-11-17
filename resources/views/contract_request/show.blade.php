@@ -175,7 +175,7 @@ contract request
                   <td width='30%' class='label-view text-left' style="font-weight: bold">client identity image</td>
                   <td>
                     @if ($contractRequest->client_id_image)
-                    <a target="_blank" href="{{url($contractRequest->client_id_image)}}">preview</a>
+                    <a class="btn btn-success borderRadius" target="_blank" href="{{url($contractRequest->client_id_image)}}">preview</a>
                     @endif
                   </td>
                 </tr>
@@ -184,7 +184,7 @@ contract request
                   <td width='30%' class='label-view text-left' style="font-weight: bold">client tc image</td>
                   <td>
                     @if ($contractRequest->client_tc_image)
-                    <a target="_blank" href="{{url($contractRequest->client_tc_image)}}">preview</a>
+                    <a class="btn btn-success borderRadius" target="_blank" href="{{url($contractRequest->client_tc_image)}}">preview</a>
                     @endif
                   </td>
                 </tr>
@@ -193,7 +193,7 @@ contract request
                   <td width='30%' class='label-view text-left' style="font-weight: bold">client cr image</td>
                   <td>
                     @if ($contractRequest->client_cr_image)
-                    <a target="_blank" href="{{url($contractRequest->client_cr_image)}}">preview</a>
+                    <a class="btn btn-success borderRadius" target="_blank" href="{{url($contractRequest->client_cr_image)}}">preview</a>
                     @endif
                   </td>
                 </tr>

@@ -391,8 +391,8 @@ ContractRequests
                 </div>
 
                 <div class="form-group">
-                  <label for="first_party_joining_date" class="col-xs-12 col-md-3 col-lg-3 control-label"> Delivered Date </label>
-                  <div class="input-group date date-picker col-xs-12 col-md-9 col-lg-9 controls delivered_date" data-date-format="dd-mm-yyyy">
+                  <label for="first_party_joining_date" class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label"> Delivered Date </label>
+                  <div class="input-group date date-picker col-xs-12 col-sm-12 col-md-9 col-lg-9 controls delivered_date" data-date-format="dd-mm-yyyy">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     <input type="text" name="delivered_date" id="delivered_date" autocomplete="off" placeholder="first party joining date" data-date-format="dd-mm-yyyy" class="form-control">
                   </div>
