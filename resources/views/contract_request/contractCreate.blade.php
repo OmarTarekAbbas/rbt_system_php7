@@ -183,7 +183,7 @@
                   <select name='second_party_type_id' rows='5' id='second_party_type_cli' class="form-control" required>
                     <option value="">-- Please Select --</option>
                     @foreach($second_partys as $second_party)
-                    <option value="{{$second_party->id}}"@if($contractRequest->firstparty->id == $second_party->id) selected @endif>{{$second_party->second_party_type_title}}
+                    <option value="{{$second_party->id}}"@if($contractRequest->secondpartytype->id == $second_party->id) selected @endif>{{$second_party->second_party_type_title}}
                     </option>
                     @endforeach
                   </select>
