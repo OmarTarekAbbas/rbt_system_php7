@@ -352,7 +352,7 @@ ContractRequests
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">content type</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <select class="form-control chosen borderRadius" data-placeholder="Choose a Content Type" name="content_type">
+                    <select class="form-control chosen borderRadius" data-placeholder="Choose a Content Type" multiple name="content_type[]">
                       <option value=""></option>
                       @foreach(content_type() as $key => $value)
                       <option value="{{$key}}">{{$value}}</option>
@@ -364,7 +364,7 @@ ContractRequests
                 <div class="form-group">
                   <label class="col-sm-3 col-lg-3 control-label">Content Storage</label>
                   <div class="col-sm-9 col-lg-9 controls">
-                    <select class="form-control chosen borderRadius" data-placeholder="Choose a Content Storage" name="content_storage">
+                    <select class="form-control chosen borderRadius" data-placeholder="Choose a Content Storage" multiple name="content_storage[]">
                       <option value=""></option>
                       @foreach(content_storage() as $key => $value)
                       <option value="{{$key}}">{{$value}}</option>

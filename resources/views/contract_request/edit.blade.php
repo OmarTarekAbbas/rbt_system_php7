@@ -77,8 +77,9 @@ ContractRequests
                       name="country_title[]">
                       <option value=""></option>
                       @foreach($countries as $country)
-                      <option value="{{$country->title}}" @if(in_array($country->
-                        title,explode(",",$contractRequest->country_title))) selected @endif>{{$country->title}}
+                      <option value="{{$country->title}}"
+                      @if(in_array($country->title,explode(",",$contractRequest->country_title))) selected @endif>
+                      {{$country->title}}
                       </option>
                       @endforeach
                     </select>
@@ -392,10 +393,10 @@ ContractRequests
               <div class="form-group">
                 <label class="col-sm-3 col-lg-2 control-label">content type</label>
                 <div class="col-sm-9 col-lg-10 controls">
-                  <select class="form-control chosen" data-placeholder="Choose a Content Type" name="content_type">
+                  <select class="form-control chosen" data-placeholder="Choose a Content Type" multiple name="content_type[]">
                     <option value=""></option>
                     @foreach(content_type() as $key => $value)
-                    <option value="{{$key}}" @if($contractRequest->content_type == $value) selected @endif>{{$value}}
+                    <option value="{{$key}}" @if(in_array($value,explode(",",$contractRequest->content_type))) selected @endif>{{$value}}
                     </option>
                     @endforeach
                   </select>
@@ -405,11 +406,11 @@ ContractRequests
               <div class="form-group">
                 <label class="col-sm-3 col-lg-2 control-label">Content Storage</label>
                 <div class="col-sm-9 col-lg-10 controls">
-                  <select class="form-control chosen" data-placeholder="Choose a Content Storage"
-                    name="content_storage">
+                  <select class="form-control chosen" data-placeholder="Choose a Content Storage" multiple
+                    name="content_storage[]">
                     <option value=""></option>
                     @foreach(content_storage() as $key => $value)
-                    <option value="{{$key}}" @if($contractRequest->content_storage == $value) selected @endif>{{$value}}
+                    <option value="{{$key}}" @if(in_array($value,explode(",",$contractRequest->content_storage))) selected @endif>{{$value}}
                     </option>
                     @endforeach
                   </select>
