@@ -726,21 +726,22 @@
     </div>
     @endif
     @if(session()->has('client'))
-    <div id="sidebar" class="navbar-collapse collapse">
+    <div id="sidebar" class="navbar-collapse collapse open">
       <!-- BEGIN Navlist -->
       <ul class="nav nav-list">
       <li id="user">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-user"></i>
-            <span>Client</span>
+            <span>{{ session()->get('client')->second_party_title }}</span>
             <b class="arrow fa fa-angle-right"></b>
           </a>
 
           <!-- BEGIN Submenu -->
 
-          <ul class="submenu">
+          <ul class="submenu open" style="display: block;">
             <li id="user-create"><a href="{{url('client/contracts')}}">Contracts</a></li>
             <li id="user-index"><a href="{{url('client/reports')}}">Reports</a></li>
+            <li id="user-index"><a href="{{url('client/payments')}}">Payments</a></li>
           </ul>
           <!-- END Submenu -->
       </ul>

@@ -11,7 +11,7 @@ class ContractRequestObserver
     {
         if(!$ContractRequest->isDirty('contract_code')){
           $serviceTypeId = $ContractRequest->service_type_id;
-          $first_party_title = Firstpartie::find($ContractRequest->first_party_id)->first_party_title;
+          $first_party_title = strtolower(substr(Firstpartie::find($ContractRequest->first_party_id)->first_party_title,0,2));
           $second_party_id = $ContractRequest->second_party_id;
           $second_party_type_id = $ContractRequest->second_party_type_id;
           $contract_id = $ContractRequest->id;

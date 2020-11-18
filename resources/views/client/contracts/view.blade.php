@@ -21,13 +21,13 @@
   </div>
   <div class="col-md-4" style="text-align: end;">
     @if($contract->annex)
-    <a class="btn btn-sm btn-info show-tooltip" href="{{ url("contract/an/" . $contract->id) }}" title="annex">Annex</a>
+    <a class="btn btn-sm btn-info show-tooltip" href="{{ url("client/contract/an/" . $contract->id) }}" title="annex">Annex</a>
     @endif
     @if($contract->authorization)
-    <a class="btn btn-sm btn-warning show-tooltip" href="{{ url("contract/al/" . $contract->id) }}" title="authorization">Authorization</a>
+    <a class="btn btn-sm btn-warning show-tooltip" href="{{ url("client/contract/al/" . $contract->id) }}" title="authorization">Authorization</a>
     @endif
     @if($contract->copyright)
-    <a class="btn btn-sm btn-primary show-tooltip" href="{{ url("contract/cr/" . $contract->id) }}" title="copyright">copyright</a>
+    <a class="btn btn-sm btn-primary show-tooltip" href="{{ url("client/contract/cr/" . $contract->id) }}" title="copyright">copyright</a>
     @endif
   </div>
   <br>

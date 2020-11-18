@@ -22,19 +22,7 @@ Auth::routes();
 
 list_routes_from_database();
 // Route::get('providers_to_secondparty', 'SecondPartyController@providers_to_secondparty');
-Route::group(['prefix' => 'client'], function () {
-    Route::get('login','ClientController@getLoginPage');
-    Route::post('login','ClientController@Login');
-    Route::group(['middleware' => 'client'], function () {
-      Route::get('profile','ClientController@getProfilePage');
-      Route::post('updateprofilepic','ClientController@updateprofilepic');
-      Route::post('updatepassword','ClientController@updatepassword');
-      Route::post('logout','ClientController@Logout');
-      Route::resource('contracts','ClientContractController');
-      Route::get('contract/allData','ClientContractController@allData');
-      Route::resource('reports','ClientReportController');
-    });
-});
+client_route();
 Route::get("change/contract/code",function(){
   $contracts = Contract::all();
   foreach($contracts as $contract) {
