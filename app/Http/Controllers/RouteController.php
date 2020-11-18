@@ -281,7 +281,7 @@ class RouteController extends Controller
 
             }
 
-            $route['method'] = $value->methods()[0];
+            $route['method'] = strtolower($value->methods()[0]);
             $route['route'] = $value->uri();
             $route['controller_name'] = $controller;
             $route['function_name'] = $method;
