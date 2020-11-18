@@ -300,8 +300,12 @@
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
+            @if(get_action_icons('contractrequests/create','get'))
             <li id="contract-index"><a href="{{url('contractrequests/create')}}">Create Contract Request</a></li>
+            @endif
+            @if(get_action_icons('contractrequests','get'))
             <li id="contract-index"><a href="{{url('contractrequests')}}">Contract Requests</a></li>
+            @endif
             <li id="contract-index"><a href="{{url('fullcontracts/create')}}">Create Contract</a></li>
             @if(get_action_icons('fullcontracts','get'))
             <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
