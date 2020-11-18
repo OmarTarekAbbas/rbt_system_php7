@@ -45,10 +45,11 @@ contract request
           </div>
         </div>
         <div class="box-content">
+
           <div class="table-responsive width_m_auto" style="overflow-x: hidden;">
             <table class="table table-striped table-bordered ">
               <tbody>
-
+              <h1 class="newTitle">CONTRACT BASIC INFO</h1>
                 <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">ID</td>
                   <td>{{$contractRequest->id}} </td>
@@ -98,6 +99,7 @@ contract request
             <hr>
             <table class="table table-striped table-bordered">
               <tbody>
+              <h1>CONTRACT COMPANY INFO</h1>
                 <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">first party</td>
                   <td>{{$contractRequest->firstparty->first_party_title}} </td>
@@ -132,6 +134,7 @@ contract request
             <hr>
             <table class="table table-striped table-bordered">
               <tbody>
+              <h1>Company Authorized signatory</h1>
                 <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">company project manager name</td>
                   <td>{{$contractRequest->company_project_manager_name}} </td>
@@ -156,6 +159,7 @@ contract request
             <hr>
             <table class="table table-striped table-bordered">
               <tbody>
+              <h1>Company Project Manager</h1>
                 <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">second party type</td>
                   <td>{{$contractRequest->secondpartytype->second_party_type_title}} </td>
@@ -212,6 +216,7 @@ contract request
             <hr>
             <table class="table table-striped table-bordered">
               <tbody>
+              <h1>CLIENT INFO</h1>
                 <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">client authorized signatory name</td>
                   <td>{{$contractRequest->client_authorized_signatory_name}} </td>
@@ -236,6 +241,7 @@ contract request
             <hr>
             <table class="table table-striped table-bordered">
               <tbody>
+              <h1>CLIENT INFO</h1>
                 <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">client project manager name</td>
                   <td>{{$contractRequest->client_project_manager_name}} </td>
@@ -260,6 +266,7 @@ contract request
             <hr>
             <table class="table table-striped table-bordered">
               <tbody>
+              <h1>CONTENT INFO</h1>
                 <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">content type</td>
                   <td>{{$contractRequest->content_type}} </td>
@@ -294,6 +301,7 @@ contract request
             <hr>
             <table class="table table-striped table-bordered">
               <tbody>
+              <h1>Content Receiver</h1>
                 <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">receiver position</td>
                   <td>{{$contractRequest->receiver_position}} </td>
@@ -318,6 +326,7 @@ contract request
             <hr>
             <table class="table table-striped table-bordered">
               <tbody>
+              <h1>FINANCIAL INFO</h1>
                 <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">advance payment type</td>
                   <td>{{$contractRequest->advance_payment_type}} </td>
@@ -347,6 +356,8 @@ contract request
             <hr>
             <table class="table table-striped table-bordered">
               <tbody>
+
+              <h1>Percentages (%)</h1>
                 <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">first party percentage</td>
                   <td>{{$contractRequest->first_party_percentage}} </td>
@@ -371,6 +382,8 @@ contract request
             <hr>
             <table class="table table-striped table-bordered">
               <tbody>
+
+              <h1>Legal Officer</h1>
                 <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">legal officer name</td>
                   <td>{{$contractRequest->legal_officer_name}} </td>
@@ -395,6 +408,7 @@ contract request
             <hr>
             <table class="table table-striped table-bordered">
               <tbody>
+
                 <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">created at</td>
                   <td>{{$contractRequest->created_at}} </td>
