@@ -30,7 +30,7 @@ ContractRequests
           <form method='POST' class="width_m_auto form-horizontal"
             action='{!! url("contractrequests/$contractRequest->id")!!}' enctype="multipart/form-data">
             @csrf
-            @method('patch')
+            @method('put')
             <div class="col-md-12">
               <h1 class="newTitle">CONTRACT BASIC INFO</h1>
               <div class="width_m_auto">
