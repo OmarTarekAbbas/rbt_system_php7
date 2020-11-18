@@ -55,6 +55,11 @@ contract request
                 </tr>
 
                 <tr>
+                  <td width='30%' class='label-view text-left' style="font-weight: bold">contract Code</td>
+                  <td>{{$contractRequest->contract_code}} </td>
+                </tr>
+
+                <tr>
                   <td width='30%' class='label-view text-left' style="font-weight: bold">contract type</td>
                   <td>{{$contractRequest->contract_type}} </td>
                 </tr>

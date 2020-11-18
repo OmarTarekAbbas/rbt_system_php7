@@ -16,7 +16,7 @@ ClientPayments
           </div>
         </div>
         <div class="box-content">
-          <form method='POST' class="width_m_auto form-horizontal" action='{{ url("clientpayments/".$clientPayment->id)}}' enctype="multipart/form-data">
+          <form method='PUT' class="width_m_auto form-horizontal" action='{{ url("clientpayments/".$clientPayment->id)}}' enctype="multipart/form-data">
             @csrf
             <div class="form-group ">
                 <label class="col-sm-3 col-lg-2 control-label">Provider</label>
