@@ -331,3 +331,24 @@ function payment_method()
     "Cash"        => "Cash"
   ];
 }
+
+function client_route() {
+  Route::group(['prefix' => 'client'], function () {
+    Route::get('login','ClientController@getLoginPage');
+    Route::post('login','ClientController@Login');
+    Route::group(['middleware' => 'client'], function () {
+      Route::get('profile','ClientController@getProfilePage');
+      Route::post('updateprofilepic','ClientController@updateprofilepic');
+      Route::post('updatepassword','ClientController@updatepassword');
+      Route::post('logout','ClientController@Logout');
+      Route::resource('reports','ClientReportController');
+      Route::get('payments','ClientReportController@clientPayment');
+      Route::get('payments/allData','ClientReportController@allData');
+      Route::resource('contracts','ClientContractController');
+      Route::get('contract/allData','ClientContractController@allData');
+      Route::get('contract/al/{contract}','ClientContractController@authorization');
+      Route::get('contract/an/{contract}','ClientContractController@annex');
+      Route::get('contract/cr/{contract}','ClientContractController@copyright');
+    });
+});
+}
