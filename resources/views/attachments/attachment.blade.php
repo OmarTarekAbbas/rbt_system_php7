@@ -17,7 +17,7 @@ attachment
           </div>
         </div>
         <div class="box-content">
-          @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
+        @if(get_action_icons('attachment/create','get'))
           <div class="btn-toolbar pull-right">
             <div class="btn-group">
               <a class="btn btn-circle show-tooltip" title="" href="{{url('attachment/create')}}" data-original-title="Add new record"><i class="fa fa-plus"></i></a>

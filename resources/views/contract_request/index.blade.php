@@ -18,7 +18,7 @@ ContractRequests
         </div>
         <div class="box-content">
           <div class="btn-group">
-            @if(Auth::user()->hasRole(['super_admin','admin', 'ceo','Quality','RBT Upload']))
+          @if(get_action_icons('contractrequests/create','get'))
             <a class="btn btn-circle btn-success show-tooltip" href="{{url('contractrequests/create')}}" title="Create New content" href="#"><i class="fa fa-plus"></i></a>
             <a id="delete_button" onclick="delete_selected('contract_requests')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
             @endif

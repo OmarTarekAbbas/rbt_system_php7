@@ -17,7 +17,7 @@ Second Party Types
           </div>
         </div>
         <div class="box-content">
-          @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
+        @if(get_action_icons('SecondPartyType/create','get'))
 
           <div class="btn-toolbar pull-right">
             <div class="btn-group">
