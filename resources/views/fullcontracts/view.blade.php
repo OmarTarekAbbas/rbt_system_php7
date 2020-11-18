@@ -19,14 +19,12 @@
     </a>
 
   </div>
-  @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
-  <div class="col-md-4" style="text-align: center;">
-    <a class="btn btn-circle show-tooltip " href="{{url('fullcontracts/'.$contract->id.'/edit')}}" title="Edit Contract"><i class="fa fa-edit"></i></a>
-    <a href="{{url('fullcontracts/'.$contract->id.'/edit')}}" title="Edit Contract">Edit Contract</a>
-
-  </div>
-
-  @endif
+    @if(get_action_icons('content/{id}/edit','get'))
+    <div class="col-md-4" style="text-align: center;">
+      <a class="btn btn-circle show-tooltip " href="{{url('fullcontracts/'.$contract->id.'/edit')}}" title="Edit Contract"><i class="fa fa-edit"></i></a>
+      <a href="{{url('fullcontracts/'.$contract->id.'/edit')}}" title="Edit Contract">Edit Contract</a>
+    </div>
+    @endif
   <div class="col-md-4" style="text-align: end;">
     @if($contract->annex)
     <a class="btn btn-sm btn-info show-tooltip" href="{{ url("contract/an/" . $contract->id) }}" title="annex">Annex</a>
