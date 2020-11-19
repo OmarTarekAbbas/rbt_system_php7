@@ -67,7 +67,7 @@ class ReportController extends Controller
     {
 
       $title = 'Index - report';
-        if (Auth::user()->hasRole(['super_admin', 'admin', 'ceo'])) {
+        if (get_action_icons('report','get')) {
             $reports = Report::with('operator')->get();
         } else {
             $reports = Report::where('aggregator_id', Auth::user()->aggregator_id)->with('operator')->get();

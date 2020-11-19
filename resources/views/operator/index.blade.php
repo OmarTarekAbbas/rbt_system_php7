@@ -101,7 +101,7 @@ Operators
           </div>
         </div>
         <div class="box-content">
-          @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
+        @if(get_action_icons('operator','get'))
           <div class="btn-toolbar pull-right clearfix">
             <div class="btn-group">
               <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>

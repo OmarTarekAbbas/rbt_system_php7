@@ -94,7 +94,7 @@ Occasions
           </div>
         </div>
         <div class="box-content">
-          @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
+        @if(get_action_icons('occasion','get'))
           <div class="btn-toolbar pull-right clearfix">
             <div class="btn-group">
               <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
@@ -117,7 +117,7 @@ Occasions
                   <th style="width:18px"><input type="checkbox" /></th>
                   <th class="search">Title</th>
                   <th class="search">Country</th>
-                  @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
+                  @if(get_action_icons('occasion/{id}/delete','get'))
                   <th>Delete</th>
                   @endif
                 </tr>
