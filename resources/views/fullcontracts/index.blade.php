@@ -137,12 +137,12 @@ function datatable_draw_func(params) {
       name: "contract_label"
     },
     {
-      data: "country",
-      name: "country"
+      data: "country_title",
+      name: "country_title"
     },
     {
-      data: "operator",
-      name: "operator"
+      data: "operator_title",
+      name: "operator_title"
     },
     {
       data: "contract_status",
