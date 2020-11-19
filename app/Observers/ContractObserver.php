@@ -45,8 +45,15 @@ class ContractObserver
         $first_party_title = strtolower(substr(optional($contract->first_parties)->first_party_title,0,2));
         $second_party_id = optional($contract->second_parties)->second_party_id;
         $second_party_type_id = optional($contract->second_party_type)->id;
-        $contract_id = $contract->id;
+        $contract_id = rand(111,999);
+
         $contract->contract_code = $serviceTypeId.'-'.$first_party_title.'-'.$second_party_id.'-'.$second_party_type_id.'-'.$contract_id;
+
+        $exists = Contract::where('contract_code', $contractRequest->contract_code)->first();
+
+        if($exists){
+          $contract->contract_code = $serviceTypeId.'-'.$first_party_title.'-'.$second_party_id.'-'.$second_party_type_id.'-'.rand(111,999);
+        }
 
         $contract->save();
       }

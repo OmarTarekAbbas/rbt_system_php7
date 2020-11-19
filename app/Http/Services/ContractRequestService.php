@@ -27,7 +27,6 @@ class ContractRequestService
      */
     private $contractRequestRepository;
 
-
     /**
      * __construct
      *
@@ -86,16 +85,22 @@ class ContractRequestService
         $first_party_title = Firstpartie::find($request['first_party_id'])->first_party_title;
         $second_party_id = $request['second_party_id'];
         $second_party_type_id = $request['second_party_type_id'];
-        $contract_id = $contractRequest->id;
+        $contract_id = rand(111,999);
 
         $contractRequest->contract_code = $serviceTypeId.'-'.$first_party_title.'-'.$second_party_id.'-'.$second_party_type_id.'-'.$contract_id;
+
+        $exists = ContractRequest::where('contract_code', $contractRequest->contract_code)->first();
+
+        if($exists){
+          $contractRequest->contract_code = $serviceTypeId.'-'.$first_party_title.'-'.$second_party_id.'-'.$second_party_type_id.'-'.rand(111,999);
+        }
 
         $contractRequest->save();
 
     	  return $contractRequest;
     }
 
-     /**
+    /**
      * handle function that make update for role
      * @param UploadedFile $value
      * @param string $path

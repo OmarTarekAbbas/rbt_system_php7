@@ -93,6 +93,12 @@ class FullcontractsController extends Controller
             ->addColumn('contract_label', function (Contract $contract) {
                 return $contract->contract_label;
             })
+            ->addColumn('country', function (Contract $contract) {
+                return $contract->country_title;
+            })
+            ->addColumn('operator', function (Contract $contract) {
+                return $contract->operator_title;
+            })
             ->addColumn('contract_status', function (Contract $contract) {
               return $contract->contract_status ? 'Active' : 'Not Active';
             })
