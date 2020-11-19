@@ -50,7 +50,7 @@
                       @if (get_action_icons('ContractTemplate/{ContractTemplate}/edit', 'get'))
                       <a class="btn btn-sm show-tooltip" title="" href="{{url('ContractTemplate/'.$ContractTemplate->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
                       @endif
-                      @if (get_action_icons('ContractTemplate/{ContractTemplate}', 'get'))
+                      @if (get_action_icons('ContractTemplate/{ContractTemplate}', 'delete'))
                       <form action="{{url('ContractTemplate/'.$ContractTemplate->id)}}" method="POST" style="display: inline">
                         @method('DELETE') @csrf
                         <button class="btn btn-sm btn-danger show-tooltip" type="submit" onclick='return ConfirmDelete()' data-original-title="Delete"><i class="fa fa-trash-o"></i></button>

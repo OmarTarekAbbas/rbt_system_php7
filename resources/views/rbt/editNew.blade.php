@@ -18,7 +18,7 @@ RBTs
         <div class="box-content">
           <form method='POST' class="form-horizontal" action='{!! url("rbt")!!}/{!!$rbt->id!!}/update' enctype="multipart/form-data">
             <input type='hidden' name='_token' value='{{Session::token()}}'>
-
+            @method('put')
             <div class="form-group">
               <label class="col-sm-3 col-lg-2 control-label" for="track_title_en">Provider Name English *</label>
               <div class="col-sm-9 col-lg-10 controls">

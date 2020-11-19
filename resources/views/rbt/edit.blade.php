@@ -17,6 +17,7 @@ RBTs
         </div>
         <div class="box-content">
           <form method='POST' class="width_m_auto form-horizontal" action='{!! url("rbt")!!}/{!!$rbt->id!!}/update' enctype="multipart/form-data">
+          @method('put')
             <input type='hidden' name='_token' value='{{Session::token()}}'>
             <div class="form-group">
               <label class="col-sm-3 col-lg-2 control-label" for="track_title_en">Title *</label>

@@ -16,8 +16,10 @@ Revenues
           </div>
         </div>
         <div class="box-content">
-          <form class="width_m_auto form-horizontal" action="{{url("revenue/{$revenue->id}/update")}}" method="POST" enctype="multipart/form-data">
+          <form class="width_m_auto form-horizontal" method="post" action="{{url("revenue/{$revenue->id}/update")}}" method="POST" enctype="multipart/form-data">
+
             @csrf
+            
             <div class="form-group">
               <label class="col-sm-3 col-lg-2 control-label">Contract *</label>
               <div class="col-sm-9 col-lg-10 controls">
