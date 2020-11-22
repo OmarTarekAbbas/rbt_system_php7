@@ -16,13 +16,17 @@ Contract
           </div>
         </div>
         <div class="box-content">
-          @if (Auth::user()->hasRole(['super_admin', 'legal', 'ceo']))
 
           <div class="btn-group pull-right">
+          @if(get_action_icons('contract/export/excel','get'))
+          <a class="btn btn-circle show-tooltip" title="" href="{{url('contract/export/excel')}}" data-original-title="Expprt Contract Excel"><i class="fa fa-file"></i></a>
+          @endif
+          @if(get_action_icons('fullcontracts/create','get'))
             <a class="btn btn-circle btn-success show-tooltip" href="{{url('fullcontracts/create')}}" title="Create New Rbt" href="#"><i class="fa fa-plus"></i></a>
             <a id="delete_button" onclick="delete_selected('contracts')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
+            @endif
           </div>
-          @endif
+
           <br>
           <br>
           <label class="text-muted" for="date">Filter By Sign Date</label>

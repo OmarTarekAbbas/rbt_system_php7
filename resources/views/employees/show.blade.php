@@ -194,8 +194,12 @@ Employee
                   <td><a class="btn btn-success borderRadius" href="{{url('uploads/employee_contract/'.$employee_contract->contract_attachment)}}" target="_blank">Review</a></td>
                   <td>
                     <div class="btn-group">
+                    @if(get_action_icons('employee_contract/{id}/edit','get'))
                       <a class="btn btn-sm show-tooltip" title="" href="{{url('employee_contract/'.$employee_contract->id.'/edit')}}" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+                    @endif
+                    @if(get_action_icons('employee_contract/{id}/delete','get'))
                       <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete this ?');" href="{{url('employee_contract/'.$employee_contract->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                      @endif
                     </div>
                   </td>
                 </tr>
