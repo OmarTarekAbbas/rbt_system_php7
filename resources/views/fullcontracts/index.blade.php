@@ -51,6 +51,8 @@ Contract
                   <th>Code</th>
                   <th>Service Type</th>
                   <th>Label</th>
+                  <th>country</th>
+                  <th>operator</th>
                   <th>Contract Status</th>
                   <th>First Party</th>
                   <th>Second Party</th>
@@ -133,6 +135,14 @@ function datatable_draw_func(params) {
     {
       data: "contract_label",
       name: "contract_label"
+    },
+    {
+      data: "country_title",
+      name: "country_title"
+    },
+    {
+      data: "operator_title",
+      name: "operator_title"
     },
     {
       data: "contract_status",
