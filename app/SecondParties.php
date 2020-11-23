@@ -29,7 +29,10 @@ class SecondParties extends Model
         'second_party_tc',
         'entry_by',
         'second_party_signature',
-        'second_party_seal'
+        'second_party_seal',
+        'email',
+        'password',
+        'image'
     ];
 
     public function type()
@@ -49,6 +52,16 @@ class SecondParties extends Model
     public function contracts()
     {
         return $this->hasMany('App\Contract', 'second_party_id', 'second_party_id');
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = $value ? \Hash::make($value) : null;
+    }
+
+    public function getImageAttribute($value)
+    {
+      return $value ? url($value) : '';
     }
 
 }

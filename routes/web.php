@@ -22,6 +22,7 @@ Auth::routes();
 
 list_routes_from_database();
 // Route::get('providers_to_secondparty', 'SecondPartyController@providers_to_secondparty');
+client_route();
 Route::get("change/contract/code",function(){
   $contracts = Contract::all();
   foreach($contracts as $contract) {

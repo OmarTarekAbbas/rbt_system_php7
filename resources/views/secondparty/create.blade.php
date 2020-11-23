@@ -146,6 +146,40 @@ Second Party
                 <!-- END Left Side -->
               </div>
 
+              <div class="col-md-12" style="float: none; margin: 0 auto;">
+                <div class="box box-red">
+                  <div class="box-title">
+                    <h3><i class="fa fa-bars"></i> Account Info </h3>
+                  </div>
+                  <!-- BEGIN Left Side -->
+                  <div class="box-content">
+
+                    <div class="form-group">
+                      <label for="second_party_cr" class="col-xs-12 col-lg-2 control-label"> Email </label>
+                      <div class="col-xs-12 col-lg-10 controls">
+                        <input type="text" name="email" id="email" placeholder="Email" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="second_party_tc" class="col-xs-12 col-lg-2 control-label"> password </label>
+                      <div class="col-xs-12 col-lg-10 controls">
+                        <input type="text" name="password" id="password" placeholder="Password" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="second_party_identity" class="col-xs-12 col-lg-2 control-label"> Image </label>
+                      <div class="col-xs-12 col-lg-10 controls">
+                        <input type="file" name="image" id="image" placeholder="SYour Image" class="form-control">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <!-- END Left Side -->
+              </div>
+
             </div>
 
             <div class="form-group" style="background: transparent; border: none;">

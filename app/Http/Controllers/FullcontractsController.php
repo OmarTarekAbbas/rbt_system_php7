@@ -367,12 +367,12 @@ class FullcontractsController extends Controller
 
    public function export_excel(Request $request)
    {
-    $contracts = Contract::select("contracts.id as id","contract_code","contract_label","first_party","second_party","first_party_percentage","second_party_percentage","contract_signed_date","contract_date","contract_expiry_date","contract_duration.contract_duration_title as contract_duration_title","country_title","operator_title", "service_types.service_type_title as service_type")
+    $contracts = Contract::select("contract_code","contract_label","first_party_id","first_party_select","second_party_id","first_party_percentage","second_party_percentage","contract_signed_date","contract_date","contract_expiry_date","contract_duration.contract_duration_title as contract_duration_title","country_title","operator_title", "service_types.service_type_title as service_type")
     ->leftjoin('service_types', 'service_types.id', '=', 'contracts.service_type_id')
     ->leftjoin('contract_duration', 'contract_duration.contract_duration_id', '=', 'contracts.contract_duration_id')
     ->orderBy('contracts.contract_signed_date','desc')
     ->get();
-    // return $contracts;
+    //return $contracts;
        date_default_timezone_set('Africa/Cairo');
        $filename = "excel_contract_".date('Y-m-d H:i:s') . ".csv";
        header('Content-Encoding: UTF-8');
@@ -385,11 +385,14 @@ class FullcontractsController extends Controller
        $out = fopen("php://output", 'w');
        $show_coloumn = false;
 
+
+
        foreach($contracts as $record) {
            if(!$show_coloumn) {
                fputcsv($out, array_keys(@json_decode(json_encode($record), true)), ',', '"');
                $show_coloumn = true;
            }
+
            fputcsv($out, array_values(@json_decode(json_encode($record), true)), ',', '"');
        }
        mb_convert_encoding($out, 'UTF-16LE', 'UTF-8');

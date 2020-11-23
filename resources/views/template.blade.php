@@ -157,7 +157,7 @@
       <li class="user-profile">
         <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
           <span class="hhh" id="user_info">
-            {!! Auth::user()->name !!}
+            {!! auth()->check() ? Auth::user()->name : session()->get('client')->second_party_title !!}
             {{-- User --}}
           </span>
           <i class="fa fa-caret-down"></i>
@@ -165,17 +165,27 @@
 
         <!-- BEGIN User Dropdown -->
         <ul class="dropdown-menu dropdown-navbar" id="user_menu">
+          @if(auth()->check())
           <li>
             <a href="{{url('user_profile')}}">
               <i class="fa fa-user"></i>
               Edit Profile
             </a>
           </li>
+          @endif
+          @if(session()->has('client'))
+          <li>
+            <a href="{{url('client/profile')}}">
+              <i class="fa fa-user"></i>
+              Edit Profile
+            </a>
+          </li>
+          @endif
 
           <li class="divider visible-xs"></li>
 
           <li class="divider"></li>
-
+          @if(auth()->check())
           <li>
             <a href="{{url('logout')}}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
               <i class="fa fa-off"></i>
@@ -185,6 +195,18 @@
               {{ csrf_field() }}
             </form>
           </li>
+          @endif
+          @if(session()->has('client'))
+          <li>
+            <a href="{{url('client/logout')}}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+              <i class="fa fa-off"></i>
+              @lang('messages.logout')
+            </a>
+            <form id="frm-logout" action="{{ url('client/logout') }}" method="POST" style="display: none;">
+              {{ csrf_field() }}
+            </form>
+          </li>
+          @endif
         </ul>
         <!-- BEGIN User Dropdown -->
       </li>
@@ -197,6 +219,7 @@
   <!-- BEGIN Container -->
   <div class="container" id="main-container">
     <!-- BEGIN Sidebar -->
+    @if(auth()->check())
     <div id="sidebar" class="navbar-collapse collapse">
       <!-- BEGIN Navlist -->
       <ul class="nav nav-list">
@@ -277,8 +300,12 @@
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
+            @if(get_action_icons('contractrequests/create','get'))
             <li id="contract-index"><a href="{{url('contractrequests/create')}}">Create Contract Request</a></li>
+            @endif
+            @if(get_action_icons('contractrequests','get'))
             <li id="contract-index"><a href="{{url('contractrequests')}}">Contract Requests</a></li>
+            @endif
             <li id="contract-index"><a href="{{url('fullcontracts/create')}}">Create Contract</a></li>
             @if(get_action_icons('fullcontracts','get'))
             <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
@@ -701,6 +728,29 @@
       </div>
       <!-- END Sidebar Collapse Button -->
     </div>
+    @endif
+    @if(session()->has('client'))
+    <div id="sidebar" class="navbar-collapse collapse open">
+      <!-- BEGIN Navlist -->
+      <ul class="nav nav-list">
+      <li id="user">
+          <a href="#" class="dropdown-toggle">
+            <i class="glyphicon glyphicon-user"></i>
+            <span>{{ session()->get('client')->second_party_title }}</span>
+            <b class="arrow fa fa-angle-right"></b>
+          </a>
+
+          <!-- BEGIN Submenu -->
+
+          <ul class="submenu open" style="display: block;">
+            <li id="user-create"><a href="{{url('client/contracts')}}">Contracts</a></li>
+            <li id="user-index"><a href="{{url('client/reports')}}">Reports</a></li>
+            <li id="user-index"><a href="{{url('client/payments')}}">Payments</a></li>
+          </ul>
+          <!-- END Submenu -->
+      </ul>
+    </div>
+    @endif
     <!-- END Sidebar -->
 
     <!-- BEGIN Content -->

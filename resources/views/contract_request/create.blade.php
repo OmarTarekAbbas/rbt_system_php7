@@ -577,6 +577,6 @@ ContractRequests
 <script>
   $('#contract .submenu').first().css('display', 'block');
   $('#contract .submenu').first().css('display', 'block');
-  $('#contract-index').addClass('active');
+  $('#createcontractrequest-index').addClass('active');
 </script>
 @stop
