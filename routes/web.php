@@ -30,7 +30,7 @@ Route::get("change/contract/code",function(){
     $first_party_title = strtolower(substr(optional($contract->first_parties)->first_party_title,0,2));
     $second_party_id = optional($contract->second_parties)->second_party_id;
     $second_party_type_id = optional($contract->second_party_type)->id;
-    $contract_id = rand(111,999)."/".uniqid();
+    $contract_id = rand(111,999).uniqid();
     $contract->contract_code = $serviceTypeId.'-'.$first_party_title.'-'.$second_party_id.'-'.$second_party_type_id.'-'.$contract_id;
     $contract->save();
   }
