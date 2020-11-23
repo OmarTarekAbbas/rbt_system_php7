@@ -277,9 +277,9 @@
 
           <!-- BEGIN Submenu -->
           <ul class="submenu">
-            <li id="contract-index"><a href="{{url('contractrequests/create')}}">Create Contract Request</a></li>
-            <li id="contract-index"><a href="{{url('contractrequests')}}">Contract Requests</a></li>
-            <li id="contract-index"><a href="{{url('fullcontracts/create')}}">Create Contract</a></li>
+            <li id="createcontractrequest-index"><a href="{{url('contractrequests/create')}}">Create Contract Request</a></li>
+            <li id="contractrequest-index"><a href="{{url('contractrequests')}}">Contract Requests</a></li>
+            <li id="createcontract-index"><a href="{{url('fullcontracts/create')}}">Create Contract</a></li>
             @if(get_action_icons('fullcontracts','get'))
             <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
             @endif
@@ -690,7 +690,7 @@
       </li>
 
       @endif
-      
+
 
       </ul>
       <!-- END Navlist -->

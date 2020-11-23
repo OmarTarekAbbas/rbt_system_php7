@@ -85,7 +85,7 @@ class ContractRequestService
         $first_party_title = Firstpartie::find($request['first_party_id'])->first_party_title;
         $second_party_id = $request['second_party_id'];
         $second_party_type_id = $request['second_party_type_id'];
-        $contract_id = rand(111,999).uniqid();
+        $contract_id = rand(111,999)."/".uniqid();
 
         $contractRequest->contract_code = $serviceTypeId.'-'.$first_party_title.'-'.$second_party_id.'-'.$second_party_type_id.'-'.$contract_id;
 

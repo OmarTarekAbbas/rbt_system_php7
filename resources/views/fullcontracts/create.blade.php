@@ -434,7 +434,7 @@
 <script>
   $('#contract .submenu').first().css('display', 'block');
   $('#contract .submenu').first().css('display', 'block');
-  $('#contract-index').addClass('active');
+  $('#createcontract-index').addClass('active');
   $("input:checkbox").on('click', function() {
     // in the handler, 'this' refers to the box clicked on
     var $box = $(this);
