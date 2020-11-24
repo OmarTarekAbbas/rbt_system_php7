@@ -114,7 +114,7 @@ class RbtController extends Controller
             })
             ->addColumn('content', function (Rbt $rbt) {
                 if ($rbt->content_id)
-                    return $rbt->content;
+                    return '<a  href="' . url("content/$rbt->content_id") . '" >' . $rbt->content . '</a>';
                 else
                     return '--';
             })
