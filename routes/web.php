@@ -40,3 +40,4 @@ Route::get('read_notify/{id}', function ($id) {
       'seen' => 1,
   ]);
 });
+ Route::get('update_contract_temporary', 'FullcontractsController@update_contract_temporary');

@@ -367,7 +367,7 @@ class FullcontractsController extends Controller
 
    public function export_excel(Request $request)
    {
-    $contracts = Contract::select("contract_code","contract_label","first_party_id","first_party_select","second_party_id","first_party_percentage","second_party_percentage","contract_signed_date","contract_date","contract_expiry_date","contract_duration.contract_duration_title as contract_duration_title","country_title","operator_title", "service_types.service_type_title as service_type")
+    $contracts = Contract::select("contract_code","contract_label","first_party","first_party_select","second_party","first_party_percentage","second_party_percentage","contract_signed_date","contract_date","contract_expiry_date","contract_duration.contract_duration_title as contract_duration_title","country_title","operator_title", "service_types.service_type_title as service_type")
     ->leftjoin('service_types', 'service_types.id', '=', 'contracts.service_type_id')
     ->leftjoin('contract_duration', 'contract_duration.contract_duration_id', '=', 'contracts.contract_duration_id')
     ->orderBy('contracts.contract_signed_date','desc')
@@ -405,4 +405,21 @@ class FullcontractsController extends Controller
     //   $contract = Contract::find($id);
     //   return view('contract_renew.index',compact('contract'));
     // }
+
+    public function update_contract_temporary(Request $request)
+    {
+      $contracts = Contract::orderBy('contracts.contract_signed_date','desc')->get();
+      foreach ($contracts as $contract) {
+        if ($contract->first_party_select == 0) {
+          $contract->first_party = second_partys($contract->second_party_id)->second_party_title;
+          $contract->second_party = first_partys($contract->first_party_id)->first_party_title;
+        }else{
+          $contract->first_party = first_partys($contract->first_party_id)->first_party_title;
+          $contract->second_party = second_partys($contract->second_party_id)->second_party_title;
+        }
+        $contract->save();
+      }
+      return $contracts;
+    }
+
 }

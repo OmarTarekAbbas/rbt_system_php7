@@ -9,6 +9,8 @@ use App\SecondParty;
 use App\Notification;
 use Illuminate\Http\Request;
 use App\Events\Notifications;
+use App\Firstpartie;
+use App\SecondParties;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -351,4 +353,16 @@ function client_route() {
       Route::get('contract/cr/{contract}','ClientContractController@copyright');
     });
 });
+}
+
+function first_partys($id)
+{
+  $first_partys = Firstpartie::where('id', $id)->first();
+  return $first_partys;
+}
+
+function second_partys($id)
+{
+  $second_partys = SecondParties::where('second_party_id', $id)->first();
+  return $second_partys;
 }

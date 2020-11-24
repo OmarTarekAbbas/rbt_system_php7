@@ -41,6 +41,15 @@ class ContractService
     if ($contractId) {
       $contract = Contract::find($contractId);
     }
+    if ($request['first_party_select'] == 0) {
+      $contract->first_party = second_partys($request['second_party_id'])->second_party_title;
+      $contract->second_party = first_partys($request['first_party_id'])->first_party_title;
+    }else{
+      $contract->first_party = first_partys($request['first_party_id'])->first_party_title;
+      $contract->second_party = second_partys($request['second_party_id'])->second_party_title;
+    }
+    // dd($contract);
+
 
     $request = array_merge($request, [
       "operator_title" => implode(",", $request['operator_title']),
