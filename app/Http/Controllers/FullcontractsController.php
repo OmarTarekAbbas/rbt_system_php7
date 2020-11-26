@@ -419,7 +419,7 @@ class FullcontractsController extends Controller
         }
         $contract->save();
       }
-      return $contracts;
+      echo "done";
     }
 
 }
