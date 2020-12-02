@@ -20,6 +20,8 @@ Contents
           <div class="btn-group pull-right">
           @if(get_action_icons('content/create','get'))
             <a class="btn btn-circle btn-success show-tooltip" href="{{url('content/create')}}" title="Create New content" href="#"><i class="fa fa-plus"></i></a>
+            @endif
+            @if(get_action_icons('content/{id}/delete','get'))
             <a id="delete_button" onclick="delete_selected('contents')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
             @endif
           </div><br><br>

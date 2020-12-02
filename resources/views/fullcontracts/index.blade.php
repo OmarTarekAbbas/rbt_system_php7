@@ -23,6 +23,8 @@ Contract
           @endif
           @if(get_action_icons('fullcontracts/create','get'))
             <a class="btn btn-circle btn-success show-tooltip" href="{{url('fullcontracts/create')}}" title="Create New Rbt" href="#"><i class="fa fa-plus"></i></a>
+            @endif
+            @if(get_action_icons('fullcontracts/{id}/delete','get'))
             <a id="delete_button" onclick="delete_selected('contracts')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
             @endif
           </div>
@@ -50,7 +52,7 @@ Contract
             <table class="table table-advance data_contract">
               <thead>
                 <tr>
-                  <th style="width:18px"><input type="checkbox" /></th>
+                <th style="width:18px"><input type="checkbox" onclick="select_all('contracts')" /></th>
                   <th>id</th>
                   <th>Code</th>
                   <th>Service Type</th>

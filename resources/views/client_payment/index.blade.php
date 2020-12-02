@@ -20,8 +20,10 @@ ClientPayments
           <div class="btn-group">
           @if(get_action_icons('clientpayments/create','get'))
             <a class="btn btn-circle btn-success show-tooltip" href="{{url('clientpayments/create')}}" title="Create New content" href="#"><i class="fa fa-plus"></i></a>
-            <a id="delete_button" onclick="delete_selected('client_payments')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
             @endif
+            <!-- @if(get_action_icons('delete_multiselect','post'))
+            <a id="delete_button" onclick="delete_selected('client_payments')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
+            @endif -->
           </div><br><br>
           <div class="table-responsive" style="border:0">
             <table class="table table-advance data_content">

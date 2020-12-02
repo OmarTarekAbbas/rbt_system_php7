@@ -79,7 +79,7 @@ class FullcontractsController extends Controller
 
         $datatable = \Datatables::of($contracts)
             ->addColumn('index', function (Contract $contract) {
-                return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$contract->id}}" class="roles" onclick="collect_selected(this)">';
+                return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$contract->id.'" class="roles" onclick="collect_selected(this)">';
             })
             ->addColumn('id', function (Contract $contract) {
                 return $contract->id;
