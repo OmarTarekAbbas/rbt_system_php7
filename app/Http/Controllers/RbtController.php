@@ -541,7 +541,7 @@ class RbtController extends Controller
      */
     public function destroy($id,Request $request)
     {
-      echo "fff"; die;
+
      	$rbt = Rbt::findOrfail($id);
      	$rbt->delete();
         $request->session()->flash('success', 'Deleted Successfully');
