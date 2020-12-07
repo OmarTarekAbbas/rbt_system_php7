@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 
 use App\ClientPayment;
 use App\Contract;
@@ -10,6 +10,7 @@ use App\Filters\Report\OperatorFilter;
 use App\Filters\Report\RbtCodeFilter;
 use App\Filters\Report\RbtTitleFilter;
 use App\Filters\Report\YearFilter;
+use App\Http\Controllers\Controller;
 use App\Operator;
 use App\Report;
 use Illuminate\Http\Request;

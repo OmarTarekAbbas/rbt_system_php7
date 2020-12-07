@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 use App\Contract;
 use App\Filters\DateFilter;
 use App\Filters\pageFilter;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 

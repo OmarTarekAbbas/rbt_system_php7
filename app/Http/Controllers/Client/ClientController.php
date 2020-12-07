@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\Controller;
 use App\Http\Services\ClientAuthService;
 use App\Http\Requests\ClientLoginRequest;
 use App\Http\Requests\UpdatePasswordRequest;
