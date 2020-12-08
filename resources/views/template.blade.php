@@ -746,6 +746,7 @@
             <li id="user-create"><a href="{{url('client/contractrequests')}}">Contract Requests</a></li>
             <li id="user-create"><a href="{{url('client/contracts')}}">Contracts</a></li>
             <li id="user-create"><a href="{{url('client/contents')}}">Contents</a></li>
+            <li id="user-create"><a href="{{url('client/rbt')}}">Rbt</a></li>
             <li id="user-index"><a href="{{url('client/reports')}}">Reports</a></li>
             <li id="user-index"><a href="{{url('client/payments')}}">Payments</a></li>
           </ul>

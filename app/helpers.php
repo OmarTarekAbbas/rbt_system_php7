@@ -355,6 +355,8 @@ function client_route() {
       Route::get('contractrequests/ajax/allData','ClientContractRequestController@allData');
       Route::resource('contents','ClientContentController');
       Route::get('contents/ajax/allData','ClientContentController@allData');
+      Route::resource('rbt','ClientRbtController');
+      Route::get('rbt/ajax/allData','ClientRbtController@allData');
     });
 });
 }

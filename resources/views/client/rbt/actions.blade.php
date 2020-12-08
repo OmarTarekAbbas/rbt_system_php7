@@ -1,0 +1,6 @@
+<td class="visible-xs visible-md visible-lg">
+  <div class="btn-group">
+    <a class="btn btn-sm btn-primary show-tooltip" href="{{url("client/rbt/$rbt->rbt_id")}}" title="Show"><i
+        class="fa fa-eye"></i></a>
+  </div>
+</td>

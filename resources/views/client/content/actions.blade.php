@@ -1,6 +1,6 @@
 <td class="visible-xs visible-md visible-lg">
   <div class="btn-group pull-right">
-    <a class="btn btn-sm btn-info show-tooltip" title="list traks" href="{{url("client/contents/$content->id/rbts")}}"><i
+    <a class="btn btn-sm btn-info show-tooltip" title="list traks" href="{{url("client/rbt?client_id=$content->id")}}"><i
         class="fa fa-music"></i></a>
 
     <a class="btn btn-sm btn-primary show-tooltip" href="{{url("client/contents/$content->id")}}" title="Show"><i
