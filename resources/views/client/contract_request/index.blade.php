@@ -49,9 +49,8 @@ ContractRequests
 @section('script')
 <script>
 
-  $('#contract .submenu').first().css('display', 'block');
-  $('#contract .submenu').first().css('display', 'block');
-  $('#contract-index').addClass('active');
+$('#client').addClass('active');
+$('#requests').addClass('active');
 
 
   $.ajaxSetup({

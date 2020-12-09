@@ -46,8 +46,8 @@ ClientPayments
 @stop
 @section('script')
 <script>
-  $('#clientpayments').addClass('active');
-  $('#clientpayments-index').addClass('active');
+  $('#client').addClass('active');
+  $('#payments').addClass('active');
 
   $.ajaxSetup({
     headers: {

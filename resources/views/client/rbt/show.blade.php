@@ -147,7 +147,7 @@ RBT
 @stop
 @section('script')
 <script>
-  $('#rbt').addClass('active');
-  $('#rbt-index').addClass('active');
+  $('#client').addClass('active');
+  $('#rbts').addClass('active');
 </script>
 @stop

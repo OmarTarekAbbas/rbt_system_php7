@@ -136,7 +136,7 @@ Content
 @stop
 @section('script')
 <script>
-  $('#content').addClass('active');
-  $('#content-index').addClass('active');
+  $('#client').addClass('active');
+  $('#contents').addClass('active');
 </script>
 @stop

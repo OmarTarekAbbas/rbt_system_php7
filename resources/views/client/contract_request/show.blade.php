@@ -418,7 +418,7 @@ contract request
 @stop
 @section('script')
 <script>
-  $('#contractRequests').addClass('active');
-  $('#contractRequests-index').addClass('active');
+  $('#client').addClass('active');
+  $('#requests').addClass('active');
 </script>
 @stop

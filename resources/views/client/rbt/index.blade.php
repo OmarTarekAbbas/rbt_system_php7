@@ -56,8 +56,8 @@ RBTs
 @stop
 @section('script')
 <script>
-    $('#rbt .submenu').first().css('display', 'block');
-    $('#rbt-index').addClass('active');
+    $('#client').addClass('active');
+    $('#rbts').addClass('active');
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')

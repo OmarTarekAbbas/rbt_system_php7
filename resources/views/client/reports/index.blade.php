@@ -168,8 +168,7 @@ Reports
 
 </script>
 <script>
-    $('#rbt .submenu').first().css('display', 'block');
-    $('#report .submenu').first().css('display', 'block');
-    $('#report-search').addClass('active');
+    $('#client').addClass('active');
+    $('#reports').addClass('active');
 </script>
 @stop

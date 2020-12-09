@@ -733,7 +733,7 @@
     <div id="sidebar" class="navbar-collapse collapse open">
       <!-- BEGIN Navlist -->
       <ul class="nav nav-list">
-      <li id="user">
+      <li id="client">
           <a href="#" class="dropdown-toggle">
             <i class="glyphicon glyphicon-user"></i>
             <span>{{ session()->get('client')->second_party_title }}</span>
@@ -743,12 +743,12 @@
           <!-- BEGIN Submenu -->
 
           <ul class="submenu open" style="display: block;">
-            <li id="user-create"><a href="{{url('client/contractrequests')}}">Contract Requests</a></li>
-            <li id="user-create"><a href="{{url('client/contracts')}}">Contracts</a></li>
-            <li id="user-create"><a href="{{url('client/contents')}}">Contents</a></li>
-            <li id="user-create"><a href="{{url('client/rbt')}}">Rbt</a></li>
-            <li id="user-index"><a href="{{url('client/reports')}}">Reports</a></li>
-            <li id="user-index"><a href="{{url('client/payments')}}">Payments</a></li>
+            <li id="requests"><a href="{{url('client/contractrequests')}}">Contract Requests</a></li>
+            <li id="contracts"><a href="{{url('client/contracts')}}">Contracts</a></li>
+            <li id="contents"><a href="{{url('client/contents')}}">Contents</a></li>
+            <li id="rbts"><a href="{{url('client/rbt')}}">Rbt</a></li>
+            <li id="reports"><a href="{{url('client/reports')}}">Reports</a></li>
+            <li id="payments"><a href="{{url('client/payments')}}">Payments</a></li>
           </ul>
           <!-- END Submenu -->
       </ul>
