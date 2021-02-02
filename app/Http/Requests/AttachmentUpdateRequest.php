@@ -31,7 +31,7 @@ class AttachmentUpdateRequest extends FormRequest
           'attachment_expiry_date' => 'required',
           'attachment_pdf' => 'nullable',
           'attachment_status' => 'required',
-          'notes' => 'required'
+          'notes' => 'nullable'
         ];
     }
 }

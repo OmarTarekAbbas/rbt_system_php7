@@ -62,6 +62,25 @@
     </div>
     <div class="col-md-5">
       <div class="row">
+        @if(get_action_icons('attachment','get'))
+        <div class="col-md-12 noPaddingPhone">
+          <a href="{{url('attachment')}}">
+            <div class="tile tile-green">
+              <div class="img">
+                <i class="fa fa-copy"></i>
+              </div>
+              <div class="content">
+                <p class="big">+{{(App\Attachment::count())}}</p>
+                <p class="title">Attachment</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        @endif
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="row">
         @if(get_action_icons('content','get'))
         <div class="col-md-12 noPaddingPhone">
           <a href="{{url('content')}}">
