@@ -38,8 +38,11 @@ class AttachmentStoreService
     */
     public function handle($request)
     {
+
+      if(array_key_exists('attachment_pdf', $request)){
         $attachment_pdf = $this->UploaderService->upload($request['attachment_pdf'], '/attachments');
         $request['attachment_pdf'] = $attachment_pdf;
+      }
 
         $contract = Contract::find($request['contract_id']);
         if ($request['attachment_type'] == 1) {

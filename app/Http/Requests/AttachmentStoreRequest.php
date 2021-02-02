@@ -29,7 +29,7 @@ class AttachmentStoreRequest extends FormRequest
             'attachment_title' => 'required',
             'attachment_date' => 'required',
             'attachment_expiry_date' => 'required',
-            'attachment_pdf' => 'required',
+            'attachment_pdf' => 'nullable',
             'attachment_status' => 'required',
             'notes' => 'required'
         ];
