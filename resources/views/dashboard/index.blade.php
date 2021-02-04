@@ -161,6 +161,27 @@
 
     <div class="col-md-5">
       <div class="row">
+        @if(get_action_icons('firstparties','get'))
+        <div class="col-md-12 noPaddingPhone">
+          <a href="{{url('firstparties')}}">
+
+            <div class="tile tile-green">
+              <div class="img">
+                <i class="fa fa-copy"></i>
+              </div>
+              <div class="content">
+                <p class="big">+{{(App\Firstpartie::count())}}</p>
+                <p class="title">Firstpartie</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        @endif
+      </div>
+    </div>
+
+    <div class="col-md-5">
+      <div class="row">
         @if(get_action_icons('SecondParty','get'))
         <div class="col-md-12 noPaddingPhone">
           <a href="{{url('SecondParty')}}">
