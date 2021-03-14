@@ -8,6 +8,13 @@
   .panel-group .panel-heading {
     background-color: #0000001f;
   }
+  .h_font_n{
+    font-size: 26px;
+    color: black;
+    font-weight: bold;
+    text-align: end;
+    margin-top: -18px;
+  }
 </style>
 <div class="row" style="margin-right: 0; margin-left: 0;">
   <div class="col-md-4">
@@ -59,6 +66,7 @@
                   <h4 class="panel-title h_font_w">
                     Contract Basic Information
                   </h4>
+                <h1 class="panel-title h_font_n">+</h1>
                 </div>
               </a>
               <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
@@ -276,11 +284,13 @@
 
             @if($contract->contractRenew->count())
             <div class="panel panel-default">
-              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 <div class="panel-heading" role="tab" id="headingTwo">
                   <h4 class="panel-title h_font_w">
                     Contract Renews
                   </h4>
+                  <h1 class="panel-title h_font_n">+</h1>
+
                 </div>
               </a>
               <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
@@ -329,11 +339,13 @@
             @endif
             @if($contract->items->count())
             <div class="panel panel-default">
-              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 <div class="panel-heading" role="tab" id="headingThree">
                   <h4 class="panel-title h_font_w">
                     Contract PDF Items
                   </h4>
+                  <h1 class="panel-title h_font_n">+</h1>
+
                 </div>
               </a>
               <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
