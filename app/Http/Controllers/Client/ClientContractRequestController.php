@@ -29,8 +29,8 @@ class ClientContractRequestController extends Controller
      */
     public function index()
     {
-        $contractRequests = $this->contractRequestRepository->get();
-        return view('client.contract_request.index',compact('contractRequests'));
+       // $contractRequests = $this->contractRequestRepository->get();
+        return view('client.contract_request.index');
     }
 
         /**

@@ -33,7 +33,7 @@ class ClientReportController extends Controller
       if($request->filled('export_excel')) {
         $this->exportExcel($search_result);
       }
-      return view('client.reports.index', compact('operators', 'aggregators','search_result','contracts'));
+      return view('client.reports.index', compact('operators','search_result','contracts'));
   }
 
   /**
