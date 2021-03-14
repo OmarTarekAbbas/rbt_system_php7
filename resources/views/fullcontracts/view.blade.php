@@ -276,7 +276,7 @@
 
             @if($contract->contractRenew->count())
             <div class="panel panel-default">
-              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                 <div class="panel-heading" role="tab" id="headingTwo">
                   <h4 class="panel-title h_font_w">
                     Contract Renews
@@ -329,7 +329,7 @@
             @endif
             @if($contract->items->count())
             <div class="panel panel-default">
-              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
                 <div class="panel-heading" role="tab" id="headingThree">
                   <h4 class="panel-title h_font_w">
                     Contract PDF Items
