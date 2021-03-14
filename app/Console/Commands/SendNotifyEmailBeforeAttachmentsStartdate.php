@@ -45,7 +45,7 @@ class SendNotifyEmailBeforeAttachmentsStartdate extends Command
         $subject = "Attachment Expire Data Notify";
         $data['title'] = $attachment->attachment_code . ' ' . $attachment->attachment_title.' Type: '.$attachment->attachment_type;
         $data['url']   = url('attachment/'.$attachment->id.'/edit');
-        $data['expire_date'] = $attachment->attachment_expiry_date->format('Y-m-d');
+        $data['expire_date'] = $attachment->attachment_expiry_date;
         $this->sendEmail(explode(',',setting('attachment_notify_emails')), $data, $subject);
         // $this->sendNotifyToCeo($data);
       }

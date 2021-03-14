@@ -9,7 +9,7 @@ class Attachment extends Model
 {
     protected $fillable = ['attachment_code', 'contract_id', 'attachment_type', 'attachment_title', 'attachment_date', 'attachment_expiry_date', 'contract_expiry_date', 'attachment_pdf', 'attachment_status', 'notes'];
 
-    protected $dates = ['attachment_date', 'attachment_expiry_date', 'contract_expiry_date'];
+    //protected $dates = ['attachment_date', 'attachment_expiry_date', 'contract_expiry_date'];
 
     public function contract()
     {
