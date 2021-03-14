@@ -51,7 +51,7 @@ class SendNotifyEmailBeforeRoadmapStartdate extends Command
 
         foreach ($roadmaps as $roadmap) {
 
-            $subject = "Roadmap Start Date Notifiy";
+            $subject = "Roadmap Start Date Notify";
 
             $data['title'] = $roadmap->event_title;
             $data['url'] = url("/roadmap/$roadmap->id");

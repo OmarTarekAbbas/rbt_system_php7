@@ -43,7 +43,7 @@ class SendNotifyEmailBeforeRbtAndContentEnd extends Command
       $rbts = Rbt::where('expire_date','=',Carbon::now()->addDays(setting('rbt_notify_date'))->format('Y-m-d'))->get();
       $contents = Content::where('expire_date','=',Carbon::now()->addDays(setting('content_notify_date'))->format('Y-m-d'))->get();
       foreach ($rbts as  $rbt) {
-        $subject = "Rbt Expire Data Notifiy";
+        $subject = "Rbt Expire Data Notify";
         $data['title'] = 'Rbt '.$rbt->track_title_en;
         $data['url']   = url('rbt/'.$rbt->id);
         $data['expire_date'] = $rbt->expire_date->format('Y-m-d');

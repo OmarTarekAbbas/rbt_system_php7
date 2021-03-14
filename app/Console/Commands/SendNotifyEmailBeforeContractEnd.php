@@ -45,7 +45,7 @@ class SendNotifyEmailBeforeContractEnd extends Command
       ->where('contract_expiry_date','>=',Carbon::now()->format('Y-m-d'))
       ->where('contract_expiry_date','<=',Carbon::now()->addDays(setting('contract_notify_date'))->format('Y-m-d'))->get();
       foreach ($contracts as  $contract) {
-        $subject = "Contract Expire Data Notifiy";
+        $subject = "Contract Expire Data Notify";
         $data['title'] = $contract->contract_code . ' ' . $contract->contract_label;
         $data['url']   = url('contracts/'.$contract->id.'/renew');
         $data['expire_date'] = $contract->contract_expiry_date->format('Y-m-d');

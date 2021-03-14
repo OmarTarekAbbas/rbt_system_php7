@@ -47,7 +47,7 @@ class SendNotifyEmailBeforeContractRenewEnd extends Command
         ->groupBy('contract_id')
         ->get();
       foreach ($contractRenews as  $contractRenew) {
-        $subject = "Contract Expire Data Notifiy";
+        $subject = "Contract Expire Data Notify";
         $data['title'] = $contractRenew->contract->contract_code . ' ' . $contractRenew->contract->contract_label;
         $data['url']   = url('contracts/'.$contractRenew->contract->id.'/renew?contract_renew_id='.$contractRenew->id);
         $data['expire_date'] = $contractRenew->renew_expire_date->format('Y-m-d');
