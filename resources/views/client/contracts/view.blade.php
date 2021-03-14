@@ -371,7 +371,7 @@
 
 @stop @section('script')
 <script>
-  $('#contract').addClass('active');
-  $('#contract-index').addClass('active');
+$('#client').addClass('active');
+$('#contracts').addClass('active');
 </script>
 @stop

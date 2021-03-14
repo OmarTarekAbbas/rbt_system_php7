@@ -68,8 +68,8 @@ Contract
 @stop
 @section('script')
 <script>
-$('#contract .submenu').first().css('display', 'block');
-$('#contract-index').addClass('active');
+$('#client').addClass('active');
+$('#contracts').addClass('active');
 $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')

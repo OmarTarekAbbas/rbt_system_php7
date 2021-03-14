@@ -1,6 +1,6 @@
 @extends('template')
 @section('page_title')
-ClientPayments
+Contents
 @stop
 @section('content')
 
@@ -10,25 +10,30 @@ ClientPayments
     <div class="col-md-12 noPaddingPhone">
       <div class="box box-blue">
         <div class="box-title">
-          <h3><i class="fa fa-table"></i> ClientPayment Table</h3>
+          <h3><i class="fa fa-table"></i> Content Table</h3>
           <div class="box-tool">
             <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
             <a data-action="close" href="#"><i class="fa fa-times"></i></a>
           </div>
         </div>
         <div class="box-content">
+          <div class="btn-group pull-right">
+
+          </div><br><br>
           <div class="table-responsive" style="border:0">
             <table class="table table-advance data_content">
               <thead>
                 <tr>
-                  <th style="width:18px"><input type="checkbox" onclick="select_all('client_payments')" /></th>
+                  <th style="width:18px"><input type="checkbox" onclick="select_all('contents')" /></th>
                   <th>id</th>
-                  <th>contract</th>
+                  <th>Internal Coding</th>
+                  <th>Content Title</th>
+                  <th>Content Type</th>
+                  <th>content File</th>
+                  <th>Contract Code</th>
+                  <th>Occasion Title</th>
                   <th>Provider</th>
-                  <th>Amount</th>
-                  <th>Currency</th>
-                  <th>Year</th>
-                  <th>Months</th>
+                  <th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -47,7 +52,7 @@ ClientPayments
 @section('script')
 <script>
   $('#client').addClass('active');
-  $('#payments').addClass('active');
+  $('#contents').addClass('active');
 
   $.ajaxSetup({
     headers: {
@@ -61,7 +66,7 @@ ClientPayments
       "search": {
         "regex": true
       },
-      ajax: "{{ url('client/payments/allData') }}",
+      ajax: "{{url('client/contents/ajax/allData') }}",
       columns: [{
           data: "index",
           searchable: false,
@@ -72,32 +77,47 @@ ClientPayments
           name: "id"
         },
         {
-          data: "contract",
-          name: "contract"
+          data: "internal_coding",
+          name: "internal_coding"
+        },
+        {
+          data: "content_title",
+          name: "content_title"
+        },
+        {
+          data: "content_type",
+          name: "content_type"
+        },
+        {
+          data: "path",
+          name: "path"
+        },
+        {
+          data: "contract_code",
+          name: "contract_code"
+        },
+        {
+          data: "occasion",
+          name: "occasion"
         },
         {
           data: "provider",
           name: "provider"
         },
         {
-          data: "amount",
-          name: "amount"
-        },
-        {
-          data: "currency",
-          name: "currency"
-        },
-        {
-          data: "year",
-          name: "year"
-        },
-        {
-          data: "month",
-          name: "month"
+          data: "action",
+          searchable: false
         }
       ],
       "pageLength": 10,
       stateSave: true
+    });
+  });
+  $(document).ajaxComplete(function() {
+    $("audio").on("play", function() {
+      $("audio").not(this).each(function(index, audio) {
+        audio.pause();
+      });
     });
   });
 </script>

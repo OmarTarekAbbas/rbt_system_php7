@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\ClientPayment;
 use App\Currency;
-use App\Http\Controllers\Controller;
 use App\Http\Repository\ClientPaymentRepository;
 use App\Http\Requests\ClientPaymentRequest;
-use App\Http\Requests\Request;
 use App\Http\Services\ClientPaymentService;
 use App\SecondParties;
 

@@ -431,7 +431,7 @@ class RbtController extends Controller
         $operators = Operator::all();
         $occasions = Occasion::all()->pluck('title','id');
         $aggregators = Aggregator::all()->pluck('title','id');
-        $providers = Provider::all()->pluck('title','id') ;
+        $providers = SecondParties::all()->pluck('second_party_title', 'second_party_id');
         $contents = Content::all()->pluck('content_title','id') ;
         $title = "";
         $rbt = Rbt::findOrfail($id);
@@ -523,6 +523,9 @@ class RbtController extends Controller
         }
         if ($request->content_id != "") {
             $rbt->content_id = $request->content_id;
+        }
+        if ($request->provider_id != "") {
+            $rbt->provider_id = $request->provider_id;
         }
 
         $rbt->start_date      = $request->start_date ? date('Y-m-d',strtotime($request->start_date)) : null;

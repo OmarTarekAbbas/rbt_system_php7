@@ -335,7 +335,7 @@ function payment_method()
 }
 
 function client_route() {
-  Route::group(['prefix' => 'client'], function () {
+  Route::group(['prefix' => 'client', 'namespace' => 'Client'], function () {
     Route::get('login','ClientController@getLoginPage');
     Route::post('login','ClientController@Login');
     Route::group(['middleware' => 'client'], function () {
@@ -351,6 +351,12 @@ function client_route() {
       Route::get('contract/al/{contract}','ClientContractController@authorization');
       Route::get('contract/an/{contract}','ClientContractController@annex');
       Route::get('contract/cr/{contract}','ClientContractController@copyright');
+      Route::resource('contractrequests','ClientContractRequestController');
+      Route::get('contractrequests/ajax/allData','ClientContractRequestController@allData');
+      Route::resource('contents','ClientContentController');
+      Route::get('contents/ajax/allData','ClientContentController@allData');
+      Route::resource('rbt','ClientRbtController');
+      Route::get('rbt/ajax/allData','ClientRbtController@allData');
     });
 });
 }
