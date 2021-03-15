@@ -26,13 +26,14 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('notify:endrbtcontent')
                  ->daily();
-        $schedule->command('notify:endcontract')
-                 ->daily();
+
         $schedule->command('notify:endcontractrenew')
                  ->daily();
         $schedule->command('notify:roadmapstartdate')
                  ->daily();
-        $schedule->command('notify:attachments')->dailyAt('08:00');  // at 10
+
+        $schedule->command('notify:endcontract')->dailyAt('08:00');// at 10
+        $schedule->command('notify:attachments')->dailyAt('08:15');
     }
 
     /**
