@@ -39,7 +39,7 @@ class SendNotifyEmailBeforeAttachmentsStartdate extends Command
      */
     public function handle()
     {
-      $attachments = Attachment::where('attachment_expiry_date','>=',Carbon::now()->format('Y-m-d'))
+      $attachments = Attachment::where("attachment_status",1)->where('attachment_expiry_date','>=',Carbon::now()->format('Y-m-d'))
       ->where('attachment_expiry_date','<=',Carbon::now()->addDays(setting('attachment_notify_date'))->format('Y-m-d'))->get();
       foreach ($attachments as  $attachment) {
         $subject = "Attachment Expire Data Notify";
