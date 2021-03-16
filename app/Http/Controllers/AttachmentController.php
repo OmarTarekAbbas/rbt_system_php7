@@ -10,6 +10,8 @@ use App\Http\Requests\AttachmentUpdateRequest;
 use App\Http\Services\AttachmentStoreService;
 use App\Http\Services\AttachmentUpdateService;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+
 
 class AttachmentController extends Controller
 {
@@ -181,5 +183,58 @@ class AttachmentController extends Controller
     {
         $Attachment = $this->AttachmentRepository->destroy($id);
         return back()->with(['success' => 'Deleted Successfully']);
+    }
+
+    public function attachment_expiry_date_index()
+    {
+        return view('attachments.index_expiry_date');
+    }
+
+    public function attachment_expiry_date(Request $request)
+    {
+      $Attachments = $this->AttachmentRepository->where('attachment_expiry_date','<',Carbon::now()->format('Y-m-d'))->get();
+      $datatable = \Datatables::of($Attachments)
+          ->addColumn('index', function (Attachment $Attachment) {
+              return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$Attachment->id.'" class="roles" onclick="collect_selected(this)">';
+          })
+          ->addColumn('id', function (Attachment $Attachment) {
+              return $Attachment->id;
+          })
+          ->addColumn('attachment_code', function (Attachment $Attachment) {
+            return '<a target="_blank" href="'.url($Attachment->attachment_pdf).'">'.$Attachment->attachment_code.'</a>';
+        })
+          ->addColumn('contract', function (Attachment $Attachment) {
+            return '<a href="'.url('fullcontracts/'.optional($Attachment->contract)->id).'">'.optional($Attachment->contract)->contract_code.' - '.optional($Attachment->contract)->contract_label.'</a>';
+        })
+          ->addColumn('attachment_type', function (Attachment $Attachment) {
+              return $Attachment->attachment_type;
+          })
+          ->addColumn('attachment_title', function (Attachment $Attachment) {
+              return $Attachment->attachment_title;
+          })
+          ->addColumn('attachment_date', function (Attachment $Attachment) {
+              return $Attachment->attachment_date;
+          })
+          ->addColumn('attachment_expiry_date', function (Attachment $Attachment) {
+            return $Attachment->attachment_expiry_date;
+          })
+          ->addColumn('contract_expiry_date', function (Attachment $Attachment) {
+            return $Attachment->contract_expiry_date;
+          })
+          ->addColumn('attachment_status', function (Attachment $Attachment) {
+            return $Attachment->attachment_status;
+
+          })
+          ->addColumn('notes', function (Attachment $Attachment) {
+            return $Attachment->notes;
+          })
+          ->addColumn('action', function (Attachment $Attachment) {
+                  return view('attachments.actions', compact('Attachment'));
+          })
+
+          ->escapeColumns([])
+          ->make(true);
+
+      return $datatable;
     }
 }
