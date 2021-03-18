@@ -6,10 +6,10 @@ Content
 
 <div class="row marginZero">
   <div class="col-md-4">
-    <a class="btn btn-circle btn-primary show-tooltip " href="{{url('/content')}}" title="List Content">
+    <a class="btn btn-circle btn-primary show-tooltip " href="{{url('client/contents')}}" title="List Content">
       <i class="fa fa-eye"></i>
     </a>
-    <a href="{{url('/content')}}" title="List Content">List Content</a>
+    <a href="{{url('client/contents')}}" title="List Content">List Content</a>
   </div
   <br>
   <br>
@@ -83,7 +83,7 @@ Content
                         </audio>
                       </div>
                       <div class="col-md-2">
-                        <span style="font-weight: bold;">Internal Coding: </span> <a href="{{ url('rbt/'.$rbt->id) }}">{{$rbt->internal_coding}}</a>
+                        <span style="font-weight: bold;">Internal Coding: </span> <a href="{{ url('client/rbt/'.$rbt->id) }}">{{$rbt->internal_coding}}</a>
                       </div>
                       <div class="col-md-2">
                         <span style="font-weight: bold;">Code: </span>

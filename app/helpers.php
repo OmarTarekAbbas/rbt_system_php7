@@ -109,6 +109,18 @@ function send_notification($message,$dep,$data){
     return null;
   }
 
+  function legal_data(){
+    $legal = User::select('*','users.id as id')->join('user_has_roles', 'users.id', '=', 'user_has_roles.user_id')
+    ->join('roles','user_has_roles.role_id','=','roles.id')
+    ->where('roles.name','legal')
+    ->where('users.email','shaimaa.lotfi@ivas.com.eg')
+    ->first();
+    if($legal) {
+      return $legal;
+    }
+    return null;
+  }
+
   function generatePdf($contract)
   {
     $file = $contract->id . time() . '.pdf';
@@ -347,6 +359,7 @@ function client_route() {
       Route::get('payments','ClientReportController@clientPayment');
       Route::get('payments/allData','ClientReportController@allData');
       Route::resource('contracts','ClientContractController');
+      Route::get('contracts/{id}','ClientContractController@show');
       Route::get('contract/allData','ClientContractController@allData');
       Route::get('contract/al/{contract}','ClientContractController@authorization');
       Route::get('contract/an/{contract}','ClientContractController@annex');

@@ -129,7 +129,7 @@ RBT
                 <tr>
                   <td width='30%' class='label-view text-left'>Content Code</td>
                   @if($rbt->internal_coding)
-                  <td> <a href="{{ url('content/'.$rbt->content_id) }}"> {{$rbt->internal_coding}} </a></td>
+                  <td> <a href="{{ url('client/contents/'.$rbt->content_id) }}"> {{$rbt->internal_coding}} </a></td>
                   @else
                   <td>---</td>
                   @endif

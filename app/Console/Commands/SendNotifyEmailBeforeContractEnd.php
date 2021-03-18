@@ -50,7 +50,7 @@ class SendNotifyEmailBeforeContractEnd extends Command
         $data['url']   = url('contracts/'.$contract->id.'/renew');
         $data['expire_date'] = $contract->contract_expiry_date->format('Y-m-d');
         $this->sendEmail(explode(',',setting('notifiy_contract_emails')), $data, $subject);
-        $this->sendNotifyToCeo($data);
+        $this->sendNotifyToLegal($data);
       }
 
       echo "contract notify done";
@@ -92,11 +92,11 @@ class SendNotifyEmailBeforeContractEnd extends Command
      *
      * @return void
      */
-    public function sendNotifyToCeo($data)
+    public function sendNotifyToLegal($data)
     {
       $notification = new Notification();
       $notification->notifier_id = 1;
-      $notification->notified_id = ceo_data()->id;
+      $notification->notified_id = legal_data()->id;
       $notification->subject = 'this contract with label and code ' . $data['title'] . ' Will Expire In '.$data['expire_date'] . ' and needed to renew';
       $notification->link = $data['url'];
       $notification->seen = 0;

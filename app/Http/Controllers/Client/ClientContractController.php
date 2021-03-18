@@ -136,7 +136,7 @@ class ClientContractController extends Controller
      */
     public function show($id)
     {
-        $contract = Contract::whereId($id)->where('second_party_id',session()->get('client')->second_party_id)->firstOrfail();
+      $contract = Contract::whereId($id)->where('second_party_id',session()->get('client')->second_party_id)->firstOrfail();
         $first_partie = DB::table('first_parties')->where('id', $contract->first_party_id)->first();
         $second_parties = DB::table('second_parties')->where('second_party_id', $contract->second_party_id)->first();
         $second_party_types = DB::table('second_party_types')->where('id', $contract->second_party_type_id)->first();
