@@ -67,7 +67,7 @@ attachment
 <script>
   $('#contract .submenu').first().css('display', 'block');
   $('#Attachment .submenu').first().css('display', 'block');
-  $('#Attachment-index').addClass('active');
+  $('#Attachment-attachment_expiry_date').addClass('active');
 
   $.ajaxSetup({
         headers: {

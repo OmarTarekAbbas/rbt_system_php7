@@ -311,7 +311,7 @@
             <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
             @endif
             @if(get_action_icons('fullcontracts_expiry_date','get'))
-            <li id="contract-index"><a href="{{url('fullcontracts_expiry_date')}}">Expired Contracts</a></li>
+            <li id="contract-fullcontracts_expiry_date"><a href="{{url('fullcontracts_expiry_date')}}">Expired Contracts</a></li>
             @endif
             @if(get_action_icons('ContractTemplate','get'))
             <li id="ContractTemplate-index"><a href="{{url('ContractTemplate')}}">Templates</a></li>
@@ -335,7 +335,7 @@
             <li id="Attachment-index"><a href="{{url('attachment')}}">Attachment</a></li>
             @endif
             @if(get_action_icons('attachment_expiry_date','get'))
-            <li id="Attachment-index"><a href="{{url('attachment_expiry_date')}}">Expired Attachments</a></li>
+            <li id="Attachment-attachment_expiry_date"><a href="{{url('attachment_expiry_date')}}">Expired Attachments</a></li>
             @endif
           </ul>
           <!-- END Submenu -->

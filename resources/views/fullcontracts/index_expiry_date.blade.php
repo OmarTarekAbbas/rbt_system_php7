@@ -87,6 +87,8 @@ Contract
 <script>
 $('#contract .submenu').first().css('display', 'block');
 $('#contract-index').addClass('active');
+$('#contract-fullcontracts_expiry_date').addClass('active');
+
 $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
