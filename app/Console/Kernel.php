@@ -32,8 +32,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('notify:roadmapstartdate')
                  ->daily();
 
-        $schedule->command('notify:endcontract')->weeklyOn(7, '8:00'); // sun day at 10:00
-        $schedule->command('notify:attachments')->weeklyOn(7, '08:15'); //sunday at 10:15
+        $schedule->command('notify:endcontract')->weeklyOn(1, '8:00'); //weekly each monday  at 10:00
+        $schedule->command('notify:attachments')->weeklyOn(1, '08:15'); //weekly each monday at 10:15
+
+
     }
 
     /**
