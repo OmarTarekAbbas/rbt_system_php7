@@ -68,7 +68,7 @@ Reports
               <div class="form-group ">
                 <label class="col-sm-3 col-lg-2 control-label">Code</label>
                 <div class="col-sm-9 col-lg-10 controls">
-                  <input id="input4" name="code" type="number" class="form-control" value="{{ request('code') }}">
+                  <input id="input4" name="code" type="text" class="form-control" value="{{ request('code') }}">
                 </div>
               </div>
 

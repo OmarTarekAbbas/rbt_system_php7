@@ -18,6 +18,7 @@ use App\Type;
 use App\Operator;
 use App\Provider;
 use App\Aggregator;
+use App\Contract;
 use App\Filters\Report\AggregatorFilter;
 use App\Filters\Report\ContractFilter;
 use App\Filters\Report\MonthFilter;
@@ -69,6 +70,7 @@ class ReportController extends Controller
       $title = 'Index - report';
         if (get_action_icons('report','get')) {
             $reports = Report::with('operator')->get();
+            // dd($reports );
         } else {
             $reports = Report::where('aggregator_id', Auth::user()->aggregator_id)->with('operator')->get();
         }
@@ -456,11 +458,12 @@ class ReportController extends Controller
         $operators = Operator::all();
         $aggregators = Aggregator::all()->pluck('title', 'id');
         $second_partys = SecondParties::all();
+        $contracts = Contract::all();
         $search_result = Report::with(['operator','provider','contract','aggregator'])->filter($this->search_filters())->get();
         if($request->filled('export_excel')) {
           $this->exportExcel($search_result);
         }
-        return view('report.search', compact('operators', 'aggregators', 'second_partys','search_result'));
+        return view('report.search', compact('operators', 'aggregators', 'second_partys','search_result','contracts'));
     }
 
     public function exportExcel($search_result)

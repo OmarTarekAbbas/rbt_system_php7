@@ -47,7 +47,10 @@ Reports
                 <label class="col-sm-3 col-lg-2 control-label">Contract</label>
                 <div class="col-sm-9 col-lg-10 controls">
                   <select id="contract_id" class="form-control chosen" data-placeholder="Choose a Contract" name="contract_id">
-                    <option value=""></option>
+                  <option value=""></option>
+                    @foreach($contracts as $contract)
+                    <option @if(request('contract_id') == $contract->id) selected="selected" @endif value="{{$contract->id}}">{{$contract->contract_code .'-'. $contract->contract_label}}</option>
+                    @endforeach
                   </select>
                 </div>
               </div>
@@ -70,6 +73,7 @@ Reports
                 <label class="col-sm-3 col-lg-2 control-label">Year</label>
                 <div class="col-sm-9 col-lg-10 controls">
                   <select id="signed_date" class="form-control chosen" data-placeholder="Filter By Year" name="year" tabindex="1">
+                  <option value=""></option>
                     @foreach( range( date('Y')-10 , date('Y')+10 ) as $year )
                     <option @if( (!request('year') && $year==date('Y')) || request('year')==$year) selected="selected" @endif value="{{$year}}">{{$year}}</option>
                     @endforeach
@@ -90,7 +94,7 @@ Reports
               <div class="form-group ">
                 <label class="col-sm-3 col-lg-2 control-label">Code</label>
                 <div class="col-sm-9 col-lg-10 controls">
-                  <input id="input4" name="code" type="number" class="form-control" value="{{ request('code') }}">
+                  <input id="input4" name="code" type="text" class="form-control" value="{{ request('code') }}">
                 </div>
               </div>
 
