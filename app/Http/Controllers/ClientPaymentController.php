@@ -58,11 +58,12 @@ class ClientPaymentController extends Controller
     {
         $client_payments = $this->clientPaymentRepository
         ->select('*', 'client_payments.id AS id', 'second_parties.second_party_title as provider', 'currencies.title as currency', 'contracts.contract_code as contract_code', 'contracts.contract_label as contract_label', 'contracts.id as contract_id')
+        ->join('contracts', 'contracts.id', '=', 'client_payments.contract_id')
         ->join('second_parties', 'second_parties.second_party_id', '=', 'client_payments.second_party_id')
         ->join('currencies', 'currencies.id', '=', 'client_payments.currency_id')
-        ->join('contracts', 'contracts.id', '=', 'client_payments.contract_id')
         ->latest('client_payments.id')
         ->get();
+        // dd($client_payments);
 
       $datatable = \Datatables::of($client_payments)
         ->addColumn('index', function (ClientPayment $client_payment) {
@@ -71,12 +72,10 @@ class ClientPaymentController extends Controller
         ->addColumn('id', function (ClientPayment $client_payment) {
           return $client_payment->id;
         })
+         ->addColumn('contract_code', function (ClientPayment $client_payment) {
 
-        ->addColumn('contract', function (ClientPayment $client_payment) {
-          if ($client_payment->contract_code)
-            return '<a  href="' . url("fullcontracts/$client_payment->contract_id") . '" >' . $client_payment->contract_code . " " . $client_payment->contract_label. '</a>';
-          else
-            return '---';
+            return '<a  href="' . url("fullcontracts/$client_payment->contract_id") . '" >' . $client_payment->contract_code . '</a>';
+
         })
         ->addColumn('provider', function (ClientPayment $client_payment) {
           return $client_payment->provider;
@@ -87,6 +86,7 @@ class ClientPaymentController extends Controller
         ->addColumn('currency', function (ClientPayment $client_payment) {
             return $client_payment->currency;
         })
+
         ->addColumn('year', function (ClientPayment $client_payment) {
             return $client_payment->year;
         })
@@ -98,7 +98,6 @@ class ClientPaymentController extends Controller
         })
         ->escapeColumns([])
         ->make(true);
-
       return $datatable;
     }
 

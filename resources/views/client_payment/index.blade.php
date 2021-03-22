@@ -26,7 +26,7 @@ ClientPayments
             @endif -->
           </div><br><br>
           <div class="table-responsive" style="border:0">
-            <table class="table table-advance data_content">
+            <table class="table table-advance data_client_payment">
               <thead>
                 <tr>
                   <th style="width:18px"><input type="checkbox" onclick="select_all('client_payments')" /></th>
@@ -64,7 +64,7 @@ ClientPayments
     }
   });
   $(document).ready(function() {
-    $('.data_content').DataTable({
+    $('.data_client_payment').DataTable({
       "processing": true,
       "serverSide": true,
       "search": {
@@ -81,8 +81,8 @@ ClientPayments
           name: "id"
         },
         {
-          data: "contract",
-          name: "contract"
+          data: "contract_code",
+          name: "contract_code"
         },
         {
           data: "provider",

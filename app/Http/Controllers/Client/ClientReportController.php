@@ -96,9 +96,9 @@ class ClientReportController extends Controller
         ->addColumn('currency', function (ClientPayment $client_payment) {
             return $client_payment->currency;
         })
-        ->addColumn('contract', function (ClientPayment $client_payment) {
+        ->addColumn('contract_code', function (ClientPayment $client_payment) {
           if ($client_payment->contract_code)
-            return '<a  href="' . url("client/contracts/$client_payment->contract_id") . '" >' . $client_payment->contract_code . " " . $client_payment->contract_label. '</a>';
+            return '<a  href="' . url("client/contracts/$client_payment->contract_id") . '" >' . $client_payment->contract_code .  '</a>';
           else
             return '---';
         })
