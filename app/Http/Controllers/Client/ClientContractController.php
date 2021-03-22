@@ -70,7 +70,7 @@ class ClientContractController extends Controller
             ->addColumn('contract_label', function (Contract $contract) {
                 return $contract->contract_label;
             })
-            ->addColumn('contract_status', function (Contract $contract) {
+            ->addColumn('contract_status', function (Contract $contract) { 
               return $contract->contract_status ? 'Active' : 'Not Active';
             })
             ->addColumn('first_party', function (Contract $contract) {
