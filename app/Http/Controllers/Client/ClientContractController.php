@@ -61,7 +61,8 @@ class ClientContractController extends Controller
                 return $contract->id;
             })
             ->addColumn('code', function (Contract $contract) {
-                return '<a target="_blank" href="'.url("Contract/".$contract->id."/items/download").'">' .$contract->code. '</a>';
+
+                return '<a target="_blank" href="'.url("uploads/contracts/".$contract->contract_pdf).'">' .$contract->code. '</a>';
             })
             ->addColumn('service_type', function (Contract $contract) {
                 return $contract->service_type;
