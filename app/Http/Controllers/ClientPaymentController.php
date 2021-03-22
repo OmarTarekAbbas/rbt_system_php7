@@ -71,6 +71,13 @@ class ClientPaymentController extends Controller
         ->addColumn('id', function (ClientPayment $client_payment) {
           return $client_payment->id;
         })
+
+        ->addColumn('contract', function (ClientPayment $client_payment) {
+          if ($client_payment->contract_code)
+            return '<a  href="' . url("fullcontracts/$client_payment->contract_id") . '" >' . $client_payment->contract_code . " " . $client_payment->contract_label. '</a>';
+          else
+            return '---';
+        })
         ->addColumn('provider', function (ClientPayment $client_payment) {
           return $client_payment->provider;
         })
@@ -79,12 +86,6 @@ class ClientPaymentController extends Controller
         })
         ->addColumn('currency', function (ClientPayment $client_payment) {
             return $client_payment->currency;
-        })
-        ->addColumn('contract', function (ClientPayment $client_payment) {
-          if ($client_payment->contract_code)
-            return '<a  href="' . url("fullcontracts/$client_payment->contract_id") . '" >' . $client_payment->contract_code . " " . $client_payment->contract_label. '</a>';
-          else
-            return '---';
         })
         ->addColumn('year', function (ClientPayment $client_payment) {
             return $client_payment->year;

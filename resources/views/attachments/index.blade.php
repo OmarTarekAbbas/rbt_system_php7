@@ -120,6 +120,10 @@ attachment
                     name: "contract_expiry_date"
                 },
                 {
+                    data: "attachment_pdf",
+                    name: "attachment_pdf"
+                },
+                {
                     data: "attachment_status",
                     name: "attachment_status"
                 },

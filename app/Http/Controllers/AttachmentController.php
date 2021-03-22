@@ -93,6 +93,9 @@ class AttachmentController extends Controller
             ->addColumn('contract_expiry_date', function (Attachment $Attachment) {
               return $Attachment->contract_expiry_date;
             })
+            ->addColumn('attachment_pdf', function (Attachment $Attachment) {
+              return '<a target="_blank" href="'.url($Attachment->attachment_pdf).'">Preview</a>';
+            })
             ->addColumn('attachment_status', function (Attachment $Attachment) {
               return $Attachment->attachment_status;
 
@@ -221,6 +224,11 @@ class AttachmentController extends Controller
           ->addColumn('contract_expiry_date', function (Attachment $Attachment) {
             return $Attachment->contract_expiry_date;
           })
+
+          ->addColumn('attachment_pdf', function (Attachment $Attachment) {
+            return '<a target="_blank" href="'.url($Attachment->attachment_pdf).'">Preview</a>';
+          })
+          
           ->addColumn('attachment_status', function (Attachment $Attachment) {
             return $Attachment->attachment_status;
 
