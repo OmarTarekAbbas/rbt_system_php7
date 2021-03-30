@@ -103,16 +103,16 @@ class ClientRbtController extends Controller
     public function show($id)
     {
         $rbt = Rbt::select('*','rbts.start_date','rbts.expire_date','rbts.id AS rbt_id','providers.title as provider','occasions.title as occasion','operators.title as operator','aggregators.title as aggregator','contents.content_title as content','rbts.internal_coding as rbt_internal_coding')
-        ->join('second_parties','second_parties.second_party_id','=','rbts.provider_id')
-        ->join('providers','providers.id','=','rbts.provider_id')
-        ->join('occasions','occasions.id','=','rbts.occasion_id')
-        ->join('operators','operators.id','=','rbts.operator_id')
-        ->join('aggregators','aggregators.id','=','rbts.aggregator_id')
-        ->join('contents','contents.id','=','rbts.content_id')
+        ->leftjoin('second_parties','second_parties.second_party_id','=','rbts.provider_id')
+        ->leftjoin('providers','providers.id','=','rbts.provider_id')
+        ->leftjoin('occasions','occasions.id','=','rbts.occasion_id')
+        ->leftjoin('operators','operators.id','=','rbts.operator_id')
+        ->leftjoin('aggregators','aggregators.id','=','rbts.aggregator_id')
+        ->leftjoin('contents','contents.id','=','rbts.content_id')
         ->where('rbts.id', $id)
         ->where('second_parties.second_party_id',session()->get('client')->second_party_id)
         ->first();
-        // dd($rbt);
+        
         return view('client.rbt.show',compact('rbt'));
     }
 
