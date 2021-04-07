@@ -70,7 +70,7 @@ class ClientContractController extends Controller
             ->addColumn('contract_label', function (Contract $contract) {
                 return $contract->contract_label;
             })
-            ->addColumn('contract_status', function (Contract $contract) { 
+            ->addColumn('contract_status', function (Contract $contract) {
               return $contract->contract_status ? 'Active' : 'Not Active';
             })
             ->addColumn('first_party', function (Contract $contract) {
@@ -137,11 +137,16 @@ class ClientContractController extends Controller
      */
     public function show($id)
     {
-      $contract = Contract::whereId($id)->where('second_party_id',session()->get('client')->second_party_id)->firstOrfail();
+      $contract = Contract::whereId($id)->where('second_party_id',session()->get('client')->second_party_id)->first();
+
+      if(isset($contract)){
         $first_partie = DB::table('first_parties')->where('id', $contract->first_party_id)->first();
         $second_parties = DB::table('second_parties')->where('second_party_id', $contract->second_party_id)->first();
         $second_party_types = DB::table('second_party_types')->where('id', $contract->second_party_type_id)->first();
         return view('client.contracts.view', compact('contract', 'first_partie', 'second_parties', 'second_party_types'));
+      }else{
+        return view('client.contracts.view', compact('contract'));
+      }
     }
 
     /**
