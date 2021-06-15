@@ -41,5 +41,7 @@ Route::get('read_notify/{id}', function ($id) {
   ]);
 });
  Route::get('update_contract_temporary', 'FullcontractsController@update_contract_temporary');
+
  Route::get('create_content_excel','ContentController@getCreateContentExcel');
  Route::get('content_excel_download_sample','ContentController@contentExcelDownloadSample');
+ Route::post('store_content_excel','ContentController@storeContentExcel');

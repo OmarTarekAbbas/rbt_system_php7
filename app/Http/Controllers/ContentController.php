@@ -622,4 +622,179 @@ class ContentController extends Controller
     );
     return response()->download($file, 'full_content_excel.xlsx', $headers);
   }
+
+  public function storeContentExcel(Request $request)
+  {
+    ini_set('max_execution_time', 60000000000);
+    ini_set('memory_limit', -1);
+
+    if ($request->hasFile('fileToUpload')) {
+      $ext =  $request->file('fileToUpload')->getClientOriginalExtension();
+      if ($ext != 'xls' && $ext != 'xlsx' && $ext != 'csv') {
+        $request->session()->flash('failed', 'File must be excel');
+        return back();
+      }
+
+      $file = $request->file('fileToUpload');
+      $filename = time() . '_' . $file->getClientOriginalName();
+      if (!$file->move(base_path() . '/uploads/content/excel',  $filename)) {
+        return back();
+      }
+
+      $counter = 0;
+      $total_counter = 0;
+
+      \Excel::filter('chunk')->load(base_path() . '/uploads/content/excel/' . $filename)->chunk(100, function ($results) use ($counter, $total_counter) {
+        foreach ($results as $row) {
+          $this->storeRBT($row);
+          $total_counter++;
+
+          //get occasion id
+          if (isset($row->occasion) &&  $row->occasion != "") {
+            $check_occasion = Occasion::where('title', 'LIKE', '%' . $row->occasion . '%')->first();
+            if ($check_occasion) {
+              $occasion_id = $check_occasion->id;
+            } else {
+              $occ = array();
+              $occ['title'] = $row->occasion;
+              $country = Country::where('title', 'LIKE', "%$row->country%")->first();
+              $occ['country_id'] = $country->id ?? all_countries();
+              $create = Occasion::create($occ);
+              $occasion_id = $create->id;
+            }
+          } else {
+            $occasion_id = NULL;
+          }
+
+          //get provider id
+          $check_provider = SecondParties::where('second_party_title', 'LIKE', '%' . $row->content_owner . '%')->first();
+          if ($check_provider) {
+            $provider_id = $check_provider->second_party_id;
+          } else {
+            $prov = array();
+            $prov['second_party_title'] = $row->content_owner;
+            $prov['second_party_type_id'] = PROVIDER_ID; //helper for provider
+            $create = SecondParties::create($prov);
+            $provider_id = $create->second_party_id;
+          }
+
+
+          //get Contract id
+          $check_contract = Contract::where('contract_code', 'LIKE', '%' . trim($row->contract_code) . '%')->first();
+          if ($check_contract) {
+            $contract_id = $check_contract->id;
+          } else {
+            $contract_id = NULL;
+          }
+
+          //get Excel Data
+          $content_data['content_title'] = $row->content_title_en;
+          $content_data['content_title_ar'] = $row->content_title_ar;
+          $content_data['content_type'] = $row->content_type;
+          $content_data['internal_coding'] = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
+          $content_data['provider_id'] = $provider_id;
+          $content_data['occasion_id'] = $occasion_id;
+          $content_data['contract_id'] = $contract_id;
+          $content_data['user_id'] = \Auth::user()->id;
+          $content_data['path'] = "uploads/content/" . date('Y-m-d') . "/" . $row->content_path;
+          $content_data['start_date'] =  $row->content_start_date ? transformDate($row->content_start_date) : null;
+          $content_data['expire_date'] =  $row->content_expire_date ? transformDate($row->content_expire_date) : null;
+          $content_data['album'] = isset($row->album) && $row->album != null ? $row->album : $row->single;
+          $content_data['category'] = $row->category;
+          $check = content::create($content_data);
+          if ($check) {
+            $content = Content::find($check->id);
+            if ($content->save()) {
+              if (!file_exists('uploads/content/' .  date('Y-m-d') . '/')) {
+                mkdir('uploads/content/' . date('Y-m-d') . '/', 0777, true);
+              }
+            }
+            $counter++;
+          }
+        }
+      }, false);
+    } else {
+      $request->session()->flash('failed', 'Excel file is required');
+      return back();
+    }
+
+    $failures = $total_counter - $counter;
+
+    $request->session()->flash('success', $counter . ' item(s) created successfully, and ' . $failures . ' item(s) failed and Please upload Content on this path uploads/content/ ' . date('Y-m-d'));
+    return redirect('content');
+  }
+
+
+  private function storeRBT($row)
+  {
+    dd(get_excel_rbt_codes($row));
+    $rbt = Rbt::where([['operator_id', $request->operator_id], ['code', $row->code]])->first();
+
+    if (isset($row->occasion) &&  $row->occasion != "") {
+      $check_occasion = Occasion::where('title', 'LIKE', '%' . $row->occasion . '%')->first();
+      if ($check_occasion) {
+        $occasion_id = $check_occasion->id;
+      } else {
+        $occ = array();
+        $occ['title'] = $row->occasion;
+        $occ['country_id'] = all_countries();
+        $create = Occasion::create($occ);
+        $occasion_id = $create->id;
+      }
+    } else {
+      $occasion_id = NULL;
+    }
+
+
+    $check_provider = SecondParties::where('second_party_title', 'LIKE', '%' . $row->content_owner . '%')->first();
+    if ($check_provider) {
+      $provider_id = $check_provider->second_party_id;
+    } else {
+      $prov = array();
+      $prov['second_party_title'] = $row->content_owner;
+      $prov['second_party_type_id'] = PROVIDER_ID;
+      $create = SecondParties::create($prov);
+      $provider_id = $create->second_party_id;
+    }
+
+
+    $check_content = Content::where('internal_coding', 'LIKE', '%' . $row->master_content_code . '%')->first();
+    if ($check_content) {
+      $content_id = $check_content->id;
+    } else {
+      $content_id = NULL;
+    }
+
+    $rbt['artist_name_en'] = $row->artist_name_english;
+    $rbt['artist_name_ar'] = $row->artist_name_arabic;   // not required
+    $rbt['track_title_en'] = $row->rbt_name_english;
+    $rbt['track_title_ar'] = $row->rbt_name_arabic;  // not required
+    $rbt['album_name'] = $row->album;    // not required
+    $rbt['provider_id'] = $provider_id;  //  original content owner = Mashari Al Afasi
+    $rbt['occasion_id'] = $occasion_id;
+    $rbt['code'] = $row->codes;
+    $rbt['owner'] = $row->provider; // ex:  ARPU
+    $rbt['operator_id'] = $request->operator_id;
+    $rbt['aggregator_id'] = $request->aggregator_id;
+    $rbt['content_id'] = $content_id;
+    $rbt['type'] = 1; // new excel
+
+
+    $rbt['track_file'] = "uploads/rbts/" . date('Y-m-d') . "/" . $rbt['track_title_en'] . ".wav";
+    $rbt['start_date'] = $row->start_date ? transformDate($row->start_date) : null;
+    $rbt['expire_date'] = $row->expire_date ? transformDate($row->expire_date) : null;
+
+    $check = Rbt::create($rbt);
+    if ($check) {
+      $rbt_edit = Rbt::find($check->id);
+      $rbt_edit->internal_coding = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
+      $rbt_edit->save();
+      if (!file_exists('uploads/rbts/' .  date('Y-m-d') . '/')) {
+        mkdir('uploads/rbts/' . date('Y-m-d') . '/', 0777, true);
+      }
+    }
+
+    return true;
+  }
+
 }

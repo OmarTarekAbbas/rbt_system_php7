@@ -14,6 +14,7 @@ class AddColumnsToContentTable extends Migration
     public function up()
     {
         Schema::table('contents', function (Blueprint $table) {
+          $table->string('content_title_ar')->nullable()->after('content_title');
           $table->string('album')->nullable()->comment('album_name or single');
           $table->string('category')->nullable();
         });

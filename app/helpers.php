@@ -14,6 +14,8 @@ use App\SecondParties;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use PhpParser\Node\Expr\Cast\Array_;
+
 function delete_multiselect(Request $request) // select many contract from index table and delete them
 {
     $selected_list =  explode(",",$request['selected_list']);
@@ -384,4 +386,52 @@ function second_partys($id)
 {
   $second_partys = SecondParties::where('second_party_id', $id)->first();
   return $second_partys;
+}
+
+
+function get_excel_rbt_codes($row){
+  $operator_ids = [
+    "operator_1_libyana_libya" => 1,
+    "operator_2_orange_jordan" => 2,
+    "operator_3_asiacell_iraq" => 3,
+    "operator_4_oman_mobile" => 4,
+    "operator_5_jawal_ps" => 5,
+    "operator_6_ooredoo_tunis" => 6,
+    "operator_7_telecome_tunis" => 7,
+    "operator_8_orange_tunis" => 8,
+    "operator_9_orange_moroco" => 9,
+    "operator_10_telecome_moroco" => 10,
+    "operator_11_inwi_moroco" => 11,
+    "operator_12_zain_iraq" => 12,
+    "operator_13_watanya_ps" => 13,
+    "operator_14_lebara_ksa" => 14,
+    "operator_15_stc_ksa" => 15,
+    "operator_16_ooredoo_oman" => 16,
+    "operator_17_stc_kuw" => 17,
+    "operator18_vodafone_eg" => 18,
+    "operator_19_zain_bahrain" => 19,
+    "operator_20_zain_ksa" => 20,
+    "operator_21_etisalat_eg" => 21,
+    "operator_22_zain_kuw" => 22,
+    "operator_23_du_uae" => 23,
+    "operator_24_etisalat_uae" => 24,
+    "operator_25_mobily_ksa" => 25,
+    "operator_26_viva_bahrain" => 26,
+    "operator_27_umniah_jordan" => 27,
+    "operator_28_ooredoo_qatar" => 28,
+    "operator_29_ooredoo_kuw" => 29,
+    "operator_30_ooredoo_kuw" => 30,
+    "operator_31_oreedo_palastine" => 31,
+    "operator_32_orange_eg" => 13
+  ];
+
+  foreach($operator_ids as $key=>$value){
+    $rbt_operators = [];
+    
+    if(isset($row->{$key}) && $row->{$key}!=null && $row->{$key}!=''){
+      array_push($rbt_operators, ["operator_id"=>$value, "operator_code"=>$row->{$key}]);
+    }
+
+    return $rbt_operators;
+  }
 }
