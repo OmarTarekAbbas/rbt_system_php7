@@ -724,6 +724,19 @@
 
       @endif
 
+      <li id="create-content">
+        <a href="#" class="dropdown-toggle">
+          <i class="glyphicon glyphicon-star"></i>
+          <span>Create Content</span>
+          <b class="arrow fa fa-angle-right"></b>
+        </a>
+
+        <!-- BEGIN Submenu -->
+        <ul class="submenu">
+          <li id="create-content-from-excel"><a href="{{url('create_content_excel')}}">Create Content From Excel</a></li>
+        </ul>
+        <!-- END Submenu -->
+      </li>
 
       </ul>
       <!-- END Navlist -->

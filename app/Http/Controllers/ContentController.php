@@ -608,4 +608,18 @@ class ContentController extends Controller
     return $contracts;
   }
 
+  public function getCreateContentExcel()
+  {
+    return view('content.create_content_excel');
+  }
+
+  public function contentExcelDownloadSample()
+  {
+    $file = base_path() . "/contentexcel/full_content_excel.xlsx";
+
+    $headers = array(
+      'Content-Type: application/xlsx',
+    );
+    return response()->download($file, 'full_content_excel.xlsx', $headers);
+  }
 }
