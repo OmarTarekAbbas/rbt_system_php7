@@ -1,43 +1,51 @@
 <!DOCTYPE html>
-<html lang="en-US">
-	<head>
-		<meta charset="utf-8">
-	</head>
-	<body>
-		<h2>Hello Sir , </h2>
-		<p> The contract are renewed automatic  </p>
-		<table width="600" cellpadding="0" cellspacing="1" border="0" bgcolor="#CCCCCC">
-        <tr>
-            <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="font-weight: bold;color:#000;font-size:18px">
-                Contract Name
-            </td>
-            <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="font-weight: bold;color:#000;font-size:18px">
-                Contract start Date
-            </td>
-            <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="font-weight: bold;color:#000;font-size:18px">
-                Contract End Date
-            </td>
-            <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="font-weight: bold;color:#000;font-size:18px">
-                Contract Url
-            </td>
-        </tr>
-        <tr>
-            <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="color:#000;font-size:16px">
-              {{ $contractRenew->contract->contract_code . ' ' . $contractRenew->contract->contract_label }}
-            </td>
-            <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="color:#000;font-size:16px">
-              {{ $contractRenew->renew_start_date }}
-            </td>
-            <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="color:#000;font-size:16px">
-              {{ $contractRenew->renew_expire_date }}
-            </td>
-            <td width="600" valign="top" align="center" bgcolor="#FFFFFF" style="color:#000;font-size:16px">
-              {{ $url }}
-            </td>
-        </tr>
-    </table>
-		<p> Thank You </p>
-    <br />
-    <br />
-	</body>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+</head>
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  thead {
+    background: #ddd;
+  }
+
+  td,
+  th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+</style>
+
+<body>
+  <p><strong>Dears,</strong> <br>contract are renewed automatic</p>
+  <table cellpadding="10">
+    <thead>
+      <tr>
+        <th>Contract Name</th>
+        <th>Contract start Date</th>
+        <th>Contract end Date</th>
+        <th>Contract Url</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>{{ $contractRenew->contract->contract_code . ' ' . $contractRenew->contract->contract_label }}</td>
+      <td>{{ $contractRenew->renew_start_date }}</td>
+      <td>{{ $contractRenew->renew_expire_date }}</td>
+      <td>{{ $url }}</td>
+    </tr>
+  </table>
+
+</body>
+
 </html>
