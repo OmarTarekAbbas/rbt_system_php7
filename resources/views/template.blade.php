@@ -727,7 +727,7 @@
       <li id="create-content">
         <a href="#" class="dropdown-toggle">
           <i class="glyphicon glyphicon-star"></i>
-          <span>Create Content From New Excel</span>
+          <span>Create Content Excel</span>
           <b class="arrow fa fa-angle-right"></b>
         </a>
 
