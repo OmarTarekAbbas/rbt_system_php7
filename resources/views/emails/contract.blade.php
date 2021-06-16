@@ -11,6 +11,10 @@
     width: 100%;
   }
 
+  thead {
+    background: #ddd;
+  }
+
   td,
   th {
     border: 1px solid #dddddd;
