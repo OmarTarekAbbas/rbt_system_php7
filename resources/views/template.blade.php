@@ -727,13 +727,13 @@
       <li id="create-content">
         <a href="#" class="dropdown-toggle">
           <i class="glyphicon glyphicon-star"></i>
-          <span>Create Content</span>
+          <span>Create Content From New Excel</span>
           <b class="arrow fa fa-angle-right"></b>
         </a>
 
         <!-- BEGIN Submenu -->
         <ul class="submenu">
-          <li id="create-content-from-excel"><a href="{{url('create_content_excel')}}">Create Content From Excel</a></li>
+          <li id="create-content-from-excel"><a href="{{url('create_content_excel')}}">Create Content From New Excel</a></li>
         </ul>
         <!-- END Submenu -->
       </li>
