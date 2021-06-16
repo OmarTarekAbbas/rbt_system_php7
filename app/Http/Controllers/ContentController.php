@@ -646,7 +646,6 @@ class ContentController extends Controller
 
       \Excel::filter('chunk')->load(base_path() . '/uploads/content/excel/' . $filename)->chunk(100, function ($results) use ($counter, $total_counter) {
         foreach ($results as $row) {
-          $this->storeRBT($row);
           $total_counter++;
 
           //get occasion id
@@ -687,6 +686,8 @@ class ContentController extends Controller
             $contract_id = NULL;
           }
 
+          $this->storeRBT($row, $provider_id, $occasion_id);
+
           //get Excel Data
           $content_data['content_title'] = $row->content_title_en;
           $content_data['content_title_ar'] = $row->content_title_ar;
@@ -725,38 +726,10 @@ class ContentController extends Controller
   }
 
 
-  private function storeRBT($row)
+  private function storeRBT($row, $provider_id, $occasion_id)
   {
     dd(get_excel_rbt_codes($row));
     $rbt = Rbt::where([['operator_id', $request->operator_id], ['code', $row->code]])->first();
-
-    if (isset($row->occasion) &&  $row->occasion != "") {
-      $check_occasion = Occasion::where('title', 'LIKE', '%' . $row->occasion . '%')->first();
-      if ($check_occasion) {
-        $occasion_id = $check_occasion->id;
-      } else {
-        $occ = array();
-        $occ['title'] = $row->occasion;
-        $occ['country_id'] = all_countries();
-        $create = Occasion::create($occ);
-        $occasion_id = $create->id;
-      }
-    } else {
-      $occasion_id = NULL;
-    }
-
-
-    $check_provider = SecondParties::where('second_party_title', 'LIKE', '%' . $row->content_owner . '%')->first();
-    if ($check_provider) {
-      $provider_id = $check_provider->second_party_id;
-    } else {
-      $prov = array();
-      $prov['second_party_title'] = $row->content_owner;
-      $prov['second_party_type_id'] = PROVIDER_ID;
-      $create = SecondParties::create($prov);
-      $provider_id = $create->second_party_id;
-    }
-
 
     $check_content = Content::where('internal_coding', 'LIKE', '%' . $row->master_content_code . '%')->first();
     if ($check_content) {
@@ -766,20 +739,18 @@ class ContentController extends Controller
     }
 
     $rbt['artist_name_en'] = $row->artist_name_english;
-    $rbt['artist_name_ar'] = $row->artist_name_arabic;   // not required
+    $rbt['artist_name_ar'] = $row->artist_name_arabic;
     $rbt['track_title_en'] = $row->rbt_name_english;
-    $rbt['track_title_ar'] = $row->rbt_name_arabic;  // not required
-    $rbt['album_name'] = $row->album;    // not required
-    $rbt['provider_id'] = $provider_id;  //  original content owner = Mashari Al Afasi
+    $rbt['track_title_ar'] = $row->rbt_name_arabic;
+    $rbt['album_name'] = $row->album;
+    $rbt['provider_id'] = $provider_id;
     $rbt['occasion_id'] = $occasion_id;
     $rbt['code'] = $row->codes;
-    $rbt['owner'] = $row->provider; // ex:  ARPU
+    $rbt['owner'] = $row->provider;
     $rbt['operator_id'] = $request->operator_id;
     $rbt['aggregator_id'] = $request->aggregator_id;
     $rbt['content_id'] = $content_id;
     $rbt['type'] = 1; // new excel
-
-
     $rbt['track_file'] = "uploads/rbts/" . date('Y-m-d') . "/" . $rbt['track_title_en'] . ".wav";
     $rbt['start_date'] = $row->start_date ? transformDate($row->start_date) : null;
     $rbt['expire_date'] = $row->expire_date ? transformDate($row->expire_date) : null;

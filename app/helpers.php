@@ -427,8 +427,9 @@ function get_excel_rbt_codes($row){
 
   foreach($operator_ids as $key=>$value){
     $rbt_operators = [];
-    
+
     if(isset($row->{$key}) && $row->{$key}!=null && $row->{$key}!=''){
+      dd($row->{$key});
       array_push($rbt_operators, ["operator_id"=>$value, "operator_code"=>$row->{$key}]);
     }
 
