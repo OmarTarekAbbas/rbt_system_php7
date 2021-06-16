@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Aggregator;
 use App\Rbt;
 
 use App\Content;
@@ -672,46 +673,53 @@ class ContentController extends Controller
           } else {
             $prov = array();
             $prov['second_party_title'] = $row->content_owner;
-            $prov['second_party_type_id'] = PROVIDER_ID; //helper for provider
+            $prov['second_party_type_id'] = PROVIDER_ID;
             $create = SecondParties::create($prov);
             $provider_id = $create->second_party_id;
           }
 
-
           //get Contract id
-          $check_contract = Contract::where('contract_code', 'LIKE', '%' . trim($row->contract_code) . '%')->first();
-          if ($check_contract) {
-            $contract_id = $check_contract->id;
+          if (isset($row->contract_code) &&  $row->contract_code != "") {
+            $check_contract = Contract::where('contract_code', 'LIKE', '%' . trim($row->contract_code) . '%')->first();
+            if ($check_contract) {
+              $contract_id = $check_contract->id;
+            } else {
+              $contract_id = NULL;
+            }
           } else {
             $contract_id = NULL;
           }
 
-          $this->storeRBT($row, $provider_id, $occasion_id);
+          //Check Content
+          $ckeck_content = Content::where(['provider_id' => $provider_id, 'content_title' => $row->content_title_en])->first();
 
-          //get Excel Data
-          $content_data['content_title'] = $row->content_title_en;
-          $content_data['content_title_ar'] = $row->content_title_ar;
-          $content_data['content_type'] = $row->content_type;
-          $content_data['internal_coding'] = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
-          $content_data['provider_id'] = $provider_id;
-          $content_data['occasion_id'] = $occasion_id;
-          $content_data['contract_id'] = $contract_id;
-          $content_data['user_id'] = \Auth::user()->id;
-          $content_data['path'] = "uploads/content/" . date('Y-m-d') . "/" . $row->content_path;
-          $content_data['start_date'] =  $row->content_start_date ? transformDate($row->content_start_date) : null;
-          $content_data['expire_date'] =  $row->content_expire_date ? transformDate($row->content_expire_date) : null;
-          $content_data['album'] = isset($row->album) && $row->album != null ? $row->album : $row->single;
-          $content_data['category'] = $row->category;
-          $check = content::create($content_data);
-          if ($check) {
-            $content = Content::find($check->id);
-            if ($content->save()) {
-              if (!file_exists('uploads/content/' .  date('Y-m-d') . '/')) {
-                mkdir('uploads/content/' . date('Y-m-d') . '/', 0777, true);
-              }
-            }
-            $counter++;
+          if (!isset($ckeck_content) || $ckeck_content == null) {
+            //get Excel Data
+            $content_data['content_title'] = $row->content_title_en;
+            $content_data['content_title_ar'] = $row->content_title_ar;
+            $content_data['content_type'] = $row->content_type;
+            $content_data['internal_coding'] = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
+            $content_data['provider_id'] = $provider_id;
+            $content_data['occasion_id'] = $occasion_id;
+            $content_data['contract_id'] = $contract_id;
+            $content_data['user_id'] = \Auth::user()->id;
+            $content_data['path'] = "uploads/content/" . date('Y-m-d') . "/" . $row->content_path;
+            $content_data['start_date'] =  $row->content_start_date ? transformDate($row->content_start_date) : null;
+            $content_data['expire_date'] =  $row->content_expire_date ? transformDate($row->content_expire_date) : null;
+            $content_data['album'] = isset($row->album) && $row->album != null ? $row->album : $row->single;
+            $content_data['category'] = $row->category;
+            $content = content::create($content_data);
+          } else {
+            $content = $ckeck_content;
           }
+
+          $this->storeRBT($row, $content->id, $provider_id, $occasion_id);
+
+          if (!file_exists('uploads/content/' .  date('Y-m-d') . '/')) {
+            mkdir('uploads/content/' . date('Y-m-d') . '/', 0777, true);
+          }
+
+          $counter++;
         }
       }, false);
     } else {
@@ -726,46 +734,52 @@ class ContentController extends Controller
   }
 
 
-  private function storeRBT($row, $provider_id, $occasion_id)
+  private function storeRBT($row, $content_id, $provider_id, $occasion_id)
   {
-    dd(get_excel_rbt_codes($row));
-    $rbt = Rbt::where([['operator_id', $request->operator_id], ['code', $row->code]])->first();
+    $excel_rbt_codes = get_excel_rbt_codes($row);
+    if (isset($excel_rbt_codes) && count($excel_rbt_codes) > 0) {
+      foreach ($excel_rbt_codes as $code) {
+        $operator_id = $code['operator_id'];
+        $operator_rbt_code = $code['operator_rbt_code'];
+        $rbt = Rbt::where(['operator_id' => $operator_id, 'code' => $operator_rbt_code])->first();
+        if (!isset($rbt) || $rbt == null) {
+          $rbt['track_title_en'] = $row->rbt_name_en;
+          $rbt['track_title_ar'] = $row->rbt_name_ar;
+          $rbt['artist_name_en'] = $row->artist_name_en;
+          $rbt['artist_name_ar'] = $row->artist_name_ar;
+          $rbt['album_name'] = isset($row->album) && $row->album != null ? $row->album : $row->single;
+          $rbt['code'] = $operator_rbt_code;
+          $rbt['social_media_code'] = $row->social_media_code;
+          $rbt['owner'] = $row->content_owner;
+          $rbt['track_file'] = "uploads/rbts/" . date('Y-m-d') . "/" . $rbt['track_title_en'] . ".wav";
+          $rbt['operator_id'] = $operator_id;
+          $rbt['occasion_id'] = $occasion_id;
+          $rbt['aggregator_id'] = $this->getAggregatorID($row->aggregator);
+          $rbt['type'] = 2;
+          $rbt['provider_id'] = $provider_id;
+          $rbt['content_id'] = $content_id;
+          $rbt['internal_coding'] = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
+          $rbt['start_date'] = $row->rbt_start_date ? transformDate($row->rbt_start_date) : null;
+          $rbt['expire_date'] = $row->rbt_expire_date ? transformDate($row->rbt_expire_date) : null;
 
-    $check_content = Content::where('internal_coding', 'LIKE', '%' . $row->master_content_code . '%')->first();
-    if ($check_content) {
-      $content_id = $check_content->id;
-    } else {
-      $content_id = NULL;
-    }
-
-    $rbt['artist_name_en'] = $row->artist_name_english;
-    $rbt['artist_name_ar'] = $row->artist_name_arabic;
-    $rbt['track_title_en'] = $row->rbt_name_english;
-    $rbt['track_title_ar'] = $row->rbt_name_arabic;
-    $rbt['album_name'] = $row->album;
-    $rbt['provider_id'] = $provider_id;
-    $rbt['occasion_id'] = $occasion_id;
-    $rbt['code'] = $row->codes;
-    $rbt['owner'] = $row->provider;
-    $rbt['operator_id'] = $request->operator_id;
-    $rbt['aggregator_id'] = $request->aggregator_id;
-    $rbt['content_id'] = $content_id;
-    $rbt['type'] = 1; // new excel
-    $rbt['track_file'] = "uploads/rbts/" . date('Y-m-d') . "/" . $rbt['track_title_en'] . ".wav";
-    $rbt['start_date'] = $row->start_date ? transformDate($row->start_date) : null;
-    $rbt['expire_date'] = $row->expire_date ? transformDate($row->expire_date) : null;
-
-    $check = Rbt::create($rbt);
-    if ($check) {
-      $rbt_edit = Rbt::find($check->id);
-      $rbt_edit->internal_coding = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
-      $rbt_edit->save();
-      if (!file_exists('uploads/rbts/' .  date('Y-m-d') . '/')) {
-        mkdir('uploads/rbts/' . date('Y-m-d') . '/', 0777, true);
+          $new_rbt = Rbt::create($rbt);
+          if ($new_rbt) {
+            if (!file_exists('uploads/rbts/' .  date('Y-m-d') . '/')) {
+              mkdir('uploads/rbts/' . date('Y-m-d') . '/', 0777, true);
+            }
+          }
+        }
       }
     }
 
     return true;
+  }
+
+  private function getAggregatorID($aggregator_title)
+  {
+    $aggregator = Aggregator::where('title', $aggregator_title)->first();
+
+    return isset($aggregator) && $aggregator != null ? $aggregator->id : null;
   }
 
 }
