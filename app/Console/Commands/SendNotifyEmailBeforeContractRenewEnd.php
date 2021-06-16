@@ -42,6 +42,9 @@ class SendNotifyEmailBeforeContractRenewEnd extends Command
     public function handle()
     {
       $contractRenews = ContractRenew::where('ceo_renew', '=', CeoRenewStatus::NOTACTION)
+        ->whereHas('contract', function($q){
+          $q->where("renewal_status", '!=', 1);
+        })
         ->where('renew_expire_date','>=',Carbon::now()->format('Y-m-d'))
         ->where('renew_expire_date','<=',Carbon::now()->addDays(setting('contract_notify_date'))->format('Y-m-d'))
         ->groupBy('contract_id')

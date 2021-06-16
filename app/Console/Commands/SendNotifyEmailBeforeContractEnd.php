@@ -43,6 +43,7 @@ class SendNotifyEmailBeforeContractEnd extends Command
     {
       $contracts = Contract::where('ceo_renew', '=', CeoRenewStatus::NOTACTION)
       ->where('contract_expiry_date','>=',Carbon::now()->format('Y-m-d'))
+      ->where("renewal_status", '!=', 1)
       ->where('contract_expiry_date','<=',Carbon::now()->addDays(setting('contract_notify_date'))->format('Y-m-d'))->get();
       foreach ($contracts as  $contract) {
         $subject = "Contract Expire Data Notify";
