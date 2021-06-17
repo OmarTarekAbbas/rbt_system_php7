@@ -21,6 +21,9 @@ class SecondParties extends Model
     protected $fillable = [
         'second_party_type_id',
         'second_party_title',
+        'second_party_title_ar',
+        'gender',
+        'artist_code',
         'second_party_joining_date',
         'second_party_terminate_date',
         'second_party_status',

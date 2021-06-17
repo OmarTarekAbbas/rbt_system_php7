@@ -630,6 +630,9 @@ class ContentController extends Controller
     ini_set('max_execution_time', 60000000000);
     ini_set('memory_limit', -1);
 
+    $counter = 0;
+    $total_counter = 0;
+
     if ($request->hasFile('fileToUpload')) {
       $ext =  $request->file('fileToUpload')->getClientOriginalExtension();
       if ($ext != 'xls' && $ext != 'xlsx' && $ext != 'csv') {
@@ -643,10 +646,7 @@ class ContentController extends Controller
         return back();
       }
 
-      $counter = 0;
-      $total_counter = 0;
-
-      \Excel::filter('chunk')->load(base_path() . '/uploads/content/excel/' . $filename)->chunk(100, function ($results) use ($counter, $total_counter) {
+      \Excel::filter('chunk')->load(base_path() . '/uploads/content/excel/' . $filename)->chunk(100, function ($results) use ($request, $counter, $total_counter) {
         foreach ($results as $row) {
           $total_counter++;
 
@@ -668,13 +668,16 @@ class ContentController extends Controller
           }
 
           //get provider id
-          $check_provider = SecondParties::where('second_party_title', 'LIKE', '%' . $row->content_owner . '%')->first();
+          $check_provider = SecondParties::where('second_party_title', 'LIKE', '%' . $row->artist_name_en . '%')->first();
           if ($check_provider) {
             $provider_id = $check_provider->second_party_id;
           } else {
             $prov = array();
-            $prov['second_party_title'] = $row->content_owner;
+            $prov['second_party_title'] = $row->artist_name_en;
+            $prov['second_party_title_ar'] = $row->artist_name_ar;
             $prov['second_party_type_id'] = PROVIDER_ID;
+            $prov['gender'] = $row->gender;
+            $prov['artist_code'] = 'Ar/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
             $create = SecondParties::create($prov);
             $provider_id = $create->second_party_id;
           }
@@ -722,15 +725,14 @@ class ContentController extends Controller
 
           $counter++;
         }
+
+        $failures = $total_counter - $counter;
+        $request->session()->flash('success', $counter . ' item(s) created successfully, and ' . $failures . ' item(s) failed and Please upload Content on this path uploads/content/ ' . date('Y-m-d'));
       }, false);
     } else {
       $request->session()->flash('failed', 'Excel file is required');
       return back();
     }
-
-    $failures = $total_counter - $counter;
-
-    $request->session()->flash('success', $counter . ' item(s) created successfully, and ' . $failures . ' item(s) failed and Please upload Content on this path uploads/content/ ' . date('Y-m-d'));
     return redirect('content');
   }
 
@@ -751,7 +753,7 @@ class ContentController extends Controller
           $rbt['album_name'] = isset($row->album) && $row->album != null ? $row->album : $row->single;
           $rbt['code'] = $operator_rbt_code;
           $rbt['social_media_code'] = $row->social_media_code;
-          $rbt['owner'] = $row->content_owner;
+          $rbt['owner'] = $row->artist_name_en;
           $rbt['track_file'] = "uploads/rbts/" . date('Y-m-d') . "/" . $rbt['track_title_en'] . ".wav";
           $rbt['operator_id'] = $operator_id;
           $rbt['occasion_id'] = $occasion_id;
