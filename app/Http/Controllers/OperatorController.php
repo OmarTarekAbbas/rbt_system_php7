@@ -90,15 +90,9 @@ class OperatorController extends Controller
         }
 
         $operator = new Operator();
-
-
         $operator->title = $request->title;
-
-
-
         $operator->country_id = $request->country_id;
-
-
+        $operator->view_excel = $request->view_excel;
         $operator->save();
         $request->session()->flash('success', 'Created successfuly');
         return redirect('operator');
@@ -129,13 +123,9 @@ class OperatorController extends Controller
         }
 
         $operator = Operator::findOrfail($request->operator_id);
-
         $operator->title = $request->title;
-
-
         $operator->country_id = $request->country_id;
-
-
+        $operator->view_excel = $request->view_excel;
         $operator->save();
 
         $request->session()->flash('success', 'Updated successfuly');

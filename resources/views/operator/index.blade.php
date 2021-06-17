@@ -31,6 +31,15 @@ Operators
             </div>
           </div>
 
+          <div class="form-group">
+            <label class="col-sm-3 col-lg-2 control-label">View Excel</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <select name='view_excel' class='form-control' id="view_excel" required>
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary borderRadius">Save</button>
@@ -68,6 +77,16 @@ Operators
             <div class="col-sm-9 col-lg-10 controls">
               <input type="text" placeholder="Title" id="edit-operator" name="title" class="form-control" />
               <input type="hidden" name="operator_id" id="operator_id">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 col-lg-2 control-label">View Excel</label>
+            <div class="col-sm-9 col-lg-10 controls">
+              <select name='view_excel' class='form-control' id="view_excel" required>
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+              </select>
             </div>
           </div>
         </div>
@@ -118,6 +137,7 @@ Operators
                   <th style="width:18px"><input type="checkbox" /></th>
                   <th>title</th>
                   <th>country</th>
+                  <th>view Excel</th>
                   @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                   <th>actions</th>
                   @endif
@@ -129,6 +149,7 @@ Operators
                   <td><input type="checkbox" /></td>
                   <td>{!!$operator->title!!}</td>
                   <td>{!!$operator->country->title!!}</td>
+                  <td>{{ isset($operator->view_excel)&&$operator->view_excel==1 ? 'Yes' : 'No'}}</td>
                   @if(Auth::user()->hasAnyRole(['super_admin','admin', 'ceo']))
                   <td>
                     @if(get_action_icons('operator/{operator}/edit','get'))
@@ -168,11 +189,13 @@ Operators
   $('.teet').click(function() {
     /* Act on the event */
     var name = $(this).closest('td').prev('td').prev('td').text();
+    var view_excel = $(this).closest('td').prev('td').text();
     var id = $(this).children().attr('id');
     var values = id.split('_');
     $('#edit-operator').val(name);
     $('#operator_id').val(values[0]);
     $('#country_id').val(values[1]);
+    $("#view_excel select").val("view_excel");
 
     $('#editoperator').modal('toggle');
   });
