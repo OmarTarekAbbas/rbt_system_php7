@@ -32,6 +32,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('notify:roadmapstartdate')
                  ->daily();
 
+       $schedule->command('contract:auto_renew')
+                 ->daily();
+
+
         $schedule->command('notify:endcontract')->weeklyOn(1, '8:00'); //weekly each monday  at 10:00
         $schedule->command('notify:attachments')->weeklyOn(1, '08:15'); //weekly each monday at 10:15
 

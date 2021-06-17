@@ -76,7 +76,7 @@ class AutoRenewContract extends Command
 
     public function sendMailToAllUser($contractRenew)
     {
-      $subject = "Contract Expire Data Notify";
+      $subject = "Contract automatic renewed";
       $url     = url('contracts/'.$contractRenew->contract->id.'/renew?contract_renew_id='.$contractRenew->id);
       $emails  = explode(',',setting('notifiy_contract_emails'));
       \Mail::send('emails.contract', ['contractRenew' => $contractRenew, 'url' => $url], function($email) use ($subject, $emails)
