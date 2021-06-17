@@ -734,6 +734,7 @@
         <!-- BEGIN Submenu -->
         <ul class="submenu">
           <li id="create-content-from-excel"><a href="{{url('create_content_excel')}}">Create Content From New Excel</a></li>
+          <li id="export-content-to-excel"><a href="{{url('export_content_excel')}}">Export Content To Excel</a></li>
         </ul>
         <!-- END Submenu -->
       </li>

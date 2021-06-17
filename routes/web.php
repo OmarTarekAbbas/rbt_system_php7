@@ -45,3 +45,7 @@ Route::get('read_notify/{id}', function ($id) {
  Route::get('create_content_excel','ContentController@getCreateContentExcel');
  Route::get('content_excel_download_sample','ContentController@contentExcelDownloadSample');
  Route::post('store_content_excel','ContentController@storeContentExcel');
+
+ Route::get('export_content_excel','ContentController@exportContentExcel');
+ Route::post('download_content_excel','ContentController@downloadContentExcel');
+

@@ -13,6 +13,7 @@ use App\Provider;
 use App\SecondParties;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Excel;
 
 class ContentController extends Controller
 {
@@ -780,6 +781,169 @@ class ContentController extends Controller
     $aggregator = Aggregator::where('title', $aggregator_title)->first();
 
     return isset($aggregator) && $aggregator != null ? $aggregator->id : null;
+  }
+
+  public function exportContentExcel()
+  {
+    return view('content.export_content_excel');
+  }
+
+  public function downloadContentExcel()
+  {
+    ini_set('memory_limit', -1);
+    ini_set('max_execution_time', 60000000000);
+
+    $data = $this->getExcelData();
+    $excel_title = date("d-m-Y");
+
+    return Excel::create($excel_title, function ($excel) use ($data) {
+      $excel->sheet('mySheet', function ($sheet) use ($data) {
+        //create excel header
+        $header_columns = $this->createExcelFirstRow();
+        foreach ($header_columns as $column) {
+          $sheet->cell($column['excel_row_position_key'], function ($cell) use ($column) {
+            $cell->setValue($column['excel_row_position_value']);
+          });
+        }
+
+        if (!empty($data)) {
+          $column_id = 1;
+          foreach ($data as $key => $value) {
+            $i = $key + 2;
+
+            $excel_row_columns = $this->createExcelData($i, $column_id, $value);
+            foreach ($excel_row_columns as $column) {
+              $sheet->cell($column['excel_row_position_key'], $column['excel_row_position_value']);
+            }
+
+            $column_id++;
+          }
+        }
+      });
+    })->download('xlsx');
+  }
+
+  private function createExcelFirstRow()
+  {
+    $first_row = [];
+
+    //header row keys initial array
+    $letters = $this->getLetters();
+
+    //static header row values
+    $row_values = [
+      'ID',
+      'Contract Code',
+      'Contract Start Date',
+      'Contract Expiry Date',
+      'Contract First Party',
+      'Contract Second Party',
+      'Content Title (En)',
+      'Content Title (Ar)',
+      'Content Album',
+      'Content Category',
+      'Content Internal Coding',
+      'Occasion',
+      'RBT Track Title (En)',
+      'RBT Track Title (Ar)',
+      'RBT Internal Code'
+    ];
+
+    //append operators to row values
+    $operators = operators();
+    foreach ($operators as $key => $value) {
+      array_push($row_values, $key);
+    }
+
+    //create excel header
+    foreach ($row_values as $key => $value) {
+      array_push($first_row, ['excel_row_position_key' => $letters[$key] . '1', 'excel_row_position_value' => $value]);
+    }
+
+    return $first_row;
+  }
+
+  private function createExcelData($i, $column_id, $value)
+  {
+    $new_excel_row_data = [];
+
+    $letters = $this->getLetters();
+
+    //static header row values
+    $row_values = [
+      $column_id,
+      $value->contract_code,
+      $value->contract_start_date,
+      $value->contract_expiry_date,
+      $value->contract_first_party,
+      $value->contract_second_party,
+      $value->content_title_en,
+      $value->content_title_ar,
+      $value->content_album,
+      $value->content_category,
+      $value->content_internal_coding,
+      $value->occasion_title,
+      $value->rbt_track_title_en,
+      $value->rbt_track_title_ar,
+      $value->rbt_internal_coding
+    ];
+
+    //append operators to row values
+    $operators = operators();
+    foreach ($operators as $key => $operator_value) {
+      $key == $value->operator_title ? array_push($row_values, $value->rbt_code) : array_push($row_values, null);
+    }
+
+    //create excel header
+    foreach ($row_values as $key => $row_value) {
+      array_push($new_excel_row_data, ['excel_row_position_key' => $letters[$key] . $i, 'excel_row_position_value' => $row_value]);
+    }
+
+    return $new_excel_row_data;
+  }
+
+  private function getLetters()
+  {
+    $letters = [];
+
+    for ($letter = 'A'; $letter < 'ZZ'; $letter++) {
+      array_push($letters, $letter);
+    }
+
+    return $letters;
+  }
+
+  private function getExcelData()
+  {
+    $data = Contract::select(
+      'contracts.id as contract_id',
+      'contracts.contract_code as contract_code',
+      'contracts.contract_date as contract_start_date',
+      'contracts.contract_expiry_date as contract_expiry_date',
+      'contracts.first_party as contract_first_party',
+      'contracts.second_party as contract_second_party',
+      'contents.id as content_id',
+      'contents.content_title as content_title_en',
+      'contents.content_title_ar as content_title_ar',
+      'contents.album as content_album',
+      'contents.category as content_category',
+      'contents.internal_coding as content_internal_coding',
+      'occasions.title as occasion_title',
+      'rbts.id as rbt_id',
+      'rbts.track_title_en as rbt_track_title_en',
+      'rbts.track_title_ar as rbt_track_title_ar',
+      'rbts.code as rbt_code',
+      'rbts.internal_coding as rbt_internal_coding',
+      'rbts.operator_id as rbt_operator_id',
+      'operators.title as operator_title'
+    )
+      ->join('contents', 'contents.contract_id', '=', 'contracts.id')
+      ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
+      ->join('rbts', 'rbts.content_id', '=', 'contents.id')
+      ->join('operators', 'operators.id', '=', 'rbts.operator_id')
+      ->get();
+
+    return $data;
   }
 
 }

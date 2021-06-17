@@ -10,6 +10,7 @@ use App\Notification;
 use Illuminate\Http\Request;
 use App\Events\Notifications;
 use App\Firstpartie;
+use App\Operator;
 use App\SecondParties;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -388,6 +389,11 @@ function second_partys($id)
   return $second_partys;
 }
 
+function operators(){
+  $operators = Operator::pluck('id', 'title');
+
+  return $operators;
+}
 
 function get_excel_rbt_codes($row)
 {
