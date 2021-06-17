@@ -811,6 +811,7 @@ class ContentController extends Controller
           foreach ($data as $key => $value) {
             $i = $key + 2;
 
+            //create Excel Colums
             $excel_row_columns = $this->createExcelData($i, $column_id, $value);
             foreach ($excel_row_columns as $column) {
               $sheet->cell($column['excel_row_position_key'], $column['excel_row_position_value']);
