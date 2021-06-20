@@ -432,6 +432,12 @@ function get_excel_rbt_codes($row)
     "operator_32_orange_eg" => 13
   ];
 
+  $db_operators = operators();
+  foreach ($db_operators as $key => $value) {
+    $new_key = str_replace(" - ","_",strtolower($key));
+    $operator_ids[$new_key] = $value;
+  }
+
   $rbt_operators = [];
   foreach ($operator_ids as $key => $value) {
     if (isset($row->{$key}) && $row->{$key} != null && $row->{$key} != '') {
