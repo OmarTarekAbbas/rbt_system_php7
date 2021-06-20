@@ -978,7 +978,10 @@ class ContentController extends Controller
       ->join('rbts', 'rbts.content_id', '=', 'contents.id')
       ->join('second_parties', 'second_parties.second_party_id', '=', 'rbts.provider_id')
       ->join('operators', 'operators.id', '=', 'rbts.operator_id')
+      ->limit(5)
       ->get();
+
+      dd($data);
 
     return $data;
   }
