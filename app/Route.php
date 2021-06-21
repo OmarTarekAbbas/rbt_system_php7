@@ -10,7 +10,7 @@ class Route extends Model
 
     public function roles()
     {
-        return $this->belongsToMany('App\Role', 'role_route', 'route_id', 'id');
+        return $this->belongsToMany('App\Role', 'role_route', 'route_id', 'role_id');
     }
 
     public function roles_routes()
