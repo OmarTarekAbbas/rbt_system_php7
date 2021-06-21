@@ -626,7 +626,19 @@ class ContentController extends Controller
           $sheet->cell($column['excel_row_position_key'], function ($cell) use ($column) {
             $cell->setValue($column['excel_row_position_value']);
             $cell->setFontWeight('bold');
-            $cell->setBackground('#A6A6A6');
+            $cell->setBackground('#BFBFBF');
+          });
+
+          $sheet->cell('B1:D1', function ($cell) {
+            $cell->setBackground('#B8CCE4');
+          });
+
+          $sheet->cell('E1:O1', function ($cell) {
+            $cell->setBackground('#FCD5B4');
+          });
+
+          $sheet->cell('P1:S1', function ($cell) {
+            $cell->setBackground('#C4D79B');
           });
         }
       });
@@ -698,6 +710,10 @@ class ContentController extends Controller
         return back();
       }
 
+      if (!file_exists('uploads/content/' .  date('Y-m-d') . '/')) {
+        mkdir('uploads/content/' . date('Y-m-d') . '/', 0777, true);
+      }
+
       \Excel::filter('chunk')->load(base_path() . '/uploads/content/excel/' . $filename)->chunk(100, function ($results) use ($request, $counter, $total_counter) {
         foreach ($results as $row) {
           if ($row->filter()->isNotEmpty()) {
@@ -762,7 +778,7 @@ class ContentController extends Controller
 
               $counter++;
             } else {
-              if ($row->content_path != null && strpos($ckeck_content, $row->content_path) == false) {
+              if ($row->content_path != null && strpos($ckeck_content->path, $row->content_path) == false) {
                 $ckeck_content->path = "uploads/content/" . date('Y-m-d') . "/" . $row->content_path;
               }
               $ckeck_content->start_date = $contract_start_date;
@@ -774,11 +790,7 @@ class ContentController extends Controller
               $content = $ckeck_content;
             }
 
-            $this->storeRBT($row, $content->id, $provider_id, $occasion_id, $contract_start_date, $contract_expire_date);
-
-            if (!file_exists('uploads/content/' .  date('Y-m-d') . '/')) {
-              mkdir('uploads/content/' . date('Y-m-d') . '/', 0777, true);
-            }
+            $this->storeRBT($row, $content->id, $content->internal_coding, $provider_id, $occasion_id, $contract_start_date, $contract_expire_date);
           }
         }
 
@@ -813,8 +825,12 @@ class ContentController extends Controller
   }
 
 
-  private function storeRBT($row, $content_id, $provider_id, $occasion_id, $contract_start_date, $contract_expire_date)
+  private function storeRBT($row, $content_id, $content_code, $provider_id, $occasion_id, $contract_start_date, $contract_expire_date)
   {
+    if (!file_exists('uploads/rbts/' .  date('Y-m-d') . '/')) {
+      mkdir('uploads/rbts/' . date('Y-m-d') . '/', 0777, true);
+  }
+
     $excel_rbt_codes = get_excel_rbt_codes($row);
     if (isset($excel_rbt_codes) && count($excel_rbt_codes) > 0) {
       foreach ($excel_rbt_codes as $code) {
@@ -837,21 +853,30 @@ class ContentController extends Controller
           $rbt['type'] = 2;
           $rbt['provider_id'] = $provider_id;
           $rbt['content_id'] = $content_id;
-          $rbt['internal_coding'] = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
+          $rbt['internal_coding'] = $this->generateRBTCode($content_code);
           $rbt['start_date'] = $contract_start_date;
           $rbt['expire_date'] = $contract_expire_date;
-
-          $new_rbt = Rbt::create($rbt);
-          if ($new_rbt) {
-            if (!file_exists('uploads/rbts/' .  date('Y-m-d') . '/')) {
-              mkdir('uploads/rbts/' . date('Y-m-d') . '/', 0777, true);
-            }
-          }
+          Rbt::create($rbt);
         }
       }
     }
 
     return true;
+  }
+
+  private function generateRBTCode($content_code){
+    $rbt_code = null;
+
+    $content = Content::where("internal_coding", "like", "%$content_code%")->first();
+    if(isset($content) && $content!=null){
+      $content_rbt_count = Rbt::where('content_id', $content->id)->count();
+      $new_rbt_count = $content_rbt_count + 1;
+      $rbt_code = $content->internal_coding.'-'.$new_rbt_count;
+    }else{
+      $rbt_code = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
+    }
+
+    return $rbt_code;
   }
 
   private function getAggregatorID($aggregator_title)
