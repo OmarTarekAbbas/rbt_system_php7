@@ -390,7 +390,7 @@ function second_partys($id)
 }
 
 function operators(){
-  $operators = Operator::where('view_excel', 1)->pluck('id', 'title');
+  $operators = Operator::where('view_excel', 1)->orderBy('country_id')->pluck('id', 'title');
 
   return $operators;
 }
