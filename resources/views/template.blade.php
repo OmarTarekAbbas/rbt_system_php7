@@ -477,6 +477,12 @@
           @if(get_action_icons('content','get'))
           <li id="content-index"><a href="{{url('content')}}">Contents</a></li>
           @endif
+          @if(get_action_icons('new_comming_expire_content','get'))
+          <li id="content-index"><a href="{{url('new_comming_expire_content')}}">Next Comming Expire Contents (3 months)</a></li>
+          @endif
+          @if(get_action_icons('expire_content','get'))
+          <li id="content-index"><a href="{{url('expire_content')}}">Expire Contents</a></li>
+          @endif
           @if(get_action_icons('contents/file_system','get'))
           <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">List Master Contents</a></li>
           @endif
