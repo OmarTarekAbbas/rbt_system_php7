@@ -15,7 +15,7 @@ class SetViewExcelInOperatorsTable extends Migration
     public function up()
     {
         Schema::table('operators', function (Blueprint $table) {
-          Operator::where('title','not like', '%all%')->update(array('view_excel' => 1));
+          Operator::where('title','like', '%all%')->update(array('view_excel' => 0));
         });
     }
 
