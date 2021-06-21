@@ -651,7 +651,7 @@ class ContentController extends Controller
           $total_counter++;
 
           //get occasions id
-          $occasion_id = $this->getOccasionId($row->occassion);
+          $occasion_id = $this->getOccasionId($row->occasion);
 
 
           //get provider id
@@ -689,11 +689,12 @@ class ContentController extends Controller
             $content_data['content_title'] = $row->content_title_en;
             $content_data['content_title_ar'] = $row->content_title_ar;
             $content_data['content_type'] = $row->content_type;
+            $content_data['remax'] = ($row->remax == 'Yes' ? 1 : 0);
             $content_data['internal_coding'] = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
             $content_data['provider_id'] = $provider_id;
             $content_data['occasion_id'] = $occasion_id;
-            $content_data['occasion_2_id'] = $this->getOccasionId($row->occassion_2);
-            $content_data['occasion_3_id'] = $this->getOccasionId($row->occassion_3);
+            $content_data['occasion_2_id'] = $this->getOccasionId($row->occasion_2);
+            $content_data['occasion_3_id'] = $this->getOccasionId($row->occasion_3);
             $content_data['contract_id'] = $contract_id;
             $content_data['user_id'] = \Auth::user()->id;
             $content_data['path'] = "uploads/content/" . date('Y-m-d') . "/" . $row->content_path;
@@ -751,7 +752,6 @@ class ContentController extends Controller
         $occasion_id = $create->id;
       }
     }
-
     return $occasion_id;
   }
 
