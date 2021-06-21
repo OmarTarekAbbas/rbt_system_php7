@@ -477,6 +477,12 @@
           @if(get_action_icons('content','get'))
           <li id="content-index"><a href="{{url('content')}}">Contents</a></li>
           @endif
+          @if(get_action_icons('new_comming_expire_content','get'))
+          <li id="content-index"><a href="{{url('new_comming_expire_content')}}">Next Comming Expire Contents (3 months)</a></li>
+          @endif
+          @if(get_action_icons('expire_content','get'))
+          <li id="content-index"><a href="{{url('expire_content')}}">Expire Contents</a></li>
+          @endif
           @if(get_action_icons('contents/file_system','get'))
           <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">List Master Contents</a></li>
           @endif
@@ -500,6 +506,9 @@
         <ul class="submenu">
           @if(get_action_icons('rbt/statistics','get'))
           <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a></li>
+          @endif
+          @if(get_action_icons('rbts/graph','get'))
+          <li id="rbt-statistics"><a href="{{url('rbts/graph')}}">RBT Graph</a></li>
           @endif
           @if(get_action_icons('rbt/excel','get'))
           <li id="rbt-excel"><a href="{{url('rbt/excel')}}">Create RBT Form Excel</a></li>

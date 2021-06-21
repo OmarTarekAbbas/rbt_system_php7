@@ -49,4 +49,8 @@ class Report extends Model
 	{
 		return $this->belongsTo('App\Aggregator');
 	}
+	public function rbt()
+	{
+		return $this->belongsTo('App\Rbt', 'rbt_id');
+	}
 }
