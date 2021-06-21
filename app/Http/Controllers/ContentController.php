@@ -626,7 +626,19 @@ class ContentController extends Controller
           $sheet->cell($column['excel_row_position_key'], function ($cell) use ($column) {
             $cell->setValue($column['excel_row_position_value']);
             $cell->setFontWeight('bold');
-            $cell->setBackground('#A6A6A6');
+            $cell->setBackground('#BFBFBF');
+          });
+
+          $sheet->cell('B1:D1', function ($cell) {
+            $cell->setBackground('#B8CCE4');
+          });
+
+          $sheet->cell('E1:O1', function ($cell) {
+            $cell->setBackground('#FCD5B4');
+          });
+
+          $sheet->cell('P1:S1', function ($cell) {
+            $cell->setBackground('#C4D79B');
           });
         }
       });
