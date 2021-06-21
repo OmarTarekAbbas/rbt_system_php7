@@ -670,11 +670,15 @@ class ContentController extends Controller
               $provider_id = $create->second_party_id;
             }
 
-            //get Contract id
+            //get Contract data
+            $contract_start_date = null;
+            $contract_expire_date = null;
             if (isset($row->contract_code) &&  $row->contract_code != "") {
               $check_contract = Contract::where('contract_code', 'LIKE', '%' . trim($row->contract_code) . '%')->first();
               if ($check_contract) {
                 $contract_id = $check_contract->id;
+                $contract_start_date = $check_contract->contract_date;
+                $contract_expire_date = $check_contract->contract_expiry_date;
               } else {
                 $contract_id = NULL;
               }
@@ -698,19 +702,19 @@ class ContentController extends Controller
               $content_data['contract_id'] = $contract_id;
               $content_data['user_id'] = \Auth::user()->id;
               $content_data['path'] = "uploads/content/" . date('Y-m-d') . "/" . $row->content_path;
-              $content_data['start_date'] =  $row->content_start_date ? transformDate($row->content_start_date) : null;
-              $content_data['expire_date'] =  $row->content_expire_date ? transformDate($row->content_expire_date) : null;
+              $content_data['start_date'] =  $contract_start_date;
+              $content_data['expire_date'] =  $contract_expire_date;
               $content_data['album'] = isset($row->album) && $row->album != null ? $row->album : $row->single;
               $content_data['category'] = $row->category;
               $content = content::create($content_data);
 
               $counter++;
             } else {
-              if (strpos($ckeck_content, $row->content_path) == false) {
+              if ($row->content_path != null && strpos($ckeck_content, $row->content_path) == false) {
                 $ckeck_content->path = "uploads/content/" . date('Y-m-d') . "/" . $row->content_path;
               }
-              $ckeck_content->start_date = $row->content_start_date ? transformDate($row->content_start_date) : null;
-              $ckeck_content->expire_date = $row->content_expire_date ? transformDate($row->content_expire_date) : null;
+              $ckeck_content->start_date = $contract_start_date;
+              $ckeck_content->expire_date = $contract_expire_date;
               $ckeck_content->album = isset($row->album) && $row->album != null ? $row->album : $row->single;
               $ckeck_content->category = $row->category;
               $ckeck_content->save();
@@ -718,7 +722,7 @@ class ContentController extends Controller
               $content = $ckeck_content;
             }
 
-            $this->storeRBT($row, $content->id, $provider_id, $occasion_id);
+            $this->storeRBT($row, $content->id, $provider_id, $occasion_id, $contract_start_date, $contract_expire_date);
 
             if (!file_exists('uploads/content/' .  date('Y-m-d') . '/')) {
               mkdir('uploads/content/' . date('Y-m-d') . '/', 0777, true);
@@ -757,7 +761,7 @@ class ContentController extends Controller
   }
 
 
-  private function storeRBT($row, $content_id, $provider_id, $occasion_id)
+  private function storeRBT($row, $content_id, $provider_id, $occasion_id, $contract_start_date, $contract_expire_date)
   {
     $excel_rbt_codes = get_excel_rbt_codes($row);
     if (isset($excel_rbt_codes) && count($excel_rbt_codes) > 0) {
@@ -782,8 +786,8 @@ class ContentController extends Controller
           $rbt['provider_id'] = $provider_id;
           $rbt['content_id'] = $content_id;
           $rbt['internal_coding'] = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
-          $rbt['start_date'] = $row->rbt_start_date ? transformDate($row->rbt_start_date) : null;
-          $rbt['expire_date'] = $row->rbt_expire_date ? transformDate($row->rbt_expire_date) : null;
+          $rbt['start_date'] = $contract_start_date;
+          $rbt['expire_date'] = $contract_expire_date;
 
           $new_rbt = Rbt::create($rbt);
           if ($new_rbt) {
