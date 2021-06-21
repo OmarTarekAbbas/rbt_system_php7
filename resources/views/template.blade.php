@@ -507,6 +507,9 @@
           @if(get_action_icons('rbt/statistics','get'))
           <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a></li>
           @endif
+          @if(get_action_icons('rbts/graph','get'))
+          <li id="rbt-statistics"><a href="{{url('rbts/graph')}}">RBT Graph</a></li>
+          @endif
           @if(get_action_icons('rbt/excel','get'))
           <li id="rbt-excel"><a href="{{url('rbt/excel')}}">Create RBT Form Excel</a></li>
           @endif

@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Report;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
@@ -764,6 +765,44 @@ class RbtController extends Controller
         return view('rbt.file_system');
     }
 
+    public function rbtGraph(Request $request)
+    {
+      $operators = Operator::all() ;
 
+      $reports = Report::query();
+      if($request->filled('operator_id')) {
+        $reports = $reports->where('operator_id', $request->operator_id);
+      }
+      if($request->filled('from_year')) {
+        $reports = $reports->where('year', ">=", $request->from_year);
+      }
+      if($request->filled('to_year')) {
+        $reports = $reports->where('year', "<", $request->to_year);
+      }
+      if($request->filled('from_month')) {
+        $reports = $reports->where('month', ">=", $request->from_month);
+      }
+      if($request->filled('to_month')) {
+        $reports = $reports->where('month', "<", $request->to_month);
+      }
+
+      $reports = $reports->orderBy("download_no", "desc")->limit(10)->get();
+      $reports->load("rbt");
+
+      $chartData = [];
+      if(count($reports)) {
+        foreach ($reports as  $report) {
+          $data["x"] = $report->rbt->track_title_en;
+          $data['y'] = $report->download_no;
+          array_push($chartData, (object)$data);
+        }
+      }
+
+      if(!count($request->all())){
+        $reports = [];
+      }
+
+      return view("rbt.graph", compact("reports", "operators", "chartData"));
+    }
 
 }
