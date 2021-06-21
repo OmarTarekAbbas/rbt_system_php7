@@ -650,22 +650,9 @@ class ContentController extends Controller
         foreach ($results as $row) {
           $total_counter++;
 
-          //get occasion id
-          if (isset($row->occasion) &&  $row->occasion != "") {
-            $check_occasion = Occasion::where('title', 'LIKE', '%' . $row->occasion . '%')->first();
-            if ($check_occasion) {
-              $occasion_id = $check_occasion->id;
-            } else {
-              $occ = array();
-              $occ['title'] = $row->occasion;
-              $country = Country::where('title', 'LIKE', "%$row->country%")->first();
-              $occ['country_id'] = $country->id ?? all_countries();
-              $create = Occasion::create($occ);
-              $occasion_id = $create->id;
-            }
-          } else {
-            $occasion_id = NULL;
-          }
+          //get occasions id
+          $occasion_id = $this->getOccasionId($row->occassion);
+
 
           //get provider id
           $check_provider = SecondParties::where('second_party_title', 'LIKE', '%' . $row->artist_name_en . '%')->first();
@@ -705,6 +692,8 @@ class ContentController extends Controller
             $content_data['internal_coding'] = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
             $content_data['provider_id'] = $provider_id;
             $content_data['occasion_id'] = $occasion_id;
+            $content_data['occasion_2_id'] = $this->getOccasionId($row->occassion_2);
+            $content_data['occasion_3_id'] = $this->getOccasionId($row->occassion_3);
             $content_data['contract_id'] = $contract_id;
             $content_data['user_id'] = \Auth::user()->id;
             $content_data['path'] = "uploads/content/" . date('Y-m-d') . "/" . $row->content_path;
@@ -743,6 +732,27 @@ class ContentController extends Controller
       return back();
     }
     return redirect('content');
+  }
+
+  private function getOccasionId($occasion, $country = null)
+  {
+    $occasion_id = NULL;
+
+    if (isset($occasion) &&  $occasion != "") {
+      $check_occasion = Occasion::where('title', 'LIKE', '%' . $occasion . '%')->first();
+      if ($check_occasion) {
+        $occasion_id = $check_occasion->id;
+      } else {
+        $occ = array();
+        $occ['title'] = $occasion;
+        $country = Country::where('title', 'LIKE', "%$country%")->first();
+        $occ['country_id'] = $country->id ?? all_countries();
+        $create = Occasion::create($occ);
+        $occasion_id = $create->id;
+      }
+    }
+
+    return $occasion_id;
   }
 
 
