@@ -866,12 +866,15 @@ class ContentController extends Controller
       'Content Title Ar',
       'Content Path',
       'Content Type',
+      'Remax',
       'Content Internal Coding',
       'Content Start Date',
       'Content Expire Date',
       'Album',
       'Category',
       'Occasion',
+      'Occasion 2',
+      'Occasion 3',
       'RBT Name En',
       'RBT Name Ar',
       'RBT Start Date',
@@ -913,12 +916,15 @@ class ContentController extends Controller
       $value->content_title_ar,
       $this->getContent($value->content_path),
       $value->content_type,
+      $value->remax == 0 ? 'No' : 'Yes',
       $value->content_internal_coding,
       $this->formateDate($value->content_start_date),
       $this->formateDate($value->content_expire_date),
       $value->content_album,
       $value->content_category,
       $value->occasion_title,
+      $value->occasion_2_title,
+      $value->occasion_3_title,
       $value->rbt_track_title_en,
       $value->rbt_track_title_ar,
       $this->formateDate($value->rbt_start_date),
@@ -967,12 +973,15 @@ class ContentController extends Controller
       'contents.content_title_ar as content_title_ar',
       'contents.path as content_path',
       'contents.content_type as content_type',
+      'contents.remax as remax',
       'contents.internal_coding as content_internal_coding',
       'contents.start_date as content_start_date',
       'contents.expire_date as content_expire_date',
       'contents.album as content_album',
       'contents.category as content_category',
       'occasions.title as occasion_title',
+      'occasion_2.title as occasion_2_title',
+      'occasion_3.title as occasion_3_title',
       'rbts.id as rbt_id',
       'rbts.track_title_en as rbt_track_title_en',
       'rbts.track_title_ar as rbt_track_title_ar',
@@ -985,13 +994,12 @@ class ContentController extends Controller
     )
       ->join('contents', 'contents.contract_id', '=', 'contracts.id')
       ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
+      ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
+      ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
       ->join('rbts', 'rbts.content_id', '=', 'contents.id')
       ->join('second_parties', 'second_parties.second_party_id', '=', 'rbts.provider_id')
       ->join('operators', 'operators.id', '=', 'rbts.operator_id')
-      ->limit(5)
       ->get();
-
-      dd($data);
 
     return $data;
   }
