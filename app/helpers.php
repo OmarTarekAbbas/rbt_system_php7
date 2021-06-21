@@ -397,40 +397,7 @@ function operators(){
 
 function get_excel_rbt_codes($row)
 {
-  $operator_ids = [
-    "operator_1_libyana_libya" => 45,
-    "operator_2_orange_jordan" => 56,
-    "operator_3_asiacell_iraq" => 80,
-    "operator_4_oman_mobile" => 81,
-    "operator_5_jawal_ps" => 54,
-    "operator_6_ooredoo_tunis" => 82,
-    "operator_7_telecome_tunis" => 18,
-    "operator_8_orange_tunis" => 42,
-    "operator_9_orange_moroco" => 83,
-    "operator_10_telecome_moroco" => 26,
-    "operator_11_inwi_moroco" => 25,
-    "operator_12_zain_iraq" => 16,
-    "operator_13_watanya_ps" => 53,
-    "operator_14_lebara_ksa" => 84,
-    "operator_15_stc_ksa" => 35,
-    "operator_16_ooredoo_oman" => 85,
-    "operator_17_stc_kuw" => 86,
-    "operator_18_vodafone_eg" => 14,
-    "operator_19_zain_bahrain" => 87,
-    "operator_20_zain_ksa" => 36,
-    "operator_21_etisalat_eg" => 51,
-    "operator_22_zain_kuw" => 15,
-    "operator_23_du_uae" => 47,
-    "operator_24_etisalat_uae" => 48,
-    "operator_25_mobily_ksa" => 38,
-    "operator_26_viva_bahrain" => 88,
-    "operator_27_umniah_jordan" => 50,
-    "operator_28_ooredoo_qatar" => 29,
-    "operator_29_ooredoo_kuw" => 89,
-    "operator_30_ooredoo_kuw" => 89,
-    "operator_31_oreedo_palastine" => 57,
-    "operator_32_orange_eg" => 13
-  ];
+  $operator_ids = [];
 
   $db_operators = operators();
   foreach ($db_operators as $key => $value) {

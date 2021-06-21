@@ -617,12 +617,64 @@ class ContentController extends Controller
 
   public function contentExcelDownloadSample()
   {
-    $file = base_path() . "/contentexcel/full_content_excel.xlsx";
+    $excel_title = "content_excel_sample";
+    return Excel::create($excel_title, function ($excel){
+      $excel->sheet('mySheet', function ($sheet){
+        //create excel header
+        $header_columns = $this->createHeaderSampleExcel();
+        foreach ($header_columns as $column) {
+          $sheet->cell($column['excel_row_position_key'], function ($cell) use ($column) {
+            $cell->setValue($column['excel_row_position_value']);
+            $cell->setFontWeight('bold');
+            $cell->setBackground('#A6A6A6');
+          });
+        }
+      });
+    })->download('xlsx');
+  }
 
-    $headers = array(
-      'Content-Type: application/xlsx',
-    );
-    return response()->download($file, 'full_content_excel.xlsx', $headers);
+  private function createHeaderSampleExcel()
+  {
+    $first_row = [];
+
+    //header row keys initial array
+    $letters = $this->getLetters();
+
+    //static header row values
+    $row_values = [
+      'Contract Code',
+      'Artist Name En',
+      'Artist Name Ar',
+      'Gender',
+      'Content Title En',
+      'Content Title Ar',
+      'Content Path',
+      'Content Type',
+      'Remax',
+      'Album',
+      'Single',
+      'Category',
+      'Occasion',
+      'Occasion 2',
+      'Occasion 3',
+      'Rbt Name En',
+      'Rbt Name Ar',
+      'Social Media Code',
+      'Aggregator'
+    ];
+
+    //append operators to row values
+    $operators = operators();
+    foreach ($operators as $key => $value) {
+      array_push($row_values, $key);
+    }
+
+    //create excel header
+    foreach ($row_values as $key => $value) {
+      array_push($first_row, ['excel_row_position_key' => $letters[$key] . '1', 'excel_row_position_value' => trim($value)]);
+    }
+
+    return $first_row;
   }
 
   public function storeContentExcel(Request $request)
