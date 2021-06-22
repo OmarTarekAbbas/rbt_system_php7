@@ -39,9 +39,11 @@ class ContentController extends Controller
 
   public function allData(Request $request)
   {
-    $contents = Content::select('*', 'contents.id AS id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
+    $contents = Content::select('*', 'contents.id AS id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'occasion_2.title as occasion_2', 'occasion_3.title as occasion_3', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
     ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
-    ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
+    ->leftjoin('occasions', 'occasions.id', '=', 'contents.occasion_id')
+    ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
+    ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
     ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
     ->active();
 
@@ -50,7 +52,6 @@ class ContentController extends Controller
     }
 
     $contents = $contents->latest('contents.id')->get();
-
 
     $datatable = \Datatables::of($contents)
       ->addColumn('index', function (Content $content) {
@@ -86,10 +87,7 @@ class ContentController extends Controller
           return '---';
       })
       ->addColumn('occasion', function (Content $content) {
-        if ($content->occasion)
-          return $content->occasion;
-        else
-          return '---';
+        return $this->getOccasionString([$content->occasion, $content->occasion_2, $content->occasion_3]);
       })
       ->addColumn('provider', function (Content $content) {
         if ($content->provider)
@@ -115,9 +113,11 @@ class ContentController extends Controller
 
   public function allNextCommingExpireContent(Request $request)
   {
-    $contents = Content::select('*', 'contents.id AS id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
+    $contents = Content::select('*', 'contents.id AS id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'occasion_2.title as occasion_2', 'occasion_3.title as occasion_3', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
     ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
-    ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
+    ->leftjoin('occasions', 'occasions.id', '=', 'contents.occasion_id')
+    ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
+    ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
     ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
     ->nextcommingexpire();
 
@@ -162,10 +162,7 @@ class ContentController extends Controller
           return '---';
       })
       ->addColumn('occasion', function (Content $content) {
-        if ($content->occasion)
-          return $content->occasion;
-        else
-          return '---';
+        return $this->getOccasionString([$content->occasion, $content->occasion_2, $content->occasion_3]);
       })
       ->addColumn('provider', function (Content $content) {
         if ($content->provider)
@@ -191,9 +188,11 @@ class ContentController extends Controller
 
   public function allExpireContent(Request $request)
   {
-    $contents = Content::select('*', 'contents.id AS id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
+    $contents = Content::select('*', 'contents.id AS id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'occasion_2.title as occasion_2', 'occasion_3.title as occasion_3', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
     ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
-    ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
+    ->leftjoin('occasions', 'occasions.id', '=', 'contents.occasion_id')
+    ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
+    ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
     ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
     ->expire();
 
@@ -238,10 +237,7 @@ class ContentController extends Controller
           return '---';
       })
       ->addColumn('occasion', function (Content $content) {
-        if ($content->occasion)
-          return $content->occasion;
-        else
-          return '---';
+        return $this->getOccasionString([$content->occasion, $content->occasion_2, $content->occasion_3]);
       })
       ->addColumn('provider', function (Content $content) {
         if ($content->provider)
@@ -257,6 +253,25 @@ class ContentController extends Controller
       ->make(true);
 
     return $datatable;
+  }
+
+  private function getOccasionString($occasions)
+  {
+    $counter = 0;
+    if (count($occasions) > 0) {
+      $occasion_string = '';
+      foreach ($occasions as $occasion) {
+        if ($occasion != null) {
+          $occasion_string .= $occasion . ' - ';
+
+          $counter++;
+        }
+      }
+      $final_occasion_string = ($counter > 0 ? substr($occasion_string, 0, -3) : NULL);
+      return $final_occasion_string;
+    } else {
+      return '---';
+    }
   }
 
   public function create()
