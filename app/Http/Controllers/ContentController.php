@@ -1050,6 +1050,20 @@ class ContentController extends Controller
         foreach ($header_columns as $column) {
           $sheet->cell($column['excel_row_position_key'], function ($cell) use ($column) {
             $cell->setValue($column['excel_row_position_value']);
+            $cell->setFontWeight('bold');
+            $cell->setBackground('#BFBFBF');
+          });
+
+          $sheet->cell('G1:J1', function ($cell) {
+            $cell->setBackground('#B8CCE4');
+          });
+
+          $sheet->cell('K1:U1', function ($cell) {
+            $cell->setBackground('#FCD5B4');
+          });
+
+          $sheet->cell('V1:X1', function ($cell) {
+            $cell->setBackground('#C4D79B');
           });
         }
 
