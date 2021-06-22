@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Content extends Model
 {
-    protected $fillable = ['content_title','content_title_ar','content_type','provider_id','internal_coding','path',
-                          'user_id','image_preview','occasion_id','contract_id','start_date','expire_date','album','category'];
+    protected $fillable = ['content_title','content_title_ar','content_type','remax','provider_id','internal_coding','path',
+                          'user_id','image_preview','occasion_id','occasion_2_id','occasion_3_id','contract_id','start_date','expire_date','album','category'];
 
     protected $dates = ['start_date','expire_date'];
 

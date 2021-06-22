@@ -1,11 +1,11 @@
 <?php
 
-use App\Operator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Operator;
 
-class SetViewExcelInOperatorsTable extends Migration
+class SetViewExcelValueInOperators extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,9 @@ class SetViewExcelInOperatorsTable extends Migration
      */
     public function up()
     {
-        Schema::table('operators', function (Blueprint $table) {
-          Operator::where('title','like', '%all%')->update(array('view_excel' => 0));
-        });
+      Schema::table('operators', function (Blueprint $table) {
+        Operator::where('title','like', '%radio%')->update(array('view_excel' => 0));
+      });
     }
 
     /**
@@ -26,8 +26,6 @@ class SetViewExcelInOperatorsTable extends Migration
      */
     public function down()
     {
-        Schema::table('operators', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }

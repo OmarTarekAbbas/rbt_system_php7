@@ -761,12 +761,76 @@ class ContentController extends Controller
 
   public function contentExcelDownloadSample()
   {
-    $file = base_path() . "/contentexcel/full_content_excel.xlsx";
+    $excel_title = "content_excel_sample";
+    return Excel::create($excel_title, function ($excel){
+      $excel->sheet('mySheet', function ($sheet){
+        //create excel header
+        $header_columns = $this->createHeaderSampleExcel();
+        foreach ($header_columns as $column) {
+          $sheet->cell($column['excel_row_position_key'], function ($cell) use ($column) {
+            $cell->setValue($column['excel_row_position_value']);
+            $cell->setFontWeight('bold');
+            $cell->setBackground('#BFBFBF');
+          });
 
-    $headers = array(
-      'Content-Type: application/xlsx',
-    );
-    return response()->download($file, 'full_content_excel.xlsx', $headers);
+          $sheet->cell('B1:D1', function ($cell) {
+            $cell->setBackground('#B8CCE4');
+          });
+
+          $sheet->cell('E1:O1', function ($cell) {
+            $cell->setBackground('#FCD5B4');
+          });
+
+          $sheet->cell('P1:S1', function ($cell) {
+            $cell->setBackground('#C4D79B');
+          });
+        }
+      });
+    })->download('xlsx');
+  }
+
+  private function createHeaderSampleExcel()
+  {
+    $first_row = [];
+
+    //header row keys initial array
+    $letters = $this->getLetters();
+
+    //static header row values
+    $row_values = [
+      'Contract Code',
+      'Artist Name En',
+      'Artist Name Ar',
+      'Gender',
+      'Content Title En',
+      'Content Title Ar',
+      'Content Path',
+      'Content Type',
+      'Remax',
+      'Album',
+      'Single',
+      'Category',
+      'Occasion',
+      'Occasion 2',
+      'Occasion 3',
+      'Rbt Name En',
+      'Rbt Name Ar',
+      'Social Media Code',
+      'Aggregator'
+    ];
+
+    //append operators to row values
+    $operators = operators();
+    foreach ($operators as $key => $value) {
+      array_push($row_values, $key);
+    }
+
+    //create excel header
+    foreach ($row_values as $key => $value) {
+      array_push($first_row, ['excel_row_position_key' => $letters[$key] . '1', 'excel_row_position_value' => trim($value)]);
+    }
+
+    return $first_row;
   }
 
   public function storeContentExcel(Request $request)
@@ -790,81 +854,87 @@ class ContentController extends Controller
         return back();
       }
 
+      if (!file_exists('uploads/content/' .  date('Y-m-d') . '/')) {
+        mkdir('uploads/content/' . date('Y-m-d') . '/', 0777, true);
+      }
+
       \Excel::filter('chunk')->load(base_path() . '/uploads/content/excel/' . $filename)->chunk(100, function ($results) use ($request, $counter, $total_counter) {
         foreach ($results as $row) {
-          $total_counter++;
+          if ($row->filter()->isNotEmpty()) {
+            $total_counter++;
 
-          //get occasions id
-          $occasion_id = $this->getOccasionId($row->occassion);
+            //get occasions id
+            $occasion_id = $this->getOccasionId($row->occasion);
 
 
-          //get provider id
-          $check_provider = SecondParties::where('second_party_title', 'LIKE', '%' . $row->artist_name_en . '%')->first();
-          if ($check_provider) {
-            $provider_id = $check_provider->second_party_id;
-          } else {
-            $prov = array();
-            $prov['second_party_title'] = $row->artist_name_en;
-            $prov['second_party_title_ar'] = $row->artist_name_ar;
-            $prov['second_party_type_id'] = PROVIDER_ID;
-            $prov['gender'] = $row->gender;
-            $prov['artist_code'] = 'Ar/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
-            $create = SecondParties::create($prov);
-            $provider_id = $create->second_party_id;
-          }
+            //get provider id
+            $check_provider = SecondParties::where('second_party_title', 'LIKE', '%' . $row->artist_name_en . '%')->first();
+            if ($check_provider) {
+              $provider_id = $check_provider->second_party_id;
+            } else {
+              $prov = array();
+              $prov['second_party_title'] = $row->artist_name_en;
+              $prov['second_party_title_ar'] = $row->artist_name_ar;
+              $prov['second_party_type_id'] = PROVIDER_ID;
+              $prov['gender'] = $row->gender;
+              $prov['artist_code'] = 'Ar/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
+              $create = SecondParties::create($prov);
+              $provider_id = $create->second_party_id;
+            }
 
-          //get Contract id
-          if (isset($row->contract_code) &&  $row->contract_code != "") {
-            $check_contract = Contract::where('contract_code', 'LIKE', '%' . trim($row->contract_code) . '%')->first();
-            if ($check_contract) {
-              $contract_id = $check_contract->id;
+            //get Contract data
+            $contract_start_date = null;
+            $contract_expire_date = null;
+            if (isset($row->contract_code) &&  $row->contract_code != "") {
+              $check_contract = Contract::where('contract_code', 'LIKE', '%' . trim($row->contract_code) . '%')->first();
+              if ($check_contract) {
+                $contract_id = $check_contract->id;
+                $contract_start_date = $check_contract->contract_date;
+                $contract_expire_date = $check_contract->contract_expiry_date;
+              } else {
+                $contract_id = NULL;
+              }
             } else {
               $contract_id = NULL;
             }
-          } else {
-            $contract_id = NULL;
-          }
 
-          //Check Content
-          $ckeck_content = Content::where(['provider_id' => $provider_id, 'content_title' => $row->content_title_en])->first();
+            //Check Content
+            $ckeck_content = Content::where(['provider_id' => $provider_id, 'content_title' => $row->content_title_en])->first();
+            if (!isset($ckeck_content) || $ckeck_content == null) {
+              //get Excel Data
+              $content_data['content_title'] = $row->content_title_en;
+              $content_data['content_title_ar'] = $row->content_title_ar;
+              $content_data['content_type'] = $row->content_type;
+              $content_data['remax'] = (strtolower($row->remax) == 'yes' ? 1 : 0);
+              $content_data['internal_coding'] = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
+              $content_data['provider_id'] = $provider_id;
+              $content_data['occasion_id'] = $occasion_id;
+              $content_data['occasion_2_id'] = $this->getOccasionId($row->occasion_2);
+              $content_data['occasion_3_id'] = $this->getOccasionId($row->occasion_3);
+              $content_data['contract_id'] = $contract_id;
+              $content_data['user_id'] = \Auth::user()->id;
+              $content_data['path'] = "uploads/content/" . date('Y-m-d') . "/" . $row->content_path;
+              $content_data['start_date'] =  $contract_start_date;
+              $content_data['expire_date'] =  $contract_expire_date;
+              $content_data['album'] = isset($row->album) && $row->album != null ? $row->album : $row->single;
+              $content_data['category'] = $row->category;
+              $content = content::create($content_data);
 
-          if (!isset($ckeck_content) || $ckeck_content == null) {
-            //get Excel Data
-            $content_data['content_title'] = $row->content_title_en;
-            $content_data['content_title_ar'] = $row->content_title_ar;
-            $content_data['content_type'] = $row->content_type;
-            $content_data['internal_coding'] = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
-            $content_data['provider_id'] = $provider_id;
-            $content_data['occasion_id'] = $occasion_id;
-            $content_data['occasion_2_id'] = $this->getOccasionId($row->occassion_2);
-            $content_data['occasion_3_id'] = $this->getOccasionId($row->occassion_3);
-            $content_data['contract_id'] = $contract_id;
-            $content_data['user_id'] = \Auth::user()->id;
-            $content_data['path'] = "uploads/content/" . date('Y-m-d') . "/" . $row->content_path;
-            $content_data['start_date'] =  $row->content_start_date ? transformDate($row->content_start_date) : null;
-            $content_data['expire_date'] =  $row->content_expire_date ? transformDate($row->content_expire_date) : null;
-            $content_data['album'] = isset($row->album) && $row->album != null ? $row->album : $row->single;
-            $content_data['category'] = $row->category;
-            $content = content::create($content_data);
+              $counter++;
+            } else {
+              if ($row->content_path != null && strpos($ckeck_content->path, $row->content_path) == false) {
+                $ckeck_content->path = "uploads/content/" . date('Y-m-d') . "/" . $row->content_path;
+              }
+              $ckeck_content->start_date = $contract_start_date;
+              $ckeck_content->expire_date = $contract_expire_date;
+              $ckeck_content->album = isset($row->album) && $row->album != null ? $row->album : $row->single;
+              $ckeck_content->category = $row->category;
+              $ckeck_content->save();
 
-            $counter++;
-          } else {
-            if (strpos($ckeck_content, $row->content_path) == false) {
-              $ckeck_content->path = "uploads/content/" . date('Y-m-d') . "/" . $row->content_path;
+              $content = $ckeck_content;
             }
-            $ckeck_content->start_date = $row->content_start_date ? transformDate($row->content_start_date) : null;
-            $ckeck_content->expire_date = $row->content_expire_date ? transformDate($row->content_expire_date) : null;
-            $ckeck_content->album = isset($row->album) && $row->album != null ? $row->album : $row->single;
-            $ckeck_content->category = $row->category;
-            $ckeck_content->save();
 
-            $content = $ckeck_content;
-          }
-
-          $this->storeRBT($row, $content->id, $provider_id, $occasion_id);
-
-          if (!file_exists('uploads/content/' .  date('Y-m-d') . '/')) {
-            mkdir('uploads/content/' . date('Y-m-d') . '/', 0777, true);
+            $this->storeRBT($row, $content->id, $content->internal_coding, $provider_id, $occasion_id, $contract_start_date, $contract_expire_date);
           }
         }
 
@@ -895,13 +965,16 @@ class ContentController extends Controller
         $occasion_id = $create->id;
       }
     }
-
     return $occasion_id;
   }
 
 
-  private function storeRBT($row, $content_id, $provider_id, $occasion_id)
+  private function storeRBT($row, $content_id, $content_code, $provider_id, $occasion_id, $contract_start_date, $contract_expire_date)
   {
+    if (!file_exists('uploads/rbts/' .  date('Y-m-d') . '/')) {
+      mkdir('uploads/rbts/' . date('Y-m-d') . '/', 0777, true);
+  }
+
     $excel_rbt_codes = get_excel_rbt_codes($row);
     if (isset($excel_rbt_codes) && count($excel_rbt_codes) > 0) {
       foreach ($excel_rbt_codes as $code) {
@@ -924,21 +997,30 @@ class ContentController extends Controller
           $rbt['type'] = 2;
           $rbt['provider_id'] = $provider_id;
           $rbt['content_id'] = $content_id;
-          $rbt['internal_coding'] = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
-          $rbt['start_date'] = $row->rbt_start_date ? transformDate($row->rbt_start_date) : null;
-          $rbt['expire_date'] = $row->rbt_expire_date ? transformDate($row->rbt_expire_date) : null;
-
-          $new_rbt = Rbt::create($rbt);
-          if ($new_rbt) {
-            if (!file_exists('uploads/rbts/' .  date('Y-m-d') . '/')) {
-              mkdir('uploads/rbts/' . date('Y-m-d') . '/', 0777, true);
-            }
-          }
+          $rbt['internal_coding'] = $this->generateRBTCode($content_code);
+          $rbt['start_date'] = $contract_start_date;
+          $rbt['expire_date'] = $contract_expire_date;
+          Rbt::create($rbt);
         }
       }
     }
 
     return true;
+  }
+
+  private function generateRBTCode($content_code){
+    $rbt_code = null;
+
+    $content = Content::where("internal_coding", "like", "%$content_code%")->first();
+    if(isset($content) && $content!=null){
+      $content_rbt_count = Rbt::where('content_id', $content->id)->count();
+      $new_rbt_count = $content_rbt_count + 1;
+      $rbt_code = $content->internal_coding.'-'.$new_rbt_count;
+    }else{
+      $rbt_code = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
+    }
+
+    return $rbt_code;
   }
 
   private function getAggregatorID($aggregator_title)
@@ -968,6 +1050,20 @@ class ContentController extends Controller
         foreach ($header_columns as $column) {
           $sheet->cell($column['excel_row_position_key'], function ($cell) use ($column) {
             $cell->setValue($column['excel_row_position_value']);
+            $cell->setFontWeight('bold');
+            $cell->setBackground('#BFBFBF');
+          });
+
+          $sheet->cell('G1:J1', function ($cell) {
+            $cell->setBackground('#B8CCE4');
+          });
+
+          $sheet->cell('K1:U1', function ($cell) {
+            $cell->setBackground('#FCD5B4');
+          });
+
+          $sheet->cell('V1:X1', function ($cell) {
+            $cell->setBackground('#C4D79B');
           });
         }
 
@@ -1002,6 +1098,8 @@ class ContentController extends Controller
       'Contract Code',
       'Contract Start Date',
       'Contract Expiry Date',
+      'Contract Auto Renew',
+      'Contract Network',
       'Artist Name En',
       'Artist Name Ar',
       'Gender',
@@ -1010,16 +1108,15 @@ class ContentController extends Controller
       'Content Title Ar',
       'Content Path',
       'Content Type',
+      'Remax',
       'Content Internal Coding',
-      'Content Start Date',
-      'Content Expire Date',
       'Album',
       'Category',
       'Occasion',
+      'Occasion 2',
+      'Occasion 3',
       'RBT Name En',
       'RBT Name Ar',
-      'RBT Start Date',
-      'RBT Expiry Date',
       'RBT Internal Code'
     ];
 
@@ -1049,6 +1146,8 @@ class ContentController extends Controller
       $value->contract_code,
       $this->formateDate($value->contract_start_date),
       $this->formateDate($value->contract_expiry_date),
+      $value->contracts_ceo_renew == 1 ? 'Yes' : 'No',
+      $value->contracts_network,
       $value->artist_name_en,
       $value->artist_name_ar,
       $value->gender,
@@ -1057,16 +1156,15 @@ class ContentController extends Controller
       $value->content_title_ar,
       $this->getContent($value->content_path),
       $value->content_type,
+      $value->remax == 0 ? 'No' : 'Yes',
       $value->content_internal_coding,
-      $this->formateDate($value->content_start_date),
-      $this->formateDate($value->content_expire_date),
       $value->content_album,
       $value->content_category,
       $value->occasion_title,
+      $value->occasion_2_title,
+      $value->occasion_3_title,
       $value->rbt_track_title_en,
       $value->rbt_track_title_ar,
-      $this->formateDate($value->rbt_start_date),
-      $this->formateDate($value->rbt_expire_date),
       $value->rbt_internal_coding
     ];
 
@@ -1102,6 +1200,8 @@ class ContentController extends Controller
       'contracts.contract_code as contract_code',
       'contracts.contract_date as contract_start_date',
       'contracts.contract_expiry_date as contract_expiry_date',
+      'contracts.ceo_renew as contracts_ceo_renew',
+      'contracts.country_title as contracts_network',
       'second_parties.second_party_title as artist_name_en',
       'second_parties.second_party_title_ar as artist_name_ar',
       'second_parties.gender as gender',
@@ -1111,12 +1211,15 @@ class ContentController extends Controller
       'contents.content_title_ar as content_title_ar',
       'contents.path as content_path',
       'contents.content_type as content_type',
+      'contents.remax as remax',
       'contents.internal_coding as content_internal_coding',
       'contents.start_date as content_start_date',
       'contents.expire_date as content_expire_date',
       'contents.album as content_album',
       'contents.category as content_category',
       'occasions.title as occasion_title',
+      'occasion_2.title as occasion_2_title',
+      'occasion_3.title as occasion_3_title',
       'rbts.id as rbt_id',
       'rbts.track_title_en as rbt_track_title_en',
       'rbts.track_title_ar as rbt_track_title_ar',
@@ -1128,14 +1231,13 @@ class ContentController extends Controller
       'operators.title as operator_title'
     )
       ->join('contents', 'contents.contract_id', '=', 'contracts.id')
-      ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
+      ->leftjoin('occasions', 'occasions.id', '=', 'contents.occasion_id')
+      ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
+      ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
       ->join('rbts', 'rbts.content_id', '=', 'contents.id')
       ->join('second_parties', 'second_parties.second_party_id', '=', 'rbts.provider_id')
       ->join('operators', 'operators.id', '=', 'rbts.operator_id')
-      ->limit(5)
       ->get();
-
-      dd($data);
 
     return $data;
   }
