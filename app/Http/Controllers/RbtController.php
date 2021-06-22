@@ -780,33 +780,33 @@ class RbtController extends Controller
       $reports = Report::query();
 
       $reports = $reports
-                ->where(function($builder){
-                  $builder->when(request()->filled('from_year') && request()->filled('from_month'), function($report){
-                    $report->where('year', ">", request('from_year'));
-                    $report->orWhere(function($query){
-                      $query->where('month', ">=", request('from_month'));
-                      $query->where('year', "=", request('from_year'));
-                    });
-                  });
-                })
-                ->where(function($builder){
-                  $builder->when(request()->filled('to_year') && request()->filled('to_month'), function($report){
-                    $report->where('year', "<", request('to_year'));
-                    $report->orWhere(function($query){
-                      $query->where('month', "<=", request('to_month'));
-                      $query->where('year', "=", request('to_year'));
-                    });
-                  });
-                });
+      ->where(function($builder){
+        $builder->when(request()->filled('from_year') && request()->filled('from_month'), function($report){
+          $report->where('year', ">", request('from_year'));
+          $report->orWhere(function($query){
+            $query->where('month', ">=", request('from_month'));
+            $query->where('year', "=", request('from_year'));
+          });
+        });
+      })
+      ->where(function($builder){
+        $builder->when(request()->filled('to_year') && request()->filled('to_month'), function($report){
+          $report->where('year', "<", request('to_year'));
+          $report->orWhere(function($query){
+            $query->where('month', "<=", request('to_month'));
+            $query->where('year', "=", request('to_year'));
+          });
+        });
+      });
 
       if($request->filled('operator_id')) {
         $reports = $reports->where('operator_id', $request->operator_id);
       }
 
-      $reports = $reports->orderBy("download_no", "desc")->limit(10)->get();
+      $reports = $reports->orderBy("download_no", "desc")->limit(setting('report_limit') != ''? setting('report_limit') : 10)->get();
       $reports->load("rbt");
 
-
+      
       return view("rbt.graph", compact("reports", "operators"));
     }
 
