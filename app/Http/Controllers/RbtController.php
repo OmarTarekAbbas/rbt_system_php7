@@ -765,44 +765,49 @@ class RbtController extends Controller
         return view('rbt.file_system');
     }
 
+    /**
+     * @method rbtGraph
+     *
+     * Draw graph for the best rbt that have the biggest download number
+     *
+     * @param \Illuminate\Http\Request $request [from_year, from_month, to_year, to_month, operator_id]
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function rbtGraph(Request $request)
     {
-      $operators = Operator::all() ;
-
+      $operators = Operator::all();
       $reports = Report::query();
+
+      $reports = $reports
+                ->where(function($builder){
+                  $builder->when(request()->filled('from_year') && request()->filled('from_month'), function($report){
+                    $report->where('year', ">", request('from_year'));
+                    $report->orWhere(function($query){
+                      $query->where('month', ">=", request('from_month'));
+                      $query->where('year', "=", request('from_year'));
+                    });
+                  });
+                })
+                ->where(function($builder){
+                  $builder->when(request()->filled('to_year') && request()->filled('to_month'), function($report){
+                    $report->where('year', "<", request('to_year'));
+                    $report->orWhere(function($query){
+                      $query->where('month', "<=", request('to_month'));
+                      $query->where('year', "=", request('to_year'));
+                    });
+                  });
+                });
+
       if($request->filled('operator_id')) {
         $reports = $reports->where('operator_id', $request->operator_id);
-      }
-      if($request->filled('from_year')) {
-        $reports = $reports->where('year', ">=", $request->from_year);
-      }
-      if($request->filled('to_year')) {
-        $reports = $reports->where('year', "<", $request->to_year);
-      }
-      if($request->filled('from_month')) {
-        $reports = $reports->where('month', ">=", $request->from_month);
-      }
-      if($request->filled('to_month')) {
-        $reports = $reports->where('month', "<", $request->to_month);
       }
 
       $reports = $reports->orderBy("download_no", "desc")->limit(10)->get();
       $reports->load("rbt");
 
-      $chartData = [];
-      if(count($reports)) {
-        foreach ($reports as  $report) {
-          $data["x"] = $report->rbt->track_title_en;
-          $data['y'] = $report->download_no;
-          array_push($chartData, (object)$data);
-        }
-      }
 
-      if(!count($request->all())){
-        $reports = [];
-      }
-
-      return view("rbt.graph", compact("reports", "operators", "chartData"));
+      return view("rbt.graph", compact("reports", "operators"));
     }
 
 }
