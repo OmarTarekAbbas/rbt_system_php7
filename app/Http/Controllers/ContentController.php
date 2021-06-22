@@ -1231,7 +1231,7 @@ class ContentController extends Controller
       'operators.title as operator_title'
     )
       ->join('contents', 'contents.contract_id', '=', 'contracts.id')
-      ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
+      ->leftjoin('occasions', 'occasions.id', '=', 'contents.occasion_id')
       ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
       ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
       ->join('rbts', 'rbts.content_id', '=', 'contents.id')
