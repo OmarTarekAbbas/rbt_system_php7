@@ -39,6 +39,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('notify:endcontract')->weeklyOn(1, '8:00'); //weekly each monday  at 10:00
         $schedule->command('notify:attachments')->weeklyOn(1, '08:15'); //weekly each monday at 10:15
 
+        // $schedule->command("queue:work --tries=3  --daemon");
 
     }
 
@@ -50,7 +51,7 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
-
+        
         require base_path('routes/console.php');
     }
 }

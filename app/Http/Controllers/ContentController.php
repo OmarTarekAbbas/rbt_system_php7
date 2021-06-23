@@ -8,6 +8,7 @@ use App\Rbt;
 use App\Content;
 use App\Country;
 use App\Contract;
+use App\Jobs\ExportContentExcel;
 use App\Occasion;
 use App\Provider;
 use App\SecondParties;
@@ -1049,6 +1050,16 @@ class ContentController extends Controller
   {
     return view('content.export_content_excel');
   }
+  public function getJobDownloadContentExcel()
+  {
+    return view('content.job_export_content_excel');
+  }
+
+  public function jobDownloadContentExcel()
+  {
+    dispatch(new ExportContentExcel);
+    return back()->with("success", "We will send mail with excel file after export");
+  }
 
   public function downloadContentExcel()
   {
@@ -1056,9 +1067,11 @@ class ContentController extends Controller
     ini_set('max_execution_time', 60000000000);
 
     $data = $this->getExcelData();
-    $excel_title = date("d-m-Y");
+    $excel_title = time();
 
-    return Excel::create($excel_title, function ($excel) use ($data) {
+    $excel_path = 'uploads/content/exports/'.date('Y-m-d');
+
+    return \Excel::create($excel_title, function ($excel) use ($data) {
       $excel->sheet('mySheet', function ($sheet) use ($data) {
         //create excel header
         $header_columns = $this->createExcelFirstRow();
@@ -1098,6 +1111,62 @@ class ContentController extends Controller
         }
       });
     })->download('xlsx');
+
+    return url($excel_path.'/'.$excel_title.'.xlsx');
+  }
+
+  public function jobContentExcel()
+  {
+    ini_set('memory_limit', -1);
+    ini_set('max_execution_time', 60000000000);
+
+    $data = $this->getExcelData();
+    $excel_title = time();
+
+    $excel_path = 'uploads/content/exports/'.date('Y-m-d');
+
+    \Excel::create($excel_title, function ($excel) use ($data) {
+      $excel->sheet('mySheet', function ($sheet) use ($data) {
+        //create excel header
+        $header_columns = $this->createExcelFirstRow();
+        foreach ($header_columns as $column) {
+          $sheet->cell($column['excel_row_position_key'], function ($cell) use ($column) {
+            $cell->setValue($column['excel_row_position_value']);
+            $cell->setFontWeight('bold');
+            $cell->setBackground('#BFBFBF');
+          });
+
+          $sheet->cell('G1:J1', function ($cell) {
+            $cell->setBackground('#B8CCE4');
+          });
+
+          $sheet->cell('K1:U1', function ($cell) {
+            $cell->setBackground('#FCD5B4');
+          });
+
+          $sheet->cell('V1:X1', function ($cell) {
+            $cell->setBackground('#C4D79B');
+          });
+        }
+
+        if (!empty($data)) {
+          $column_id = 1;
+          foreach ($data as $key => $value) {
+            $i = $key + 2;
+
+            //create Excel Colums
+            $excel_row_columns = $this->createExcelData($i, $column_id, $value);
+            foreach ($excel_row_columns as $column) {
+              $sheet->cell($column['excel_row_position_key'], $column['excel_row_position_value']);
+            }
+
+            $column_id++;
+          }
+        }
+      });
+    })->store('xlsx', base_path($excel_path));
+
+    return url($excel_path.'/'.$excel_title.'.xlsx');
   }
 
   private function createExcelFirstRow()
