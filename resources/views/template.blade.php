@@ -484,7 +484,7 @@
           <li id="content-index"><a href="{{url('expire_content')}}">Expire Contents</a></li>
           @endif
           @if(get_action_icons('contents/file_system','get'))
-          <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">List Master Contents</a></li>
+          <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">upload contents by ftp</a></li>
           @endif
           @if(get_action_icons('contents/upload_tracks','get'))
           <li id="content-upload-tracks"><a href="{{url('contents/upload_tracks')}}">Upload multi tracks</a></li>
@@ -517,7 +517,7 @@
           <li id="rbt-upload-tracks"><a href="{{url('rbt/upload_tracks')}}">Upload multi tracks</a></li>
           @endif
           @if(get_action_icons('rbt/file_system','get'))
-          <li id="rbt-list-tracks"><a href="{{url('rbt/file_system')}}">List tracks</a></li>
+          <li id="rbt-list-tracks"><a href="{{url('rbt/file_system')}}">upload rbts by ftp</a></li>
           @endif
           @if(get_action_icons('rbt','get'))
           <li id="rbt-index"><a href="{{url('rbt')}}">RBTs</a></li>
