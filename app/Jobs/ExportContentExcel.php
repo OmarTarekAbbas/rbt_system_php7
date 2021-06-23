@@ -31,6 +31,7 @@ class ExportContentExcel implements ShouldQueue
     {
       $contentController = new ContentController;
       $path = $contentController->jobContentExcel();
+      $this->sendMailToAdmin($path);
       \File::append(storage_path('logs') . '/' . basename(get_class($this)) . '.log', $path.PHP_EOL);
     }
 
@@ -44,5 +45,25 @@ class ExportContentExcel implements ShouldQueue
     public function failed(\Throwable $exception)
     {
       \File::append(storage_path('logs') . '/' . basename(get_class($this)) . '.log', $exception->getMessage().PHP_EOL);
+    }
+
+    public function sendMailToAdmin($path)
+    {
+      $message  = '<!DOCTYPE html>
+        <html lang="en">
+            <head>
+            </head>
+            <body>
+            <center> <strong>Content Excel</strong> </center>
+            </br>
+            <strong> Kindly check this excel file from this <a href="'.$path.'"> Link </a> </strong>
+        </body>
+        </html>';
+      \Mail::send([], [], function($email) use ($message)
+      {
+          $email->from('contract@gmail.com', 'rbt_system');
+          $email->to(explode(',', setting("content_excel_mail")))->subject('Content Excel');
+          $email->setBody($message, 'text/html');
+      });
     }
 }
