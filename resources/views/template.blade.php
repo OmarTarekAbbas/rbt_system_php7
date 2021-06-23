@@ -477,8 +477,14 @@
           @if(get_action_icons('content','get'))
           <li id="content-index"><a href="{{url('content')}}">Contents</a></li>
           @endif
+          @if(get_action_icons('new_comming_expire_content','get'))
+          <li id="content-index"><a href="{{url('new_comming_expire_content')}}">Next Comming Expire Contents (3 months)</a></li>
+          @endif
+          @if(get_action_icons('expire_content','get'))
+          <li id="content-index"><a href="{{url('expire_content')}}">Expire Contents</a></li>
+          @endif
           @if(get_action_icons('contents/file_system','get'))
-          <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">List Master Contents</a></li>
+          <li id="content-list-tracks"><a href="{{url('contents/file_system')}}">upload contents by ftp</a></li>
           @endif
           @if(get_action_icons('contents/upload_tracks','get'))
           <li id="content-upload-tracks"><a href="{{url('contents/upload_tracks')}}">Upload multi tracks</a></li>
@@ -501,6 +507,9 @@
           @if(get_action_icons('rbt/statistics','get'))
           <li id="rbt-statistics"><a href="{{url('rbt/statistics')}}">RBT Statistics</a></li>
           @endif
+          @if(get_action_icons('rbts/graph','get'))
+          <li id="rbt-statistics"><a href="{{url('rbts/graph')}}">RBT Graph</a></li>
+          @endif
           @if(get_action_icons('rbt/excel','get'))
           <li id="rbt-excel"><a href="{{url('rbt/excel')}}">Create RBT Form Excel</a></li>
           @endif
@@ -508,7 +517,7 @@
           <li id="rbt-upload-tracks"><a href="{{url('rbt/upload_tracks')}}">Upload multi tracks</a></li>
           @endif
           @if(get_action_icons('rbt/file_system','get'))
-          <li id="rbt-list-tracks"><a href="{{url('rbt/file_system')}}">List tracks</a></li>
+          <li id="rbt-list-tracks"><a href="{{url('rbt/file_system')}}">upload rbts by ftp</a></li>
           @endif
           @if(get_action_icons('rbt','get'))
           <li id="rbt-index"><a href="{{url('rbt')}}">RBTs</a></li>
@@ -735,6 +744,7 @@
         <ul class="submenu">
           <li id="create-content-from-excel"><a href="{{url('create_content_excel')}}">Create Content From New Excel</a></li>
           <li id="export-content-to-excel"><a href="{{url('export_content_excel')}}">Export Content To Excel</a></li>
+          <li id="export-content-to-excel"><a href="{{url('job_export_content_excel')}}">Export Content To Excel With Job</a></li>
         </ul>
         <!-- END Submenu -->
       </li>

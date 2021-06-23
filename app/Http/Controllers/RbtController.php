@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Report;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
@@ -764,6 +765,49 @@ class RbtController extends Controller
         return view('rbt.file_system');
     }
 
+    /**
+     * @method rbtGraph
+     *
+     * Draw graph for the best rbt that have the biggest download number
+     *
+     * @param \Illuminate\Http\Request $request [from_year, from_month, to_year, to_month, operator_id]
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function rbtGraph(Request $request)
+    {
+      $operators = Operator::all();
+      $reports = Report::query();
 
+      $reports = $reports
+      ->where(function($builder){
+        $builder->when(request()->filled('from_year') && request()->filled('from_month'), function($report){
+          $report->where('year', ">", request('from_year'));
+          $report->orWhere(function($query){
+            $query->where('month', ">=", request('from_month'));
+            $query->where('year', "=", request('from_year'));
+          });
+        });
+      })
+      ->where(function($builder){
+        $builder->when(request()->filled('to_year') && request()->filled('to_month'), function($report){
+          $report->where('year', "<", request('to_year'));
+          $report->orWhere(function($query){
+            $query->where('month', "<=", request('to_month'));
+            $query->where('year', "=", request('to_year'));
+          });
+        });
+      });
+
+      if($request->filled('operator_id')) {
+        $reports = $reports->where('operator_id', $request->operator_id);
+      }
+
+      $reports = $reports->orderBy("download_no", "desc")->limit(setting('report_limit') != ''? setting('report_limit') : 10)->get();
+      $reports->load("rbt");
+
+      
+      return view("rbt.graph", compact("reports", "operators"));
+    }
 
 }

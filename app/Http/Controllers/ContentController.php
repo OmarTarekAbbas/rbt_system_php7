@@ -8,6 +8,7 @@ use App\Rbt;
 use App\Content;
 use App\Country;
 use App\Contract;
+use App\Jobs\ExportContentExcel;
 use App\Occasion;
 use App\Provider;
 use App\SecondParties;
@@ -39,26 +40,19 @@ class ContentController extends Controller
 
   public function allData(Request $request)
   {
+    $contents = Content::select('*', 'contents.id AS id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'occasion_2.title as occasion_2', 'occasion_3.title as occasion_3', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
+    ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
+    ->leftjoin('occasions', 'occasions.id', '=', 'contents.occasion_id')
+    ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
+    ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
+    ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
+    ->active();
+
     if($request->has('contract_id')){
-
-      $contents = Content::select('*', 'contents.id AS id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
-      ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
-      ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
-      ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
-      ->where('contents.contract_id', $request->contract_id)
-      ->latest('contents.id')
-      ->get();
-
-    }else{
-
-      $contents = Content::select('*', 'contents.id AS id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
-      ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
-      ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
-      ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
-      ->latest('contents.id')
-      ->get();
-
+      $contents = $contents->where('contents.contract_id', $request->contract_id);
     }
+
+    $contents = $contents->latest('contents.id')->get();
 
     $datatable = \Datatables::of($contents)
       ->addColumn('index', function (Content $content) {
@@ -94,10 +88,7 @@ class ContentController extends Controller
           return '---';
       })
       ->addColumn('occasion', function (Content $content) {
-        if ($content->occasion)
-          return $content->occasion;
-        else
-          return '---';
+        return $this->getOccasionString([$content->occasion, $content->occasion_2, $content->occasion_3]);
       })
       ->addColumn('provider', function (Content $content) {
         if ($content->provider)
@@ -113,6 +104,175 @@ class ContentController extends Controller
       ->make(true);
 
     return $datatable;
+  }
+
+  public function getNextCommingExpireContent(Request $request)
+  {
+    $title = 'Index - Next Comming Expire Content';
+    return view('content.next_comming_expire', compact('title'));
+  }
+
+  public function allNextCommingExpireContent(Request $request)
+  {
+    $contents = Content::select('*', 'contents.id AS id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'occasion_2.title as occasion_2', 'occasion_3.title as occasion_3', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
+    ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
+    ->leftjoin('occasions', 'occasions.id', '=', 'contents.occasion_id')
+    ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
+    ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
+    ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
+    ->nextcommingexpire();
+
+    if($request->has('contract_id')){
+      $contents = $contents->where('contents.contract_id', $request->contract_id);
+    }
+
+    $contents = $contents->latest('contents.id')->get();
+
+
+    $datatable = \Datatables::of($contents)
+      ->addColumn('index', function (Content $content) {
+        return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$content->id.'" class="roles" onclick="collect_selected(this)">';
+      })
+      ->addColumn('id', function (Content $content) {
+        return $content->id;
+      })
+      ->addColumn('content_title', function (Content $content) {
+        return $content->content_title;
+      })
+      ->addColumn('content_type', function (Content $content) {
+        return $content->content_type;
+      })
+      ->addColumn('internal_coding', function (Content $content) {
+        if ($content->internal_coding)
+          return $content->internal_coding;
+        else
+          return '---';
+      })
+      ->addColumn('path', function (Content $content) {
+        if ($content->path)
+          return '<audio class="content_audios" controls>
+                                <source src="' . url($content->path) . '">
+                            </audio>';
+        else
+          return '---';
+      })
+      ->addColumn('contract_code', function (Content $content) {
+        if ($content->contract_code)
+          return '<a  href="' . url("fullcontracts/$content->contract_id") . '" >' . $content->contract_code . '</a>';
+        else
+          return '---';
+      })
+      ->addColumn('occasion', function (Content $content) {
+        return $this->getOccasionString([$content->occasion, $content->occasion_2, $content->occasion_3]);
+      })
+      ->addColumn('provider', function (Content $content) {
+        if ($content->provider)
+          return $content->provider;
+        else
+          return '---';
+      })
+      ->addColumn('action', function (Content $content) {
+          return view('content.actions', compact('content'));;
+      })
+
+      ->escapeColumns([])
+      ->make(true);
+
+    return $datatable;
+  }
+
+  public function getExpireContent(Request $request)
+  {
+    $title = 'Index - Expire Content';
+    return view('content.expire', compact('title'));
+  }
+
+  public function allExpireContent(Request $request)
+  {
+    $contents = Content::select('*', 'contents.id AS id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'occasion_2.title as occasion_2', 'occasion_3.title as occasion_3', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
+    ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
+    ->leftjoin('occasions', 'occasions.id', '=', 'contents.occasion_id')
+    ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
+    ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
+    ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
+    ->expire();
+
+    if($request->has('contract_id')){
+      $contents = $contents->where('contents.contract_id', $request->contract_id);
+    }
+
+    $contents = $contents->latest('contents.id')->get();
+
+
+    $datatable = \Datatables::of($contents)
+      ->addColumn('index', function (Content $content) {
+        return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$content->id.'" class="roles" onclick="collect_selected(this)">';
+      })
+      ->addColumn('id', function (Content $content) {
+        return $content->id;
+      })
+      ->addColumn('content_title', function (Content $content) {
+        return $content->content_title;
+      })
+      ->addColumn('content_type', function (Content $content) {
+        return $content->content_type;
+      })
+      ->addColumn('internal_coding', function (Content $content) {
+        if ($content->internal_coding)
+          return $content->internal_coding;
+        else
+          return '---';
+      })
+      ->addColumn('path', function (Content $content) {
+        if ($content->path)
+          return '<audio class="content_audios" controls>
+                                <source src="' . url($content->path) . '">
+                            </audio>';
+        else
+          return '---';
+      })
+      ->addColumn('contract_code', function (Content $content) {
+        if ($content->contract_code)
+          return '<a  href="' . url("fullcontracts/$content->contract_id") . '" >' . $content->contract_code . '</a>';
+        else
+          return '---';
+      })
+      ->addColumn('occasion', function (Content $content) {
+        return $this->getOccasionString([$content->occasion, $content->occasion_2, $content->occasion_3]);
+      })
+      ->addColumn('provider', function (Content $content) {
+        if ($content->provider)
+          return $content->provider;
+        else
+          return '---';
+      })
+      ->addColumn('action', function (Content $content) {
+          return view('content.actions', compact('content'));;
+      })
+
+      ->escapeColumns([])
+      ->make(true);
+
+    return $datatable;
+  }
+
+  private function getOccasionString($occasions)
+  {
+    $counter = 0;
+    if (count($occasions) > 0) {
+      $occasion_string = '';
+      foreach ($occasions as $occasion) {
+        if ($occasion != null) {
+          $occasion_string .= $occasion . ' - ';
+
+          $counter++;
+        }
+      }
+      $final_occasion_string = ($counter > 0 ? substr($occasion_string, 0, -3) : NULL);
+      return $final_occasion_string;
+    } else {
+      return '---';
+    }
   }
 
   public function create()
@@ -761,7 +921,7 @@ class ContentController extends Controller
               $content_data['content_title'] = $row->content_title_en;
               $content_data['content_title_ar'] = $row->content_title_ar;
               $content_data['content_type'] = $row->content_type;
-              $content_data['remax'] = ($row->remax == 'Yes' ? 1 : 0);
+              $content_data['remax'] = (strtolower($row->remax) == 'yes' ? 1 : 0);
               $content_data['internal_coding'] = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
               $content_data['provider_id'] = $provider_id;
               $content_data['occasion_id'] = $occasion_id;
@@ -890,6 +1050,16 @@ class ContentController extends Controller
   {
     return view('content.export_content_excel');
   }
+  public function getJobDownloadContentExcel()
+  {
+    return view('content.job_export_content_excel');
+  }
+
+  public function jobDownloadContentExcel()
+  {
+    dispatch(new ExportContentExcel);
+    return back()->with("success", "We will send mail with excel file after export");
+  }
 
   public function downloadContentExcel()
   {
@@ -897,15 +1067,31 @@ class ContentController extends Controller
     ini_set('max_execution_time', 60000000000);
 
     $data = $this->getExcelData();
-    $excel_title = date("d-m-Y");
+    $excel_title = time();
 
-    return Excel::create($excel_title, function ($excel) use ($data) {
+    $excel_path = 'uploads/content/exports/'.date('Y-m-d');
+
+    return \Excel::create($excel_title, function ($excel) use ($data) {
       $excel->sheet('mySheet', function ($sheet) use ($data) {
         //create excel header
         $header_columns = $this->createExcelFirstRow();
         foreach ($header_columns as $column) {
           $sheet->cell($column['excel_row_position_key'], function ($cell) use ($column) {
             $cell->setValue($column['excel_row_position_value']);
+            $cell->setFontWeight('bold');
+            $cell->setBackground('#BFBFBF');
+          });
+
+          $sheet->cell('G1:J1', function ($cell) {
+            $cell->setBackground('#B8CCE4');
+          });
+
+          $sheet->cell('K1:U1', function ($cell) {
+            $cell->setBackground('#FCD5B4');
+          });
+
+          $sheet->cell('V1:X1', function ($cell) {
+            $cell->setBackground('#C4D79B');
           });
         }
 
@@ -925,6 +1111,62 @@ class ContentController extends Controller
         }
       });
     })->download('xlsx');
+
+    return url($excel_path.'/'.$excel_title.'.xlsx');
+  }
+
+  public function jobContentExcel()
+  {
+    ini_set('memory_limit', -1);
+    ini_set('max_execution_time', 60000000000);
+
+    $data = $this->getExcelData();
+    $excel_title = time();
+
+    $excel_path = 'uploads/content/exports/'.date('Y-m-d');
+
+    \Excel::create($excel_title, function ($excel) use ($data) {
+      $excel->sheet('mySheet', function ($sheet) use ($data) {
+        //create excel header
+        $header_columns = $this->createExcelFirstRow();
+        foreach ($header_columns as $column) {
+          $sheet->cell($column['excel_row_position_key'], function ($cell) use ($column) {
+            $cell->setValue($column['excel_row_position_value']);
+            $cell->setFontWeight('bold');
+            $cell->setBackground('#BFBFBF');
+          });
+
+          $sheet->cell('G1:J1', function ($cell) {
+            $cell->setBackground('#B8CCE4');
+          });
+
+          $sheet->cell('K1:U1', function ($cell) {
+            $cell->setBackground('#FCD5B4');
+          });
+
+          $sheet->cell('V1:X1', function ($cell) {
+            $cell->setBackground('#C4D79B');
+          });
+        }
+
+        if (!empty($data)) {
+          $column_id = 1;
+          foreach ($data as $key => $value) {
+            $i = $key + 2;
+
+            //create Excel Colums
+            $excel_row_columns = $this->createExcelData($i, $column_id, $value);
+            foreach ($excel_row_columns as $column) {
+              $sheet->cell($column['excel_row_position_key'], $column['excel_row_position_value']);
+            }
+
+            $column_id++;
+          }
+        }
+      });
+    })->store('xlsx', base_path($excel_path));
+
+    return url($excel_path.'/'.$excel_title.'.xlsx');
   }
 
   private function createExcelFirstRow()
@@ -1073,7 +1315,7 @@ class ContentController extends Controller
       'operators.title as operator_title'
     )
       ->join('contents', 'contents.contract_id', '=', 'contracts.id')
-      ->join('occasions', 'occasions.id', '=', 'contents.occasion_id')
+      ->leftjoin('occasions', 'occasions.id', '=', 'contents.occasion_id')
       ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
       ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
       ->join('rbts', 'rbts.content_id', '=', 'contents.id')

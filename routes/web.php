@@ -49,3 +49,6 @@ Route::get('read_notify/{id}', function ($id) {
  Route::get('export_content_excel','ContentController@exportContentExcel');
  Route::post('download_content_excel','ContentController@downloadContentExcel');
 
+ Route::get('job_export_content_excel', 'ContentController@getJobDownloadContentExcel');
+ Route::post('job_download_content_excel', 'ContentController@jobDownloadContentExcel');
+

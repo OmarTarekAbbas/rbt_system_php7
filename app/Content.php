@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Content extends Model
@@ -69,5 +70,41 @@ class Content extends Model
     public function rbts()
     {
         return $this->hasMany('App\Rbt');
+    }
+
+    public function scopeActive($builder)
+    {
+      return $builder->whereHas('contract', function($query){
+              $query->where(function($contract){
+                $contract->where('contract_expiry_date', ">", Carbon::now()->addMonths(3)->format("Y-m-d"));
+                $contract->OrwhereHas('contractRenew', function($renew){
+                  $renew->where('renew_expire_date', ">", Carbon::now()->addMonths(3)->format("Y-m-d"));
+                });
+              });
+            });
+    }
+
+    public function scopeNextCommingExpire($builder)
+    {
+      return $builder->whereHas('contract', function($query){
+              $query->where(function($contract){
+                $contract->whereBetween('contract_expiry_date', [Carbon::now()->addDays(1)->format("Y-m-d"), Carbon::now()->addMonths(3)->format("Y-m-d")]);
+                $contract->OrwhereHas('contractRenew', function($renew){
+                  $renew->whereBetween('renew_expire_date', [Carbon::now()->addDays(1)->format("Y-m-d"), Carbon::now()->addMonths(3)->format("Y-m-d")]);
+                });
+              });
+            });
+    }
+
+    public function scopeExpire($builder)
+    {
+      return $builder->whereHas('contract', function($query){
+              $query->where(function($contract){
+                $contract->where('contract_expiry_date', "<=", Carbon::now()->format("Y-m-d"));
+                $contract->OrwhereHas('contractRenew', function($renew){
+                  $renew->where('renew_expire_date', "<=", Carbon::now()->format("Y-m-d"));
+                });
+              });
+            });
     }
 }

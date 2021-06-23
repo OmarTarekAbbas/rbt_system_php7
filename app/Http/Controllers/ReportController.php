@@ -532,6 +532,9 @@ class ReportController extends Controller
                   WHERE (reports.year > ' . $from_year . ' OR ( reports.month >= ' . $from_month . ' AND reports.year = ' . $from_year . ')) AND (reports.year < ' . $to_year . ' OR ( reports.month <= ' . $to_month . ' AND reports.year = ' . $to_year . ')) ' . $operator_query . '
                   ORDER BY year ASC, month ASC ';
 
+                  // 6-2020 6-2021
+                  // 2021, 6-12 2020,1-6 2021
+
         $reports = \DB::select($query);
         return $reports;
     }
