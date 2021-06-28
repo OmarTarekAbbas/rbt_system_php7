@@ -1071,7 +1071,7 @@ class ContentController extends Controller
     ini_set('max_execution_time', 60000000000);
 
     $data = $this->getExcelData();
-    $excel_title = time();
+    $excel_title = 'content_'.date('Y_m_d');
 
     $excel_path = 'uploads/content/exports/'.date('Y-m-d');
 
@@ -1182,7 +1182,6 @@ class ContentController extends Controller
 
     //static header row values
     $row_values = [
-      'ID',
       'Contract Code',
       'Contract Start Date',
       'Contract Expiry Date',
@@ -1230,7 +1229,6 @@ class ContentController extends Controller
 
     //static header row values
     $row_values = [
-      $column_id,
       $value->contract_code,
       $this->formateDate($value->contract_start_date),
       $this->formateDate($value->contract_expiry_date),
