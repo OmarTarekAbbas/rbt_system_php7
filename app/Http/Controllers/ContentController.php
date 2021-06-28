@@ -924,7 +924,7 @@ class ContentController extends Controller
               //get Excel Data
               $content_data['content_title'] = $row->content_title_en;
               $content_data['content_title_ar'] = $row->content_title_ar;
-              $content_data['content_type'] = $row->content_type;
+              $content_data['content_type'] = strtolower($row->content_type);
               $content_data['remax'] = (strtolower($row->remax) == 'yes' ? 1 : 0);
               $content_data['internal_coding'] = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
               $content_data['provider_id'] = $provider_id;
