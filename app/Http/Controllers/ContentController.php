@@ -886,6 +886,10 @@ class ContentController extends Controller
             //get provider id
             $check_provider = SecondParties::where('second_party_title', 'LIKE', '%' . $row->artist_name_en . '%')->first();
             if ($check_provider) {
+              $check_provider->second_party_title_ar = $row->artist_name_ar;
+              $check_provider->gender = $row->gender;
+              $check_provider->artist_code = 'Ar/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
+              $check_provider->save();
               $provider_id = $check_provider->second_party_id;
             } else {
               $prov = array();
@@ -1319,8 +1323,8 @@ class ContentController extends Controller
       ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
       ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
       ->leftjoin('rbts', 'rbts.content_id', '=', 'contents.id')
-      ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
-      ->join('operators', 'operators.id', '=', 'rbts.operator_id')
+      ->leftjoin('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
+      ->leftjoin('operators', 'operators.id', '=', 'rbts.operator_id')
       ->get();
 
     return $data;
