@@ -886,6 +886,10 @@ class ContentController extends Controller
             //get provider id
             $check_provider = SecondParties::where('second_party_title', 'LIKE', '%' . $row->artist_name_en . '%')->first();
             if ($check_provider) {
+              $check_provider->second_party_title_ar = $row->artist_name_ar;
+              $check_provider->gender = $row->gender;
+              $check_provider->artist_code = 'Ar/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
+              $check_provider->save();
               $provider_id = $check_provider->second_party_id;
             } else {
               $prov = array();
@@ -920,7 +924,7 @@ class ContentController extends Controller
               //get Excel Data
               $content_data['content_title'] = $row->content_title_en;
               $content_data['content_title_ar'] = $row->content_title_ar;
-              $content_data['content_type'] = $row->content_type;
+              $content_data['content_type'] = strtolower($row->content_type);
               $content_data['remax'] = (strtolower($row->remax) == 'yes' ? 1 : 0);
               $content_data['internal_coding'] = 'Co/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
               $content_data['provider_id'] = $provider_id;
@@ -1230,7 +1234,7 @@ class ContentController extends Controller
       $value->contract_code,
       $this->formateDate($value->contract_start_date),
       $this->formateDate($value->contract_expiry_date),
-      $value->contracts_ceo_renew == 1 ? 'Yes' : 'No',
+      $value->contracts_ceo_renew == 1 ? 'yes' : 'no',
       $value->contracts_network,
       $value->artist_name_en,
       $value->artist_name_ar,
@@ -1240,7 +1244,7 @@ class ContentController extends Controller
       $value->content_title_ar,
       $this->getContent($value->content_path),
       $value->content_type,
-      $value->remax == 0 ? 'No' : 'Yes',
+      $value->remax == 0 ? 'no' : 'yes',
       $value->content_internal_coding,
       $value->content_album,
       $value->content_category,
@@ -1318,9 +1322,9 @@ class ContentController extends Controller
       ->leftjoin('occasions', 'occasions.id', '=', 'contents.occasion_id')
       ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
       ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
-      ->join('rbts', 'rbts.content_id', '=', 'contents.id')
-      ->join('second_parties', 'second_parties.second_party_id', '=', 'rbts.provider_id')
-      ->join('operators', 'operators.id', '=', 'rbts.operator_id')
+      ->leftjoin('rbts', 'rbts.content_id', '=', 'contents.id')
+      ->leftjoin('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
+      ->leftjoin('operators', 'operators.id', '=', 'rbts.operator_id')
       ->get();
 
     return $data;
