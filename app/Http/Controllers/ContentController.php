@@ -1318,9 +1318,9 @@ class ContentController extends Controller
       ->leftjoin('occasions', 'occasions.id', '=', 'contents.occasion_id')
       ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
       ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
-      ->join('rbts', 'rbts.content_id', '=', 'contents.id')
-      ->join('second_parties', 'second_parties.second_party_id', '=', 'rbts.provider_id')
-      ->join('operators', 'operators.id', '=', 'rbts.operator_id')
+      ->leftjoin('rbts', 'rbts.content_id', '=', 'contents.id')
+      ->leftjoin('second_parties', 'second_parties.second_party_id', '=', 'rbts.provider_id')
+      ->leftjoin('operators', 'operators.id', '=', 'rbts.operator_id')
       ->get();
 
     return $data;
