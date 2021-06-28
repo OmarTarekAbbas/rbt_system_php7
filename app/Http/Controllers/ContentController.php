@@ -1230,7 +1230,7 @@ class ContentController extends Controller
       $value->contract_code,
       $this->formateDate($value->contract_start_date),
       $this->formateDate($value->contract_expiry_date),
-      $value->contracts_ceo_renew == 1 ? 'Yes' : 'No',
+      $value->contracts_ceo_renew == 1 ? 'yes' : 'no',
       $value->contracts_network,
       $value->artist_name_en,
       $value->artist_name_ar,
@@ -1240,7 +1240,7 @@ class ContentController extends Controller
       $value->content_title_ar,
       $this->getContent($value->content_path),
       $value->content_type,
-      $value->remax == 0 ? 'No' : 'Yes',
+      $value->remax == 0 ? 'no' : 'yes',
       $value->content_internal_coding,
       $value->content_album,
       $value->content_category,
@@ -1319,8 +1319,8 @@ class ContentController extends Controller
       ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
       ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
       ->leftjoin('rbts', 'rbts.content_id', '=', 'contents.id')
-      ->leftjoin('second_parties', 'second_parties.second_party_id', '=', 'rbts.provider_id')
-      ->leftjoin('operators', 'operators.id', '=', 'rbts.operator_id')
+      ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
+      ->join('operators', 'operators.id', '=', 'rbts.operator_id')
       ->get();
 
     return $data;
