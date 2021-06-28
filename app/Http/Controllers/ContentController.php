@@ -108,7 +108,7 @@ class ContentController extends Controller
 
   public function getNextCommingExpireContent(Request $request)
   {
-    $title = 'Index - Next Comming Expire Content';
+    $title = 'Next Comming Expire Content';
     return view('content.next_comming_expire', compact('title'));
   }
 
@@ -183,7 +183,7 @@ class ContentController extends Controller
 
   public function getExpireContent(Request $request)
   {
-    $title = 'Index - Expire Content';
+    $title = 'Expire Content';
     return view('content.expire', compact('title'));
   }
 
@@ -1057,6 +1057,16 @@ class ContentController extends Controller
   public function getJobDownloadContentExcel()
   {
     return view('content.job_export_content_excel');
+  }
+
+  public function startJob()
+  {
+    exec("php artisan queue:work --tries=3");
+  }
+
+  public function stopJob()
+  {
+    exec("pkill -9 php");
   }
 
   public function jobDownloadContentExcel()
