@@ -1055,6 +1055,16 @@ class ContentController extends Controller
     return view('content.job_export_content_excel');
   }
 
+  public function startJob()
+  {
+    exec("php artisan queue:work --tries=3");
+  }
+
+  public function stopJob()
+  {
+    exec("pkill -9 php");
+  }
+
   public function jobDownloadContentExcel()
   {
     dispatch(new ExportContentExcel);
