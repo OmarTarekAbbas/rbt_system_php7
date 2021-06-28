@@ -24,16 +24,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('notify:endrbtcontent')
-                 ->daily();
-
-        $schedule->command('notify:endcontractrenew')
-                 ->daily();
-        $schedule->command('notify:roadmapstartdate')
-                 ->daily();
-
-       $schedule->command('contract:auto_renew')
-                 ->daily();
+        $schedule->command('notify:endrbtcontent')->daily();
+        $schedule->command('notify:endcontractrenew')->daily();
+        $schedule->command('notify:roadmapstartdate')->daily();
+        $schedule->command('contract:auto_renew')->daily();
 
 
         $schedule->command('notify:endcontract')->weeklyOn(1, '8:00'); //weekly each monday  at 10:00

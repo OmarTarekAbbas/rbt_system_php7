@@ -75,7 +75,7 @@ class FullcontractsController extends Controller
 
         $contracts = Contract::select('*', 'contracts.id as id', 'contracts.contract_code as code', 'contracts.contract_signed_date as sd', 'service_types.service_type_title as service_type')
         ->join('service_types', 'service_types.id', '=', 'contracts.service_type_id')
-        ->filter($filters)->orderBy('sd','desc')->with('second_party_type')->get();
+        ->filter($filters)->orderBy('contracts.id','desc')->with('second_party_type')->get();
 
         $datatable = \Datatables::of($contracts)
             ->addColumn('index', function (Contract $contract) {
@@ -433,7 +433,7 @@ class FullcontractsController extends Controller
         $contracts = Contract::select('*', 'contracts.id as id', 'contracts.contract_code as code', 'contracts.contract_signed_date as sd', 'service_types.service_type_title as service_type')
         ->join('service_types', 'service_types.id', '=', 'contracts.service_type_id')
         ->where('contracts.contract_expiry_date','<',Carbon::now()->format('Y-m-d'))
-        ->filter($filters)->orderBy('sd','desc')->with('second_party_type')->get();
+        ->filter($filters)->orderBy('contracts.contract_signed_date','desc')->with('second_party_type')->get();
 
         $datatable = \Datatables::of($contracts)
             ->addColumn('index', function (Contract $contract) {
