@@ -5,6 +5,7 @@ namespace App;
 use App\SecondParty;
 use App\SecondParties;
 use App\Traits\Filterable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -106,6 +107,16 @@ class Contract extends Model
     public function duration()
     {
         return $this->belongsTo(ContractDuration::class, 'contract_duration_id', 'contract_duration_id');
+    }
+
+    public function scopeActive($query)
+    {
+      return $query->where(function($contract){
+                $contract->where('contract_expiry_date', ">", Carbon::now()->format("Y-m-d"));
+                $contract->OrwhereHas('contractRenew', function($renew){
+                  $renew->where('renew_expire_date', ">", Carbon::now()->format("Y-m-d"));
+                });
+              });
     }
 
 }
