@@ -897,7 +897,7 @@ class ContentController extends Controller
               $prov['second_party_title_ar'] = $row->artist_name_ar;
               $prov['second_party_type_id'] = PROVIDER_ID;
               $prov['gender'] = $row->gender;
-              $prov['artist_code'] = 'Ar/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
+              $prov['artist_code'] = $check_provider->artist_code==NULL ? 'Ar/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid() : NULL;
               $create = SecondParties::create($prov);
               $provider_id = $create->second_party_id;
             }
