@@ -45,6 +45,79 @@ class ContentController extends Controller
     ->leftjoin('occasions', 'occasions.id', '=', 'contents.occasion_id')
     ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
     ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
+    ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id');
+
+    if($request->has('contract_id')){
+      $contents = $contents->where('contents.contract_id', $request->contract_id);
+    }
+
+    $contents = $contents->latest('contents.id')->get();
+
+    $datatable = \Datatables::of($contents)
+      ->addColumn('index', function (Content $content) {
+        return '<input class="select_all_template" type="checkbox" name="selected_rows[]" value="'.$content->id.'" class="roles" onclick="collect_selected(this)">';
+      })
+      ->addColumn('id', function (Content $content) {
+        return $content->id;
+      })
+      ->addColumn('content_title', function (Content $content) {
+        return $content->content_title;
+      })
+      ->addColumn('content_type', function (Content $content) {
+        return $content->content_type;
+      })
+      ->addColumn('internal_coding', function (Content $content) {
+        if ($content->internal_coding)
+          return $content->internal_coding;
+        else
+          return '---';
+      })
+      ->addColumn('path', function (Content $content) {
+        if ($content->path)
+          return '<audio class="content_audios" controls>
+                                <source src="' . url($content->path) . '">
+                            </audio>';
+        else
+          return '---';
+      })
+      ->addColumn('contract_code', function (Content $content) {
+        if ($content->contract_code)
+          return '<a  href="' . url("fullcontracts/$content->contract_id") . '" >' . $content->contract_code . '</a>';
+        else
+          return '---';
+      })
+      ->addColumn('occasion', function (Content $content) {
+        return $this->getOccasionString([$content->occasion, $content->occasion_2, $content->occasion_3]);
+      })
+      ->addColumn('provider', function (Content $content) {
+        if ($content->provider)
+          return $content->provider;
+        else
+          return '---';
+      })
+      ->addColumn('action', function (Content $content) {
+          return view('content.actions', compact('content'));;
+      })
+
+      ->escapeColumns([])
+      ->make(true);
+
+    return $datatable;
+  }
+  public function activeContent()
+  {
+    $title = 'Index - Content';
+    $contents = Content::all();
+    return view('content.active_content', compact('contents', 'title'));
+  }
+
+  public function allActiveContent(Request $request)
+  {
+    $contents = Content::select('*', 'contents.id AS id', 'second_parties.second_party_title as provider', 'occasions.title as occasion', 'occasion_2.title as occasion_2', 'occasion_3.title as occasion_3', 'contracts.contract_code as contract_code', 'contracts.id as contract_id')
+    ->join('second_parties', 'second_parties.second_party_id', '=', 'contents.provider_id')
+    ->leftjoin('occasions', 'occasions.id', '=', 'contents.occasion_id')
+    ->leftjoin('occasions as occasion_2', 'occasion_2.id', '=', 'contents.occasion_2_id')
+    ->leftjoin('occasions as occasion_3', 'occasion_3.id', '=', 'contents.occasion_3_id')
     ->leftjoin('contracts', 'contracts.id', '=', 'contents.contract_id')
     ->active();
 

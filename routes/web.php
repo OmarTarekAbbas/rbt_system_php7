@@ -46,6 +46,9 @@ Route::get('read_notify/{id}', function ($id) {
  Route::get("active_contract", "FullcontractsController@activeContract");
  Route::get("all_active_contract", "FullcontractsController@allActiveContract");
 
+ Route::get("active_content", "ContentController@activeContent");
+ Route::get("all_active_content", "ContentController@allActiveContent");
+
  Route::get('update_contract_temporary', 'FullcontractsController@update_contract_temporary');
 
  Route::get('create_content_excel','ContentController@getCreateContentExcel');
