@@ -21,6 +21,7 @@ attachment
           <div class="btn-toolbar pull-right">
             <div class="btn-group">
               <a class="btn btn-circle show-tooltip" title="" href="{{url('attachment/create')}}" data-original-title="Add new record"><i class="fa fa-plus"></i></a>
+              <a id="delete_button" onclick="delete_selected('attachments')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
               <?php
               $table_name = "service_types";
               ?>

@@ -19,6 +19,9 @@ Roles
           <div class="btn-toolbar pull-right">
             <div class="btn-group">
               <a class="btn btn-circle show-tooltip" title="" href="{{url('roles/new')}}" data-original-title="Add new record"><i class="fa fa-plus"></i></a>
+              @if(get_action_icons('roles/{id}/delete','get'))
+              <a id="delete_button" onclick="delete_selected('roles')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
+              @endif
             </div>
           </div>
           <br><br>
@@ -36,7 +39,10 @@ Roles
               <tbody>
                 @foreach($roles as $role)
                 <tr class="table-flag-blue">
-                  <td><input type="checkbox"></td>
+                  <td>
+                    <input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$role->id}}" class="roles" onclick="collect_selected(this)">
+
+                  </td>
                   <td>{{$role->name}}</td>
                   <td class="visible-xs visible-md visible-lg">
                     <div class="btn-group pull-right">

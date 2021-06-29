@@ -91,6 +91,9 @@ Countries
           <div class="btn-toolbar pull-right clearfix">
             <div class="btn-group">
               <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal" data-target="#SenderModel"><i class="fa fa-plus"></i></a>
+              @if(get_action_icons('country/{id}/delete','get'))
+              <a id="delete_button" onclick="delete_selected('countries')" class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i class="fa fa-trash-o"></i></a>
+              @endif
             </div>
           </div>
           @endif
@@ -111,7 +114,9 @@ Countries
               <tbody>
                 @foreach($countries as $country)
                 <tr class="table-flag-blue">
-                  <td><input type="checkbox" /></td>
+                  <td>
+                    <input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$country->id}}" class="roles" onclick="collect_selected(this)">
+                  </td>
                   <td>{!!$country->title!!}</td>
                   <td>
                     @if(get_action_icons('operator/create','get'))

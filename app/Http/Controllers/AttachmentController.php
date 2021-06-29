@@ -228,7 +228,7 @@ class AttachmentController extends Controller
           ->addColumn('attachment_pdf', function (Attachment $Attachment) {
             return '<a target="_blank" href="'.url($Attachment->attachment_pdf).'">Preview</a>';
           })
-          
+
           ->addColumn('attachment_status', function (Attachment $Attachment) {
             return $Attachment->attachment_status;
 
