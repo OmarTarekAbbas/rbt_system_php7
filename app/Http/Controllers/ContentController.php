@@ -1135,7 +1135,7 @@ class ContentController extends Controller
     ini_set('max_execution_time', 60000000000);
 
     $data = $this->getExcelData();
-    $excel_title = time();
+    $excel_title = 'content_'.date('Y_m_d').'_'.time();
 
     $excel_path = 'uploads/content/exports/'.date('Y-m-d');
 
