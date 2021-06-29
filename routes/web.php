@@ -40,6 +40,15 @@ Route::get('read_notify/{id}', function ($id) {
       'seen' => 1,
   ]);
 });
+ Route::get("contract_will_expire", "FullcontractsController@contractWillExpire");
+ Route::get("all_contract_will_expire", "FullcontractsController@allContractWillExpire");
+
+ Route::get("active_contract", "FullcontractsController@activeContract");
+ Route::get("all_active_contract", "FullcontractsController@allActiveContract");
+
+ Route::get("active_content", "ContentController@activeContent");
+ Route::get("all_active_content", "ContentController@allActiveContent");
+
  Route::get('update_contract_temporary', 'FullcontractsController@update_contract_temporary');
 
  Route::get('create_content_excel','ContentController@getCreateContentExcel');

@@ -308,7 +308,13 @@
             @endif
             <li id="contract-index"><a href="{{url('fullcontracts/create')}}">Create Contract</a></li>
             @if(get_action_icons('fullcontracts','get'))
-            <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
+            <li id="contract-index"><a href="{{url('fullcontracts')}}">All Contracts</a></li>
+            @endif
+            @if(get_action_icons('active_contract','get'))
+            <li id="contract-index"><a href="{{url('active_contract')}}">Active Contract</a></li>
+            @endif
+            @if(get_action_icons('contract_will_expire','get'))
+            <li id="contract-index"><a href="{{url('contract_will_expire')}}">Contracts Will Expire (3 months)</a></li>
             @endif
             @if(get_action_icons('fullcontracts_expiry_date','get'))
             <li id="contract-fullcontracts_expiry_date"><a href="{{url('fullcontracts_expiry_date')}}">Expired Contracts</a></li>
@@ -475,7 +481,10 @@
           <li id="content-excel"><a href="{{url('contents/excel')}}">Create Content Form Excel</a></li>
           @endif
           @if(get_action_icons('content','get'))
-          <li id="content-index"><a href="{{url('content')}}">Contents</a></li>
+          <li id="content-index"><a href="{{url('content')}}">All Contents</a></li>
+          @endif
+          @if(get_action_icons('active_content','get'))
+          <li id="content-index"><a href="{{url('active_content')}}">Active Contents</a></li>
           @endif
           @if(get_action_icons('new_comming_expire_content','get'))
           <li id="content-index"><a href="{{url('new_comming_expire_content')}}">Next Comming Expire Contents (3 months)</a></li>
