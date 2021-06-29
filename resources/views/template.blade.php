@@ -307,9 +307,11 @@
             <li id="contract-index"><a href="{{url('contractrequests')}}">Contract Requests</a></li>
             @endif
             <li id="contract-index"><a href="{{url('fullcontracts/create')}}">Create Contract</a></li>
+            <li id="contract-index"><a href="{{url('active_contract')}}">Active Contract</a></li>
             @if(get_action_icons('fullcontracts','get'))
             <li id="contract-index"><a href="{{url('fullcontracts')}}">Contracts</a></li>
             @endif
+            <li id="contract-index"><a href="{{url('contract_will_expire')}}">Contracts Will Expire (3 months)</a></li>
             @if(get_action_icons('fullcontracts_expiry_date','get'))
             <li id="contract-fullcontracts_expiry_date"><a href="{{url('fullcontracts_expiry_date')}}">Expired Contracts</a></li>
             @endif
