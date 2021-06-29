@@ -888,8 +888,11 @@ class ContentController extends Controller
             if ($check_provider) {
               $check_provider->second_party_title_ar = $row->artist_name_ar;
               $check_provider->gender = $row->gender;
-              $check_provider->artist_code = 'Ar/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
+              if( $check_provider->artist_code  == NULL ){
+                $check_provider->artist_code = 'Ar/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid();
+              }
               $check_provider->save();
+
               $provider_id = $check_provider->second_party_id;
             } else {
               $prov = array();
@@ -897,7 +900,7 @@ class ContentController extends Controller
               $prov['second_party_title_ar'] = $row->artist_name_ar;
               $prov['second_party_type_id'] = PROVIDER_ID;
               $prov['gender'] = $row->gender;
-              $prov['artist_code'] = $check_provider->artist_code==NULL ? 'Ar/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid() : NULL;
+              $prov['artist_code'] = 'Ar/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . uniqid() ;
               $create = SecondParties::create($prov);
               $provider_id = $create->second_party_id;
             }
