@@ -18,7 +18,7 @@ class Rbt extends Model
     protected $table = 'rbts';
 	protected $fillable = ['track_title_en','track_title_ar','artist_name_en','artist_name_ar',
 						   'album_name','code','social_media_code','owner','track_file','operator_id',
-               'provider_id','occasion_id','aggregator_id','type','internal_coding','content_id','start_date','expire_date'] ;
+               'provider_id','occasion_id','aggregator_id','type','internal_coding','content_id','start_date','expire_date', 'rbt_description'] ;
 
   protected $dates = ['start_date','expire_date'];
 

@@ -161,7 +161,7 @@ class RbtController extends Controller
         {
             $validator = Validator::make($request->all(),[
                 'track_title_en' => 'required',
-                'code' => 'required|numeric',
+                'code' => '',
                 'album_name' => 'required',
                 'artist_name_en' => 'required',
                 'owner' => 'required',
@@ -171,7 +171,7 @@ class RbtController extends Controller
         else{
             $validator = Validator::make($request->all(),[
                 'track_title_en' => 'required',
-                'code' => 'required|numeric',
+                'code' => '',
                 'operator_id' => 'required',
             ]);
         }
@@ -236,6 +236,8 @@ class RbtController extends Controller
         $rbt->internal_coding = 'Rb/' . date('Y') . "/" . date('m') . "/" . date('d') . "/" . time() ."/". $rbt->operator_id;
         $rbt->start_date      = $request->start_date ? date('Y-m-d',strtotime($request->start_date)) : null;
         $rbt->expire_date     = $request->expire_date ? date('Y-m-d',strtotime($request->expire_date)) : null;
+
+        $rbt->rbt_description     = $request->rbt_description?? null ;
 
         $rbt->save();
 
@@ -452,7 +454,7 @@ class RbtController extends Controller
         {
             $validator = Validator::make($request->all(),[
                 'track_title_en' => 'required',
-                'code' => 'required|numeric',
+                'code' => '',
                 'album_name' => 'required',
                 'artist_name_en' => 'required',
                 'owner' => 'required',
@@ -462,7 +464,7 @@ class RbtController extends Controller
         else{
             $validator = Validator::make($request->all(),[
                 'track_title_en' => 'required',
-                'code' => 'required|numeric',
+                'code' => '',
                 'operator_id' => 'required',
             ]);
         }
@@ -531,6 +533,8 @@ class RbtController extends Controller
 
         $rbt->start_date      = $request->start_date ? date('Y-m-d',strtotime($request->start_date)) : null;
         $rbt->expire_date     = $request->expire_date ? date('Y-m-d',strtotime($request->expire_date)) : null;
+
+        $rbt->rbt_description     = $request->rbt_description?? null ;
 
         $rbt->save();
 
@@ -806,7 +810,7 @@ class RbtController extends Controller
       $reports = $reports->orderBy("download_no", "desc")->limit(setting('report_limit') != ''? setting('report_limit') : 10)->get();
       $reports->load("rbt");
 
-      
+
       return view("rbt.graph", compact("reports", "operators"));
     }
 
