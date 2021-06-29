@@ -60,9 +60,16 @@ RBTs
 
 
             <div class="form-group">
-              <label class="col-sm-3 col-lg-2 control-label" for="code">Code *</label>
+              <label class="col-sm-3 col-lg-2 control-label" for="code">Code</label>
               <div class="col-sm-9 col-lg-10 controls">
-                <input id="code" name="code" type="text" value="{{$rbt->code}}" class="form-control input-lg" required>
+                <input id="code" name="code" type="text" value="{{$rbt->code}}" class="form-control input-lg">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 col-lg-2 control-label" for="rbt_description">Rbt Description </label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <input id="rbt_description" name="rbt_description" type="text" value="{{$rbt->rbt_description}}" class="form-control input-lg">
               </div>
             </div>
 
