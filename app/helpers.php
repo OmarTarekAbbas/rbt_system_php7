@@ -55,6 +55,18 @@ function years()
     return $years;
 }
 
+function statisticsYears()
+{
+  $current = (int)date("Y");
+  $current  -= 5;
+  $years = array();
+  for ($i = 0; $i <= 10; $i++) {
+    array_push($years, $current++);
+  }
+
+  return $years;
+}
+
 function all_notify()
 {
     $Notification = Notification::with('send_user')->where('seen',0)->where('notified_id',\Auth::id())->latest()->get();

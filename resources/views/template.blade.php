@@ -313,6 +313,7 @@
             @if(get_action_icons('fullcontracts_expiry_date','get'))
             <li id="contract-fullcontracts_expiry_date"><a href="{{url('fullcontracts_expiry_date')}}">Expired Contracts</a></li>
             @endif
+            <li id="contract_statistics"><a href="{{route('contract.statistics')}}">Contract Graph Statistics</a></li>
             @if(get_action_icons('ContractTemplate','get'))
             <li id="ContractTemplate-index"><a href="{{url('ContractTemplate')}}">Templates</a></li>
             @endif
