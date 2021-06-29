@@ -717,28 +717,26 @@ class FullcontractsController extends Controller
       $active_contracts = 0;
       $next_contracts = 0;
 
-      if ($year <= date('Y')) {
-        if ($year == date('Y')) {
-          $start_date = date('Y-m-d', strtotime('01/01/' . $year));
-          $end_date = date('Y-m-d');
-          $expire_contracts = Contract::activeYear($start_date, $end_date)->count();
-        } else {
-          $expire_contracts = Contract::activeYear($last_year_date, $current_year_date)->count();
-        }
+      if ($year < date('Y')) {
+        $expire_contracts = Contract::activeYear($last_year_date, $current_year_date)->count();
       }
 
       if ($year == date('Y')) {
+        //expire
+        $expire_start_date = date('Y-m-d', strtotime('01/01/' . $year));
+        $expire_end_date = date('Y-m-d');
+        $expire_contracts = Contract::activeYear($expire_start_date, $expire_end_date)->count();
+
+        //next
+        $next_start_date = date('Y-m-d');
+        $next_end_date = date('Y-m-d', strtotime($next_start_date . "+3 months"));
+        $next_contracts = Contract::activeYear($next_start_date, $next_end_date)->count();
+
         $active_contracts = Contract::active()->count();
       }
 
-      if ($year >= date('Y')) {
-        if ($year == date('Y')) {
-          $start_date = date('Y-m-d');
-          $end_date = date('Y-m-d', strtotime($end_date . "+3 months") );
-          $next_contracts = Contract::activeYear($start_date, $end_date)->count();
-        } else {
-          $next_contracts = Contract::activeYear($current_year_date, $next_year_date)->count();
-        }
+      if ($year > date('Y')) {
+        $next_contracts = Contract::activeYear($current_year_date, $next_year_date)->count();
       }
 
       array_push($expire_contracts_statistics, ['label' => $year, 'y' => $expire_contracts]);
