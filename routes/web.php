@@ -63,3 +63,5 @@ Route::get('read_notify/{id}', function ($id) {
  Route::post('start_job', 'ContentController@startJob');
  Route::post('stop_job', 'ContentController@stopJob');
 
+ Route::get('contract/statistics','FullcontractsController@getStatistics')->name('contract.statistics');
+

@@ -51,7 +51,7 @@ RBTs
                   <td>{{$rbt->content->content_title}}</td>
                   <td>{{$rbt->owner}}</td>
                   @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
-                  <td>{{$rbt->aggregator->title}}</td>
+                  <td>{{$rbt->aggregator ? $rbt->aggregator->title : ''}}</td>
                   <td class="visible-xs visible-md visible-lg" style="width:130px">
                     <a class="btn btn-sm show-tooltip modalToaggal teet" href="{{url('/rbt/'.$rbt->id.'/edit')}}"><i id="{{$rbt->id}}" class="fa fa-edit"></i></a>
                     <a class="btn btn-sm btn-danger show-tooltip" title="" onclick="return confirm('Are you sure you want to delete {{ $rbt->title }} ?')" href="{{url('/rbt/'.$rbt->id.'/delete')}}" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>

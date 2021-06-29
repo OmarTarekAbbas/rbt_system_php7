@@ -700,4 +700,53 @@ class FullcontractsController extends Controller
         return $datatable;
     }
 
+  public function getStatistics()
+  {
+    $expire_contracts_statistics = [];
+    $active_contracts_statistics = [];
+    $next_contracts_statistics = [];
+    $statistic_years = statisticsYears();
+
+    foreach ($statistic_years as $year) {
+      $last_year = $year - 1;
+      $next_year = $year + 1;
+      $last_year_date = date('Y-m-d', strtotime('01/01/' . $last_year));
+      $current_year_date = date('Y-m-d', strtotime('01/01/' . $year));
+      $next_year_date = date('Y-m-d', strtotime('01/01/' . $next_year));
+      $expire_contracts = 0;
+      $active_contracts = 0;
+      $next_contracts = 0;
+
+      if ($year <= date('Y')) {
+        if ($year == date('Y')) {
+          $start_date = date('Y-m-d', strtotime('01/01/' . $year));
+          $end_date = date('Y-m-d');
+          $expire_contracts = Contract::activeYear($start_date, $end_date)->count();
+        } else {
+          $expire_contracts = Contract::activeYear($last_year_date, $current_year_date)->count();
+        }
+      }
+
+      if ($year == date('Y')) {
+        $active_contracts = Contract::active()->count();
+      }
+
+      if ($year >= date('Y')) {
+        if ($year == date('Y')) {
+          $start_date = date('Y-m-d');
+          $end_date = date('Y-m-d', strtotime($end_date . "+3 months") );
+          $next_contracts = Contract::activeYear($start_date, $end_date)->count();
+        } else {
+          $next_contracts = Contract::activeYear($current_year_date, $next_year_date)->count();
+        }
+      }
+
+      array_push($expire_contracts_statistics, ['label' => $year, 'y' => $expire_contracts]);
+      array_push($active_contracts_statistics, ['label' => $year, 'y' => $active_contracts]);
+      array_push($next_contracts_statistics, ['label' => $year, 'y' => $next_contracts]);
+    }
+
+    return view('fullcontracts.statistics', compact('expire_contracts_statistics', 'active_contracts_statistics', 'next_contracts_statistics'));
+  }
+
 }

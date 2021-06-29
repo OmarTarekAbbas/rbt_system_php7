@@ -17,30 +17,39 @@ use App\Observers\ContractRequestObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        Schema::defaultStringLength(191);
-        Contract::observe(ContractObserver::class);
-        ContractRenew::observe(ContractRenewObserver::class);
-        ContractItem::observe(ContractItemObserver::class);
-        // ContractRequest::observe(ContractRequestObserver::class);
-    }
+  /**
+   * Bootstrap any application services.
+   *
+   * @return void
+   */
+  public function boot()
+  {
+    Schema::defaultStringLength(191);
+    Contract::observe(ContractObserver::class);
+    ContractRenew::observe(ContractRenewObserver::class);
+    ContractItem::observe(ContractItemObserver::class);
+    // ContractRequest::observe(ContractRequestObserver::class);
+  }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-      View::composer("*", function ($view) {
-          $view->with("approveStatus", FullApproveStatus::class);
+  /**
+   * Register any application services.
+   *
+   * @return void
+   */
+  public function register()
+  {
+    View::composer("*", function ($view) {
+      $view->with("approveStatus", FullApproveStatus::class);
+    });
+
+    // make your own query file
+    if (env('APP_DEBUG')) {
+      \DB::listen(function ($query) {
+        \File::append(
+          storage_path('logs/query.log'),
+          $query->sql . '[' . implode(', ', $query->bindings) . ']' . PHP_EOL
+        );
       });
-
     }
+  }
 }

@@ -128,5 +128,15 @@ class Contract extends Model
                 });
               });
     }
+    
+  public function scopeActiveYear($query, $start_year, $end_year)
+  {
+    return $query->where(function ($contract) use ($start_year, $end_year) {
+      $contract->where([['contract_expiry_date', '>', $start_year], ['contract_expiry_date', '<', $end_year]]);
+      $contract->OrwhereHas('contractRenew', function ($renew) use ($start_year, $end_year) {
+        $renew->where([['renew_expire_date', '>', $start_year], ['renew_expire_date', '<', $end_year]]);
+      });
+    });
+  }
 
 }
