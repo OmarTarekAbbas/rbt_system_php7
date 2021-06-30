@@ -93,11 +93,13 @@ $.ajaxSetup({
   }
 });
 $(document).ready(function() {
-  datatable_draw_func()
+  var date = '';
+  datatable_draw_func(date);
 });
 
 $('#signed_date').change(function (e) {
-  datatable_draw_func();
+  var date = $('#signed_date').val();
+  datatable_draw_func(date);
 });
 
 // $('#page_input').change(function (e) {
@@ -106,7 +108,7 @@ $('#signed_date').change(function (e) {
 
 function datatable_draw_func(params) {
 
-  var date = $('#signed_date').val();
+  var date = params;
   // var page = $('#page_input').val();
   // var x = '&';
   $(".data_contract").dataTable().fnDestroy()

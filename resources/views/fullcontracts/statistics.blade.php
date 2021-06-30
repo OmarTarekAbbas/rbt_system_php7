@@ -42,6 +42,8 @@
         color: "#df7970",
         indexLabel: "{y}",
         showInLegend: true,
+        cursor:"pointer",
+        click: onClick,
         dataPoints: <?php echo json_encode($expire_contracts_statistics, JSON_NUMERIC_CHECK); ?>
       }, {
         type: "column",
@@ -49,6 +51,8 @@
         color: "#51cda0",
         indexLabel: "{y}",
         showInLegend: true,
+        cursor:"pointer",
+        click: onClick,
         dataPoints: <?php echo json_encode($active_contracts_statistics, JSON_NUMERIC_CHECK); ?>
       }, {
         type: "column",
@@ -56,6 +60,8 @@
         color: "#b7bb75",
         indexLabel: "{y}",
         showInLegend: true,
+        cursor:"pointer",
+        click: onClick,
         dataPoints: <?php echo json_encode($next_contracts_statistics, JSON_NUMERIC_CHECK); ?>
       }]
     });
@@ -69,6 +75,10 @@
       }
       chart.render();
     }
+
+    function onClick(e) {
+      window.open(e.dataPoint.link, '_blank');
+    };
   }
 </script>
 @stop

@@ -739,9 +739,9 @@ class FullcontractsController extends Controller
         $next_contracts = Contract::activeYear($current_year_date, $next_year_date)->count();
       }
 
-      array_push($expire_contracts_statistics, ['label' => $year, 'y' => $expire_contracts]);
-      array_push($active_contracts_statistics, ['label' => $year, 'y' => $active_contracts]);
-      array_push($next_contracts_statistics, ['label' => $year, 'y' => $next_contracts]);
+      array_push($expire_contracts_statistics, ['label' => $year, 'y' => $expire_contracts, 'link' => 'http://google.com/']);
+      array_push($active_contracts_statistics, ['label' => $year, 'y' => $active_contracts, 'link' => 'http://google.com/']);
+      array_push($next_contracts_statistics, ['label' => $year, 'y' => $next_contracts, 'link' => 'http://google.com/']);
     }
 
     return view('fullcontracts.statistics', compact('expire_contracts_statistics', 'active_contracts_statistics', 'next_contracts_statistics'));
