@@ -98,6 +98,32 @@ Contents
 
 
             <div class="form-group">
+              <label class="col-sm-3 col-lg-2 control-label">Occasion 2 Select *</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <select class="form-control chosen" data-placeholder="Choose a Occasion" name="occasion_2_id" tabindex="1" required>
+                  <option value=""></option>
+                  @foreach($occasions as $key => $value)
+                  <option value="{{$key}}" {{($content->occasion_2_id == $key) ? 'selected' : ''}}>{{$value}}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label class="col-sm-3 col-lg-2 control-label">Occasion 3 Select *</label>
+              <div class="col-sm-9 col-lg-10 controls">
+                <select class="form-control chosen" data-placeholder="Choose a Occasion" name="occasion_3_id" tabindex="1" required>
+                  <option value=""></option>
+                  @foreach($occasions as $key => $value)
+                  <option value="{{$key}}" {{($content->occasion_3_id == $key) ? 'selected' : ''}}>{{$value}}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+
+
+            <div class="form-group">
               <label class="col-sm-3 col-lg-2 control-label">Providers Select</label>
               <div class="col-sm-9 col-lg-10 controls">
                 <select class="form-control chosen" data-placeholder="Choose a provider" name="provider_id" tabindex="1">

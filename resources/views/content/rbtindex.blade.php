@@ -47,7 +47,7 @@ RBTs
                     </audio>
                     '!!}</td>
                   <td>{{$rbt->operator->title}}</td>
-                  <td>{{$rbt->occasion->title}}</td>
+                  <td>{{$rbt->occasion ? $rbt->occasion->title : ''}}</td>
                   <td>{{$rbt->content->content_title}}</td>
                   <td>{{$rbt->owner}}</td>
                   @if(Auth::user()->hasRole(['super_admin','admin', 'ceo']))
