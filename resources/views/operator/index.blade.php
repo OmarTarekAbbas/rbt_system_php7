@@ -123,20 +123,21 @@
                         </div>
                     </div>
                     <div class="box-content">
-                        @if (get_action_icons('operator', 'get'))
-                            <div class="btn-toolbar pull-right clearfix">
-                                <div class="btn-group">
+                        <div class="btn-toolbar pull-right clearfix">
+                            <div class="btn-group">
+                                @if (get_action_icons('operator', 'get'))
                                     <a class="btn btn-circle show-tooltip" title="Add" href="#" data-toggle="modal"
                                         data-target="#SenderModel"><i class="fa fa-plus"></i></a>
-                                </div>
+                                @endif
+                                @if (get_action_icons('operator/{id}/delete', 'get'))
+                                    <a id="delete_button" onclick="delete_selected('operators')"
+                                        class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i
+                                            class="fa fa-trash-o"></i></a>
+                                @endif
                             </div>
-                        @endif
+                        </div>
 
-                        @if (get_action_icons('operator/{id}/delete', 'get'))
-                            <a id="delete_button" onclick="delete_selected('operators')"
-                                class="btn btn-circle btn-danger show-tooltip" title="Delete Many" href="#"><i
-                                    class="fa fa-trash-o"></i></a>
-                        @endif
+
 
                         <br /><br />
                         <div class="clearfix"></div>
@@ -158,7 +159,9 @@
                                     @foreach ($operators as $operator)
                                         <tr class="table-flag-blue">
                                             <td>
-                                              <input class="select_all_template" type="checkbox" name="selected_rows[]" value="{{$operator->id}}" class="roles" onclick="collect_selected(this)">
+                                                <input class="select_all_template" type="checkbox" name="selected_rows[]"
+                                                    value="{{ $operator->id }}" class="roles"
+                                                    onclick="collect_selected(this)">
                                             </td>
                                             <td>{!! $operator->title !!}</td>
                                             <td>{!! $operator->country->title !!}</td>
