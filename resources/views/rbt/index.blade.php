@@ -34,7 +34,8 @@ RBTs
                   <th>id</th>
                   <th>Internal Coding</th>
                   <th>Type</th>
-                  <th>Title</th>
+                  <th>Title En</th>
+                  <th>Title Ar</th>
                   <th>Code</th>
                   <th>Provider</th>
                   <th>Track File</th>
@@ -42,6 +43,7 @@ RBTs
                   <th>Occasion Title</th>
                   <th>Master Content Title</th>
                   <th>owner</th>
+                  <th>Rbt Description</th>
                   <th>Aggregator Title</th>
                   <th class="visible-xs visible-md visible-lg" style="width:130px">Action</th>
                 </tr>
@@ -98,6 +100,10 @@ RBTs
                     name: "track_title_en"
                 },
                 {
+                    data: "track_title_ar",
+                    name: "track_title_ar"
+                },
+                {
                     data: "code",
                     name: "code"
                 },
@@ -124,6 +130,10 @@ RBTs
                 {
                     data: "owner",
                     name: "owner"
+                },
+                {
+                    data: "rbt_description",
+                    name: "rbt_description"
                 },
                 {
                     data: "aggregator",

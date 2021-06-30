@@ -51,17 +51,17 @@ Route::get('read_notify/{id}', function ($id) {
 
  Route::get('update_contract_temporary', 'FullcontractsController@update_contract_temporary');
 
- Route::get('create_content_excel','ContentController@getCreateContentExcel');
- Route::get('content_excel_download_sample','ContentController@contentExcelDownloadSample');
- Route::post('store_content_excel','ContentController@storeContentExcel');
+//  Route::get('create_content_excel','ContentController@getCreateContentExcel');
+//  Route::get('content_excel_download_sample','ContentController@contentExcelDownloadSample');
+//  Route::post('store_content_excel','ContentController@storeContentExcel');
 
- Route::get('export_content_excel','ContentController@exportContentExcel');
- Route::post('download_content_excel','ContentController@downloadContentExcel');
+//  Route::get('export_content_excel','ContentController@exportContentExcel');
+//  Route::post('download_content_excel','ContentController@downloadContentExcel');
 
- Route::get('job_export_content_excel', 'ContentController@getJobDownloadContentExcel');
- Route::post('job_download_content_excel', 'ContentController@jobDownloadContentExcel');
- Route::post('start_job', 'ContentController@startJob');
- Route::post('stop_job', 'ContentController@stopJob');
+//  Route::get('job_export_content_excel', 'ContentController@getJobDownloadContentExcel');
+//  Route::post('job_download_content_excel', 'ContentController@jobDownloadContentExcel');
+//  Route::post('start_job', 'ContentController@startJob');
+//  Route::post('stop_job', 'ContentController@stopJob');
 
  Route::get('contract/statistics','FullcontractsController@getStatistics')->name('contract.statistics');
 
