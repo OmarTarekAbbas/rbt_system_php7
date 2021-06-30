@@ -128,7 +128,7 @@ class Contract extends Model
                 });
               });
     }
-    
+
   public function scopeActiveYear($query, $start_year, $end_year)
   {
     return $query->where(function ($contract) use ($start_year, $end_year) {
@@ -138,5 +138,5 @@ class Contract extends Model
       });
     });
   }
-
+ 
 }
