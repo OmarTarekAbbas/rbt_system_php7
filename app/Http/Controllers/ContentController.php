@@ -364,6 +364,8 @@ class ContentController extends Controller
       'content_type' => 'required',
       'provider_id' => 'required',
       'occasion_id' => 'required',
+      'occasion_2_id' => 'required',
+      'occasion_3_id' => 'required',
       'path' => '',
       'image_preview' => ''
     ]);
@@ -403,6 +405,8 @@ class ContentController extends Controller
     $content->path = $request->path;
     $content->content_type = $request->content_type;
     $content->occasion_id = $request->occasion_id;
+    $content->occasion_2_id = $request->occasion_2_id;
+    $content->occasion_3_id = $request->occasion_3_id;
     $content->contract_id = $request->contract_id;
     $content->start_date = $request->start_date ? date('Y-m-d',strtotime($request->start_date)) : null;
     $content->expire_date= $request->expire_date ? date('Y-m-d',strtotime($request->expire_date)) : null;
@@ -419,6 +423,8 @@ class ContentController extends Controller
     $content  = content::find($id);
     $provider = DB::table('second_parties')->where('second_party_id', $content->provider_id)->first();
     $occasion = DB::table('occasions')->where('id', $content->occasion_id)->first();
+    $occasion2 = DB::table('occasions')->where('id', $content->occasion_2_id)->first();
+    $occasion3 = DB::table('occasions')->where('id', $content->occasion_3_id)->first();
     $contract = DB::table('contracts')->where('id', $content->contract_id)->first();
     $rbts     = DB::table('rbts')->where('content_id', $id)->get();
     $occasionRbt = "";
@@ -431,7 +437,7 @@ class ContentController extends Controller
     }
 
     //dd($aggregator_id);
-    return view('content.view', compact('content', 'provider', 'occasion', 'contract', 'rbts','occasionRbt','aggregator_id'));
+    return view('content.view', compact('content', 'provider', 'occasion', 'contract', 'rbts','occasionRbt','aggregator_id','occasion2','occasion3'));
   }
 
   public function create_excel()

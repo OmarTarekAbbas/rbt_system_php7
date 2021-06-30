@@ -126,6 +126,14 @@ Content
                   <td width='30%' class='label-view text-left'>Occasion</td>
                   <td>{{$occasion->title}}</td>
                 </tr>
+                <tr>
+                  <td width='30%' class='label-view text-left'>Occasion2</td>
+                  <td>{{$occasion2->title}}</td>
+                </tr>
+                <tr>
+                  <td width='30%' class='label-view text-left'>Occasion3</td>
+                  <td>{{$occasion3->title}}</td>
+                </tr>
 
                 <tr>
                   <td width='30%' class='label-view text-left'>Contract</td>
