@@ -34,8 +34,8 @@ Contract
           <div class="row">
             <div class="col-md-6">
               <label class="text-muted" for="date">Filter By Sign Date</label>
-              <select id="signed_date" class="form-control chosen" data-placeholder="Filter By Sign Date" name="date" tabindex="1">
-                <option value="{{null}}">ALL</option>
+              <select id="signed_date" class="form-control" data-placeholder="Filter By Sign Date" name="date" tabindex="1">
+                <option value="">ALL</option>
                 @foreach( range( date('Y') , date('Y')-10 ) as $year )
                 <option value="{{$year}}">{{$year}}</option>
                 @endforeach
@@ -43,10 +43,10 @@ Contract
             </div>
             <div class="col-md-6">
               <label class="text-muted" for="date">Filter By Expire Date</label>
-              <select id="expire_date" class="form-control chosen" data-placeholder="Filter By Expire Date" name="expire_date" tabindex="1">
-                <option value="{{null}}">ALL</option>
+              <select id="expire_date" class="form-control" data-placeholder="Filter By Expire Date" name="expire_date" tabindex="1">
+                <option value="">ALL</option>
                 @foreach( range( date('Y') , date('Y')-10 ) as $year )
-                <option value="{{$year}}" {{ request()->has('year')&&request()->get('year')==$year ?  'selected' : ''}}>{{$year}}</option>
+                <option value="{{$year}}" {{ request()->has('expire_year')&&request()->get('expire_year')==$year ?  'selected' : ''}}>{{$year}}</option>
                 @endforeach
               </select>
             </div>
@@ -109,21 +109,19 @@ Contract
   });
 
   $(document).ready(function() {
-    var expire_date = "{{ request()->has('year')&&request()->has('year')!='' ?  request()->get('year') : ''}}";
+    var expire_date = "{{ request()->has('expire_year')&&request()->has('expire_year')!='' ?  request()->get('expire_year') : ''}}";
 
     datatable_draw_func('', expire_date);
   });
 
   $('#signed_date').change(function(e) {
-    //$('#expire_date').children('option').first().prop('selected', true);
-    jQuery("#expire_date").trigger("chosen:updated");
+    $('#expire_date').children('option').first().prop('selected', true);
     var signed_date = $('#signed_date').val();
     datatable_draw_func(signed_date, '');
   });
 
   $('#expire_date').change(function(e) {
-    //$('#signed_date').children('option').first().prop('selected', true);
-    jQuery("#signed_date").trigger("chosen:updated");
+    $('#signed_date').children('option').first().prop('selected', true);
     var expire_date = $('#expire_date').val();
     datatable_draw_func('', expire_date);
   });
