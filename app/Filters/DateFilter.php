@@ -8,7 +8,6 @@ class DateFilter implements Filter
 {
     public function apply(Builder $builder, $filter)
     {
-
         return $builder->whereYear('contract_signed_date',  $filter);
 
     }

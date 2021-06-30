@@ -15,6 +15,7 @@ use App\SecondParty;
 use App\ServiceTypes;
 use App\ContractDuration;
 use App\Filters\DateFilter;
+use App\Filters\ExpireDateFilter;
 use App\Filters\pageFilter;
 use App\ContractRenew;
 use Illuminate\Http\Request;
@@ -54,6 +55,7 @@ class FullcontractsController extends Controller
     {
         $filters = [
           'date' => new DateFilter,
+          'expire_date' => new ExpireDateFilter,
           'page' => new pageFilter,
         ];
 
@@ -718,7 +720,7 @@ class FullcontractsController extends Controller
       $next_contracts = 0;
 
       if ($year < date('Y')) {
-        $expire_contracts = Contract::activeYear($last_year_date, $current_year_date)->count();
+        $expire_contracts = Contract::activeYear($current_year_date, $next_year_date)->count();
       }
 
       if ($year == date('Y')) {
@@ -739,7 +741,7 @@ class FullcontractsController extends Controller
         $next_contracts = Contract::activeYear($current_year_date, $next_year_date)->count();
       }
 
-      array_push($expire_contracts_statistics, ['label' => $year, 'y' => $expire_contracts, 'link' => 'http://google.com/']);
+      array_push($expire_contracts_statistics, ['label' => $year, 'y' => $expire_contracts, 'link' => url('fullcontracts_expiry_date?year=' . $year)]);
       array_push($active_contracts_statistics, ['label' => $year, 'y' => $active_contracts, 'link' => 'http://google.com/']);
       array_push($next_contracts_statistics, ['label' => $year, 'y' => $next_contracts, 'link' => 'http://google.com/']);
     }
