@@ -364,8 +364,8 @@ class ContentController extends Controller
       'content_type' => 'required',
       'provider_id' => 'required',
       'occasion_id' => 'required',
-      'occasion_2_id' => 'required',
-      'occasion_3_id' => 'required',
+      'occasion_2_id' => '',
+      'occasion_3_id' => '',
       'path' => '',
       'image_preview' => ''
     ]);
