@@ -90,6 +90,16 @@ class RbtController extends Controller
             ->addColumn('track_title_en', function (Rbt $rbt) {
                 return $rbt->track_title_en;
             })
+            ->addColumn('track_title_ar', function (Rbt $rbt) {
+              return $rbt->track_title_ar;
+            })
+
+          //   ->addColumn('track_title_en', function (Rbt $rbt) {
+          //     return '<ul>
+          //             <li> <span style="font-weight: bold;">EN: </span>' . $rbt->track_title_en  . '</li>
+          //             <li><span style="font-weight: bold;">AR: </span> ' . $rbt->track_title_ar  . '</li>
+          //             </ul>';
+          // })
             ->addColumn('code', function (Rbt $rbt) {
                 return $rbt->code;
             })
@@ -126,6 +136,12 @@ class RbtController extends Controller
                 else
                     return '--';
             })
+            ->addColumn('rbt_description', function (Rbt $rbt) {
+              if ($rbt->rbt_description)
+                  return $rbt->rbt_description;
+              else
+                  return '--';
+          })
             ->addColumn('aggregator', function (Rbt $rbt) {
                 if ($rbt->aggregator_id)
                     return $rbt->aggregator;

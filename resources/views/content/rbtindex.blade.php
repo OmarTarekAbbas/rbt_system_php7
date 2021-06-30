@@ -19,7 +19,8 @@ RBTs
                   <th style="width:18px"><input type="checkbox" /></th>
                   <th>id</th>
                   <th>Type</th>
-                  <th>Title</th>
+                  <th>Title En</th>
+                  <th>Title Ar</th>
                   <th>Code</th>
                   <th>Provider</th>
                   <th>Track File</th>
@@ -40,6 +41,7 @@ RBTs
                   <td>{{$rbt->id}}</th>
                   <td>{{$rbt->type ? 'NEW' : 'OLD'}}</td>
                   <td>{{$rbt->track_title_en}}</td>
+                  <td>{{$rbt->track_title_ar}}</td>
                   <td>{{$rbt->code}}</td>
                   <td>{{($rbt->provider) ? $rbt->provider->title : "--"}}</td>
                   <td>{!!'<audio class="content_audios" controls>

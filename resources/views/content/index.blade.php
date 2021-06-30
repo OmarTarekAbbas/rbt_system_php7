@@ -114,7 +114,7 @@ Contents
           searchable: false
         }
       ],
-      "pageLength": 100,
+      "pageLength": 10,
       stateSave: true
     });
   });
